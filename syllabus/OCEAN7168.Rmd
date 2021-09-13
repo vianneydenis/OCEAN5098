@@ -1,0 +1,241 @@
+---
+title: "English Writing in Marine Sciences (OCEAN 7168)"
+output: pdf_document
+---
+
+## Information
+
+**Time**: to be arranged (Fall Semester)
+
+**Lecturers**: Huei-Ting LIN
+
+**Credits**: 3 
+
+
+## Description
+
+This seminar course is designed to improve IONTU graduate students’ communication skills through writing in English. Students will utilize examples from the textbook, “Writing science: How to write papers that get cited and proposals that get funded” by Joshua Schimel. I will also share comments and revisions to scientific manuscripts that I collected over the years. The class starts by having students write a short Facebook post about their own research. Students will lean to expand their Facebook post into a one-page-long (800-850 words) article. Throughout the class, students will apply writing styles and techniques to edit their article, including ways to condense their article to only 300-350 word long. Each student is also required to read and analyze four published scientific papers of their own choice: one from a specialist journal written by a leader recognized in their field and a good writer, one typical paper from a specialized journal, one review paper, and one article from Nature or Science. The course will also incorporate peer-review practices; students will learn to recognize strengths and weakness of other students’ writing and give constructive comments to help improve each other’s writing. This is exactly what scientists do routinely: we review and give constructive comments to other’s manuscripts and proposals to help the science community grow. Students who have already had writing projects (such as an abstract, manuscript, or dissertation) can also practice analyzing and editing these drafts. We will also invite a guest lecturer from NTU’s Department of Foreign Languages and Literatures or from NTNU’s English Department to talk about common English mistakes made by Taiwanese students and ways to improve this.
+
+## Objectives
+
+(1) Students will realize that scientists are expected to frequently write professional papers
+(2) Students will conquer their fear about not being able to present a good enough draft to their graduate advisors.
+(3) Students will embrace the idea to write down their thoughts in any languages/drawings.
+(4) Students will learn how to identify challenges in their writing processes, discuss possible solutions to their writing problems, and eventually students will enjoy sharing their writing tips.
+(5) At the end of the course, students will be able to think critically, write analytically, and present their thoughts clearly.
+(6) Students will walk away from this course welcoming any comments on their writing (even rejections by reviewers) because they will know that these comments improve their writing.
+(7) Ultimate goal: students will become conscious about the benefits writing will bring to them and enjoy writing.
+
+## Requirements
+
+This course will be offered in English. Students must be able to understand English well enough to enroll. Students are required to read, analyze, write, revise and give comments in English. This is a reading and writing intensive course and late assignments will not be accepted. Students are required to attend ALL classes. No more than two unexcused absences are permitted. If more than eight students intend to enroll, I will arrange an English interview to evaluate students’ English performances to determine the best fits to this course.
+
+## References
+
+All of the suggested reading are available in NTU libraries. Many of them are in IONTU library.
+
+I highly recommend the two first books:
+
+1. Writing Science: How to Write Papers That Get Cited and Proposals
+That Get Funded by Joshua Schimel, Publisher: Oxford University Press; 1edition (November 29, 2011)
+2. How to Write a Lot: A Practical Guide to Productive Academic Writing by Paul J. Silvia
+3. On Writing Well by William Zinsser
+4. Style: Lessons in Clarity and Grace (11th Edition) by Joseph M. Williams (Author), Joseph Bizup (Author).
+5. The craft of revision by Donald M. Murray
+6. The scientist's guide to writing : how to write more easily and effectively throughout your scientific career / Stephen B. Heard.
+7. Scientific Writing and Communication: Papers, Proposals, and Presentations
+
+
+## Designated Reading
+
+Students will be asked to look for TWO key papers in their research field. One from a specialist journal written by a leader recognized in your field and a good writer. This paper is "the long paper," which include details of the research. The other one is a "short letter-type" paper that are published in top journals such as Nature, Science, Natural Communication, Natural Geosciences, etc., which is concise and focused without little details.
+
+## Schedule
+
++------+---------------------------------------------------------------------+
+| Week | Topic                                                               |
++======+=====================================================================+
+| 1    | Ice breaking: Get to know each other via small games: (1) tell three unique characteristics about yourself (2) tell the most interesting/exciting/embarrassing thing about yourself (3) tell what you WRITE besides internet posts (4) what is your current writing stage? (prospectus? abstract? dissertation? manuscript?)\  |
+|      | \   | 
+|      | Kill the beast that stops you from writing (in English): Recognize mental barriers and discuss solutions to break those barriers.Think and describe in English: Practice using English to describe scientific data presented in a figure. This is a way for me to get to know students’ English level.\   | 
+|      | \   | 
+|      |PLAGIARISM: It is illegal! Citations needed.  \  | 
+|      |  | 
++------+--------------+
+| 2    | Communication through written documents: Discuss what we can learn by analyzing published papers. Ask ourselves: What makes us think some paper are easier to read than others? Science merits? Structure of the article? Writing style? Story? Lots of mathematical equations? What would we do to improve those hard-to-read ones if we were the authors? \  |
+|      | \   | 
+|      |Peer review of each other’s short articles.  \ |
+|      | \   | 
+|      |Communication through oral presentations. An example of David Karl's keynote speech at ASLO 2017 meeting. Dave is a good mentor of mine. "Look into the ocean" is what I learn from him. https://www.youtube.com/watch?v=G1jhtSACEQQ \ |
+|      | \   | 
+|      |Assignment: Provide your review to your selected published articles. \ |
+|      |  | 
++------+--------------+
+| 3    | Writing (science) to communicate: Discuss the purposes of writing in scientific research.\  |
+|      | \   | 
+|      | 1. Why do we need to write?\   | 
+|      | 2. What are we writing now? (Dissertation proposal? Conference abstract? Scholarship application? Manuscript?)\   | 
+|      | 3. Which part of a manuscript are we working on? (Introduction? Methods? Results? Discussions? Conclusions?)\   | 
+|      | 4. What are we writing about?\   | 
+|      | 5. Who are our target audiences? (Journal reviewers? dissertation committee? your adviser? conference attendee?).\   | 
+|      | 6. How to write a high quality paper?\   | 
+|      |7. What are the basics of research papers?\   | 
+|      | \   | 
+|      |Assignment: Expand your Facebook post into a short article with a limit of 800-850 words. \   | 
+|      |  | 
++------+--------------+
+| 4    | The first step to a research project, is too obtain support for our research. Thus, we scientists need to write lots of Proposals. In graduate students' cases, you are asked to write your Research Proposal or Research Prospectus. For students applying for a graduate program oversea, you are asked to write your Research Statement or a Statement of Purpose (SOP).\  |
+|      | \   | 
+|      | -How do we write an effective proposal so that we can receive the support?\   | 
+|      | \   | 
+|      | -What are the keys to a successful proposal?\   | 
+|      | \   | 
+|      | Grant proposal: where do we get the grants? fellowships? graduate scholarships? research grants?\   |
+|      | \   | 
+|      | Assignment: Getting ourselves organized.\   | 
+|      |  | 
++------+--------------+
+| 5    | (Tina might be at sea) \  |
+|      | \   | 
+|      | NTU Main Library Class room 418 *9:20-11:20 am*\   | 
+|      | Meet your librarian to learn resources that helps our writing.\   | 
+|      | \   | 
+|      |-Endnote\   | 
+|      |-Search Engines\   | 
+|      |-Identify the keywords of your research\   | 
+|      |-Look for potential collaborators\   | 
+|      |    | 
++------+--------------+
+| 6    | [Topic 1] Create a ROAD MAP-Writing/organization models. \ |
+|      | LOGIC models- Douglas Vincent \ | 
+|      | \ | 
+|      | [Topic 2] Opening: introduction, background; discuss different types of introductions. Introducing the "Challenge": the important research questions and objectives \ | 
+|      | \ | 
+|      |1. Practice analyzing introductions in published papers.\   | 
+|      |2. Learn to identify the pros and cons about an introduction section.\   | 
+|      |3. Discuss how to IMPROVE weak paragraphs.\   | 
+|      |4. Discuss alternative methods to improve our introduction.\   | 
+|      |    | 
++------+--------------+
+| 7    | 	[Proposals v.s. Research Article] \ |
+|      | \ | 
+|      | 1. What are the differences between a proposal and a research article? \ | 
+|      | \ | 
+|      | 2. How can you used your preliminary results and discussions to strengthen your proposal? \ | 
+|      | \ | 
+|      | 3. How to form your next proposal based on your current research results and discussion? \ | 
+|      | \ | 
+|      | 4. Where do you put the "method and materials" in your proposal versus your research article? \ | 
+|      | \ | 
+|      | [Results v.s. Discussions] \ | 
+|      | \ | 
+|      | 1. What are the differences between results (raw data, statistics) and discussions. \ | 
+|      | \ | 
+|      | 2. Learn to connect many results or observations to form a strong discussion. \ | 
+|      | \ | 
+|      | 3. Discuss how to use multiple lines of supports to make strong arguments.\ | 
+|      | \ | 
+|      | 4. Analyze published papers. \ | 
+|      | (i) Look for "data-dump" v.s. "full-paper" examples? \ | 
+|      | (ii) Discuss ways we can turn data-dump articles into full-papers. \ | 
+|      |   | 
++------+---+
+| 8    | Discussions to elaborate your research (or ideas): Discuss what should be included in the discussions. How to make discussions more meaningful and useful? Why do we need to discuss? Aren’t the data self-explaining? |
+|      |   | 
++------+---+
+| 9    | (Proposal) Make a compelling case. \ |
+|      | How to effectively SELL our ideas to the science world?\ | 
+|      |   | 
++------+---+
+| 10   | Hypothesis Stating a testable hypothesis for your research goal helps you to organize your experiments and sample collection strategy. However, a guiding research question might be better than a not well stated hypothesis. \ |
+|      | \ | 
+|      | Write about statistical data \ | 
+|      |   | 
++------+---+
+| 11   | Review processes.\ |
+|      | \ | 
+|      | (Proposal v.s. manuscript) \ | 
+|      | -What are the review criteria? \ | 
+|      | -How to meet the criteria so that reviewers will favor your proposal to be funded or manuscript to be published? \ | 
+|      | -Who are the reviewers? = Who are the readers? \ | 
+|      | -Conflict of interests. \ | 
+|      | -Cover letters. \ | 
+|      | -Author credits (CRedit)\ | 
+|      |   | 
++------+---+
+| 12   |Deal with comments: \ |
+|      |Discuss attitudes we have about (negative) comments. \ | 
+|      |Discuss possible ways we can respond to reviewers' comments. \ | 
+|      |Students learn to how to constructively respond to comments from reviewers, advisors, committee members. \ | 
+|      |Students must learn a positive attitude toward revision. \ | 
+|      | \ | 
+|      |Tina will share stories about dealing with comments. \ | 
+|      | \ | 
+|      |"Revise, Revise and Revise": No matter how good your article is, it can be better.\ | 
+|      | \ | 
+|      |How did you incorporating comments from your peer and advisors? \ | 
+|      |How do scientists revise their manuscripts? \ | 
+|      |How to comment on your own article? \ | 
+|      |   | 
++------+---+
+| 13   |(Don’t be afraid of making) Common English mistakes—learn to eliminate common English mistakes but do not let your fear prevent you from writing down thoughts in English. \ |
+|      |-Learn to make a good use of professional editors (or me or your graduate advisors).\ | 
+|      |-Analyze and identify sentences that contain common English mistakes. \ | 
+|      |-Discuss how to correct common mistakes such as inconsistency verbs, plural or singular, tense, dangling sentences, preposition, and punctuation. \ | 
+|      |  \ | 
+|      | Grammarly \ | 
+|      | https://www.grammarly.com/ \ | 
+|      |   | 
++------+---+
+| 14   | Word choice: Analyze and compare select words commonly used in scientific papers. Discuss the power of being more specific. \ |
+|      | \ | 
+|      | For instance, those listed in table 14.1, 14.2, 15.1, and 15.2 from Schimel’s book.\ | 
+|      | \ | 
+|      | Students use ctrl+F to search and highlight those words in the published articles and in their own writing. Revise their writing by substituting those fuzzy words with stronger/more specific words.\ | 
+|      |   | 
++------+---+
+| 15   | Condense/concise: Learn how to condense one’s writing by eliminating unnecessary words/sentences. Analyze and discuss how Schimel condenses sentences. Analyze how my coauthors help me condense my sentences. Discuss techniques that we can use to remove redundant words.\ |
+|      |   | 
++------+---+
+| 16   | 	***One-slide presentation*** (3 mins/each) \ |
+|      | \ | 
+|      | (Proposal) Expected output and outcomes.\ | 
+|      | \ | 
+|      | (Progress reports) What will you be requested to present in those progress reports? Cruise reports?\ | 
+|      | \ | 
+|      | (Paper) Conclusions and highlights:\ | 
+|      | \ | 
+|      | -Analyze the conclusions in published papers.\ | 
+|      | -Highlight the following common words used in conclusions: prove, confirm, show, demonstrate, illustrate, indicate, suggest, imply, infer. \ | 
+|      | -Analyze students' short article.\ | 
+|      | -Discuss the meanings of those words.\ | 
+|      | -Which of these words did you use in your short article?\ | 
+|      | -Discuss how to IMPROVE weak conclusions.\ | 
+|      | \ | 
+|      | Analyze examples 9.5-9.9 from Schimel’s book. Discuss alternative ways that we can use to improve our conclusions.\ | 
+|      |   | 
++------+---+
+| 17   | Synopsis: Review all of the concepts we have covered during this course. Revisit common mistakes and ways to correct them. Discuss any issues that are relevant to science writing. Discuss ways you have learned to improve your thinking and writing. Share your thoughts on how to improve this course.\ |
+|      |   | 
++------+---+
+
+## Evaluation
+
+**5%** Final report-abstract: Final version of a 250-350 word abstract of your research statement, proposal, or your manuscript.
+
+**15%** Final report-a research proposal: Final version of your research proposal or your manuscript. Please make it no less than five pages long.
+
+**10%** One-slide (oral) presentation: One-Slide presentation. You want to find the best way to present your research highlights. The purpose is to introduce your research so that I and your classmates can help with your writing.
+
+**25%** In class participation: Students are all required to participate in our discussions in English. 
+
++ Provide thoughts and ideas to Tina's questions.
++ Provide your critics and suggestions to your classmates' writing.
++ Share your comments to your assignments and questions that derived from those assignments.
+
+**45%** Assignments: All students are required to complete their assignments in time or rather-late-than-never.
+
+## Contact
+
+tinalinht@ntu.edu.tw 
+
