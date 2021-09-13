@@ -1,0 +1,57 @@
+---
+title: "Biological Modeling (OCEAN 5074)"
+output: pdf_document
+---
+
+## Information
+
+**Time**: Friday 9:10- 12:10
+
+**Lecturers**: Chih-hao HSIEH;  Hui-Yu WANG, Sheng-Feng SHEN
+
+**Credits**: 3 
+
+## Reference
+
+A Primer of Ecology (4th edition) Nicholas J. Gotelli
+
+## Outline
+
+The course material is designed to be interdisciplinary, integrating biology, ecology, mathematics and environmental sciences. While the main course material is based on classic ecological modeling textbooks and articles, these analytic methods are applicable to multi-faceted research questions. The material builds from a single population and then extends to the ecosystem level, including species interaction, climate changes and disease as well as molecules interactions within cells. Regular modeling exercises are required (1 unit as practice). After equipped with modeling skills, students have to develop their own research questions and use modeling and data mining approaches to solve their questions. Instructors will guide students through the question-solving processes.
+
+## Objectives
+
+The goal of this course is to introduce mathematical and statistical approaches to study biological systems as well the interactions of abiotic and biotic components. This is a course for students with basic knowledge of statistics, calculus, and ecology. This is a sequential course of Mathematics for Life Scientists (or equivalent). We will introduce various model types, building blocks of models, and the ways to construct models. We will teach computer languages to simulate and analyze these models as well as data. The course has a hands-on work component. Students will carry out modeling and data analysis exercises on a regular basis. Finally, students will develop their own model and applications.
+
+Students will carry out modeling and data analysis exercises on a regular basis. Students need to make presentations of their homework. We will also teach the presentation skills. Finally, students will develop their own models and applications. For the final project, students need to first prepare and discuss their proposals with the instructors. Through the discussing processes students will develop constructive and logical thinking. 
+
+## Schedule
+
+Week|Content|Lecturer
+----|-------|--------
+1|Introduction to programming and modeling|Chih-Hao HSIEH & Sheng-Feng SHEN
+2|Review of ODE analysis and modeling: species interactions|Chih-Hao HSIEH
+3|Life history theory and modeling|Hui-Yu WANG
+4| Alternative stable state and On and off of cell cycle|Chih-Hao HSIEH
+5|Age-structured models (1) |Hui-Yu WANG
+6|
+7|Age-structured models (2) (1-page proposal due) |Hui-Yu WANG
+8|Individual-based modeling (1) |Hui-Yu WANG
+9|Individual-based modeling (2) |Hui-Yu WANG
+10|Introduction to evolutionary model and optimization|Sheng-Feng SHEN
+11|Self-consistent model in evolution|Sheng-Feng SHEN
+12|Dynamic programming|Sheng-Feng SHEN
+13|Evolutionary game theory|Sheng-Feng SHEN
+14|Adaptation to the fluctuating environment |Sheng-Feng SHEN
+15|Analyzing ecological chaos|Chih-Hao HSIEH
+16|Modeling climate change |Chih-Hao HSIEH
+17|Project presentations
+18|Project presentations
+
+## Evaluation
+
+homework and the final project
+
+
+
+

@@ -1,0 +1,163 @@
+---
+title: "Environmental chemistry and sustainable management of coral reefs (field visit included) (OCEAN 7193)"
+output: pdf_document
+---
+
+## Information
+
+**Time**: to be arranged (Fall Semester)
+
+**Lecturer**:  Huei-Ting (Tina) Lin
+
+**Credits**: 3
+
+
+## Description
+
+This advanced course is designed to train graduate students and advanced undergraduate students to obtain knowledge about environmental chemistry, focusing on coral reef environmental chemistry. The students will become skillful to channel the most updated scientific research results with citizen scientists, e.g. residential volunteers. Through this course, we will search through the literature and to identify key parameters for coral reef environmental monitoring. Students will help to analyze samples collected by our collaborating citizen scientists, to interpret the data based on literature information, and to present the results to citizen scientists at the beach site at the end of the semester.
+
+## Objectives
+
+(1)	Students will learn the current scientific understanding of coral reef environmental chemistry and to identify some indicators for assessing reef health.
+
+(2)	Students will identify and read four key recent publications on coral reef environmental chemistry. 
+
+(3)	Students will present the compiled data and provide interpretations for the data. 
+(4)	Students will identify challenges in research on environmental chemistry and seek potential solutions to overcome these challenges.
+
+(5)	At the end of the course, students will be able to think critically and present their thoughts clearly to residential volunteers. 
+
+(6)	Students will walk away from this course welcoming any questions about coral reef environmental chemistry. 
+
+**Ultimate goal**: students will become conscious about the cycling of elements and chemical compounds in coral reef ecosystem and have knowledge on methods for characterizing the elements and chemical compounds.  
+
+
+## Requirements
+
+This course will be offered in English and thus, students must be able to understand English well enough to enroll. Students are required to read and present in English. This is a reading intensive course. Students are required to attend ALL classes. No more than two unexcused absences are permitted. 
+
+Students are expected to spend + 6 hours in preparing for this course each week and are required to present in person and interact with citizen scientists. Students are required to give a final presentation (20-30 mins) and turn in a written report (at least 5 pages in English or Chinese). Students will need to work in groups depending on the total number of students enrolled.
+
+## Refrences
+
+Students look up interested papers after the group topics are decided. Here are examples from former lectures
+
+Belin et al. (2014) A review of strategies to monitor water and sediment quality Environ Sci Pollut Res, 21:813–833
+
+DeCarlo et al. (2017) Mass coral mortality under local amplification of 2 °C ocean warming, Scientific Report, 7:44586, DOI: 10.1038/srep44586. 
+
+DeCarlo et al. (2017), Community production modulates coral reef pH and the sensitivity of ecosystem calcification to ocean acidification, J. Geophys. Res. Oceans, 122, 745–761, doi:10.1002/2016JC012326.
+
+
+## Designated Reading
+
+Coral reefs: an ecosystem in transition (2012), Edited by Zvy Dubinsky and Noga Stamblers (available online via NTU library)
+
+•	Biogeochemistry of Nutrients by Marlin J. Atkinson
+
+•	The Role of Dissolved Organic Nitrogen (DON) in Coral Biology and Reef Ecology by Yoshimi Suzuki and Beatriz E. Casareto
+
+•	The Role of Plankton in Coral Trophodynamics by Christine Ferrier-Pagès, Mia Hoogenboom, and Fanny Houlbrèque
+
+•	Fish or Germs? Microbial Dynamics Associated with Changing Trophic Structures on Coral Reefs by Elizabeth A. Dinsdale and Forest Rohwer
+
+
+## Schedule
+
++------+---------------------------------------------------------------------+
+| Week | Topic                                                               |
++======+=====================================================================+
+| 1    | ICE-BREAKING: Students introduce themselves to the class. (1) Who are you? (2) What is the most unique thing about yourself? (3) What is the most interesting or embarrassing thing about yourself?\  |
+|      | \   | 
+|      | What do you know about University Social Responsibility (USR)? \   | 
+|      | What are citizen scientists? \ | 
+|      | Why is the coral reef ecosystem important? \ | 
+|      | Why is the research on the environmental chemistry of the reef ecosystem important? \ | 
+|      |  | 
++------+--------------+
+| 2    | Student presentation: Relevance of coral reef environmental chemistry and sustainable management to your research or to your personal life. \  |
+|      | \   | 
+|      |Video conference: meet citizen scientists to learn their needs \ |
+|      | \   | 
+|      |Review of environmental chemistry: macro nutrients (silicate, phosphate, nitrate, ammonium, nitrite), trace elements, coral calcification rates, community production rate, community respiration rate, organic nutrients, and pollutants \ |
+|      | \   | 
+|      |Review of key ecological players and their relevance to environmental chemistry: corals, symbionts, plankton assemblage, algae, bacteria, etc. \ |
+|      |  | 
++------+--------------+
+| 3    | Literature search: identify the four key papers to read throughout this semester. Guidelines for preparing a study sheet for guided reading.\  |
+|      |  | 
++------+--------------+
+| 4    | Reading assignment 1 \  |
+|      |  | 
++------+--------------+
+| 5    | Reading assignment 1 (continue) \  |
+|      | Go through the answers and in-depth discussion \   | 
+|      | *********************\   | 
+|      | Take-home question: In our bottle experiment, how will the alkalinity of the 500mL seawater sample change after the ~180 mL headspace CO2 is dissolved into the seawater and the seawater pH drops to make the methyl-red indicator turned red-orange?\   | 
+|      |    | 
++------+--------------+
+| 6    | Reading assignment 2 \ |
+|      |    | 
++------+--------------+
+| 7    | Reading assignment 2 (continue) \ |
+|      | Go through the answers and in-depth discussion \ | 
+|      |   | 
++------+---+
+| 8    | Reading assignment 3 \ | 
+|      |  \ | 
+|      | +volunteer lab work \ | 
+|      | Sample analysis-major nutrients, alkalinity and dissolved inorganic carbon (DIC), Dissolved organic carbon and total nitrogen, particulate organic carbon and nitrogen, bacterial abundances (?), plankton assemblages (?) \ | 
+|      |   | 
++------+---+
+| 9    | Reading assignment 4 \ | 
+|      |  \ | 
+|      | +volunteer lab work \ | 
+|      | Sample analysis-major nutrients, alkalinity and dissolved inorganic carbon (DIC), Dissolved organic carbon and total nitrogen, particulate organic carbon and nitrogen, bacterial abundances (?), plankton assemblages (?) \ | 
+|      |   | 
++------+---+
+| 10   | Presentation dry run-1 \ |
+|      |   | 
++------+---+
+| 11   | Presentation dry run-2\ |
+|      |   | 
++------+---+
+| 12   |5/20 (Wed) \ |
+|      |Get things ready. 4-6 pm. Presentation practices of the first two talks. \ |
+|      |  \ | 
+|      |5/21 (Thr) \ |
+|      |Morning: two presentations \ |
+|      |  \ | 
+|      |2:00–3:30pm: a review of today's presentation and presentation practice for the 3rd talk \ |
+|      |  \ | 
+|      |3:30–6:00pm\ |
+|      |+Beach cleaning \ |
+|      |+Uplifted marine geological site study  \ | 
+|      |  \ | 
+|      |5/22 (Fri)\ |
+|      |Morning: one presentation\ |
+|      |  \ | 
+|      |11-12 pm: a review of today's presentation\ |
+|      |  \ | 
+|      |12-6 pm: learn about the island in your own way "Be SAFE" \ |
+|      |  \ | 
+|      |6-8 pm: a review of today's activities; show us the island from your point-of-view \ |
+|      |  \ | 
+|      |5/23 (Sat) \ |
+|      |"See" the tourists. Wanna arrange a survey \ |
+|      |   | 
++------+---+
+
+## Evaluation
+
+**40%** Four key paper reading study sheets 
+
+**30%** Final presentation (20-30 min)
+
+**30%** Final report (minimum five pages) 
+
+*Note: The data quality is very important but is not evaluated because this is not an analytical chemistry course. Students without chemistry background can focus on the sustainability and management topics.*
+
+
+## Contact
+
+tinalinht@ntu.edu.tw 
