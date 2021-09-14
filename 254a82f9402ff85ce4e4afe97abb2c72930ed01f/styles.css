@@ -17,7 +17,7 @@
   font-size: 16px;
 }
 
-<style>
+
 html {
   scroll-behavior: smooth;
 }
@@ -38,4 +38,24 @@ d-article {
     position: relative;
   }
 }
-</style>
+
+p.comment {
+background-color: green;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+p.alert {
+background-color: red;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: normal;
+}
+
+
+

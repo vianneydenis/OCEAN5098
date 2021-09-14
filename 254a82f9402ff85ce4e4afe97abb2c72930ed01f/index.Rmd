@@ -1,66 +1,167 @@
 ---
 title: "Fun with R: Ecological data analysis in R"
-description: |
- This website will help you to get familiar with R environment and some of its functionalities
 ---
 
-# General Information
+Welcome to the website of *OCEAN 5098*. This  course will help you to get familiar with R environment and some common functionality in ecological study. No prior knowledge in R or any other programming language is required to enroll this course. 
+
+# Information
 
 **Credits**: 3 
 
 **Time**: Tuesday 13:20- 16:20 (Spring Semester - odd year)
 
-**Location**: Institute of Oceanography, 2nd floor, room XXX 
+**Location**: Institute of Oceanography, 2nd floor, Room 231 
 
 **Instructor:** Vianney DENIS [vianney.denis@gmail.com] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan
 
-### Syllabus
+> `r knitr::asis_output("\U1F4DD")` The syllabus for this course can be download [HERE](.\documents\OCEAN5098_syllabus.pdf). Because of the pandemic, the  format of this class is evolving. This website is the latest update. Accordingly, information in the following syllabus including the schedule, content and evaluation mode are susceptible to changes according to the evolution of the situation.
 
-Due to the pandemic, the  format of this class is evolving. This website is the latest update. Accordingly, information in the follwing syllabus including the schedule, content and evaluation mode are susceptible to changes according to the pandemic situation.
+# Description
 
-<summary><span style="color:#1D5287">**Ecological data analysis in R**</span> <a href=".\documents\OCEAN5098_syllabus.pdf"target="_blank"> (OCEAN 5098)</a> - 3 credits </summary>
+This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
 
-# The course
-
-**Description** This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
-
-**Aim and objectives** The aim of this course is for the students to get familiar with R language. This course will explore the multiple advantages of using R language for formatting reports,  preparing presentations, exploring and analyzing ecological, data creating and sharing project. The cours will assume hat students have no prior knowledge in R or other programming languages. It will start from scratch, i.e. downloading R and installing it on your computer. Along this class, you will be introduced to  RStudio GUI, Rmarkdown, and GitHub repositories that complete harmoniously the use of R. 
-
-At the end of this class, student should: 
-
-- see the multiples advantages of using R in comparison with Excel;
-- not be afraid of using code to organize, visualize and analyze data;
-- become a self-learner, able to explore and solve problem;
-- analyze and valorize scientifically simple data sets;
-- know several statistical tools for the analysis of ecological data in particular;
-- help and recommend on the use of R.
+**Objectives** The aim of this course is for the students to get familiar with R language. This course will explore the multiple advantages of using R language for formatting reports,  preparing presentation, exploring and analyzing ecological, data creating and sharing project. The course will assume that students have no prior knowledge in R or other programming languages. It will start from scratch, **i.e.** downloading R and installing it on your computer. Along the semester, you will be introduced to the use of  [RStudio GUI](https://www.rstudio.com/), [Rmarkdown](https://rmarkdown.rstudio.com/), and [GitHub](https://github.com/) repositories which all improve you Rrrrr experience.
 
 
-**Tentative Schedule**
+After taking this course, a student should: 
+
+`r knitr::asis_output("\U1F449")` see the multiples advantages of using R; 
+
+`r knitr::asis_output("\U1F449")` not be afraid of using code to organize, visualize and analyze data;
+
+`r knitr::asis_output("\U1F449")` know several statistical tools for the analysis of ecological data in particular;
+
+`r knitr::asis_output("\U1F449")` become a self-learner, able to explore and solve ecological problem;
+
+`r knitr::asis_output("\U1F449")` analyze and valorize scientifically any simple data sets;
+
+`r knitr::asis_output("\U1F449")` be able to help and advices on the use of R
+
+
+# Schedule
+
 
 Schedule is  susceptible to changes according to progress of the class
 
-| Week | Day | Date     | Tentative Topic | Content|
-|------|-----|----------|-----------------|--------|
-| 1    | Tue | ---------| Introduction: First step | Introduction R, R Studio, Markdown, GitHub|
-| 2 & 3 | Tue | ---------| Data manipulation, basic graphics and statistical functions | Manipulate dataset, basic operation, make and edit a plot|
-| 4 & 5 | Tue | ---------| Data exploration | Summarize dataset, preliminary analyses |
-| 6 | Tue | ---------| Ecological resemblance | Association coefficient, similarity matrix |
-| 7 | Tue | ---------| Numerical classification | Cluster analysis |
-| 8 & 9 | Tue | ---------| Unconstrained ordination | PCA, PCoA, nMDS |
-| 10 & 11 | Tue | ---------| Constrained ordination | Redundancy and cannonical analysis |
-| 12 & 13 | Tue | ---------| Generalized Linear Model | Linear regression, and GLMs |
-| 14 | Tue | ---------| From traits to functions | --- |
+|Week |Tentative Topic           |             Content (main)                         |
+|-----|--------------------------|----------------------------------------------------|
+|1    |Introduction              | R, R Studio, R Markdown, Git/GitHub                |
+|2    |Data manipulation         | Formatting and converting data set                 |
+|3    |Graphics                  | Visualization functions and customization, ggplot2 |
+|4    |Statistics  I             | Generate and test simple hypotheses                |
+|5-6  |Statistics  II            | Generalized Linear Models                          |
+|7-8  |Similarities              | Ecological resemblance and matrix                  |
+|9    |Classification            | Cluster analysis                                   |
+|10-11|Ordination: unconstrained | PCA, PCoA, nMDS                                    |
+|12-13|Ordination: constrained   | Redundancy and canonical analysis                  |
+|12-13|Functional analysis       | From trait to ecological functions                 |
 
 
-**Evaluation & Final Assignment**
+I am not a statistician or a programmer, so I explain with simple words avoiding as much as possible technical jargon. The ultimate aim is more to teach you how to look for relevant information. Don't aim to know everything, but to be able to learn anything.
 
-Each week students prepare an example of the application of the things learned in previous class . One student randomly chosen will introduce its example at the beginning the class (using Rmarkdown). 
+# Evaluation
+
+
+As long as the class will be online, you will be assigned with a couple of simple exercise to practice what we saw during the class. Practice will make you better, and it is better you consider those excises as a priority. Exercises highlighted in **<span style="color: #8CE583"> green </span>** are purely for training, and you try it at home. Exercises highlighted in **<span style="color: #C70039 "> red </span>** are assignments, and I expect you to send me the solution on the Monday before the next class. I would only accept *.Rmd* and *.html* formats. Therefore, make sure to understand rapidly how to generate thos fromat using R (next class). As for your reference:
+
+
+
+**<span style="color: #8CE583"> green </span>**
+
+<p class="comment">
+Practice A: this is an exercise you can practice at home.
+</p>
+
+
+
+<p class="alert">
+Practice A: this is an exercise you must send me the solution
+</p>
+
+
+
+
+
+
+You have two main missions along the semester:
+
+- After rendering course file in RStudio, you can review it. Each  week, you will prepare a short example based on what you learned in the previous class - or how to extended it. At the beginning of each class, a presenter will be randomly selected to illustrate what he prepared (5-10 minutes). The algorithm below will decide who will present. You may present several time in the semester (lucky) or none (unlucky), so always be ready. You will prepare your summary in .Rmd format
+
+```{r,  eval=F}
+library(dplyr)
+list_student<-c('沈敬家','Ya-Fang CHENG','Ling-Lan HSU','Yen-Ting CHEN','Tsai-Hsuan HSU','Yu-Wen CHEN','Che-Yueh LIN','Kong-Mei SHUET','Wu-Chiao LIAO','Mariana REYES','Chi-Le KO','San-Pei LEE')
+sample(list_student, 1, replace = TRUE)
+```
+
+Next week: install and load a package, set up your working directory, load a dataset and look for some help on the application of a given function
+
+- Final project: research projects (2-3 students) must be ready  **one** week before the end of the semester. A final report (.Rmd) will be send to the instructor 1 week before the final, and students will present their research on our last week together. The report will follow the format of a scientific publication but the style of the introduction and discussion can used bullet point to emphasize the methodology and the results. Topic is free, but a small proposal (1-2 pages, .Rmd) must be submitted before mid-term. Mid-term week will be dedicated to a discussion of the **research project**. Topics are free (not necessarily restricted to Ecology), and you are welcome to develop your own experiment but you can also use online published datasets which you will reinterpret. 
+
+***
+**Examples of topics for the final assignment:**
+
+
+
+- Diversity and distribution of birds on NTU campus
+
+*This project aims at documenting the diversity of birds on NTU campus and at examining their habitat preferences. Overall, this study proposes to appreciate the role of the campus for the avian fauna in a megacity such Taipei*
+
+- YouBike 2.0 users: gender, age, occupation. A demographic studies.
+
+*This project aims at uncovering who are the users of YouBike 2.0 and if differences exist among genre, age and occupation. This study will contribute at a greater understanding on people circulate on the campus*
+
+
+- Diel variation in temperature, pH, and oxygen in water from the Drunken Moon Lake: a correlative approach
+
+*This project will aim at uncovering diel variations in several key physiological and biological parameters of the Drunken Moon Lake. This project will aim at a better characterization of the environmental in this artificial lake*
+
+Etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The 
+
+<p style="color:red">my text here</p>
+
+
+
+
+
+
+
+Each week students prepare an example of the application of the things learned in previous class. One student randomly chosen will introduce its example at the beginning the class (using Rmarkdown). 
 
 For the final assignment, group (2-3 students) will pick up a research topic along the semester, and will prepare a report emphasis methodology and results (scientific format). Introduction and discussion can be presented as bullet points. Report should be sent as a markdown file before the last class of the semester. Do not wait the last minute!
 
 
-**Philosophy**: I am not a statistician or a programmer, so I will speak with simple words. My aim is to teach you bases in R language for you to be explore its power by yourself. The aim is not to know everything, but to be able to learn anything.
+**Philosophy**: .
 
 **Disclaimer** Format of course largely inspired by online documentation from Fukami T. & Coyle J. (Standford University) and others. Examples used are often famous data set publicly available. 
 
