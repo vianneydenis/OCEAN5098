@@ -2377,7 +2377,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     font-size: 16px;
   }
   
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  d-article {
+      contain: none;
+    }
+  #TOC {
+    position: fixed;
+    z-index: 50;
+    background: #ebebeb;     /* or   background: white; */
+    padding: 10px;           /* optional */
+    border-radius: 5px;      /* optional */
+    }
   
+  /* Hide the ToC when resized to mobile or tablet:  480px, 768px, 900px */
+  @media screen and (max-width: 900px) {
+  #TOC {
+      position: relative;
+    }
+  }
+  </style>
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2440,9 +2461,7 @@ Topic 1
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#general-information">General Information</a><ul>
-<li><a href="#syllabus">Syllabus</a></li>
-</ul></li>
+<li><a href="#general-information">General Information</a></li>
 <li><a href="#the-course">The course</a></li>
 <li><a href="#useful-readings">Useful readings</a></li>
 <li><a href="#enrolled-students">Enrolled students</a></li>

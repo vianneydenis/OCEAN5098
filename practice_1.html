@@ -2377,7 +2377,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     font-size: 16px;
   }
   
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  d-article {
+      contain: none;
+    }
+  #TOC {
+    position: fixed;
+    z-index: 50;
+    background: #ebebeb;     /* or   background: white; */
+    padding: 10px;           /* optional */
+    border-radius: 5px;      /* optional */
+    }
   
+  /* Hide the ToC when resized to mobile or tablet:  480px, 768px, 900px */
+  @media screen and (max-width: 900px) {
+  #TOC {
+      position: relative;
+    }
+  }
+  </style>
   </style>
   <!--/radix_placeholder_site_in_header-->
 
@@ -2436,14 +2457,6 @@ Topic 1
 
 
 <div class="d-article">
-<div class="d-contents d-contents-float">
-<nav class="l-text toc figcaption" id="TOC">
-<h3>Contents</h3>
-<ul>
-<li><a href="#marine-biology-and-ecology">Marine Biology and Ecology</a></li>
-</ul>
-</nav>
-</div>
 <h2 id="marine-biology-and-ecology">Marine Biology and Ecology</h2>
 <p>Those courses …</p>
 <details>
