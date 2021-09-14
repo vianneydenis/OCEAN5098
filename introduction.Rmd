@@ -1,14 +1,399 @@
 ---
 title: "Introduction"
-description: |
- Intruction to R
-output: encryptedRmd::encrypted_html_document
 ---
 
-## Presentation
+```{r echo=FALSE}
+# a single file
+xfun::embed_file('introduction.Rmd')
+```
+
+# R software
+
+## What is R?
+
+R is a popular free and open program for statistical computing (https://www.r-project.org/about.html). R is a widely-used program for statistical computing. R can be run from the command line or from a graphical user interface (GUI) that is automatically installed when you install R (if you open the R program installed on your computer, this is what will open up). 
+
+R consists of a core (minimal installation + add on packages (from the Comprehensive R Archive Network, Bioconductor, or others). The core's capabilities is expanded by using the add-on packages.
+
+## Installation
+
+### Windows
+
+If you don't have R installed on your computer:
+
+- Download R from the [CRAN website](https://cran.r-project.org/bin/windows/base/release.htm).
+- Run the `.exe` file that was just downloaded.
+- Once it’s installed, open R to make sure it works and you don’t get any error messages.
+
+If you already have R already install:
+
+To check the version of R you are using, start R: the version of R you are running is the first thing that appears on the terminal. Alternatively, Type `sessionInfo()` in the R console, which will  display which version of R you are running. Go on the [CRAN website](https://cran.r-project.org/) and check whether a more recent version is available. If so, please download and install it. You can check [here](https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f) for more information on how to remove old versions from your system if you wish to do so.
+
+### macOS
+
+If you don't have R installed on your computer:
+
+- Download R from the [CRAN website](https://cran.r-project.org/bin/macosx/).
+- Select the `.pkg` file for the latest R version.
+- Double click on the downloaded file to install R
+- It is also a good idea to install [XQuartz] (https://www.xquartz.org/) (needed by some packages)
+- Once it’s installed, open R to make sure it works and you don’t get any error messages.
+
+If you already have R already install:
+
+To check the version of R you are using, start R: the version of R you are running is the first thing that appears on the terminal. Alternatively, Type `sessionInfo()` in the R console, which will  display which version of R you are running. Go on the [CRAN website](https://cran.r-project.org/bin/macosx/) and check whether a more recent version is available. If so, please download and install it. 
 
 
-ffffffff
+### Linux
+
+- Follow the instructions for your distribution from [CRAN](https://cloud.r-project.org/bin/linux/), they provide information to get the most recent version of R for common distributions. 
+
+- Once it’s installed, open R to make sure it works and you don’t get any error messages.
+
+
+## Update
+
+If you already have R on your computer, an alternative is to just run (<span style="color: red">it will tell you if your R version is out-of-date </span>): 
+
+```{r,  eval=FALSE, tidy=TRUE}
+if(!require(installr)) {
+  install.packages("installr"); require(installr)} 
+updateR()
+```
+
+This will start the updating process of your R installation.  It will check for newer versions, and if one is available, will guide you through the decisions you need to make. 
+
+You may have to choose a CRAN mirror if it is your first download. This is just a copy of the CRAN archives. Choose one in Taiwan, it is usually a bit faster to download and install. 
+
+## Packages
+
+To expand the abilities of R, you can first install a package with its name. The package `ABC` provides tools for Approximate Bayesian Computation (ABC) 
+
+- Install the package `abc`
+
+```{r,  eval=FALSE}
+install.packages("abc")
+```
+
+```{r,  eval=FALSE}
+# all information after `#` is ignored, this is VERY important and use to comment your code.
+```
+
+```{r,  eval=FALSE}
+install.packages("abc") # I am installing the package 'abc'
+```
+
+- Use the package `abc`
+
+```{r,  eval=FALSE}
+library("abc")
+```
+
+To do every time you wanna use the package: load your package 
+
+
+> *<span style="color: green">**RP1**: Install and load the package </span>* `vegan`
+
+```{r class.source = "fold-hide",  eval=FALSE}
+install.packages('vegan')
+library('vegan')
+```
+
+If you don't know the name of the package: 
+
+- use task views available at http://cran.r-project.org/web/views that group packages to subject areas such environmetrics, multivariate, etc. 
+
+- many online discussion, forum, and docs. Among many others sources, you will often be directed to discusion in [stackoverflow](https://stackoverflow.com/)
+
+## "I need help"
+
+Relax, you can access the html help via the Help menu: *Help/Search help*. Alternatively, a faster solution is to call for help directly in the console:
+
+- a quick summary on how to use the function `median`
+
+```{r class.source = "fold-show",  eval=FALSE}
+?median
+```
+
+- a detailed summary on the use of the function `median```</span>
+
+```{r class.source = "fold-show",  eval=FALSE}
+?median
+# or
+help(median)
+```
+
+- it will give you all functions with median in their description 
+
+```{r,  eval=FALSE}
+??median
+```
+
+## Working directory
+
+It is a good practice to create a working directory (folder) where you will store all your file. In general, each project will have its working directory including data set, script, plot, etc
+
+Use of working directory. Retrieve it using:
+
+```{r,  eval=FALSE}
+getwd() #get the location of your working directory
+```
+
+Set it up using:
+
+```{r,  eval=FALSE}
+setwd()
+#get the location of your working directory
+```
+
+## Quit R
+
+**File -> Exit** or use the console:
+
+```{r,  eval=FALSE}
+q()
+```
+
+Saving the workspace image will allow you to save all objects created in the R memory into your working directory (.Rdata). It also saves all commands given during the session (.Rhistory).
+
+Quit without saving for now.
+
+## List
+
+`ls()` will list all the objects in the memory.
+
+```{r,  eval=FALSE}
+a<-'corals' # create an object 'a' containing 'corals'
+b<-'are' # create an object 'b' containing 'are'
+c<-'cool'# create an object 'c' containing 'cool'
+ls # list objects 'a', 'b', 'c'
+```
+
+You can clean the objects present in the memory using:
+
+```{r,  eval=FALSE}
+rm(list=ls()) # rm: remove ls: list of all objects present in memory
+```
+
+**Tip**: Use CTRL+L to clean your screen when you want to make it clear. It does not remove the objects in memory.
+
+## Calculator
+
+R is a calculator:
+
+```{r,  eval=FALSE}
+3+2 # addition
+3-2 # substraction
+3*2 # multiplication
+3/2 # division
+3^3 # power
+log(2) # logarithm
+exp(2) # exponential
+(5 + 3) / 4 # define priority using () or {} 
+pi*4 # common function
+```
+
+R is case sensitive <span style="color: blue">```pi```</span> will work, whereas <span style="color: blue">```Pi```</span> will not </span> 
+
+## Reading
+
+To be able to work with a dataset (and make calculation based on it), it has to be import as an object in the memory of R. Many formats can be used (.xls, .spss, SAS, etc.). To start with, we will use and .xlsx file, but quickly we will turn toward less heavy format. Note the distinction between **reading** a file and **importing** a file.
+
+My file `reef_fish` is an .xlsx file located in the file 'Data' of my working directory. 
+
+```{r,  eval=FALSE}
+library(readxl) # I am loading a package (library) allowing me to read .xls file
+read_excel('Data/reef_fish.xlsx') # I am reading my file
+fish<-read_excel('Data/reef_fish.xlsx') # I am importing my file in an object called 'fish'
+```
+
+More commonly, we will use .txt file (lighter) and the function `read.table'. But often you will need to think at several 'arguments':
+
+- What is the name of the data file (with the extension)?
+- Does the file have column titles?
+- What is the delimiter between the columns (tab, space, comma or semicolon)?
+- What is the character used for decimal
+points (dot, comma)?
+
+```{r,  eval=FALSE}
+fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.') # reading txt file
+```
+
+Check `?read.table` for all arguments you can specify within this function
+
+Instead or working in  a working directory, you can also target directly your file (check your file properties) or  an url.
+
+```{r,  eval=FALSE,  tidy=TRUE}
+fish<-read.table ("D:/.../Topic 1/Data/reef_fish.txt",header = TRUE,sep="\t", dec=".")# long version
+fish<-read.table("taiwan.txt", TRUE, "\t",".")# you can also shorten some part once you get use to it, but be careful when using this
+```
+
+You can also use `file.choose()' to locate dircetly the file or or computer or alternatively import data from the R menu.
+
+```{r,  eval=FALSE,  tidy=TRUE}
+fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
+```
+
+**Note_1**: in all cases creation of a file with the same name 'fish' will replace the one previously created.
+
+**Note_2**: two operators `<-` and `=` can be used to import data. While longer, I favor `<-` in the creation of object to avoid confusion with mathematical operator. 
+
+## Editor
+
+You can feel it will be interesting to have an editor for our code. It will help at saving and running quickly our code in R. Many alternative: open a .txt file, open an new script in R, use a text editor. The latest one is the most commone altrenative.
+
+# RStudio
+
+## What's RStudio?
+
+RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. It is open source (i.e. free)
+and available at http://www.rstudio.com/
+
+## Installation
+
+If you don't have RStudio installed on your computer:
+
+- Go to the [RStudio download page](https://rstudio.com/products/rstudio/download/#download).
+- Under Installers select RStudio x.yy.zzz - Windows XP/Vista/7/8 (where x, y, and z represent version numbers)
+- Double click the file to install it
+- Once it’s installed, open RStudio to make sure it works and you don’t get any error messages
+
+If you already have R already install:
+
+- Open RStudio, and click on “Help” > “Check for updates”. If a new version is available, quit RStudio, and download the latest version for RStudio
+
+## Environment
+
+RStudio combines (File>New File>R Script):
+
+- A script editor window where you can edit and send you commands to the console
+
+- The **Console** is where you can type commands and see the output
+
+- The **Workspace** shows all the active objects. The history tab shows a
+list of commands used so far.
+
+- The **Files** tab shows all the files and folder in your default workspace. The **Plots** tab will show all your graphs. The **Packages** tab will list a series of packages or add-ons needed to run certain processes.
+For additional info see the **Help** tab.
+
+Among the many advantages of RStudio, you will appreciate the user-adjustable interface (see Options>Appearance>Layout), the auto-synthax, the suggestion `function {package}` together a brief description of its use.
+
+
+Using our `fish` dataset, write a code to import data as an object `fish` then copy the following 'plot' command in in your script. Run the script, and observe the result.
+
+```{r,  eval=F}
+fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.')
+barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRUE, names.arg=fish$country, cex.names=0.5, las=1)
+```
+
+**Note**: you can easily export the resulting plot as and image, a pdf, or to copy it to your clipboard.  
+
+# Documentation
+
+Our course is a set of R markdown files that have been rendered to html files and are hosted on a repository https://github.com/vianneydenis/attentive-suricate.git. 
+
+Each Topic of the class has a corresponding R markdown file named Topic_X_topic.Rmd, where X is the topic number. Today for example the file Topic_1_Intro.Rmd allows you to play and review the class today. You can render today .Rmd by 'kniting' it in RStudio. Options allow you to 'Preview in Window' or to 'Preview in viewer Panel'
+
+This repository working directory available on GitHub is the working directory of the attentive-suricate.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to 'fork' this repository to your GitHub account, then clone a copy of this forked repository  (from your own Github account to your computer). This only needs to be done once. 
+
+## GitHub
+
+Create an account on [GitHub](https://github.com/). You can **create your first repository** to later connect it into  RStudio.
+
+## Git
+
+Install Git on your computer
+
+### Windows
+
+1. Download the git installer for Windows [here](https://git-scm.com/). This will install bash, which is a command-line shell program for interacting with files and programs on your computer.
+
+2. Run the installer that you just downloaded. Click “Next” as needed and when you get to the following options accept default.
+
+3. That’s it! You should now have three new programs installed in a folder called Git under your Program Files.
+
+### macOS
+
+Follow the instructions below or view this [video tutorial](https://www.youtube.com/watch?v=9LQhwETCdwY&ab_channel=SarahStevens).
+
+1. Go to this [list](https://sourceforge.net/projects/git-osx-installer/files/) and download an installer for Git.
+   + If you are using OS X 10.9 and higher, choose the most recent version for “mavericks”.
+   + If you are using an earlier version of OS X, choose the most recent version for “snow leopard”.
+
+2. Run the installer you downloaded.
+
+3. After installing Git, there will not be anything in your /Applications folder, because Git is a command line program.
+
+
+**Note**: if you have OSX El Capitan you may experience some errors when running Git if you don’t have an updated XCODE.[Here](https://stackoverflow.com/questions/32893412/command-line-tools-not-working-os-x-el-capitan-sierra-high-sierra-mojave) is a description of the issue on StackOverflow and the solution is to open a Terminal window and type `xcode-select--install`.
+
+### Linux 
+
+You may already have Git installed. If not, you can try to install it via your dsitribution package manager. For Debian/Ubuntu run 'sudo apt-get install git' and for Fedora run 'sudo yum install git'.
+
+
+## RStudio
+
+File > New Project > Version Control 'Checkout a project from a version control repository'. Enter URL of your repository, (its name), and where you want to copy it on your computer. Once you validate:
+
++ you will create a .RProject. Any change in your repository will appear in 'Git'
++ changes needs to be 'commit' (prepared) and 'push' (uploaded) to GitHub in order to be synchronized
++ first 'commit' will fail and ask you to set up Git with email and username. Open Git CMD and process as indicated
++ first 'push' will be pending your GitHub login and password
++ any changes in your GitHub repo must be 'pull' prior working on your project in RStudio
+
+## Rmarkdown
+
+R markdown is text-based formatting that allows you to embed code and explanatory text in the same document.R markdown documents consist of a header, code chunks and text. R markdown files (.Rmd) can be rendered to other document formats (e.g. html, pdf, docx) to generate reports or web applications. For example, the present document was generated as an html from a Rmd file. Formatting analyses in R markdown keeps the entire research process in one document that can easily regenerate reports and output if the data are changed.
+
+Visit R markdown [webpage](https://rmarkdown.rstudio.com/) for an overview of its capability. [Download](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) cheat sheet  to get familiar with it. I also recommend you R markdown bible: Xie et al. (2020), available [here](https://bookdown.org/yihui/rmarkdown/) to become an expert with markdown. 
+
+
+As for now, just try in RStudio: 
+
+*File > New File > R markdown* in order to create a simple .html document. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
+
+> Attribution
+>
+> The content of this webpage was derived from Fukami T. & Coyle J. (Standford University) which themselves derived from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see http://creativecommons.org/licenses/by/3.0/).
+
+# Assignements
+
+You have two main missions along the semester:
+
+- After rendering course file in RStudio, you can review it. Each  week, you will prepare a short example based on what you learned in the previous class - or how to extended it. At the beginning of each class, a presenter will be randomly selected to illustrate what he prepared (5-10 minutes). The algorithm below will decide who will present. You may present several time in the semester (lucky) or none (unlucky), so always be ready. You will prepare your summary in .Rmd format
+
+```{r,  eval=F}
+library(dplyr)
+list_student<-c('沈敬家','Ya-Fang CHENG','Ling-Lan HSU','Yen-Ting CHEN','Tsai-Hsuan HSU','Yu-Wen CHEN','Che-Yueh LIN','Kong-Mei SHUET','Wu-Chiao LIAO','Mariana REYES','Chi-Le KO','San-Pei LEE')
+sample(list_student, 1, replace = TRUE)
+```
+
+Next week: install and load a package, set up your working directory, load a dataset and look for some help on the application of a given function
+
+- Final project: research projects (2-3 students) must be ready  **one** week before the end of the semester. A final report (.Rmd) will be send to the instructor 1 week before the final, and students will present their research on our last week together. The report will follow the format of a scientific publication but the style of the introduction and discussion can used bullet point to emphasize the methodology and the results. Topic is free, but a small proposal (1-2 pages, .Rmd) must be submitted before mid-term. Mid-term week will be dedicated to a discussion of the **research project**. Topics are free (not necessarily restricted to Ecology), and you are welcome to develop your own experiment but you can also use online published datasets which you will reinterpret. 
+
+***
+**Examples of topics for the final assignment:**
+
+
+
+- Diversity and distribution of birds on NTU campus
+
+*This project aims at documenting the diversity of birds on NTU campus and at examining their habitat preferences. Overall, this study proposes to appreciate the role of the campus for the avian fauna in a megacity such Taipei*
+
+- YouBike 2.0 users: gender, age, occupation. A demographic studies.
+
+*This project aims at uncovering who are the users of YouBike 2.0 and if differences exist among genre, age and occupation. This study will contribute at a greater understanding on people circulate on the campus*
+
+
+- Diel variation in temperature, pH, and oxygen in water from the Drunken Moon Lake: a correlative approach
+
+*This project will aim at uncovering diel variations in several key physiological and biological parameters of the Drunken Moon Lake. This project will aim at a better characterization of the environmental in this artificial lake*
+
+Etc.
+
+
 
 
 
