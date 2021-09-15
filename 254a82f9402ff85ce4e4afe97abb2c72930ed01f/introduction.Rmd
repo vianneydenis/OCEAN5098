@@ -361,5 +361,8 @@ As for now, just try in RStudio:
 
 
 
+Next week: install and load a package, set up your working directory, load a dataset and look for some help on the application of a given function
+
+
 
 
