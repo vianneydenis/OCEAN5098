@@ -40,7 +40,7 @@ d-article {
 }
 
 p.comment {
-background-color: green;
+background-color: #94F99B;
 padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
@@ -49,7 +49,7 @@ font-style: normal;
 }
 
 p.alert {
-background-color: red;
+background-color: #F0756D;
 padding: 10px;
 border: 1px solid black;
 margin-left: 25px;
