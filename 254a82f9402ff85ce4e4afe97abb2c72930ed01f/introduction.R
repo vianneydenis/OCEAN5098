@@ -13,31 +13,27 @@ install.packages("abc")
 # use/load the package `abc` with its name
 library("abc")
 
+# Install & load `vegan` package
 install.packages('vegan')
 library('vegan')
 
-?median
+# simple help on the use of a function
+median
 
-?median
-# or
-help(median)
+# detailed help on the use of a function
+?median # alternative 1
+help(median) # alternative 2
 
+# using a keyword for search
 ??median
 
-getwd() #get the location of your working directory
+# get your current working directory
+getwd()
 
+# set your current working directory
 setwd()
-#get the location of your working directory
 
-q()
-
-a<-'corals' # create an object 'a' containing 'corals'
-b<-'are' # create an object 'b' containing 'are'
-c<-'cool'# create an object 'c' containing 'cool'
-ls # list objects 'a', 'b', 'c'
-
-rm(list=ls()) # rm: remove ls: list of all objects present in memory
-
+# Use R as a calculator
 3+2 # addition
 3-2 # substraction
 3*2 # multiplication
@@ -47,6 +43,18 @@ log(2) # logarithm
 exp(2) # exponential
 (5 + 3) / 4 # define priority using () or {} 
 pi*4 # common function
+
+# my current list is empty 
+ls()
+
+# I create and list 3 objects 
+a<-'corals' # create an object 'a' containing 'corals'
+b<-'are' # create an object 'b' containing 'are'
+c<-'cool'# create an object 'c' containing 'cool'
+ls() # list objects 'a', 'b', 'c'
+
+# clean objects in memory
+rm(list=ls())
 
 library(readxl) # I am loading a package (library) allowing me to read .xls file
 read_excel('Data/reef_fish.xlsx') # I am reading my file
@@ -58,6 +66,8 @@ fish<-read.table ("D:/.../Topic 1/Data/reef_fish.txt",header = TRUE,sep="\t", de
 fish<-read.table("taiwan.txt", TRUE, "\t",".")# you can also shorten some part once you get use to it, but be careful when using this
 
 fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
+
+q()
 
 fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.')
 barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRUE, names.arg=fish$country, cex.names=0.5, las=1)

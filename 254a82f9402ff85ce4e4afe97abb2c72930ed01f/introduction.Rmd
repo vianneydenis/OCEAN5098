@@ -102,101 +102,72 @@ Happily, only basic packages are loaded when you started R. Other are inactive a
 library("abc")
 ```
 
-
-
-
 <p class="comment">
 **Practice 1:** The `vegan` package provides tools for descriptive community ecology. It has most basic functions of diversity analysis, community ordination and dissimilarity analysis. Most of its multivariate tools can be used for other data types as well, not restricted to ecological purpose.Install and load the package `vegan`.
 </p>
 
 ```{r, code_folding = 'Show Solution',  eval=FALSE}
+# Install & load `vegan` package
 install.packages('vegan')
 library('vegan')
 ```
 
-If you don't know the name of the package: 
+If you don't know the name of a package relevant for you analyses: 
 
-- use task views available at http://cran.r-project.org/web/views that group packages to subject areas such environmetrics, multivariate, etc. 
+- use task views available at http://cran.r-project.org/web/views. It group packages to subject areas such environmetrics, multivariate, etc. 
 
-- many online discussion, forum, and docs. Among many others sources, you will often be directed to discusion in [stackoverflow](https://stackoverflow.com/)
+- use online discussion, forum, and docs. Among many others sources, you will often be directed to discussion in [stackoverflow](https://stackoverflow.com/)
 
-## "I need help"
+## Help
 
-Relax, you can access the html help via the Help menu: *Help/Search help*. Alternatively, a faster solution is to call for help directly in the console:
+You don't know: relax! You can access .html help via the 'Help' menu: *Help/Search help*. Alternatively, a faster solution is to call for help directly in the R console. You can get:
 
-- a quick summary on how to use the function `median`
+- a simple summary on how to use a specifically named function such as `mean`
 
-```{r class.source = "fold-show",  eval=FALSE}
-?median
+```{r, code_folding = F, eval=T}
+# simple help on the use of a function
+median
 ```
 
-- a detailed summary on the use of the function `median```</span>
+- a detailed summary on the use of the function `median` which will send you to an .html webpage.
 
-```{r class.source = "fold-show",  eval=FALSE}
-?median
-# or
-help(median)
+```{r, code_folding = F,  eval=FALSE}
+# detailed help on the use of a function
+?median # alternative 1
+help(median) # alternative 2
 ```
 
-- it will give you all functions with median in their description 
+- get a list of all CRAN functions with median in their description.
 
 ```{r,  eval=FALSE}
+# using a keyword for search
 ??median
 ```
 
 ## Working directory
 
-It is a good practice to create a working directory (folder) where you will store all your file. In general, each project will have its working directory including data set, script, plot, etc
+It is a good practice to create a working directory (folder) where you will store all your file. In general, each project will have its own working directory including data set, script, plot, etc. 
 
-Use of working directory. Retrieve it using:
+- retrieve your current working directory
 
-```{r,  eval=FALSE}
-getwd() #get the location of your working directory
+```{r,  eval=F}
+# get your current working directory
+getwd()
 ```
 
-Set it up using:
+You wanna change for a specific folder. Set it up using:
 
 ```{r,  eval=FALSE}
+# set your current working directory
 setwd()
-#get the location of your working directory
 ```
-
-## Quit R
-
-**File -> Exit** or use the console:
-
-```{r,  eval=FALSE}
-q()
-```
-
-Saving the workspace image will allow you to save all objects created in the R memory into your working directory (.Rdata). It also saves all commands given during the session (.Rhistory).
-
-Quit without saving for now.
-
-## List
-
-`ls()` will list all the objects in the memory.
-
-```{r,  eval=FALSE}
-a<-'corals' # create an object 'a' containing 'corals'
-b<-'are' # create an object 'b' containing 'are'
-c<-'cool'# create an object 'c' containing 'cool'
-ls # list objects 'a', 'b', 'c'
-```
-
-You can clean the objects present in the memory using:
-
-```{r,  eval=FALSE}
-rm(list=ls()) # rm: remove ls: list of all objects present in memory
-```
-
-**Tip**: Use CTRL+L to clean your screen when you want to make it clear. It does not remove the objects in memory.
 
 ## Calculator
 
 R is a calculator:
 
 ```{r,  eval=FALSE}
+# Use R as a calculator
 3+2 # addition
 3-2 # substraction
 3*2 # multiplication
@@ -208,7 +179,36 @@ exp(2) # exponential
 pi*4 # common function
 ```
 
-R is case sensitive <span style="color: blue">```pi```</span> will work, whereas <span style="color: blue">```Pi```</span> will not </span> 
+R is case sensitive `pi` will work, whereas`Pi` will not 
+
+## Objects
+
+The list function `ls()` will provide you with all the objects in the memory.
+
+```{r,  eval=T}
+# my current list is empty 
+ls()
+```
+
+
+```{r,  eval=T}
+# I create and list 3 objects 
+a<-'corals' # create an object 'a' containing 'corals'
+b<-'are' # create an object 'b' containing 'are'
+c<-'cool'# create an object 'c' containing 'cool'
+ls() # list objects 'a', 'b', 'c'
+```
+
+**Note**: two operators `<-` and `=` can be used to import data. While longer, I favor `<-` in the creation of object to avoid confusion with mathematical operator
+
+You can clean `rm` (remove) the objects `list`  in memory `ls()` using:
+
+```{r,  eval=T}
+# clean objects in memory
+rm(list=ls())
+```
+
+**Tip**: The use of CTRL+L cleans your screen when you want to make it clearer. However, it **does not remove the objects** in memory.
 
 ## Reading
 
@@ -251,7 +251,26 @@ fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
 
 **Note_1**: in all cases creation of a file with the same name 'fish' will replace the one previously created.
 
-**Note_2**: two operators `<-` and `=` can be used to import data. While longer, I favor `<-` in the creation of object to avoid confusion with mathematical operator. 
+.
+
+
+
+
+
+
+## Quit R
+
+**File -> Exit** or simply type in the R console:
+
+```{r,  eval=FALSE}
+q()
+```
+
+Saving the workspace image will allow you to save all objects created in the R memory into your working directory (.Rdata). It also saves all commands given during the session (.Rhistory). Quit **without saving**.
+
+
+
+ 
 
 ## Editor
 
