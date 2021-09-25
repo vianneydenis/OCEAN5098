@@ -2400,7 +2400,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   }
   
   p.comment {
-  background-color: green;
+  background-color: #94F99B;
   padding: 10px;
   border: 1px solid black;
   margin-left: 25px;
@@ -2409,7 +2409,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   }
   
   p.alert {
-  background-color: red;
+  background-color: #F0756D;
   padding: 10px;
   border: 1px solid black;
   margin-left: 25px;
@@ -2449,18 +2449,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="nav-right">
 <a href="index.html">Home</a>
 <a href="introduction.html">Introduction</a>
-<div class="nav-dropdown">
-<button class="nav-dropbtn">
-Topic 1
- 
-<span class="down-arrow">&#x25BE;</span>
-</button>
-<div class="nav-dropdown-content">
-<a href="lecture_1.html">Lecture</a>
-<a href="script_1.html">Script</a>
-<a href="practice_1.html">Practice</a>
-</div>
-</div>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2478,6 +2466,61 @@ Topic 1
 
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#r-markdown">R markdown</a></li>
+</ul>
+</nav>
+</div>
+<h1 id="r-markdown">R markdown</h1>
+<p>Our course is a set of R markdown files that have been rendered to html files and are hosted on a repository <a href="https://github.com/vianneydenis/attentive-suricate.git" class="uri">https://github.com/vianneydenis/attentive-suricate.git</a>.</p>
+<p>Each Topic of the class has a corresponding R markdown file named Topic_X_topic.Rmd, where X is the topic number. Today for example the file Topic_1_Intro.Rmd allows you to play and review the class today. You can render today .Rmd by ‘kniting’ it in RStudio. Options allow you to ‘Preview in Window’ or to ‘Preview in viewer Panel’</p>
+<p>This repository working directory available on GitHub is the working directory of the attentive-suricate.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to ‘fork’ this repository to your GitHub account, then clone a copy of this forked repository (from your own Github account to your computer). This only needs to be done once.</p>
+<h2 id="github">GitHub</h2>
+<p>Create an account on <a href="https://github.com/">GitHub</a>. You can <strong>create your first repository</strong> to later connect it into RStudio.</p>
+<h2 id="git">Git</h2>
+<p>Install Git on your computer</p>
+<h3 id="windows">Windows</h3>
+<ol type="1">
+<li><p>Download the git installer for Windows <a href="https://git-scm.com/">here</a>. This will install bash, which is a command-line shell program for interacting with files and programs on your computer.</p></li>
+<li><p>Run the installer that you just downloaded. Click “Next” as needed and when you get to the following options accept default.</p></li>
+<li><p>That’s it! You should now have three new programs installed in a folder called Git under your Program Files.</p></li>
+</ol>
+<h3 id="macos">macOS</h3>
+<p>Follow the instructions below or view this <a href="https://www.youtube.com/watch?v=9LQhwETCdwY&amp;ab_channel=SarahStevens">video tutorial</a>.</p>
+<ol type="1">
+<li><p>Go to this <a href="https://sourceforge.net/projects/git-osx-installer/files/">list</a> and download an installer for Git.</p>
+<ul>
+<li>If you are using OS X 10.9 and higher, choose the most recent version for “mavericks”.</li>
+<li>If you are using an earlier version of OS X, choose the most recent version for “snow leopard”.</li>
+</ul></li>
+<li><p>Run the installer you downloaded.</p></li>
+<li><p>After installing Git, there will not be anything in your /Applications folder, because Git is a command line program.</p></li>
+</ol>
+<p><strong>Note</strong>: if you have OSX El Capitan you may experience some errors when running Git if you don’t have an updated XCODE.<a href="https://stackoverflow.com/questions/32893412/command-line-tools-not-working-os-x-el-capitan-sierra-high-sierra-mojave">Here</a> is a description of the issue on StackOverflow and the solution is to open a Terminal window and type <code>xcode-select--install</code>.</p>
+<h3 id="linux">Linux</h3>
+<p>You may already have Git installed. If not, you can try to install it via your dsitribution package manager. For Debian/Ubuntu run ‘sudo apt-get install git’ and for Fedora run ‘sudo yum install git’.</p>
+<h2 id="rstudio">RStudio</h2>
+<p>File &gt; New Project &gt; Version Control ‘Checkout a project from a version control repository’. Enter URL of your repository, (its name), and where you want to copy it on your computer. Once you validate:</p>
+<ul>
+<li>you will create a .RProject. Any change in your repository will appear in ‘Git’</li>
+<li>changes needs to be ‘commit’ (prepared) and ‘push’ (uploaded) to GitHub in order to be synchronized</li>
+<li>first ‘commit’ will fail and ask you to set up Git with email and username. Open Git CMD and process as indicated</li>
+<li>first ‘push’ will be pending your GitHub login and password</li>
+<li>any changes in your GitHub repo must be ‘pull’ prior working on your project in RStudio</li>
+</ul>
+<h2 id="rmarkdown">Rmarkdown</h2>
+<p>R markdown is text-based formatting that allows you to embed code and explanatory text in the same document.R markdown documents consist of a header, code chunks and text. R markdown files (.Rmd) can be rendered to other document formats (e.g. html, pdf, docx) to generate reports or web applications. For example, the present document was generated as an html from a Rmd file. Formatting analyses in R markdown keeps the entire research process in one document that can easily regenerate reports and output if the data are changed.</p>
+<p>Visit R markdown <a href="https://rmarkdown.rstudio.com/">webpage</a> for an overview of its capability. <a href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">Download</a> cheat sheet to get familiar with it. I also recommend you R markdown bible: Xie et al. (2020), available <a href="https://bookdown.org/yihui/rmarkdown/">here</a> to become an expert with markdown.</p>
+<p>As for now, just try in RStudio:</p>
+<p><em>File &gt; New File &gt; R markdown</em> in order to create a simple .html document. Try to modify and play with it with the information available in the cheat sheets you downloaded.</p>
+<blockquote>
+<p>Attribution</p>
+<p>The content of this webpage was derived from Fukami T. &amp; Coyle J. (Standford University) which themselves derived from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see <a href="http://creativecommons.org/licenses/by/3.0/" class="uri">http://creativecommons.org/licenses/by/3.0/</a>).</p>
+</blockquote>
+<p>Next week: install and load a package, set up your working directory, load a dataset and look for some help on the application of a given function</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

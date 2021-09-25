@@ -3,3 +3,79 @@ title: "Topic 1: Lecture"
 description: |
   List of required courses and by division. Classes delivered in English or with an possible alternative for foreigner students to get the corresponing credits
 ---
+
+
+# R markdown
+
+Our course is a set of R markdown files that have been rendered to html files and are hosted on a repository https://github.com/vianneydenis/attentive-suricate.git. 
+
+Each Topic of the class has a corresponding R markdown file named Topic_X_topic.Rmd, where X is the topic number. Today for example the file Topic_1_Intro.Rmd allows you to play and review the class today. You can render today .Rmd by 'kniting' it in RStudio. Options allow you to 'Preview in Window' or to 'Preview in viewer Panel'
+
+This repository working directory available on GitHub is the working directory of the attentive-suricate.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to 'fork' this repository to your GitHub account, then clone a copy of this forked repository  (from your own Github account to your computer). This only needs to be done once. 
+
+## GitHub
+
+Create an account on [GitHub](https://github.com/). You can **create your first repository** to later connect it into  RStudio.
+
+## Git
+
+Install Git on your computer
+
+### Windows
+
+1. Download the git installer for Windows [here](https://git-scm.com/). This will install bash, which is a command-line shell program for interacting with files and programs on your computer.
+
+2. Run the installer that you just downloaded. Click “Next” as needed and when you get to the following options accept default.
+
+3. That’s it! You should now have three new programs installed in a folder called Git under your Program Files.
+
+### macOS
+
+Follow the instructions below or view this [video tutorial](https://www.youtube.com/watch?v=9LQhwETCdwY&ab_channel=SarahStevens).
+
+1. Go to this [list](https://sourceforge.net/projects/git-osx-installer/files/) and download an installer for Git.
+   + If you are using OS X 10.9 and higher, choose the most recent version for “mavericks”.
+   + If you are using an earlier version of OS X, choose the most recent version for “snow leopard”.
+
+2. Run the installer you downloaded.
+
+3. After installing Git, there will not be anything in your /Applications folder, because Git is a command line program.
+
+
+**Note**: if you have OSX El Capitan you may experience some errors when running Git if you don’t have an updated XCODE.[Here](https://stackoverflow.com/questions/32893412/command-line-tools-not-working-os-x-el-capitan-sierra-high-sierra-mojave) is a description of the issue on StackOverflow and the solution is to open a Terminal window and type `xcode-select--install`.
+
+### Linux 
+
+You may already have Git installed. If not, you can try to install it via your dsitribution package manager. For Debian/Ubuntu run 'sudo apt-get install git' and for Fedora run 'sudo yum install git'.
+
+
+## RStudio
+
+File > New Project > Version Control 'Checkout a project from a version control repository'. Enter URL of your repository, (its name), and where you want to copy it on your computer. Once you validate:
+
++ you will create a .RProject. Any change in your repository will appear in 'Git'
++ changes needs to be 'commit' (prepared) and 'push' (uploaded) to GitHub in order to be synchronized
++ first 'commit' will fail and ask you to set up Git with email and username. Open Git CMD and process as indicated
++ first 'push' will be pending your GitHub login and password
++ any changes in your GitHub repo must be 'pull' prior working on your project in RStudio
+
+## Rmarkdown
+
+R markdown is text-based formatting that allows you to embed code and explanatory text in the same document.R markdown documents consist of a header, code chunks and text. R markdown files (.Rmd) can be rendered to other document formats (e.g. html, pdf, docx) to generate reports or web applications. For example, the present document was generated as an html from a Rmd file. Formatting analyses in R markdown keeps the entire research process in one document that can easily regenerate reports and output if the data are changed.
+
+Visit R markdown [webpage](https://rmarkdown.rstudio.com/) for an overview of its capability. [Download](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) cheat sheet  to get familiar with it. I also recommend you R markdown bible: Xie et al. (2020), available [here](https://bookdown.org/yihui/rmarkdown/) to become an expert with markdown. 
+
+
+As for now, just try in RStudio: 
+
+*File > New File > R markdown* in order to create a simple .html document. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
+
+> Attribution
+>
+> The content of this webpage was derived from Fukami T. & Coyle J. (Standford University) which themselves derived from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see http://creativecommons.org/licenses/by/3.0/).
+
+
+
+
+
+Next week: install and load a package, set up your working directory, load a dataset and look for some help on the application of a given function
