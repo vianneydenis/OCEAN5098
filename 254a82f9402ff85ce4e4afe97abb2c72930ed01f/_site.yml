@@ -22,8 +22,8 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-#    - text: "Introduction"
-#      href: introduction.html
+    - text: "Introduction"
+      href: introduction.html
 #    - text: "Topic 1"
 #      menu:
 #        - text: "Lecture"
