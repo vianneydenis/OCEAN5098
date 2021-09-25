@@ -7,14 +7,18 @@ knitr::purl("introduction.Rmd", documentation = F)
 ```
 
 ```{r echo=FALSE, purl=F}
-# a single file
 xfun::embed_file('introduction.Rmd')
 ```
 
 ```{r echo=FALSE, purl=F}
-# a single file
 xfun::embed_file('introduction.R')
 ```
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('Data/reef_fish.xlsx')
+```
+
+
 
 # R software
 
@@ -212,51 +216,63 @@ rm(list=ls())
 
 ## Reading
 
-To be able to work with a dataset (and make calculation based on it), it has to be import as an object in the memory of R. Many formats can be used (.xls, .spss, SAS, etc.). To start with, we will use and .xlsx file, but quickly we will turn toward less heavy format. Note the distinction between **reading** a file and **importing** a file.
+To be able to work with a dataset (and make calculation based on it), it has to be import as an object in the memory of R. Many formats can be used (.xls, .spss, SAS, etc.). To start with, we will use and .xlsx file, but quickly we will turn toward less 'heavy' format. Note the distinction between **reading** a file and **importing** a file.
 
 My file `reef_fish` is an .xlsx file located in the file 'Data' of my working directory. 
 
-```{r,  eval=FALSE}
-library(readxl) # I am loading a package (library) allowing me to read .xls file
-read_excel('Data/reef_fish.xlsx') # I am reading my file
-fish<-read_excel('Data/reef_fish.xlsx') # I am importing my file in an object called 'fish'
+```{r,  eval=T}
+# 1. using the package `readxl`
+# 2. reading my `reef_fish.xlsx` in my working directory
+# 3. importing `reef_fish.xlsx` in a `fish` object
+library(readxl) # load the package `readxl'
+read_excel('Data/reef_fish.xlsx') # automatically print on my screen
+fish<-read_excel('Data/reef_fish.xlsx') # store my table in an object called `fish`
+fish # print my object `fish`   
 ```
 
-More commonly, we will use .txt file (lighter) and the function `read.table'. But often you will need to think at several 'arguments':
+More commonly, we will use .txt file (lighter) and the function `read.table'. But often you will need to think at several important **arguments** about the file you wanna to import:
 
-- What is the name of the data file (with the extension)?
+- What is the exact name of the data file (with its extension)?
 - Does the file have column titles?
-- What is the delimiter between the columns (tab, space, comma or semicolon)?
-- What is the character used for decimal
-points (dot, comma)?
+- What is the delimiter between the columns (tabulation, space, comma or semicolon)?
+- What is the character used for decimal points (dot, comma)?
 
-```{r,  eval=FALSE}
-fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.') # reading txt file
+```{r,  eval=T}
+# importing a .txt file
+fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.') 
 ```
 
 Check `?read.table` for all arguments you can specify within this function
 
-Instead or working in  a working directory, you can also target directly your file (check your file properties) or  an url.
+It is not a good practice, but instead or working within  a working directory, you can also target directly your file (check your file properties) or an url.
 
 ```{r,  eval=FALSE,  tidy=TRUE}
+# import file by path name
 fish<-read.table ("D:/.../Topic 1/Data/reef_fish.txt",header = TRUE,sep="\t", dec=".")# long version
-fish<-read.table("taiwan.txt", TRUE, "\t",".")# you can also shorten some part once you get use to it, but be careful when using this
+fish<-read.table("D:/.../Topic 1/Data/reef_fish.txt", TRUE, "\t",".")# short version
 ```
 
-You can also use `file.choose()' to locate dircetly the file or or computer or alternatively import data from the R menu.
+You can also use `file.choose()' to locate directly the file on computer
 
 ```{r,  eval=FALSE,  tidy=TRUE}
 fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
 ```
 
-**Note_1**: in all cases creation of a file with the same name 'fish' will replace the one previously created.
-
-.
+**Note**: every time we created the object `fish` it replaced the one previously created.
 
 
+<p class="comment">
+**Practice 2:** Download `reef_fish.xlsx`, save it in a working directory you dedicate for this course, and import it in R. Do the same after converting this `reef_fish` file into a `.txt` file.
+</p>
 
+```{r, code_folding = 'Show Solution',  eval=FALSE}
+# Too fast you need to try by yourself?
+# Maybe a look at ?write.table may help
+```
 
+## Editor
 
+You can start to feel it quickly becomes hard to manage the copy and paste + edit the function in the R GUI. It starts to be interesting to have an **script editor** to edit our code. It will help at saving and running efficiently our code in R. Many alternatives exist from opening a simple.txt file, opening an new script window directly in R, or using a dedicated script editor. The latest one is the most common alternative.
 
 ## Quit R
 
@@ -267,14 +283,6 @@ q()
 ```
 
 Saving the workspace image will allow you to save all objects created in the R memory into your working directory (.Rdata). It also saves all commands given during the session (.Rhistory). Quit **without saving**.
-
-
-
- 
-
-## Editor
-
-You can feel it will be interesting to have an editor for our code. It will help at saving and running quickly our code in R. Many alternative: open a .txt file, open an new script in R, use a text editor. The latest one is the most commone altrenative.
 
 # RStudio
 
@@ -298,31 +306,34 @@ If you already have R already install:
 
 ## Environment
 
-RStudio combines (File>New File>R Script):
+RStudio combines (*File>New File>R Script*):
 
-- A script editor window where you can edit and send you commands to the console
+- A **Script editor** window where you can edit and send you commands to the console
 
-- The **Console** is where you can type commands and see the output
+- A **Console** is where you can type commands and see the output
 
-- The **Workspace** shows all the active objects. The history tab shows a
+- A **Workspace** shows all the active objects. The history tab shows a
 list of commands used so far.
 
 - The **Files** tab shows all the files and folder in your default workspace. The **Plots** tab will show all your graphs. The **Packages** tab will list a series of packages or add-ons needed to run certain processes.
 For additional info see the **Help** tab.
 
-Among the many advantages of RStudio, you will appreciate the user-adjustable interface (see Options>Appearance>Layout), the auto-synthax, the suggestion `function {package}` together a brief description of its use.
+Among the many advantages of RStudio, you will appreciate the user-adjustable interface (see *Options>Appearance>Layout*), the auto-synthax, the suggestion `function {package}` together a brief description of its use.
 
+Again using our `fish` data set, we can write a script to import the data set as an object `fish` and create a very simple plot to visualize difference of reef fish richness by country.
 
-Using our `fish` dataset, write a code to import data as an object `fish` then copy the following 'plot' command in in your script. Run the script, and observe the result.
-
-```{r,  eval=F}
+```{r,  eval=T}
+# import data set and create an objct in R studio + simple plot 
 fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.')
 barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRUE, names.arg=fish$country, cex.names=0.5, las=1)
 ```
 
-**Note**: you can easily export the resulting plot as and image, a pdf, or to copy it to your clipboard.  
+**Note**: using the options in R studio, you can easily export the resulting plot as and image, a pdf, or to copy it to your clipboard.  
 
-# Documentation
+
+
+
+# R markdown
 
 Our course is a set of R markdown files that have been rendered to html files and are hosted on a repository https://github.com/vianneydenis/attentive-suricate.git. 
 

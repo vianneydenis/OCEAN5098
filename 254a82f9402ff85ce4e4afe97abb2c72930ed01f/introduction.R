@@ -56,19 +56,29 @@ ls() # list objects 'a', 'b', 'c'
 # clean objects in memory
 rm(list=ls())
 
-library(readxl) # I am loading a package (library) allowing me to read .xls file
-read_excel('Data/reef_fish.xlsx') # I am reading my file
-fish<-read_excel('Data/reef_fish.xlsx') # I am importing my file in an object called 'fish'
+# 1. using the package `readxl`
+# 2. reading my `reef_fish.xlsx` in my working directory
+# 3. importing `reef_fish.xlsx` in a `fish` object
+library(readxl) # load the package `readxl'
+read_excel('Data/reef_fish.xlsx') # automatically print on my screen
+fish<-read_excel('Data/reef_fish.xlsx') # store my table in an object called `fish`
+fish # print my object `fish`   
 
-fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.') # reading txt file
+# importing a .txt file
+fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.') 
 
+# import file by path name
 fish<-read.table ("D:/.../Topic 1/Data/reef_fish.txt",header = TRUE,sep="\t", dec=".")# long version
-fish<-read.table("taiwan.txt", TRUE, "\t",".")# you can also shorten some part once you get use to it, but be careful when using this
+fish<-read.table("D:/.../Topic 1/Data/reef_fish.txt", TRUE, "\t",".")# short version
 
 fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
 
+# Too fast you need to try by yourself?
+# Maybe a look at ?write.table may help
+
 q()
 
+# import data set and create an objct in R studio + simple plot 
 fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.')
 barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRUE, names.arg=fish$country, cex.names=0.5, las=1)
 ```{.r .distill-force-highlighting-css}
