@@ -2,18 +2,27 @@
 title: "Introduction"
 ---
 
-```{r echo=FALSE}
+```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
+knitr::purl("introduction.Rmd", documentation = F)
+```
+
+```{r echo=FALSE, purl=F}
 # a single file
 xfun::embed_file('introduction.Rmd')
+```
+
+```{r echo=FALSE, purl=F}
+# a single file
+xfun::embed_file('introduction.R')
 ```
 
 # R software
 
 ## What is R?
 
-R is a popular free and open program for statistical computing (https://www.r-project.org/about.html). R is a widely-used program for statistical computing. R can be run from the command line or from a graphical user interface (GUI) that is automatically installed when you install R (if you open the R program installed on your computer, this is what will open up). 
+R is a popular free and open program for statistical computing (https://www.r-project.org/about.html). R is a widely-used program for **statistical computing**. R can be run from the command line or from a **graphical user interface (GUI)** that is automatically installed when you install R (if you open the R program installed on your computer, this is what will open up). 
 
-R consists of a core (minimal installation + add on packages (from the Comprehensive R Archive Network, Bioconductor, or others). The core's capabilities is expanded by using the add-on packages.
+R consists of a **core** (minimal installation + add on **packages** (from the Comprehensive R Archive Network [CRAN], Bioconductor, or others). The core's capabilities is expanded by using the add-on packages.
 
 ## Installation
 
@@ -50,51 +59,57 @@ To check the version of R you are using, start R: the version of R you are runni
 
 - Once it’s installed, open R to make sure it works and you don’t get any error messages.
 
+**NOTE**: the entire course is prepared using R for windows version. Despite most of the code provided will work on any versions, slight differences may cause trouble when we will deal with animation and 3D visualizations. 
 
 ## Update
 
-If you already have R on your computer, an alternative is to just run (<span style="color: red">it will tell you if your R version is out-of-date </span>): 
+If you already have R on your computer, an alternative is to run the following line of code in R native GUI (<span style="color: red">it will tell you if your R version is out-of-date </span>): 
 
 ```{r,  eval=FALSE, tidy=TRUE}
+# R update (to run in R native GUI only)
 if(!require(installr)) {
   install.packages("installr"); require(installr)} 
 updateR()
 ```
 
-This will start the updating process of your R installation.  It will check for newer versions, and if one is available, will guide you through the decisions you need to make. 
+This will start the updating process of your R installation.  It will check for newer versions, and if one is available, it will guide you through the decisions you need to make. 
 
-You may have to choose a CRAN mirror if it is your first download. This is just a copy of the CRAN archives. Choose one in Taiwan, it is usually a bit faster to download and install. 
+You may have to choose a CRAN mirror if it is your first download. A mirror is just a copy of the CRAN archives. Choose one in Taiwan, it is usually a bit faster to download and install. 
 
-## Packages
+## Customization
 
-To expand the abilities of R, you can first install a package with its name. The package `ABC` provides tools for Approximate Bayesian Computation (ABC) 
+To expand the abilities of R, you can first install a package with its name. The package `ABC` provides extra tools (**functions**) for Approximate Bayesian Computation (ABC) 
 
-- Install the package `abc`
+- Install the package `abc`. To do only once.
 
 ```{r,  eval=FALSE}
+# install the package `abc` with its name
 install.packages("abc")
 ```
 
 ```{r,  eval=FALSE}
-# all information after `#` is ignored, this is VERY important and use to comment your code.
+# function are case sensitive
+# all information after `#` is ignored
+# it is call a comment. Commenting is very important 
 ```
 
-```{r,  eval=FALSE}
-install.packages("abc") # I am installing the package 'abc'
-```
+Happily, only basic packages are loaded when you started R. Other are inactive and you need to activate them. Once installed on your computer, you need to say that you want to use a specific package. 
 
-- Use the package `abc`
+- Use the package `abc`.To do every time you wanna use the package.
 
 ```{r,  eval=FALSE}
+# use/load the package `abc` with its name
 library("abc")
 ```
 
-To do every time you wanna use the package: load your package 
 
 
-> *<span style="color: green">**RP1**: Install and load the package </span>* `vegan`
 
-```{r class.source = "fold-hide",  eval=FALSE}
+<p class="comment">
+**Practice 1:** The `vegan` package provides tools for descriptive community ecology. It has most basic functions of diversity analysis, community ordination and dissimilarity analysis. Most of its multivariate tools can be used for other data types as well, not restricted to ecological purpose.Install and load the package `vegan`.
+</p>
+
+```{r, code_folding = 'Show Solution',  eval=FALSE}
 install.packages('vegan')
 library('vegan')
 ```
