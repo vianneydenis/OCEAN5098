@@ -18,8 +18,6 @@ xfun::embed_file('introduction.R')
 xfun::embed_file('Data/reef_fish.xlsx')
 ```
 
-
-
 # R software
 
 ## What is R?
