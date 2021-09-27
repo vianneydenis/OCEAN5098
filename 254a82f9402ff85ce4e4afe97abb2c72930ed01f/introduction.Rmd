@@ -22,6 +22,8 @@ xfun::embed_file('Data/reef_fish.xlsx')
 
 ## What is R?
 
+<iframe width='100%' height='600' src='https://rdrr.io/snippets/embed/?code=rep(%22This%20is%20R%22%2C%2050)' frameborder='0'></iframe>
+
 R is a popular free and open program for statistical computing (https://www.r-project.org/about.html). R is a widely-used program for **statistical computing**. R can be run from the command line or from a **graphical user interface (GUI)** that is automatically installed when you install R (if you open the R program installed on your computer, this is what will open up). 
 
 R consists of a **core** (minimal installation + add on **packages** (from the Comprehensive R Archive Network [CRAN], Bioconductor, or others). The core's capabilities is expanded by using the add-on packages.
