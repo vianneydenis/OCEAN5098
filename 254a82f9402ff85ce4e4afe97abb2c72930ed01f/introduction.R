@@ -78,7 +78,7 @@ fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
 
 q()
 
-# import data set and create an objct in R studio + simple plot 
+# import data set and create an object in R studio + simple plot 
 fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.')
 barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRUE, names.arg=fish$country, cex.names=0.5, las=1)
 ```{.r .distill-force-highlighting-css}

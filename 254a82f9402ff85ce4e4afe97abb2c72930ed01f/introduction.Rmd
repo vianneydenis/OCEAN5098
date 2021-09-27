@@ -18,8 +18,6 @@ xfun::embed_file('introduction.R')
 xfun::embed_file('Data/reef_fish.xlsx')
 ```
 
-
-
 # R software
 
 ## What is R?
@@ -262,7 +260,7 @@ fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
 
 
 <p class="comment">
-**Practice 2:** Download `reef_fish.xlsx`, save it in a working directory you dedicate for this course, and import it in R. Do the same after converting this `reef_fish` file into a `.txt` file.
+**Practice 2:** Download `reef_fish.xlsx`, save it in a working directory you dedicated for this course, and import it in R. Do the same after converting this `reef_fish` file into a `.txt` file.
 </p>
 
 ```{r, code_folding = 'Show Solution',  eval=FALSE}
@@ -323,7 +321,7 @@ Among the many advantages of RStudio, you will appreciate the user-adjustable in
 Again using our `fish` data set, we can write a script to import the data set as an object `fish` and create a very simple plot to visualize difference of reef fish richness by country.
 
 ```{r,  eval=T}
-# import data set and create an objct in R studio + simple plot 
+# import data set and create an object in R studio + simple plot 
 fish<-read.table('Data/reef_fish.txt', header=T, sep='\t', dec='.')
 barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRUE, names.arg=fish$country, cex.names=0.5, las=1)
 ```
@@ -331,10 +329,77 @@ barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRU
 **Note**: using the options in R studio, you can easily export the resulting plot as and image, a pdf, or to copy it to your clipboard.  
 
 
+# R markdown
 
 
+R markdown is text-based formatting that allows you to embed code and explanatory text in the same document.R markdown documents consist of a header, code chunks and text. R markdown files (.Rmd) can be rendered to other document formats (e.g. html, pdf, docx) to generate reports or web applications.Formatting analyses in R markdown keeps the entire research process in one document that can easily regenerate reports and output if the data are changed.For example, the course website is a set of R markdown files that have been rendered to html files and are hosted on an online repository: https://github.com/vianneydenis/OCEAN5098.git
+
+Visit R markdown [webpage](https://rmarkdown.rstudio.com/) for an overview of its capability. [Download](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) cheat sheet  to get familiar with it. I also recommend you the R markdown bible: Xie et al. (2020), available [here](https://bookdown.org/yihui/rmarkdown/) to become an expert with markdown. 
 
 
+<span style="color: red">**BEGINNER**</span> In order to understand its multiple advantages, simply go to *File>New File>R Markdown* in RStudio. Give your document a title `test`. Select *HTML* Output. **Knit** the document create, and save it as `test` to visualize it.The options `r knitr::asis_output("\U1F2699")` should allow you to 'Preview in Window' or to 'Preview in viewer Panel'. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
 
+
+<span style="color: red">**ADVANCED I**</span> On the top of this **Introduction** page, you can download a *Introduction.Rmd*. By knitting it in RStudio, you should be able to **render** this *.Rmd* as html page similar to the present webpage. In order for it to work you would have to: (1) install **ALL** the packages used in this *.Rmd* (`knitr`, `xfun`, `abc`, `vegan`, `readxl`, `formatR`) (2) make sure to have in your working directory a file called **Data** where you will have download `reef_fish.xlsx` and generate `reef_fish.txt`. 
+
+
+<span style="color: red">**ADVANCED II**</span> This [repository](https://github.com/vianneydenis/OCEAN5098.git) available on GitHub is the working directory of the OCEAN5098.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to **fork** this repository to your GitHub account, then clone a copy of this forked repository (from your own Github account to your computer).
+
+
+# Git & GitHub
+
+You will need a bit of time to get use to it, but the best way to work with R is by using online repositories. You can first create an **account** on [GitHub](https://github.com/) and **create a first repository** that you will later use connected with  RStudio.
+
+## Installation
+
+### Windows
+
+1. Download the git installer for Windows [here](https://git-scm.com/). This will install bash, which is a command-line shell program for interacting with files and programs on your computer.
+
+2. Run the installer that you just downloaded. Click “Next” as needed and when you get to the following options accept default.
+
+3. That’s it! You should now have three new programs installed in a folder called Git under your Program Files.
+
+### macOS
+
+Follow the instructions below or view this [video tutorial](https://www.youtube.com/watch?v=9LQhwETCdwY&ab_channel=SarahStevens).
+
+1. Go to this [list](https://sourceforge.net/projects/git-osx-installer/files/) and download an installer for Git.
+   + If you are using OS X 10.9 and higher, choose the most recent version for “mavericks”.
+   + If you are using an earlier version of OS X, choose the most recent version for “snow leopard”.
+
+2. Run the installer you downloaded.
+
+3. After installing Git, there will not be anything in your /Applications folder, because Git is a command line program.
+
+
+**Note**: if you have OSX El Capitan you may experience some errors when running Git if you don’t have an updated XCODE.[Here](https://stackoverflow.com/questions/32893412/command-line-tools-not-working-os-x-el-capitan-sierra-high-sierra-mojave) is a description of the issue on StackOverflow and the solution is to open a Terminal window and type `xcode-select--install`.
+
+### Linux 
+
+You may already have Git installed. If not, you can try to install it via your distribution package manager. For Debian/Ubuntu run 'sudo apt-get install git' and for Fedora run 'sudo yum install git'.
+
+
+## Integration to RStudio
+
+*File > New Project* select  *Version Control: Checkout a project from a version control repository* and *Git:Clone a project from a Git repository*. Enter the *URL* of your repository (and its name), and where you want to copy it on your computer. Once you validate:
+
++ you will create a .RProject. Any change in your repository will appear in 'Git'
+
++ changes needs to be 'commit' (prepared) and 'push' (uploaded) to GitHub in order to be synchronized
+
++ first 'commit' will fail and ask you to set up Git with email and username. Open Git CMD and process as indicated
+
++ first 'push' will be pending your GitHub login and password
+
++ any changes in your GitHub repo must be 'pull' prior working on your project in RStudio
+
+<p class="comment"> **Practice 3:** Try You best to complete **ADVANCED I** and **ADVANCED II**. It may be challenging at first but if you succeed you will have master important functionalities of the R environment  
+</p>
+
+# Credits
+
+
+> Content derived from Fukami T. & Coyle J. (Standford University) derived itself from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see http://creativecommons.org/licenses/by/3.0/).
 
 
