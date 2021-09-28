@@ -2,7 +2,7 @@
 title: "Fun with R: Ecological data analysis in R"
 ---
 
-Welcome to the website of *OCEAN 5098*. This  course will help you to get familiar with R environment and some common functionality in ecological study. No prior knowledge in R or any other programming language is required to enroll this course. 
+Welcome to the website of *OCEAN 5098*. This  course will help you to get familiar with R environment and some its common functionalities for ecological studies. No prior knowledge in R or in any other programming languages is required to enroll the course. 
 
 # Information
 
@@ -112,4 +112,4 @@ sample(list_student, 1, replace = TRUE)
 
 **(3)** A short (5-10 printed A4 pages max.) **research project** (*.Rmd* and/or *.html*) must be prepared along the semester and will be sent on week before the day of the final exam. Format must follow the format of a scientific publication but with introduction and discussion summarized to the maximum as bullet points. A focus should be given on the methods (data set and analysis) and the results. Because of the pandemic, I will assign you with a data set and a research question. If situation is getting better, you may pick up by yourself a topic of your choice and work on this project as a small group (2-3  people max.) and present your work on the final week. In the latter case, a **small proposal** (1-2 pages, *.Rmd* and/or *.html*) will have to be submitted before mid-term week and are encouraged to develop your own experiment or develop original research question based on already published data sets (avoid topics related to COVID-19 in order to be original, > 50 % of projects last year ). 
 
-<p style="color:red">Final score (**100%**) is typically composed of mid-term  (**30%**) and final (**50%**) reports, and others: weekly participation and assignments (**20%**)</p>
+<p style="color:red">Final score is typically composed of mid-term  (**30%**), final (**50%**) reports, and others: weekly participation and assignments (**20%**)</p>
