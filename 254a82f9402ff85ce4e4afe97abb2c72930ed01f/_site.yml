@@ -22,12 +22,10 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "Introduction"
-      href: introduction.html
-#    - text: "Topic 1"
-#      menu:
-#        - text: "Lecture"
-#          href: lecture_1.html
+    - text: "Environment"
+      href: environment.html
+#    - text: "Data Manipulation"
+#      href: manipulation.html
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
