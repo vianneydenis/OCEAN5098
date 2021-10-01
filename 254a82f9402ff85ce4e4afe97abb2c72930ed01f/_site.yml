@@ -24,8 +24,8 @@ navbar:
       href: index.html
     - text: "Environment"
       href: environment.html
-#    - text: "Data Manipulation"
-#      href: manipulation.html
+    - text: "Manipulation"
+      href: manipulation.html
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
