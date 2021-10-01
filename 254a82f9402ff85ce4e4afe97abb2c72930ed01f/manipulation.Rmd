@@ -237,7 +237,7 @@ iris$color<-ifelse(iris$Species=='setosa','purple', ifelse(iris$Species=='versic
 iris[order(iris$Sepal.Width, decreasing = T),]
 ```
 
-*To delete a variable, this variable will recived `NULL`*
+*To delete a variable, this variable will received `NULL`*
 
 
 

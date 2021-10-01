@@ -25,7 +25,13 @@ navbar:
     - text: "Environment"
       href: environment.html
     - text: "Manipulation"
-      href: manipulation.html
+      menu:
+        - text: "Basics"
+          href: manipulation.html    
+        - text: "dplyr"
+          href: dplyr.html  
+    - text: "Graphics"
+#      href: Graphics.html
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
