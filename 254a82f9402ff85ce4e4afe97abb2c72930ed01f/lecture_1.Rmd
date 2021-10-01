@@ -1,6 +1,0 @@
----
-title: "Topic 1: Lecture"
-description: |
-  List of required courses and by division. Classes delivered in English or with an possible alternative for foreigner students to get the corresponing credits
----
-

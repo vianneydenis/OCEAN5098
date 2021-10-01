@@ -22,12 +22,16 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "Introduction"
-      href: introduction.html
-#    - text: "Topic 1"
-#      menu:
-#        - text: "Lecture"
-#          href: lecture_1.html
+    - text: "Environment"
+      href: environment.html
+    - text: "Manipulation"
+      menu:
+        - text: "Basics"
+          href: manipulation.html    
+        - text: "dplyr"
+          href: dplyr.html  
+    - text: "Graphics"
+#      href: Graphics.html
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
@@ -39,4 +43,5 @@ output:
     highlight: rstudio
     toc: true
     toc_depth: 1
+
   
