@@ -1,22 +1,25 @@
 ---
-title: "Introduction"
+title: "Environment"
 ---
 
+
 ```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
-knitr::purl("introduction.Rmd", documentation = F)
+knitr::purl('environment.Rmd', documentation = F)
 ```
 
 ```{r echo=FALSE, purl=F}
-xfun::embed_file('introduction.Rmd')
+xfun::embed_file('environment.Rmd')
 ```
 
 ```{r echo=FALSE, purl=F}
-xfun::embed_file('introduction.R')
+xfun::embed_file('environment.R')
 ```
 
 ```{r echo=FALSE, purl=F}
 xfun::embed_file('Data/reef_fish.xlsx')
 ```
+
+
 
 # R software
 
@@ -339,7 +342,7 @@ R markdown is text-based formatting that allows you to embed code and explanator
 Visit R markdown [webpage](https://rmarkdown.rstudio.com/) for an overview of its capability. [Download](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf) cheat sheet  to get familiar with it. I also recommend you the R markdown bible: Xie et al. (2020), available [here](https://bookdown.org/yihui/rmarkdown/) to become an expert with markdown. 
 
 
-<span style="color: red">**BEGINNER**</span> In order to understand its multiple advantages, simply go to *File>New File>R Markdown* in RStudio. Give your document a title `test`. Select *HTML* Output. **Knit** the document create, and save it as `test` to visualize it.The options `r knitr::asis_output("\U1F2699")` should allow you to 'Preview in Window' or to 'Preview in viewer Panel'. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
+<span style="color: red">**BEGINNER**</span> In order to understand its multiple advantages, simply go to *File>New File>R Markdown* in RStudio. Give your document a title `test`. Select *HTML* Output. **Knit** the document create, and save it as `test` to visualize it.The options `r knitr::asis_output("\U2699")` should allow you to 'Preview in Window' or to 'Preview in viewer Panel'. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
 
 
 <span style="color: red">**ADVANCED I**</span> On the top of this **Introduction** page, you can download a *Introduction.Rmd*. By knitting it in RStudio, you should be able to **render** this *.Rmd* as html page similar to the present webpage. In order for it to work you would have to: (1) install **ALL** the packages used in this *.Rmd* (`knitr`, `xfun`, `abc`, `vegan`, `readxl`, `formatR`) (2) make sure to have in your working directory a file called **Data** where you will have download `reef_fish.xlsx` and generate `reef_fish.txt`. 
