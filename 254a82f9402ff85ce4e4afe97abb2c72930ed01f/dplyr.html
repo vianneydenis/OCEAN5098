@@ -2454,6 +2454,7 @@ Manipulation
 <div class="nav-dropdown-content">
 <a href="manipulation.html">Basics</a>
 <a href="dplyr.html">dplyr</a>
+<span class="nav-dropdown-header">tidyr</span>
 </div>
 </div>
 <span class="nav-dropdown-header">Graphics</span>
@@ -2474,7 +2475,243 @@ Manipulation
 
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#manipulation">Manipulation</a></li>
+<li><a href="#pipe-operator">Pipe operator</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogImRwbHlyIg0KLS0tDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPUYsIHdhcm5pbmc9RiwgcHVybD1GLCByZXN1bHRzPSJoaWRlIn0NCmtuaXRyOjpwdXJsKCdkcGx5ci5SbWQnLCBkb2N1bWVudGF0aW9uID0gRikNCmBgYA0KDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2RwbHlyLlJtZCcpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZHBseXIuUicpDQpgYGANCg0KVGhlIHBhY2thZ2UgYGRwbHlyYCBpcyAgZGVkaWNhdGVkIHRvIHRoZSBkYXRhIG1hbmlwdWxhdGlvbiBpbiBSLiBJdCBoYXMgbWFueSBjb21tb24gZnVuY3Rpb25zIHRvIGZhc3RlbiAgZGF0YSBleHBsb3JhdGlvbiBhbmQgdHJhbnNmb3JtYXRpb24uIFNvbWUgaW1wb3J0YW50IGZ1bmN0aW9ucyBmcm9tIHRoaXMgcGFja2FnZXMgYXJlIGNvdmVyZWQgYmVsb3cuDQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KbGlicmFyeSAoZHBseXIpDQpgYGANCg0KDQoNCiMgU3VtbWFyeQ0KDQpUaGUgZnVuY3Rpb24gYHN1bW1hcmlzZWAgaXMgdXNlZCB0byBmaW5kIGluc2lnaHRzIChtZWFuLCBtZWRpYW4sIG1vZGUsIGV0Yy4pIGZyb20gYSBkYXRhc2V0LiBJdCByZWR1Y2VzIG11bHRpcGxlIHZhbHVlcyBkb3duIHRvIGEgc2luZ2xlIHZhbHVlLiBGb3IgZXhhbXBsZToNCg0KYGBge3IsICBldmFsPVR9DQpzdW1tYXJpc2VkIDwtIHN1bW1hcmlzZShpcmlzLCBNZWFuLldpZHRoID0gbWVhbihTZXBhbC5XaWR0aCkpDQpoZWFkKHN1bW1hcmlzZWQpDQpgYGANCg0KIyBNYW5pcHVsYXRpb24NCg0KIyMgYHNlbGVjdGANCg0KSXQgaXMgdXNlZCB0byBzZWxlY3QgZGF0YSBieSBjb2x1bW4gbmFtZS4gU2V2ZXJhbCBzeW50YXhlcyBhcmUgcG9zc2libGUuIEZvciBleGFtcGxlOg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCiMgYnkgY29sdW1uIG5hbWVzDQpzZWxlY3RlZCA8LSBzZWxlY3QoaXJpcywgU2VwYWwuTGVuZ3RoLCBTZXBhbC5XaWR0aCwgUGV0YWwuTGVuZ3RoKQ0KaGVhZChzZWxlY3RlZCkgDQoNCiMgYnkgY29sdW1uIHJhbmdlDQpzZWxlY3RlZDEgPC0gc2VsZWN0KGlyaXMsIFNlcGFsLkxlbmd0aDpQZXRhbC5MZW5ndGgpDQpoZWFkKHNlbGVjdGVkMSwgNCkNCg0KIyBieSBjb2x1bW4gcmFuZ2UgbnVtYmVyDQpzZWxlY3RlZDIgPC0gc2VsZWN0KGlyaXMsYygyOjUpKQ0KaGVhZChzZWxlY3RlZDIpDQpgYGANCg0KVXNlIGAtYCB0byBoaWRlIGEgcGFydGljdWxhciBjb2x1bW4NCg0KYGBge3IsICBldmFsPUZ9DQpzZWxlY3RlZCA8LSBzZWxlY3QoaXJpcywgLVNlcGFsLkxlbmd0aCwgLVNlcGFsLldpZHRoKQ0KYGBgDQoNCiMjIGBmaWx0ZXJgDQoNCkl0IGlzIHVzZWQgdG8gZmlsdGVyIHJvd3Mgd2l0aCBtYXRjaGluZyBjcml0ZXJpYS4gSXQgd29ya3MgaW4gdGVoIHNhbWUgd2F5IHRoYW4gdGhlIGZ1bmN0aW9uIGBzZWxlY3RgIChpLmUuLCB3ZSBwYXNzIGEgZGF0YSBmcmFtZSBhbG9uZyB3aXRoIGEgY29uZGl0aW9uIHNlcGFyYXRlZCBieSBhIGNvbW1hKS4NCg0KLSBTaW5nbGUgY29uZGl0aW9uOg0KDQpgYGB7ciwgIGV2YWw9VH0NCiMgU2VsZWN0IHNldG9zYSBzcGVjaWVzDQpmaWx0ZXJlZCA8LSBmaWx0ZXIoaXJpcywgU3BlY2llcyA9PSAic2V0b3NhIiApDQpoZWFkKGZpbHRlcmVkLDMpDQpgYGANCg0KLSBEdWFsIGNvbmRpdGlvbnM6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KIyBTZWxlY3QgdmVyc2ljb2xvciBzcGVjaWVzIHdpdGggU2VwYWwgd2lkdGggbW9yZSB0aGFuIDMNCmZpbHRlcmVkMSA8LSBmaWx0ZXIoaXJpcywgU3BlY2llcyA9PSAidmVyc2ljb2xvciIsIFNlcGFsLldpZHRoID4gMykNCnRhaWwoZmlsdGVyZWQxKQ0KYGBgDQoNCg0KIyMgYG11dGF0ZWANCg0KSXQgY3JlYXRlcyBuZXcgY29sdW1ucyAodmFyaWFibGVzKSBhbmQgcHJlc2VydmVzIHRoZSBleGlzdGluZyBjb2x1bW5zIGluIGEgZGF0YSBzZXQuIEZvciBleGFtcGxlOg0KDQpgYGB7ciwgIGV2YWw9VH0NCiNUbyBjcmVhdGUgYSBjb2x1bW4g4oCcR3JlYXRlci5IYWxm4oCdIHdoaWNoIHN0b3JlcyBUUlVFIGlmIGdpdmVuIGNvbmRpdGlvbiBpcyBUUlVFDQptdXRhdGVkMSA8LSBtdXRhdGUoaXJpcywgR3JlYXRlci5IYWxmID0gU2VwYWwuV2lkdGggPiAwLjUgKiBTZXBhbC5MZW5ndGgpDQp0YWlsKG11dGF0ZWQxKQ0KYGBgDQoNClRvIGNoZWNrIGhvdyBtYW55IGZsb3dlciBzYXRpc2Z5IHRoaXMgY29uZGl0aW9uLCB0aGUgb3V0cHV0IG9mIHRoZSBmdW5jdGlvbiBgdGFibGV7YmFzZX1gIGlzIGEgY29udGluZ2VuY3kgdGFibGUgd2l0aCB0aGUgbm8uIG9mIGluZGl2aWR1YWwgKGBGQUxTRWAgYW5kIGBUUlVFYCk6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KdGFibGUobXV0YXRlZDEkR3JlYXRlci5IYWxmKQ0KYGBgDQoNCiMjIGBhcnJhbmdlYA0KDQpJdCBpcyB1c2VkIHRvIHNvcnQgcm93cyBieSB2YXJpYWJsZXMgaW4gYm90aCBhbiBhc2NlbmRpbmcgYW5kIGRlc2NlbmRpbmcgb3JkZXIuIEZvciBleGFtcGxlOg0KDQpgYGB7ciwgIGV2YWw9VH0NCiMgU2VwYWwgV2lkdGggYnkgYXNjZW5kaW5nIG9yZGVyDQphcnJhbmdlZCA8LSBhcnJhbmdlKGlyaXMsIFNlcGFsLldpZHRoKQ0KaGVhZChhcnJhbmdlZCkNCg0KIyBTZXBhbCBXaWR0aCBieSBkZXNjZW5kaW5nIG9yZGVyDQphcnJhbmdlZDEgPC0gYXJyYW5nZShpcmlzLCBkZXNjKFNlcGFsLldpZHRoKSkNCmhlYWQoYXJyYW5nZWQxKQ0KYGBgDQoNCiMjIGBncm91cF9ieWANCg0KSXQgaXMgZG9uZSB0byBncm91cCBvYnNlcnZhdGlvbnMgd2l0aGluIGEgZGF0YXNldCBieSBvbmUgb3IgbW9yZSB2YXJpYWJsZXMuIERhdGEgb3BlcmF0aW9ucyBhcmUgb2Z0ZW4gcGVyZm9ybWVkIG9uIGdyb3VwcyBkZWZpbmVkIGJ5IHZhcmlhYmxlcy4gRm9yIGV4YW1wbGUgd2hlbiBjb21iaW5lZDoNCg0KYGBge3IsICBldmFsPVR9DQojIE1lYW4gc2VwYWwgd2lkdGggYnkgU3BlY2llcw0KZ3AgPC0gZ3JvdXBfYnkoaXJpcywgU3BlY2llcykNCmdwLm1lYW4gPC0gc3VtbWFyaXNlKGdwLE1lYW4uU2VwYWwgPSBtZWFuKFNlcGFsLldpZHRoKSkNCmdwLm1lYW4NCmBgYA0KDQpWaXNpdCB0aGUgZm9sbHdvaW5nIFt3ZWJzaXRlXShodHRwczovL2RwbHlyLnRpZHl2ZXJzZS5vcmcvKSBmb3IgbW9yZSBpbmZvcm1hdGlvbiBvbiB0aGUgYGRwbHlyYCBwYWNrYWdlDQoNCiMgUGlwZSBvcGVyYXRvcg0KDQpUaGUgcGlwZSBvcGVyYXRvciBgJT4lYCBhbGxvd3MgdG8gd3JhcCBtdWx0aXBsZSBmdW5jdGlvbnMgdG9nZXRoZXIuIEl0IGNhbiBiZSB1c2VkIHdpdGggZnVuY3Rpb25zIGxpa2UgYGZpbHRlcmAsIGBzZWxlY3RgLCBgYXJyYW5nZWAsIGBzdW1tYXJpc2VgLCBgZ3JvdXBfYnlgLCBldGMuIEFzIGZvciAgYW4gZXhhbXBsZToNCg0KYGBge3IsICBldmFsPVR9DQojVG8gc2VsZWN0IHRoZSByb3dzIHdpdGggY29uZGl0aW9ucw0KaXJpcyAlPiUgZmlsdGVyKFNwZWNpZXMgPT0gInNldG9zYSIsU2VwYWwuV2lkdGggPiAzLjgpDQpgYGANCg0KVG8gZmluZCBtZWFuIGBTZXBhbGBMZW5ndGggYnkgYFNwZWNpZXNgLCB3ZSB1c2UgdGVoIHBpcGUgb3BlcmF0b3IgYXMgZm9sbG93aW5nOg0KDQpgYGB7ciwgIGV2YWw9VH0NCmlyaXMgICU+JSBncm91cF9ieShTcGVjaWVzKSAlPiUgc3VtbWFyaXNlKE1lYW4uTGVuZ3RoID0gbWVhbihTZXBhbC5MZW5ndGgpKQ0KYGBgDQoNCg0KDQo8cCBjbGFzcz0iYWxlcnQiPg0KKipgciBrbml0cjo6YXNpc19vdXRwdXQoIlxVMjZBMCIpYCBQcmFjdGljZSAxOioqIFRoZSBkYXRhIHNldCBgcmFpcnVvaG9gIGlzIGF2YWlsYWJsZSBhdCB0aGUgZm9sbG93aW5nIFtsaW5rXShodHRwczovL3d3dy5kaXBpbnRvdGhlcmVlZi5jb20vdXBsb2Fkcy8zLzcvMy81LzM3MzU5MjQ1L3JhaXJ1b2hvLnR4dCkuIEl0IHByb3ZpZGVzIDggZGF5cyBncm93dGggZGF0YSBvZiBFYXN0ZXIgZ3Jhc3MgZXhwb3NlZCB0byBkaWZmZXJlbnQgdHJlYXRtZW50cy4NClRoZSA2IHZhcmlhYmxlcyAqKmBkYXkzYCoqIHRvICoqYGRheThgKiogYXJlIG1lYW4gbGVuZ3RoIG9mIHRoZSBncmFzcyBhdCB0aGUgZ2l2ZW4gZGF5LiAqKmBnZXJtaW5hdGVgKiogaXMgdGhlIG5vLiBvZiBnZXJtaW5hdGVkIHNlZWRzLioqYGJlZGAqKiBpcyBhIGZhY3RvciB3aXRoIGZvdXIgbGV2ZWxzIChgbW91bGQxYCxgbW91bGQyYCwgYHBhcGVyNGAsIGBwYXBlcjhgKSBpbmRpY2F0aW5nIHdoZXJlIHRoZSBncmFzcyB3YXMgZ3Jvd2luZyBhbmQgdGhpY2tuZXNzLiAqKmB0cmVhdGVtZW50YCoqIGhhcyB0d28gbGV2ZWxzIGB3YXRlcmAgYW5kIGBudXRyaWVudGAgaW5kaWNhdGluZyB3YXRlcmluZyBzY2hlbWUgKHB1cmUgd2F0ZXIgb3IgZW5yaWNoZWQgd2l0aCBudXRyaWVudHMpLiAqKmBzcGF0aWFsMWAqKiBhbmQgKipgc3BhdGlhbDJgKiogYXJlIHRoZSB2ZXJ0aWNhbCBhbmQgaG9yaXpvbnRhbCBwb3NpdGlvbiBvZiB0aGUgcGxvdCwgcmVzcGVjdGl2ZWx5LiBUaGUgdmFyaWFibGUgYHJvd2AgYW5kIGBjb2x1bW5gIGFyZSBtZWFuaW5nbGVzcyBzaG91bGQgYmUgcmVtb3ZlZC4NCjwvcD4NCg0KDQo8cCBjbGFzcz0iYWxlcnQiPg0KKipJbnN0cnVjdGlvbjoqKiBSZWZvcm1hdCB0aGUgdGFibGUgaW4gb3JkZXIgdG8gaGF2ZSB0aGUgYGRheWAgYXMgYSBzaW5nbGUgdmFyaWFibGUgKGZhY3RvcikgY29udGFpbmluZyA2IGxldmVscyAoYGRheTNgLCBgZGF5NGAsIGBkYXk1YCwgYGRheTZgLCBgZGF5N2AsIGBkYXk4YCkuIEFub3RoZXIgdmFyaWFibGUgYGxlbmd0aGAgIHdpbGwgYmUgY3JlYXRlZCB0byByZWNpZXZlIHRoZSBsZW5ndGggb2YgdGhlIGdyYXNzIGF0IHRoZSBnaXZlbiBkYXkuIFlvdSBtYXkgdGFrZSBhZHZhbnRhZ2Ugb2YgdGhlIGZ1bmN0aW9uYWxpdGllcyBvZiB0aGUgcGFja2FnZSBgdGlkeXJgIGFuZCBlc3BlY2lhbGx5IHRoZSBmdW5jdGlvbiBgcGl2b3RfbG9uZ2VyYCB1c2VkIGluIGNvbWJpbmF0aW9uIHdpdGggdGhlIHBpcGUgb3BlcmF0b3IgYCU+JWAuIA0KPC9wPg0KDQpZb3Ugd2lsbCBzZW5kIHlvdXIgc29sdXRpb24gYnkgZW1haWwgW3ZpYW5uZXlkZW5pc0BnLm50dS5lZHUudHddIGJlZm9yZSBuZXh0IE1vbmRheS4gVXNlIGBQcmFjdGljZSAxIChuYW1lOnN0dWRlbnQgbm8uKWAgZm9yIHRpdGxlLiBJIHdvdWxkIG9ubHkgYWNjZXB0ICouUm1kKiBhbmQgKi5odG1sKiBmb3JtYXRzLg0K" download="dplyr.Rmd">Download dplyr.Rmd</a></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/plain;base64,bGlicmFyeSAoZHBseXIpDQoNCnN1bW1hcmlzZWQgPC0gc3VtbWFyaXNlKGlyaXMsIE1lYW4uV2lkdGggPSBtZWFuKFNlcGFsLldpZHRoKSkNCmhlYWQoc3VtbWFyaXNlZCkNCg0KIyBieSBjb2x1bW4gbmFtZXMNCnNlbGVjdGVkIDwtIHNlbGVjdChpcmlzLCBTZXBhbC5MZW5ndGgsIFNlcGFsLldpZHRoLCBQZXRhbC5MZW5ndGgpDQpoZWFkKHNlbGVjdGVkKSANCg0KIyBieSBjb2x1bW4gcmFuZ2UNCnNlbGVjdGVkMSA8LSBzZWxlY3QoaXJpcywgU2VwYWwuTGVuZ3RoOlBldGFsLkxlbmd0aCkNCmhlYWQoc2VsZWN0ZWQxLCA0KQ0KDQojIGJ5IGNvbHVtbiByYW5nZSBudW1iZXINCnNlbGVjdGVkMiA8LSBzZWxlY3QoaXJpcyxjKDI6NSkpDQpoZWFkKHNlbGVjdGVkMikNCg0Kc2VsZWN0ZWQgPC0gc2VsZWN0KGlyaXMsIC1TZXBhbC5MZW5ndGgsIC1TZXBhbC5XaWR0aCkNCg0KIyBTZWxlY3Qgc2V0b3NhIHNwZWNpZXMNCmZpbHRlcmVkIDwtIGZpbHRlcihpcmlzLCBTcGVjaWVzID09ICJzZXRvc2EiICkNCmhlYWQoZmlsdGVyZWQsMykNCg0KIyBTZWxlY3QgdmVyc2ljb2xvciBzcGVjaWVzIHdpdGggU2VwYWwgd2lkdGggbW9yZSB0aGFuIDMNCmZpbHRlcmVkMSA8LSBmaWx0ZXIoaXJpcywgU3BlY2llcyA9PSAidmVyc2ljb2xvciIsIFNlcGFsLldpZHRoID4gMykNCnRhaWwoZmlsdGVyZWQxKQ0KDQojVG8gY3JlYXRlIGEgY29sdW1uIOKAnEdyZWF0ZXIuSGFsZuKAnSB3aGljaCBzdG9yZXMgVFJVRSBpZiBnaXZlbiBjb25kaXRpb24gaXMgVFJVRQ0KbXV0YXRlZDEgPC0gbXV0YXRlKGlyaXMsIEdyZWF0ZXIuSGFsZiA9IFNlcGFsLldpZHRoID4gMC41ICogU2VwYWwuTGVuZ3RoKQ0KdGFpbChtdXRhdGVkMSkNCg0KdGFibGUobXV0YXRlZDEkR3JlYXRlci5IYWxmKQ0KDQojIFNlcGFsIFdpZHRoIGJ5IGFzY2VuZGluZyBvcmRlcg0KYXJyYW5nZWQgPC0gYXJyYW5nZShpcmlzLCBTZXBhbC5XaWR0aCkNCmhlYWQoYXJyYW5nZWQpDQoNCiMgU2VwYWwgV2lkdGggYnkgZGVzY2VuZGluZyBvcmRlcg0KYXJyYW5nZWQxIDwtIGFycmFuZ2UoaXJpcywgZGVzYyhTZXBhbC5XaWR0aCkpDQpoZWFkKGFycmFuZ2VkMSkNCg0KIyBNZWFuIHNlcGFsIHdpZHRoIGJ5IFNwZWNpZXMNCmdwIDwtIGdyb3VwX2J5KGlyaXMsIFNwZWNpZXMpDQpncC5tZWFuIDwtIHN1bW1hcmlzZShncCxNZWFuLlNlcGFsID0gbWVhbihTZXBhbC5XaWR0aCkpDQpncC5tZWFuDQoNCiNUbyBzZWxlY3QgdGhlIHJvd3Mgd2l0aCBjb25kaXRpb25zDQppcmlzICU+JSBmaWx0ZXIoU3BlY2llcyA9PSAic2V0b3NhIixTZXBhbC5XaWR0aCA+IDMuOCkNCg0KaXJpcyAgJT4lIGdyb3VwX2J5KFNwZWNpZXMpICU+JSBzdW1tYXJpc2UoTWVhbi5MZW5ndGggPSBtZWFuKFNlcGFsLkxlbmd0aCkpDQpgYGB7LnIgLmRpc3RpbGwtZm9yY2UtaGlnaGxpZ2h0aW5nLWNzc30NCmBgYA0K" download="dplyr.R">Download dplyr.R</a></p>
+</div>
+<p>The package <code>dplyr</code> is dedicated to the data manipulation in R. It has many common functions to fasten data exploration and transformation. Some important functions from this packages are covered below.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span> <span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h1 id="summary">Summary</h1>
+<p>The function <code>summarise</code> is used to find insights (mean, median, mode, etc.) from a dataset. It reduces multiple values down to a single value. For example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>summarised</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='va'>iris</span>, Mean.Width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>summarised</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Mean.Width
+1   3.057333</code></pre>
+</div>
+<h1 id="manipulation">Manipulation</h1>
+<h2 id="select"><code>select</code></h2>
+<p>It is used to select data by column name. Several syntaxes are possible. For example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># by column names</span>
+<span class='va'>selected</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Sepal.Length</span>, <span class='va'>Sepal.Width</span>, <span class='va'>Petal.Length</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length
+1          5.1         3.5          1.4
+2          4.9         3.0          1.4
+3          4.7         3.2          1.3
+4          4.6         3.1          1.5
+5          5.0         3.6          1.4
+6          5.4         3.9          1.7</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># by column range</span>
+<span class='va'>selected1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Sepal.Length</span><span class='op'>:</span><span class='va'>Petal.Length</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected1</span>, <span class='fl'>4</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length
+1          5.1         3.5          1.4
+2          4.9         3.0          1.4
+3          4.7         3.2          1.3
+4          4.6         3.1          1.5</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># by column range number</span>
+<span class='va'>selected2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Width Petal.Length Petal.Width Species
+1         3.5          1.4         0.2  setosa
+2         3.0          1.4         0.2  setosa
+3         3.2          1.3         0.2  setosa
+4         3.1          1.5         0.2  setosa
+5         3.6          1.4         0.2  setosa
+6         3.9          1.7         0.4  setosa</code></pre>
+</div>
+<p>Use <code>-</code> to hide a particular column</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>selected</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='op'>-</span><span class='va'>Sepal.Length</span>, <span class='op'>-</span><span class='va'>Sepal.Width</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="filter"><code>filter</code></h2>
+<p>It is used to filter rows with matching criteria. It works in teh same way than the function <code>select</code> (i.e., we pass a data frame along with a condition separated by a comma).</p>
+<ul>
+<li>Single condition:</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Select setosa species</span>
+<span class='va'>filtered</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>filtered</span>,<span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa</code></pre>
+</div>
+<ul>
+<li>Dual conditions:</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Select versicolor species with Sepal width more than 3</span>
+<span class='va'>filtered1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"versicolor"</span>, <span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>filtered1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+3          6.9         3.1          4.9         1.5 versicolor
+4          6.3         3.3          4.7         1.6 versicolor
+5          6.7         3.1          4.4         1.4 versicolor
+6          5.9         3.2          4.8         1.8 versicolor
+7          6.0         3.4          4.5         1.6 versicolor
+8          6.7         3.1          4.7         1.5 versicolor</code></pre>
+</div>
+<h2 id="mutate"><code>mutate</code></h2>
+<p>It creates new columns (variables) and preserves the existing columns in a data set. For example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To create a column “Greater.Half” which stores TRUE if given condition is TRUE</span>
+<span class='va'>mutated1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>iris</span>, Greater.Half <span class='op'>=</span> <span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='va'>Sepal.Length</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>mutated1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+145          6.7         3.3          5.7         2.5 virginica
+146          6.7         3.0          5.2         2.3 virginica
+147          6.3         2.5          5.0         1.9 virginica
+148          6.5         3.0          5.2         2.0 virginica
+149          6.2         3.4          5.4         2.3 virginica
+150          5.9         3.0          5.1         1.8 virginica
+    Greater.Half
+145        FALSE
+146        FALSE
+147        FALSE
+148        FALSE
+149         TRUE
+150         TRUE</code></pre>
+</div>
+<p>To check how many flower satisfy this condition, the output of the function <code>table{base}</code> is a contingency table with the no. of individual (<code>FALSE</code> and <code>TRUE</code>):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mutated1</span><span class='op'>$</span><span class='va'>Greater.Half</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+FALSE  TRUE 
+   84    66 </code></pre>
+</div>
+<h2 id="arrange"><code>arrange</code></h2>
+<p>It is used to sort rows by variables in both an ascending and descending order. For example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Sepal Width by ascending order</span>
+<span class='va'>arranged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Sepal.Width</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>arranged</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1          5.0         2.0          3.5         1.0 versicolor
+2          6.0         2.2          4.0         1.0 versicolor
+3          6.2         2.2          4.5         1.5 versicolor
+4          6.0         2.2          5.0         1.5  virginica
+5          4.5         2.3          1.3         0.3     setosa
+6          5.5         2.3          4.0         1.3 versicolor</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Sepal Width by descending order</span>
+<span class='va'>arranged1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>arranged1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.7         4.4          1.5         0.4  setosa
+2          5.5         4.2          1.4         0.2  setosa
+3          5.2         4.1          1.5         0.1  setosa
+4          5.8         4.0          1.2         0.2  setosa
+5          5.4         3.9          1.7         0.4  setosa
+6          5.4         3.9          1.3         0.4  setosa</code></pre>
+</div>
+<h2 id="group_by"><code>group_by</code></h2>
+<p>It is done to group observations within a dataset by one or more variables. Data operations are often performed on groups defined by variables. For example when combined:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Mean sepal width by Species</span>
+<span class='va'>gp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span><span class='op'>)</span>
+<span class='va'>gp.mean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='va'>gp</span>,Mean.Sepal <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>gp.mean</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 x 2
+  Species    Mean.Sepal
+  &lt;fct&gt;           &lt;dbl&gt;
+1 setosa           3.43
+2 versicolor       2.77
+3 virginica        2.97</code></pre>
+</div>
+<p>Visit the follwoing <a href="https://dplyr.tidyverse.org/">website</a> for more information on the <code>dplyr</code> package</p>
+<h1 id="pipe-operator">Pipe operator</h1>
+<p>The pipe operator <code>%&gt;%</code> allows to wrap multiple functions together. It can be used with functions like <code>filter</code>, <code>select</code>, <code>arrange</code>, <code>summarise</code>, <code>group_by</code>, etc. As for an example:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To select the rows with conditions</span>
+<span class='va'>iris</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span>,<span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>3.8</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.4         3.9          1.7         0.4  setosa
+2          5.8         4.0          1.2         0.2  setosa
+3          5.7         4.4          1.5         0.4  setosa
+4          5.4         3.9          1.3         0.4  setosa
+5          5.2         4.1          1.5         0.1  setosa
+6          5.5         4.2          1.4         0.2  setosa</code></pre>
+</div>
+<p>To find mean <code>Sepal</code>Length by <code>Species</code>, we use teh pipe operator as following:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iris</span>  <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Species</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Mean.Length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 x 2
+  Species    Mean.Length
+  &lt;fct&gt;            &lt;dbl&gt;
+1 setosa            5.01
+2 versicolor        5.94
+3 virginica         6.59</code></pre>
+</div>
+<p class="alert">
+<strong>⚠ Practice 1:</strong> The data set <code>rairuoho</code> is available at the following <a href="https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt">link</a>. It provides 8 days growth data of Easter grass exposed to different treatments. The 6 variables <strong><code>day3</code></strong> to <strong><code>day8</code></strong> are mean length of the grass at the given day. <strong><code>germinate</code></strong> is the no. of germinated seeds.<strong><code>bed</code></strong> is a factor with four levels (<code>mould1</code>,<code>mould2</code>, <code>paper4</code>, <code>paper8</code>) indicating where the grass was growing and thickness. <strong><code>treatement</code></strong> has two levels <code>water</code> and <code>nutrient</code> indicating watering scheme (pure water or enriched with nutrients). <strong><code>spatial1</code></strong> and <strong><code>spatial2</code></strong> are the vertical and horizontal position of the plot, respectively. The variable <code>row</code> and <code>column</code> are meaningless should be removed.
+</p>
+<p class="alert">
+<strong>Instruction:</strong> Reformat the table in order to have the <code>day</code> as a single variable (factor) containing 6 levels (<code>day3</code>, <code>day4</code>, <code>day5</code>, <code>day6</code>, <code>day7</code>, <code>day8</code>). Another variable <code>length</code> will be created to recieve the length of the grass at the given day. You may take advantage of the functionalities of the package <code>tidyr</code> and especially the function <code>pivot_longer</code> used in combination with the pipe operator <code>%&gt;%</code>.
+</p>
+<p>You will send your solution by email [<a href="mailto:vianneydenis@g.ntu.edu.tw" class="email">vianneydenis@g.ntu.edu.tw</a>] before next Monday. Use <code>Practice 1 (name:student no.)</code> for title. I would only accept <em>.Rmd</em> and <em>.html</em> formats.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

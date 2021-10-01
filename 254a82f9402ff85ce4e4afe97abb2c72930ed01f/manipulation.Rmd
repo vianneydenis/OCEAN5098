@@ -239,19 +239,4 @@ iris[order(iris$Sepal.Width, decreasing = T),]
 
 *To delete a variable, this variable will received `NULL`*
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Those are functions in R Base Package. See also `?subset`, `?with`, `?within`, etc. Other packages such as the packages `data.table`, `ggplot2`, `reshape2`, `dplyr` etc. offer useful functionality for manipulating data set.
