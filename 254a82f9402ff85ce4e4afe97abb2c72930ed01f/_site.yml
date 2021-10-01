@@ -30,6 +30,7 @@ navbar:
           href: manipulation.html    
         - text: "dplyr"
           href: dplyr.html  
+        - text: "tidyr"
     - text: "Graphics"
 #      href: Graphics.html
 #        - text: "Script"

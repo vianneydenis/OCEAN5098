@@ -2454,6 +2454,7 @@ Manipulation
 <div class="nav-dropdown-content">
 <a href="manipulation.html">Basics</a>
 <a href="dplyr.html">dplyr</a>
+<span class="nav-dropdown-header">tidyr</span>
 </div>
 </div>
 <span class="nav-dropdown-header">Graphics</span>
@@ -2474,143 +2475,6 @@ Manipulation
 
 
 <div class="d-article">
-<h2 id="package-dplyr">Package <code>dplyr</code></h2>
-<p>So fare we used functions in base. Other useful functions<code>subset</code>, <code>with</code>, <code>within</code>, etc. Packages like <code>data.table</code>, <code>ggplot2</code>, <code>reshape2</code>, etc. also offer usueful functions. <code>dplyr</code> package is dedicated for manipulating the data in R with many common functions to fasten the data exploration and transformation. Some important functions included in the <code>dplyr</code> packages:</p>
-<ul>
-<li><code>select</code> to select columns (variables)</li>
-<li><code>filter</code> to filter (subset) rows</li>
-<li><code>mutate</code> to create new variables</li>
-<li><code>summarise</code> to summarize (or aggregate) data</li>
-<li><code>group_by</code> to group data</li>
-<li><code>arrange</code> to sort data</li>
-<li><code>join</code> to join data frames</li>
-</ul>
-<h3 id="select"><code>select</code></h3>
-<p>It is used to select data by its column name. We can select any number of columns in a number of ways. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span> <span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='va'>selected</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Sepal.Length</span>, <span class='va'>Sepal.Width</span>, <span class='va'>Petal.Length</span><span class='op'>)</span> <span class='co'>#To select the following columns</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected</span><span class='op'>)</span> <span class='co'># print the beginning of the data set created</span>
-<span class='va'>selected1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Sepal.Length</span><span class='op'>:</span><span class='va'>Petal.Length</span><span class='op'>)</span> <span class='co'>#To select all columns from Sepal.Length to Petal.Length</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected1</span>, <span class='fl'>4</span><span class='op'>)</span> <span class='co'>#To print first four rows of the data set created                       </span>
-<span class='va'>selected1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>#To select columns with numeric indexes</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected1</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>We used <code>-</code> to hide a particular column</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>selected</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='op'>-</span><span class='va'>Sepal.Length</span>, <span class='op'>-</span><span class='va'>Sepal.Width</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>selected</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<h3 id="filter"><code>filter</code></h3>
-<p>It is used to find rows with matching criteria. It also works like the select() function, i.e., we pass a data frame along with a condition separated by a comma. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To select the first 3 rows with Species as setosa</span>
-<span class='va'>filtered</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>filtered</span>,<span class='fl'>3</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>And for dual conditions:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To select the last 5 rows with Species as versicolor and Sepal width more than 3</span>
-<span class='va'>filtered1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"versicolor"</span>, <span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>filtered1</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<h3 id="mutate"><code>mutate</code></h3>
-<p>It creates new columns and preserves the existing columns in a dataset. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To create a column “Greater.Half” which stores TRUE if given condition is TRUE</span>
-<span class='va'>col1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>iris</span>, Greater.Half <span class='op'>=</span> <span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='va'>Sepal.Length</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>col1</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>To check how many flower satisfy this condition, the output of the function <code>table{base}</code> is a contingency table:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>col1</span><span class='op'>$</span><span class='va'>Greater.Half</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<h3 id="arrange"><code>arrange</code></h3>
-<p>It is used to sort rows by variables in both an ascending and descending order. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To arrange Sepal Width in ascending order</span>
-<span class='va'>arranged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>col1</span>, <span class='va'>Sepal.Width</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>arranged</span><span class='op'>)</span>
-<span class='co'>#To arrange Sepal Width in descending order</span>
-<span class='va'>arranged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>col1</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>arranged</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<h3 id="summarise"><code>summarise</code></h3>
-<p>It is used to find insights(mean, median, mode, etc.) from a dataset. It reduces multiple values down to a single value. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>summarised</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='va'>arranged</span>, Mean.Width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>summarised</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<h3 id="group_by"><code>group_by</code></h3>
-<p>It is done to group observations within a dataset by one or more variables. Most data operations are performed on groups defined by variables. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To find mean sepal width by Species, we use grouping as follows</span>
-<span class='va'>gp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>iris</span>,<span class='va'>Species</span><span class='op'>)</span>
-<span class='va'>mn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='va'>gp</span>,Mean.Sepal <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>mn</span>
-</code></pre>
-</div>
-</div>
-<h2 id="pipe-operator">Pipe operator</h2>
-<p>Pipe operator lets us wrap multiple functions together. It is denoted as <code>%&gt;%</code>. It can be used with functions like <code>filter</code>, <code>select</code>, <code>arrange</code>, <code>summarise</code>, <code>group_by</code>, etc. For example:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To get rows with the following conditions</span>
-<span class='va'>iris</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span>,<span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>3.8</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>To find mean Sepal Length by Species, we use pipe operator as follows:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iris</span>  <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Species</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Mean.Length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<blockquote>
-<p><em><span style="color: green"> <strong>Challenge</strong>: the data set <code>rairuoho</code>provides growth data for 8 days in different treatments. Reformat the table in order to have the <code>day</code> as a variable with 6 levels together with another variable called length. You may use another famous package for data manipulation <code>tidyr</code> and the function <code>gather()</code>. Current variables are given as:</span></em></p>
-</blockquote>
-<p><em><span style="color: green">- <code>day3</code> to <code>day8</code>: mean length of the grass at the given day </span></em></p>
-<p><em><span style="color: green">- <code>day3</code> to <code>day8</code>: mean length of the grass at the given day </span></em></p>
-<p><em><span style="color: green">- <code>germinate</code>: no. of germinated seeds </span></em></p>
-<p><em><span style="color: green">- <code>bed</code>: where the grass was growing, 4 levels: thin (mould1), thick (mould2) mould, thin (paper4) and thick (paper8) paper </span></em></p>
-<p><em><span style="color: green">- <code>treatement</code>: watering scheme, 2 levels: either pure water or water with nutrients </span></em></p>
-<p><em><span style="color: green">- <code>treatement</code>: watering scheme, 2 levels: either pure water or water with nutrients </span></em></p>
-<p><em><span style="color: green">- <code>spatial1</code>: vertical location of the plot </span></em></p>
-<p><em><span style="color: green">- <code>spatial2</code>: horizontal location of the plot </span></em></p>
-<p><em><span style="color: green">extra variable <code>row</code> and <code>column</code> can be removed</span></em></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>rairuoho</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='st'>'Data/rairuoho.txt'</span>,header<span class='op'>=</span><span class='cn'>T</span>, sep<span class='op'>=</span><span class='st'>"\t"</span>, dec<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>rairuoho</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
 <h2 id="package-tidyr">Package <code>tidyr</code></h2>
 <p>The function <code>gather</code> is depreciated (I am getting older and I keep using old function), and it is now recommended to switch to <code>pivot_longer()</code> still under active development: <code>df %&gt;% gather("key", "value", x, y, z)</code>is equivalent to <code>df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code></p>
 <p>Data tables come in different sizes and shape; they can be a very simple two column dataset or they can consist of many columns and “sub-columns”. Understanding its structure, and learning how to reshape it into a workable form is critical to an effective and error free analysis. The previous example illustrates the use of the package <code>tidyr</code> in tidying or reshaping tables. This package is the package by excellence to reorganize the structure of a table.</p>
@@ -3117,10 +2981,10 @@ Levels: U F M</code></pre>
 <span class='va'>m</span>
 </code></pre>
 </div>
-<pre><code>         [,1]     [,2]     [,3]
-[1,] 9.460677 8.715379 1.042076
-[2,] 3.731452 6.701388 3.529761
-[3,] 8.026378 2.065135 9.421975</code></pre>
+<pre><code>         [,1]     [,2]      [,3]
+[1,] 3.854680 5.563081 0.4826078
+[2,] 9.295886 1.121122 6.6976303
+[3,] 6.969340 1.400488 8.4460627</code></pre>
 </div>
 <p>If a higher dimension vector is desired, then use the <code>array</code> function to generate the n-dimensional object. A 3x3x3 array can be created as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3131,24 +2995,24 @@ Levels: U F M</code></pre>
 </div>
 <pre><code>, , 1
 
-         [,1]     [,2]     [,3]
-[1,] 2.408053 2.544211 1.064182
-[2,] 2.577210 5.946466 8.376548
-[3,] 4.304251 9.118073 4.015733
+          [,1]     [,2]      [,3]
+[1,] 9.7024890 3.027551 9.4432425
+[2,] 7.0633400 5.125132 0.0310566
+[3,] 0.8642937 6.092613 3.2635940
 
 , , 2
 
-         [,1]     [,2]      [,3]
-[1,] 6.603774 8.451973 5.4121397
-[2,] 9.641626 5.909380 0.1627156
-[3,] 3.957538 9.675871 7.5769196
+         [,1]     [,2]     [,3]
+[1,] 4.653883 1.158219 2.745312
+[2,] 4.599272 9.792116 3.152753
+[3,] 5.463340 8.768171 6.116959
 
 , , 3
 
          [,1]     [,2]     [,3]
-[1,] 9.261708 1.174834 7.682409
-[2,] 5.650507 7.143806 6.931372
-[3,] 8.099844 3.666035 2.335192</code></pre>
+[1,] 2.334416 3.381646 9.032255
+[2,] 5.094868 7.947191 5.787425
+[3,] 4.683014 3.665626 2.747319</code></pre>
 </div>
 <p>Matrices and arrays can store numeric or character data types, but they cannot store both.</p>
 <h4 id="data-frames">Data frames</h4>
@@ -3296,7 +3160,7 @@ $row.names
 [[3]]
 function (expr, name) 
 .External(C_doD, expr, name)
-&lt;bytecode: 0x000000001d43d030&gt;
+&lt;bytecode: 0x000000001d1e6698&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <p>When lists do not have component names, the <code>names</code> function will return NULL.</p>

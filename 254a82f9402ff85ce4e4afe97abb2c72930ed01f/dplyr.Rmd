@@ -1,3 +1,152 @@
 ---
 title: "dplyr"
 ---
+
+```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
+knitr::purl('dplyr.Rmd', documentation = F)
+```
+
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('dplyr.Rmd')
+```
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('dplyr.R')
+```
+
+The package `dplyr` is  dedicated to the data manipulation in R. It has many common functions to fasten  data exploration and transformation. Some important functions from this packages are covered below.
+
+```{r class.source = "fold-show",  eval=T}
+library (dplyr)
+```
+
+
+
+# Summary
+
+The function `summarise` is used to find insights (mean, median, mode, etc.) from a dataset. It reduces multiple values down to a single value. For example:
+
+```{r,  eval=T}
+summarised <- summarise(iris, Mean.Width = mean(Sepal.Width))
+head(summarised)
+```
+
+# Manipulation
+
+## `select`
+
+It is used to select data by column name. Several syntaxes are possible. For example:
+
+```{r class.source = "fold-show",  eval=T}
+# by column names
+selected <- select(iris, Sepal.Length, Sepal.Width, Petal.Length)
+head(selected) 
+
+# by column range
+selected1 <- select(iris, Sepal.Length:Petal.Length)
+head(selected1, 4)
+
+# by column range number
+selected2 <- select(iris,c(2:5))
+head(selected2)
+```
+
+Use `-` to hide a particular column
+
+```{r,  eval=F}
+selected <- select(iris, -Sepal.Length, -Sepal.Width)
+```
+
+## `filter`
+
+It is used to filter rows with matching criteria. It works in teh same way than the function `select` (i.e., we pass a data frame along with a condition separated by a comma).
+
+- Single condition:
+
+```{r,  eval=T}
+# Select setosa species
+filtered <- filter(iris, Species == "setosa" )
+head(filtered,3)
+```
+
+- Dual conditions:
+
+```{r,  eval=T}
+# Select versicolor species with Sepal width more than 3
+filtered1 <- filter(iris, Species == "versicolor", Sepal.Width > 3)
+tail(filtered1)
+```
+
+
+## `mutate`
+
+It creates new columns (variables) and preserves the existing columns in a data set. For example:
+
+```{r,  eval=T}
+#To create a column “Greater.Half” which stores TRUE if given condition is TRUE
+mutated1 <- mutate(iris, Greater.Half = Sepal.Width > 0.5 * Sepal.Length)
+tail(mutated1)
+```
+
+To check how many flower satisfy this condition, the output of the function `table{base}` is a contingency table with the no. of individual (`FALSE` and `TRUE`):
+
+```{r,  eval=T}
+table(mutated1$Greater.Half)
+```
+
+## `arrange`
+
+It is used to sort rows by variables in both an ascending and descending order. For example:
+
+```{r,  eval=T}
+# Sepal Width by ascending order
+arranged <- arrange(iris, Sepal.Width)
+head(arranged)
+
+# Sepal Width by descending order
+arranged1 <- arrange(iris, desc(Sepal.Width))
+head(arranged1)
+```
+
+## `group_by`
+
+It is done to group observations within a dataset by one or more variables. Data operations are often performed on groups defined by variables. For example when combined:
+
+```{r,  eval=T}
+# Mean sepal width by Species
+gp <- group_by(iris, Species)
+gp.mean <- summarise(gp,Mean.Sepal = mean(Sepal.Width))
+gp.mean
+```
+
+Visit the follwoing [website](https://dplyr.tidyverse.org/) for more information on the `dplyr` package
+
+# Pipe operator
+
+The pipe operator `%>%` allows to wrap multiple functions together. It can be used with functions like `filter`, `select`, `arrange`, `summarise`, `group_by`, etc. As for  an example:
+
+```{r,  eval=T}
+#To select the rows with conditions
+iris %>% filter(Species == "setosa",Sepal.Width > 3.8)
+```
+
+To find mean `Sepal`Length by `Species`, we use teh pipe operator as following:
+
+```{r,  eval=T}
+iris  %>% group_by(Species) %>% summarise(Mean.Length = mean(Sepal.Length))
+```
+
+
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice 1:** The data set `rairuoho` is available at the following [link](https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt). It provides 8 days growth data of Easter grass exposed to different treatments.
+The 6 variables **`day3`** to **`day8`** are mean length of the grass at the given day. **`germinate`** is the no. of germinated seeds.**`bed`** is a factor with four levels (`mould1`,`mould2`, `paper4`, `paper8`) indicating where the grass was growing and thickness. **`treatement`** has two levels `water` and `nutrient` indicating watering scheme (pure water or enriched with nutrients). **`spatial1`** and **`spatial2`** are the vertical and horizontal position of the plot, respectively. The variable `row` and `column` are meaningless should be removed.
+</p>
+
+
+<p class="alert">
+**Instruction:** Reformat the table in order to have the `day` as a single variable (factor) containing 6 levels (`day3`, `day4`, `day5`, `day6`, `day7`, `day8`). Another variable `length`  will be created to recieve the length of the grass at the given day. You may take advantage of the functionalities of the package `tidyr` and especially the function `pivot_longer` used in combination with the pipe operator `%>%`. 
+</p>
+
+You will send your solution by email [vianneydenis@g.ntu.edu.tw] before next Monday. Use `Practice 1 (name:student no.)` for title. I would only accept *.Rmd* and *.html* formats.
