@@ -1,40 +1,37 @@
-library (datasets) # load the dataset package
-rm(list=ls()) # remove objects already present
-data(iris) # load iris dataset
-ls() # the function data import an object 'iris'
-iris # print the object
-fix(iris) # open a speadsheet on the object
-summary(iris) # summarize the object
-class(iris) # give the class of the object
+library (datasets) # load package
+rm(list=ls()) # clean memory
+data(iris) # import dataset
+head (iris) # visualize 'head' dataset
+# note that using data automatically create an object called 'iris'
+
+summary(iris) #  object summary
+
 str(iris) # examine the structure of the object
 
-students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # inspect the object created
+fix(iris) # spreadsheet
 
-class(students$height)
-class(students[,1])
+students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # read data set from url
+str(students)
 
-students$height<-as.numeric(students$height) # assigned numerical value to this column
-class(students$height) # check the change was made
+# students[,1]
+students$height
 
-students[1,] #extract the first row of the table
+students[1,]
 
 students[1,1] # element in the first row, first column
 students$height[1] # first element in our vector height
 
-students$gender=="female" # check which information is for female
+students$gender=="female" # condition
 
-f<-students$gender=="female" # create a 'filter' called f
+f<-students$gender=="female" # filter
 
-females<-students[f,] # filter our 'students' dataset
+females<-students[f,] # selection
 females
 
-dim(females) # size of my new data frame
-colnames(females) # names of the columns
-rownames(females) # names of the rows
-rownames(females)<-c('Vanessa', 'Vicky', 'Marianna', 'Joyce', 'Victoria')
+rownames(females)<-c('Vanessa', 'Vicky', 'Michelle', 'Joyce', 'Victoria')
 females
 
-levels(iris$Species)
+# NOT RUN:  levels(iris$Species)
 setf<-iris$Species=="setosa"
 setosa<-iris[setf,]
 verf<-iris$Species=="versicolor"
@@ -43,14 +40,14 @@ virf<-iris$Species=="virginica"
 virginica<-iris[virf,] 
 
 sample(data, size, replace = FALSE, prob = NULL)
-#get source code
+# check in detail source code 
 # View(sample) OR getAnywhere(sample()) 
 
-nrow(students) # number of rows in student, same as dim(students)[1] 
-1:nrow(students) # create a vector from 1 to nrow(students) observation: 10
-stuf<-sample(1:nrow(students), 2) # filter randonly 2 students on my 10 students
-stuf # my two students
-students[stuf,] # apply my filter
+# NOT RUN, number of rows in females: nrow(females)
+1:nrow(females) # create a vector from 1 to nrow(females)
+sf<-sample(1:nrow(females), 2) # filter randonly 2 students on my 10 students
+sf # my two students
+females[sf,] # apply my filter
 
 ind1<-order (students$height ) # create the vector of order: ind1
 rownames(students) # the first ind '1 | height 167' should move at position 5
@@ -310,5 +307,8 @@ as.numeric()  as.double()	# Convert to double
 as.integer()	# Convert to integer
 as.factor()	# Convert to factor
 as.logical()	#Convert to a Boolean
+
+students$height<-as.numeric(students$height) # assigned numerical value to this column
+class(students$height) # check the change was made
 ```{.r .distill-force-highlighting-css}
 ```
