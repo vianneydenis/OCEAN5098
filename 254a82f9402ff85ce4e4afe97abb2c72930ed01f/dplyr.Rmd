@@ -137,16 +137,3 @@ To find mean `Sepal`Length by `Species`, we use teh pipe operator as following:
 iris  %>% group_by(Species) %>% summarise(Mean.Length = mean(Sepal.Length))
 ```
 
-
-
-<p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice 1:** The data set `rairuoho` is available at the following [link](https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt). It provides 8 days growth data of Easter grass exposed to different treatments.
-The 6 variables **`day3`** to **`day8`** are mean length of the grass at the given day. **`germinate`** is the no. of germinated seeds.**`bed`** is a factor with four levels (`mould1`,`mould2`, `paper4`, `paper8`) indicating where the grass was growing and thickness. **`treatement`** has two levels `water` and `nutrient` indicating watering scheme (pure water or enriched with nutrients). **`spatial1`** and **`spatial2`** are the vertical and horizontal position of the plot, respectively. The variable `row` and `column` are meaningless should be removed.
-</p>
-
-
-<p class="alert">
-**Instruction:** Reformat the table in order to have the `day` as a single variable (factor) containing 6 levels (`day3`, `day4`, `day5`, `day6`, `day7`, `day8`). Another variable `length`  will be created to recieve the length of the grass at the given day. You may take advantage of the functionalities of the package `tidyr` and especially the function `pivot_longer` used in combination with the pipe operator `%>%`. 
-</p>
-
-You will send your solution by email [vianneydenis@g.ntu.edu.tw] before next Monday. Use `Practice 1 (name:student no.)` for title. I would only accept *.Rmd* and *.html* formats.
