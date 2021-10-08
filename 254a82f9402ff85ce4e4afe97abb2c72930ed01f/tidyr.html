@@ -83,7 +83,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>OCEAN 5098: Graphics</title>
+  <title>OCEAN 5098: tidyr</title>
 
 
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
@@ -91,20 +91,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="OCEAN 5098: Graphics"/>
+  <meta property="og:title" content="OCEAN 5098: tidyr"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="OCEAN 5098"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="OCEAN 5098: Graphics"/>
+  <meta property="twitter:title" content="OCEAN 5098: tidyr"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["Graphics"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["tidyr"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2428,7 +2428,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Graphics","authors":[]}
+{"title":"tidyr","authors":[]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2467,7 +2467,7 @@ Manipulation
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Graphics</h1>
+<h1>tidyr</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2475,649 +2475,286 @@ Manipulation
 
 
 <div class="d-article">
-<h2 id="data-object-type-and-structure">Data object type and structure</h2>
-<h3 id="core-data-types">Core data types</h3>
-<p>These data types, or modes, define how the values are stored in the computer. You can get an object’s mode using the <code>typeof</code> function. Note that R also has a built-in <code>mode</code> function that will serve the same purpose with the one exception in that it will not distinguish integers from doubles.</p>
-<h4 id="numeric">Numeric</h4>
-<p>The numeric data type is probably the simplest. It consists of numbers such as integers (e.g. 1 ,-3 ,33 ,0) or doubles (e.g. 0.3, 12.4, -0.04, 1.0). For example, to create a numeric (double) vector we can type:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.0</span>, <span class='op'>-</span><span class='fl'>3.4</span>, <span class='fl'>2</span>, <span class='fl'>140.1</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/mode.html'>mode</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;numeric&quot;</code></pre>
-</div>
-<p>To assess if the number is stored as an integer or a double use the <code>typeof</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;double&quot;</code></pre>
-</div>
-<p>Note that removing the fraction part of a number when creating a numeric object does not necessarily create an integer. For example, creating what seems to be an integer object returns double when queried by <code>typeof</code>:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>
-<span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;double&quot;</code></pre>
-</div>
-<p>To force R to recognize a value as an integer add an upper case <code>L</code> to the number.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>4L</span>
-<span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;integer&quot;</code></pre>
-</div>
-<h4 id="character">Character</h4>
-<p>The character data type consists of letters or words such as “a”, “f”, “project”, “house value”.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"f"</span>, <span class='st'>"project"</span>, <span class='st'>"house value"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;character&quot;</code></pre>
-</div>
-<p>Characters can also consist of numbers represented as characters. The distinction between a character representation of a number and a numeric one is important. For example, if we have two numeric vectors <code>x</code> and <code>y</code> such as</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>3</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>5.3</span>
-</code></pre>
-</div>
-</div>
-<p>and we choose to sum the two variables, we get:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span>
-</code></pre>
-</div>
-<pre><code>[1] 8.3</code></pre>
-</div>
-<p>If we repeat these steps but instead choose to represent the numbers ‘3’ and ‘5.3’ as characters we get the following error message:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"3"</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='st'>"5.3"</span>
-<span class='co'># Error in x + y: non-numeric argument to binary operator</span>
-</code></pre>
-</div>
-</div>
-<p>Note the use of quotes to force numbers to character mode.</p>
-<h4 id="logical">Logical</h4>
-<p>Logical values can take on one of two values: <code>TRUE</code> or <code>FALSE</code>. These can also be represented as <code>1</code> or <code>0</code>. For example, to create a logical vector of 4 elements, you can type</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>or</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/logical.html'>as.logical</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Note that in both cases, <code>typeof</code> returns logical. Also note that the <code>1</code>’s and <code>0</code>’s in the last example are converted to <code>TRUE</code>’s and <code>FALSE</code>’s internally.</p>
-<h3 id="derived-data-types">Derived data types</h3>
-<p>These data types are stored as either numeric, character or logical but have additional <em>attribute</em> information that allow these objects to be treated in special ways by certain functions in R. These attributes define an object’s <strong>class</strong> and can be extracted from that object via the ‘class’ function.</p>
-<h4 id="factor">Factor</h4>
-<p><strong>Factors</strong> are normally used to group variables into a fixed number of unique categories or <strong>levels</strong>. For example, a dataset may be grouped by gender or month of the year. Such data are usually loaded into R as a numeric or character data type requiring that they be converted to a factor using the <code>as.factor</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"M"</span>, <span class='st'>"F"</span>, <span class='st'>"F"</span>, <span class='st'>"U"</span>, <span class='st'>"F"</span>, <span class='st'>"M"</span>, <span class='st'>"M"</span>, <span class='st'>"M"</span>, <span class='st'>"F"</span>, <span class='st'>"U"</span><span class='op'>)</span>
-<span class='va'>a.fact</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Note that <code>a</code> is of <code>character</code> data type.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;character&quot;</code></pre>
-</div>
-<p>However, the derived object <code>a.fact</code> is now stored as an <code>integer</code>!</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>a.fact</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;integer&quot;</code></pre>
-</div>
-<p>Yet, when displaying the contents of <code>a.fact</code> we see character values.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>a.fact</span>
-</code></pre>
-</div>
-<pre><code> [1] M F F U F M M M F U
-Levels: F M U</code></pre>
-</div>
-<p>How can this be? Well, <code>a.fact</code> is a more complicated object than the simple objects created thus far in that the factor is storing additional information not seen in its output. This hidden information is stored in <strong>attributes</strong>. To view these hidden attributes, use the <code>attributes</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>a.fact</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>$levels
-[1] &quot;F&quot; &quot;M&quot; &quot;U&quot;
-
-$class
-[1] &quot;factor&quot;</code></pre>
-</div>
-<p>There are two attributes: <code>levels</code> and <code>class</code>. The levels attribute lists the three unique values in <code>a.fact</code>. The order in which these levels are listed reflect their <em>numeric</em> representation. So in essence, <code>a.fact</code> is storing each value as an integer that points to one of the three unique levels. The unique levels of a factor, and the order in which they are stored can be extracted using the <code>levels</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>a.fact</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;F&quot; &quot;M&quot; &quot;U&quot;</code></pre>
-</div>
-<p>Remember, the order in which the levels are displayed match their integer representation. If we wanted them in a different order (i.e. U first followed by F then M) we would need to modify them by recreating the factor object as follows:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>a</span>, levels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"U"</span>,<span class='st'>"F"</span>,<span class='st'>"M"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> [1] M F F U F M M M F U
-Levels: U F M</code></pre>
-</div>
-<p>This can be important when you will try to rearrange a plot.</p>
-<blockquote>
-<p>*<span style="color: green"><strong>RP4</strong>: Understanding the factors and their levels is critical, especially when you will subset. Let’s explore together why using our <code>iris</code> dataset</p>
-</blockquote>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iris.sel</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"virginica"</span><span class='op'>)</span> <span class='co'># let's subset two species</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span> <span class='co'># the 3 species are still there</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>Petal.Width</span> <span class='op'>~</span> <span class='va'>Species</span>, <span class='va'>iris.sel</span>, horizontal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='co'># This can be a nuisance when plotting the data subset</span>
-
-<span class='va'>iris.sel</span><span class='op'>$</span><span class='va'>Species</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></span><span class='op'>(</span><span class='va'>Petal.Width</span> <span class='op'>~</span> <span class='va'>Species</span>, <span class='va'>iris.sel</span>, horizontal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p><strong>ALWAYS</strong> CHECK THE DATA TYPE AND STRUCTRE OF YOUR DATA SET!</p>
-<h4 id="date">Date</h4>
-<p>Date values are stored as numbers. But to be properly interpreted as a date object in R, their attribute must be explicitly defined as a <strong>date</strong>. R provides many facilities to convert and manipulate dates and times, but a package called <code>lubridate</code> makes working with dates/times much easier. Working wit data could be the object of a specific topic, and it will no be covered here.</p>
-<h4 id="na-and-null">NA and NULL</h4>
-<p>You will find that many data files contain missing or unknown values. It may be tempting to assign these missing or unknown values a <code>0</code> but doing so can lead to many undesirable results when analyzing the data. R has two placeholders for such elements: <code>NA</code> and <code>NULL</code></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>23</span>, <span class='cn'>NA</span>, <span class='fl'>1.2</span>, <span class='fl'>5</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p><code>NA</code> (Not Available) is a missing value indicator. It suggests that a value should be present but is unknown.</p>
-<p>The <code>NULL</code> object also represents missing values but its interpretation is slightly different in that it suggests that the value does not exist or that it’s not measurable.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>23</span>, <span class='cn'>NULL</span>, <span class='fl'>1.2</span>, <span class='fl'>5</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>Remember when we previously removed the variables that we did not want to exist in our <code>students</code> dataset.The difference between <code>NA</code> and <code>NULL</code> may seem subtle, but their interpretation in some functions can lead to different outcomes. For example, when computing the mean of <code>x</code>, R returns an <code>NA</code> value:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] NA</code></pre>
-</div>
-<p>This serves as a check to remind the user that one of the elements is missing. This can be overcome by setting the <code>na.rm</code> parameter to <code>TRUE</code> as in <code>mean(x, na.rm=T)</code> in which case R ignores the missing value.</p>
-<p>A <code>NULL</code> object, on the other hand, is treated differently. Since <code>NULL</code> implies that a value should not be present, R no longer feels the need to treat such element as questionable and allows the mean value to be computed:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] 9.733333</code></pre>
-</div>
-<p>It’s more common to find data tables with missing elements populated with <code>NA</code>’s than <code>NULL</code>’s so unless you have a specific reason to use <code>NULL</code> as a missing value placeholder, use <code>NA</code> instead.</p>
-<h3 id="data-structures">Data structures</h3>
-<p>Most datasets we work with consist of batches of values such as a table of temperature values or a list of survey results. These batches are stored in R in one of several data structures. These include <strong>(atomic) vectors</strong>, <strong>matrices</strong>, <strong>data frames</strong> and <strong>lists</strong>.</p>
-<p><img src="Figures/data_structures.png" /></p>
-<h4 id="atomic-vectors">(Atomic) vectors</h4>
-<p>The <strong>atomic vector</strong> (or <strong>vector</strong> for short) is the simplest data structure in R which consists of an ordered set of values of the same type and or class (e.g. numeric, character, date, etc…). A vector can be created using the combine function c() as in</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>674</span> , <span class='fl'>4186</span> , <span class='fl'>5308</span> , <span class='fl'>5083</span> , <span class='fl'>6140</span> , <span class='fl'>6381</span><span class='op'>)</span>
-<span class='va'>x</span>
-</code></pre>
-</div>
-<pre><code>[1]  674 4186 5308 5083 6140 6381</code></pre>
-</div>
-<p>As we seen before, a vector object is an indexable collection of values which allows one to access a specific index number. For example, to access the third element of x, type:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
-</code></pre>
-</div>
-<pre><code>[1] 5308</code></pre>
-</div>
-<p>You can also select a subset of elements by index values using the combine function c().</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>]</span>
-</code></pre>
-</div>
-<pre><code>[1]  674 5308 5083</code></pre>
-</div>
-<p>Or, if you are interested in a range of indexed values such as index 2 through 4, use the : operator.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
-</code></pre>
-</div>
-<pre><code>[1] 4186 5308 5083</code></pre>
-</div>
-<p>You can also assign new values to a specific index. For example, we can replace the second value in vector <code>x</code> with <code>0</code>.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
-<span class='va'>x</span>
-</code></pre>
-</div>
-<pre><code>[1]  674    0 5308 5083 6140 6381</code></pre>
-</div>
-<p>Note that a vector can store any data type such as characters.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"b"</span>, <span class='st'>"olive"</span><span class='op'>)</span>
-<span class='va'>x</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;all&quot;   &quot;b&quot;     &quot;olive&quot;</code></pre>
-</div>
-<p>However, a vector can only be of one type. For example, you cannot mix numeric and character types as follows:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>1.2</span>, <span class='fl'>5</span>, <span class='st'>"Rt"</span>, <span class='st'>"2000"</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>In such a situation, R will convert the element types to the <strong>highest common mode</strong> following the order <strong>NULL</strong> &lt; <strong>logical</strong> &lt; <strong>integer</strong> &lt; <strong>double</strong> &lt; <strong>character</strong>. In our working example, the elements are coerced to character:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/typeof.html'>typeof</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;character&quot;</code></pre>
-</div>
-<h4 id="matrices-and-arrays">Matrices and arrays</h4>
-<p>Matrices in R can be thought of as vectors indexed using two indices instead of one. For example, the following line of code creates a 3 by 3 matrix of randomly generated values. The parameters ‘nrow’ and ‘ncol’ define the matrix dimension and the function ‘runif’ generates the nine random numbers that populate this matrix.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>9</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='va'>m</span>
-</code></pre>
-</div>
-<pre><code>         [,1]     [,2]     [,3]
-[1,] 2.718648 3.475708 3.865631
-[2,] 6.351348 6.841743 1.518447
-[3,] 1.309509 7.246773 9.058695</code></pre>
-</div>
-<p>If a higher dimension vector is desired, then use the <code>array</code> function to generate the n-dimensional object. A 3x3x3 array can be created as follows:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>27</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>m</span>
-</code></pre>
-</div>
-<pre><code>, , 1
-
-          [,1]     [,2]     [,3]
-[1,] 6.7353348 7.940924 4.882212
-[2,] 0.8936732 4.400736 1.732593
-[3,] 3.0713774 1.913927 1.569838
-
-, , 2
-
-         [,1]     [,2]     [,3]
-[1,] 3.655027 3.297432 7.490495
-[2,] 3.288048 6.274010 5.536398
-[3,] 2.801467 2.861039 3.873206
-
-, , 3
-
-         [,1]     [,2]     [,3]
-[1,] 6.220897 4.814478 5.810918
-[2,] 1.854531 3.076502 4.002137
-[3,] 4.016560 8.542487 5.073290</code></pre>
-</div>
-<p>Matrices and arrays can store numeric or character data types, but they cannot store both.</p>
-<h4 id="data-frames">Data frames</h4>
-<p>A <strong>data frame</strong> is what comes closest to our perception of a data table. It’s an extension of the matrix object in that, unlike a matrix, a data frame can <em>mix</em> data types across columns (e.g. both numeric and character columns can coexist in a data frame) but data type remains the same across rows.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>name</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a1"</span>, <span class='st'>"a2"</span>, <span class='st'>"b3"</span><span class='op'>)</span>
-<span class='va'>value1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>23</span>, <span class='fl'>4</span>, <span class='fl'>12</span><span class='op'>)</span>
-<span class='va'>value2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>45</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='va'>dat</span>    <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>value1</span>, <span class='va'>value2</span><span class='op'>)</span>
-<span class='va'>dat</span>
-</code></pre>
-</div>
-<pre><code>  name value1 value2
-1   a1     23      1
-2   a2      4     45
-3   b3     12      5</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='co'># provide structure</span>
-</code></pre>
-</div>
-<pre><code>&#39;data.frame&#39;:   3 obs. of  3 variables:
- $ name  : chr  &quot;a1&quot; &quot;a2&quot; &quot;b3&quot;
- $ value1: num  23 4 12
- $ value2: num  1 45 5</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='co'># provide attributes</span>
-</code></pre>
-</div>
-<pre><code>$names
-[1] &quot;name&quot;   &quot;value1&quot; &quot;value2&quot;
-
-$class
-[1] &quot;data.frame&quot;
-
-$row.names
-[1] 1 2 3</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='co'># extract colum names</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;name&quot;   &quot;value1&quot; &quot;value2&quot;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='co'># extract row names</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
-</div>
-<h4 id="lists">Lists</h4>
-<p>A <strong>list</strong> is an ordered set of components stored in a 1D vector. In fact, it’s another kind of vector called a recursive vector where each vector element can be of different data type and structure. This implies that each element of a list can hold complex objects such as matrices, data frames and other list objects too! Think of a list as a single column spreadsheet where each cell stores anything from a number, to a three paragraph sentence, to a five column table.</p>
-<p>A list is constructed using the <code>list</code> function. For example, the following list consists of 3 components: a two-column data frame (tagged as component <code>A</code>), a two element logical vector (tagged as component <code>B</code>) and a three element character vector (tagged as component <code>C</code>).</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>A</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-     x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7.3</span>, <span class='fl'>29.4</span>, <span class='fl'>29.4</span>, <span class='fl'>2.9</span>, <span class='fl'>12.3</span>, <span class='fl'>7.5</span>, <span class='fl'>36.0</span>, <span class='fl'>4.8</span>, <span class='fl'>18.8</span>, <span class='fl'>4.2</span><span class='op'>)</span>,
-     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5.2</span>, <span class='fl'>26.6</span>, <span class='fl'>31.2</span>, <span class='fl'>2.2</span>, <span class='fl'>13.8</span>, <span class='fl'>7.8</span>, <span class='fl'>35.2</span>, <span class='fl'>8.6</span>, <span class='fl'>20.3</span>, <span class='fl'>1.1</span><span class='op'>)</span> <span class='op'>)</span>
-<span class='va'>B</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>C</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"apples"</span>, <span class='st'>"oranges"</span>, <span class='st'>"round"</span><span class='op'>)</span>
-<span class='va'>lst</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>A <span class='op'>=</span> <span class='va'>A</span>, B <span class='op'>=</span> <span class='va'>B</span>, C <span class='op'>=</span> <span class='va'>C</span><span class='op'>)</span>
-</code></pre>
-</div>
-</div>
-<p>You can view each component’s structure using the <code>str</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>lst</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>List of 3
- $ A:&#39;data.frame&#39;:  10 obs. of  2 variables:
-  ..$ x: num [1:10] 7.3 29.4 29.4 2.9 12.3 7.5 36 4.8 18.8 4.2
-  ..$ y: num [1:10] 5.2 26.6 31.2 2.2 13.8 7.8 35.2 8.6 20.3 1.1
- $ B: logi [1:2] TRUE FALSE
- $ C: chr [1:3] &quot;apples&quot; &quot;oranges&quot; &quot;round&quot;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>lst</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
-</div>
-<p>Each component of a list can be extracted using the <code>$</code> symbol followed by that component’s name. For example, to access component A from list <code>lst</code>, type:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lst</span><span class='op'>$</span><span class='va'>A</span>
-</code></pre>
-</div>
-<pre><code>      x    y
-1   7.3  5.2
-2  29.4 26.6
-3  29.4 31.2
-4   2.9  2.2
-5  12.3 13.8
-6   7.5  7.8
-7  36.0 35.2
-8   4.8  8.6
-9  18.8 20.3
-10  4.2  1.1</code></pre>
-</div>
-<p>You can also access that same component using its numerical index. Since A is the first component in <code>lst</code>, its numerical index is <code>1</code>.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lst</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</code></pre>
-</div>
-<pre><code>      x    y
-1   7.3  5.2
-2  29.4 26.6
-3  29.4 31.2
-4   2.9  2.2
-5  12.3 13.8
-6   7.5  7.8
-7  36.0 35.2
-8   4.8  8.6
-9  18.8 20.3
-10  4.2  1.1</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>lst</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;data.frame&quot;</code></pre>
-</div>
-<p>Note that components do not require names. For example, we could have created a list as follows (note the omission of <code>A=</code>, <code>B=</code>, etc…):</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lst.notags</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>A</span>, <span class='va'>B</span>, <span class='va'>D</span><span class='op'>)</span>
-<span class='va'>lst.notags</span>
-</code></pre>
-</div>
-<pre><code>[[1]]
-      x    y
-1   7.3  5.2
-2  29.4 26.6
-3  29.4 31.2
-4   2.9  2.2
-5  12.3 13.8
-6   7.5  7.8
-7  36.0 35.2
-8   4.8  8.6
-9  18.8 20.3
-10  4.2  1.1
-
-[[2]]
-[1]  TRUE FALSE
-
-[[3]]
-function (expr, name) 
-.External(C_doD, expr, name)
-&lt;bytecode: 0x000000001415ebf8&gt;
-&lt;environment: namespace:stats&gt;</code></pre>
-</div>
-<p>When lists do not have component names, the <code>names</code> function will return NULL.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>lst.notags</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>NULL</code></pre>
-</div>
-<p>You’ll find that many functions in R return list objects such as the linear regression model function <code>lm</code>. For example, when we run a regression analysis for vector elements <code>x</code> and <code>y</code> (in data frame <code>A</code>) and save the output of the regression analysis to an object called M:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>M</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span> <span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span>, <span class='va'>A</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>List of 12
- $ coefficients : Named num [1:2] 0.0779 0.991
-  ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
- $ residuals    : Named num [1:10] -2.112 -2.612 1.988 -0.752 1.533 ...
-  ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
- $ effects      : Named num [1:10] -48.07 -36.54 3.13 -0.66 2 ...
-  ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;(Intercept)&quot; &quot;x&quot; &quot;&quot; &quot;&quot; ...
- $ rank         : int 2
- $ fitted.values: Named num [1:10] 7.31 29.21 29.21 2.95 12.27 ...
-  ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
- $ assign       : int [1:2] 0 1
- $ qr           :List of 5
-  ..$ qr   : num [1:10, 1:2] -3.162 0.316 0.316 0.316 0.316 ...
-  .. ..- attr(*, &quot;dimnames&quot;)=List of 2
-  .. .. ..$ : chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
-  .. .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
-  .. ..- attr(*, &quot;assign&quot;)= int [1:2] 0 1
-  ..$ qraux: num [1:2] 1.32 1.44
-  ..$ pivot: int [1:2] 1 2
-  ..$ tol  : num 1e-07
-  ..$ rank : int 2
-  ..- attr(*, &quot;class&quot;)= chr &quot;qr&quot;
- $ df.residual  : int 8
- $ xlevels      : Named list()
- $ call         : language lm(formula = y ~ x, data = A)
- $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language y ~ x
-  .. ..- attr(*, &quot;variables&quot;)= language list(y, x)
-  .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
-  .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
-  .. .. .. ..$ : chr [1:2] &quot;y&quot; &quot;x&quot;
-  .. .. .. ..$ : chr &quot;x&quot;
-  .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;x&quot;
-  .. ..- attr(*, &quot;order&quot;)= int 1
-  .. ..- attr(*, &quot;intercept&quot;)= int 1
-  .. ..- attr(*, &quot;response&quot;)= int 1
-  .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
-  .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
-  .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
-  .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
- $ model        :&#39;data.frame&#39;:  10 obs. of  2 variables:
-  ..$ y: num [1:10] 5.2 26.6 31.2 2.2 13.8 7.8 35.2 8.6 20.3 1.1
-  ..$ x: num [1:10] 7.3 29.4 29.4 2.9 12.3 7.5 36 4.8 18.8 4.2
-  ..- attr(*, &quot;terms&quot;)=Classes &#39;terms&#39;, &#39;formula&#39;  language y ~ x
-  .. .. ..- attr(*, &quot;variables&quot;)= language list(y, x)
-  .. .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
-  .. .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
-  .. .. .. .. ..$ : chr [1:2] &quot;y&quot; &quot;x&quot;
-  .. .. .. .. ..$ : chr &quot;x&quot;
-  .. .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;x&quot;
-  .. .. ..- attr(*, &quot;order&quot;)= int 1
-  .. .. ..- attr(*, &quot;intercept&quot;)= int 1
-  .. .. ..- attr(*, &quot;response&quot;)= int 1
-  .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
-  .. .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
-  .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
-  .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
- - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
- [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
- [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;        </code></pre>
-</div>
-<p>The <code>M</code> list is more complex than the simple list <code>lst</code> we created earlier. In addition to having more components, it stores a <em>wider</em> range of data types and structures. For example, element qr is itself a list of five elements!</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>M</span><span class='op'>$</span><span class='va'>qr</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>List of 5
- $ qr   : num [1:10, 1:2] -3.162 0.316 0.316 0.316 0.316 ...
-  ..- attr(*, &quot;dimnames&quot;)=List of 2
-  .. ..$ : chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
-  .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
-  ..- attr(*, &quot;assign&quot;)= int [1:2] 0 1
- $ qraux: num [1:2] 1.32 1.44
- $ pivot: int [1:2] 1 2
- $ tol  : num 1e-07
- $ rank : int 2
- - attr(*, &quot;class&quot;)= chr &quot;qr&quot;</code></pre>
-</div>
-<p>So if we want to access the element rank in the component qr of list <code>M</code>, we can type:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>M</span><span class='op'>$</span><span class='va'>qr</span><span class='op'>$</span><span class='va'>rank</span>
-</code></pre>
-</div>
-<pre><code>[1] 2</code></pre>
-</div>
-<h3 id="coercing-data">Coercing data</h3>
-<p>Data can be coerced from one type to another. For example, to coerce the following vector object from character to numeric, use the <code>as.numeric</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>y</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"23.8"</span>, <span class='st'>"6"</span>, <span class='st'>"100.01"</span>,<span class='st'>"6"</span><span class='op'>)</span>
-<span class='va'>y.c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-<span class='va'>y.c</span>
-</code></pre>
-</div>
-<pre><code>[1]  23.80   6.00 100.01   6.00</code></pre>
-</div>
-<p>The <code>as.numeric</code> function forces the vector to a double (you could have also used the <code>as.double</code> function). If you convert <code>y</code> to an integer, R will remove all fractional parts of the number.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code>[1]  23   6 100   6</code></pre>
-</div>
-<p>To convert a number to a character use <code>as.character</code></p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>numchar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>y.c</span><span class='op'>)</span>
-<span class='va'>numchar</span>
-</code></pre>
-</div>
-<pre><code>[1] &quot;23.8&quot;   &quot;6&quot;      &quot;100.01&quot; &quot;6&quot;     </code></pre>
-</div>
-<p>You can also coerce a number or character to a factor.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>numfac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
-<span class='va'>numfac</span>
-</code></pre>
-</div>
-<pre><code>[1] 23.8   6      100.01 6     
-Levels: 100.01 23.8 6</code></pre>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#tidyr-at-work"><code>tidyr</code> at work</a></li>
+</ul>
+</nav>
 </div>
 <div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogInRpZHlyIg0KLS0tDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPUYsIHdhcm5pbmc9RiwgcHVybD1GLCByZXN1bHRzPSJoaWRlIn0NCmtuaXRyOjpwdXJsKCd0aWR5ci5SbWQnLCBkb2N1bWVudGF0aW9uID0gRikNCmBgYA0KDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ3RpZHlyLlJtZCcpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgndGlkeXIuUicpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnRGF0YS90d19jb3JhbHMudHh0JykNCmBgYA0KDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ0RhdGEvbWV0b28udHh0JykNCmBgYA0KDQojIE92ZXJ2aWV3DQoNCkRhdGEgdGFibGVzIGNvbWUgaW4gZGlmZmVyZW50IHNpemVzIGFuZCBzaGFwZTsgdGhleSBjYW4gYmUgYSB2ZXJ5IHNpbXBsZSB0d28gY29sdW1uIGRhdGFzZXQgb3IgdGhleSBjYW4gY29uc2lzdCBvZiBtYW55IGNvbHVtbnMgYW5kIOKAnHN1Yi1jb2x1bW5z4oCdLiBVbmRlcnN0YW5kaW5nIGl0cyBzdHJ1Y3R1cmUsIGFuZCBsZWFybmluZyBob3cgdG8gcmVzaGFwZSBpdCBpbnRvIGEgd29ya2FibGUgZm9ybSBpcyBjcml0aWNhbCB0byBhbiBlZmZlY3RpdmUgYW5kIGVycm9yIGZyZWUgYW5hbHlzaXMuVGhlIGdvYWwgb2YgYHRpZHlyYCBpcyB0byBoZWxwIHlvdSBjcmVhdGUgKip0aWR5IGRhdGEqKi4gVGlkeSBkYXRhIGlzIGRhdGEgd2hlcmU6DQoNCjEuIEV2ZXJ5IGNvbHVtbiBpcyBhIHZhcmlhYmxlIA0KDQoyLiBFdmVyeSByb3cgaXMgYW4gb2JzZXJ2YXRpb24NCg0KMy4gRXZlcnkgY2VsbCBpcyBhIHNpbmdsZSB2YWx1ZXMuDQoNClRpZHkgZGF0YSBkZXNjcmliZXMgYSBzdGFuZGFyZCB3YXkgb2Ygc3RvcmluZyBkYXRhIHRoYXQgaXMgdXNlZCB3aGVyZXZlciBwb3NzaWJsZSB0aHJvdWdob3V0IHRoZSBbdGlkeXZlcnNlXShodHRwczovL3d3dy50aWR5dmVyc2Uub3JnLykuIElmIHlvdSBlbnN1cmUgdGhhdCB5b3VyIGRhdGEgaXMgdGlkeSwgeW914oCZbGwgc3BlbmQgbGVzcyB0aW1lIGZpZ2h0aW5nIHdpdGggdGhlIHRvb2xzIGFuZCBtb3JlIHRpbWUgd29ya2luZyBvbiB5b3VyIGFuYWx5c2lzLiBBICoqQ2hlYXRzaGVldCoqIGlzIGF2YWlsYWJsZSBbaGVyZV0oaHR0cHM6Ly9naXRodWIuY29tL3JzdHVkaW8vY2hlYXRzaGVldHMvYmxvYi9tYXN0ZXIvZGF0YS1pbXBvcnQucGRmKQ0KDQpMZWFybiBtb3JlIGFib3V0IHRpZHkgZGF0YTogYHZpZ25ldHRlKCJ0aWR5LWRhdGEiKWANCg0KDQojIEdldHRpbmcgc3RhcnRlZA0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCmxpYnJhcnkgKHRpZHlyKQ0KYGBgDQoNCmB0aWR5cmAgZnVuY3Rpb25zIGZhbGwgaW50byBmaXZlIG1haW4gY2F0ZWdvcmllczoNCg0KDQotICoqUGl2b3R0aW5nKiogd2hpY2ggY29udmVydHMgYmV0d2VlbiBsb25nIGFuZCB3aWRlIGZvcm1zLiB0aWR5ciAxLjAuMCBpbnRyb2R1Y2VzIGBwaXZvdF9sb25nZXIoKWAgYW5kIGBwaXZvdF93aWRlcigpYCwgcmVwbGFjaW5nIHRoZSBvbGRlciBgc3ByZWFkKClgIGFuZCBgZ2F0aGVyKClgIGZ1bmN0aW9ucy4gU2VlIGB2aWduZXR0ZSgicGl2b3QiKWAgZm9yIG1vcmUgZGV0YWlscy4NCg0KLSAqKlJlY3RhbmdsaW5nKiosIHdoaWNoIHR1cm5zIGRlZXBseSBuZXN0ZWQgbGlzdHMgKGFzIGZyb20gSlNPTiBbSmF2YVNjcmlwdCBPYmplY3QgTm90YXRpb25dKSBpbnRvIHRpZHkgdGliYmxlcy4gU2VlIGB1bm5lc3RfbG9uZ2VyKClgLCBgdW5uZXN0X3dpZGVyKClgLCBgaG9pc3QoKWAsIGFuZCBgdmlnbmV0dGUoInJlY3RhbmdsZSIpYCBmb3IgbW9yZSBkZXRhaWxzLg0KDQotICoqTmVzdGluZyoqIGNvbnZlcnRzIGdyb3VwZWQgZGF0YSB0byBhIGZvcm0gd2hlcmUgZWFjaCBncm91cCBiZWNvbWVzIGEgc2luZ2xlIHJvdyBjb250YWluaW5nIGEgbmVzdGVkIGRhdGEgZnJhbWUsIGFuZCB1bm5lc3RpbmcgZG9lcyB0aGUgb3Bwb3NpdGUuIFNlZSBgbmVzdCgpYCwgYHVubmVzdCgpYCwgYW5kIGB2aWduZXR0ZSgibmVzdCIpYCBmb3IgbW9yZSBkZXRhaWxzLg0KDQotICoqU3BsaXR0aW5nIGFuZCBjb21iaW5pbmcqKiBjaGFyYWN0ZXIgY29sdW1ucy4gVXNlIGBzZXBhcmF0ZSgpYCBhbmQgYGV4dHJhY3QoKWAgdG8gcHVsbCBhIHNpbmdsZSBjaGFyYWN0ZXIgY29sdW1uIGludG8gbXVsdGlwbGUgY29sdW1uczsgdXNlIGB1bml0ZSgpYCB0byBjb21iaW5lIG11bHRpcGxlIGNvbHVtbnMgaW50byBhIHNpbmdsZSBjaGFyYWN0ZXIgY29sdW1uLg0KDQotIE1ha2UgKippbXBsaWNpdCBtaXNzaW5nIHZhbHVlcyoqIGV4cGxpY2l0IHdpdGggYGNvbXBsZXRlKClgOyBtYWtlIGV4cGxpY2l0IG1pc3NpbmcgdmFsdWVzIGltcGxpY2l0IHdpdGggYGRyb3BfbmEoKWA7IHJlcGxhY2UgbWlzc2luZyB2YWx1ZXMgd2l0aCBuZXh0L3ByZXZpb3VzIHZhbHVlIHdpdGggYGZpbGwoKWAsIG9yIGEga25vd24gdmFsdWUgd2l0aCBgcmVwbGFjZV9uYSgpYC4NCg0KDQpUaG9zZSBmdW5jdGlvbnMgZmluZCB0aGVpciB1c2UgaW4gZmFzdGVuaW5nICBkYXRhIGV4cGxvcmF0aW9uIGFuZCB0cmFuc2Zvcm1hdGlvbi4NCmB0aWR5cmAgaXMgdGhlIHBhY2thZ2UgYnkgZXhjZWxsZW5jZSB0byByZW9yZ2FuaXplIHRoZSBzdHJ1Y3R1cmUgb2YgYSB0YWJsZS4gDQoNCiMgYHRpZHlyYCBhdCB3b3JrDQoNClZpc2l0IFt0aWR5dmVyc2VdKGh0dHBzOi8vd3d3LnRpZHl2ZXJzZS5vcmcvKSBhbmQgYHZpZ25ldHRlKCJ0aWR5LWRhdGEiKWAgZm9yIG1vcmUgZXhhbXBsZXMgb24gcmVzaGFwaW5nIGRhdGEgc2V0LiAgDQoNCg0KIyMgUGl2b3QgZGF0YQ0KDQoqQXMgYSBwYWNrYWdlIGV2b2x2ZXMsIHNvbWUgZnVuY3Rpb24gbWF5IHR1cm4gKipkZXByZWNpYXRlZCoqLiBUaGUgZnVuY3Rpb24gbWF5IHN0aWxsIHdvcmsgYnV0IGl0IHdvdWxkIGJlIHJlY29tbWVuZGVkIHRvIHNoaWZ0IGZvciB0aGUgbmV3IGZ1bmN0aW9uIHBlcmZvcm1pbmcgdGhlIHRhc2suIFRoZSBwYWNrYWdlIGB0aWR5cmAgaXMgYSBnb29kIGV4YW1wbGUgb2YgdGhpcyBldm9sdXRpb24uIFRoZSBmdW5jdGlvbiBgZ2F0aGVyYCBpcyBkZXByZWNpYXRlZCAoSSBhbSBnZXR0aW5nIG9sZGVyIGFuZCBJIGtlZXAgdXNpbmcgb2xkIGZ1bmN0aW9uKSwgYW5kIGl0IGlzIG5vdyByZWNvbW1lbmRlZCB0byBzd2l0Y2ggdG8gYHBpdm90X2xvbmdlcigpYCBzdGlsbCB1bmRlciBhY3RpdmUgZGV2ZWxvcG1lbnQuIFRodXMgYGRmICU+JSBnYXRoZXIoImtleSIsICJ2YWx1ZSIsIHgsIHksIHopYGlzIG5vdyBlcXVpdmFsZW50IHRvIGBkZiAlPiUgcGl2b3RfbG9uZ2VyKGMoeCwgeSwgeiksIG5hbWVzX3RvID0gImtleSIsIHZhbHVlc190byA9ICJ2YWx1ZSIpYC4NCg0KDQpEYWkgJiBIb3JuZyAoMjAwOSkgc3VtbWFyaXplIHRoZSBjb3JhbCBkaXZlcnNpdHkgYXJvdW5kIFRhaXdhbi4gYFRXX2NvcmFsc2AgZGlzcGxheXMgc2NsZXJhY3RpbmlhbiBjb3JhbCByaWNobmVzcyBieSBjb3JhbCByZWVmIHJlZ2lvbnM6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KDQpUV19jb3JhbHM8LXJlYWQudGFibGUoJ0RhdGEvdHdfY29yYWxzLnR4dCcsIGhlYWRlcj1ULCBzZXA9J1x0JywgZGVjPScuJykgDQpUV19jb3JhbHMNCmBgYA0KDQpUaGlzIHRhYmxlIGlzIGEgKip3aWRlIHRhYmxlKiouIEl0IGNhbiBlYXNpbHkgYmUgcmVmb3JtYXR0ZWQgaW50byBhIGxvbmcgdGFibGUgY29tYmluaW5nIHRoZSBwaXBlIG9wZXJhdG9yIGAlPiVgIHdpdGggYHBpdm90X2xvbmdlcmAgYXMgZm9sbG93aW5nOg0KDQpgYGB7ciwgIGV2YWw9VH0NClRXX2NvcmFsc19sb25nIDwtIFRXX2NvcmFscyAlPiUgcGl2b3RfbG9uZ2VyKFNvdXRoZXJuX1RXOk5vcnRoZXJuX0lzLCBuYW1lc190byA9ICJSZWdpb24iLCB2YWx1ZXNfdG8gPSAiUmljaG5lc3MiKQ0KIyBUV19jb3JhbHNfbG9uZyA8LVRXX2NvcmFscyAlPiUgcGl2b3RfbG9uZ2VyKGNvbHMgPSBldmVyeXRoaW5nKCksIG5hbWVzX3RvID0gIlJlZ2lvbiIsIHZhbHVlc190byA9ICJSaWNobmVzcyIpIA0KVFdfY29yYWxzX2xvbmcgDQpgYGANCg0KVGhlIHJldmVyc2Ugb3BlcmF0aW9uIGNhbiBiZSBtYWRlIHVzaW5nIGBwaXZvdF93aWRlcmAgaW4gb3JkZXIgdG8gcmVjcmVhdGUgdGhlIHdpZGUgdmVyc2lvbiBvZiBvdXIgdGFibGU6IA0KDQpgYGB7ciwgIGV2YWw9VH0NClRXX2NvcmFsc193aWRlIDwtIHBpdm90X3dpZGVyKFRXX2NvcmFsc19sb25nLCBuYW1lc19mcm9tID0gUmVnaW9uLCB2YWx1ZXNfZnJvbSA9IFJpY2huZXNzKSANClRXX2NvcmFsc193aWRlDQpgYGANCg0KPHNwYW4gc3R5bGU9ImNvbG9yOiByZWQiPioqTm90ZSoqOiBUaGUgcGlwZSBvcGVyYXRvciBgJT4lYCBpcyBvcHRpb25hbCwgYnV0IGl0IGlzIGdlbmVyYWxseSBtb3JlIGVsZWdhbnQgYW5kIHlvdSB3aWxsIGRpc2NvdmVyIGl0cyBpbXBvcnRhbmNlIGxhdGVyIHdoZW4geW91ciBjb2Rpbmcgc2tpbGxzIGFyZSBtYXR1cmluZy48L3NwYW4+DQoNCg0KIyMjIEFkdmFuY2VkIHBpdm90IG9wdGlvbnMNCg0KSGVyZeKAmXMgYSBzdWJzZXQgb2YgbWVkaWFuIGluY29tZSBieSBnZW5kZXIgYW5kIGJ5IHdvcmsgZXhwZXJpZW5jZSBmb3IgMjAxNyBpbiBmb3VyIHN0YXRlcyBpbiBVUyBhbmQgVGFpd2FuIChyZWFsIGRhdGEpLg0KDQpgYGB7ciwgIGV2YWw9VH0NCmluY29tZTwtcmVhZC50YWJsZSgnRGF0YS9tZXRvby50eHQnLGhlYWRlcj1ULCBzZXA9Ilx0IiwgZGVjPSIuIiwgbmEuc3RyaW5ncyA9ICJuL2EiKQ0KaW5jb21lDQpgYGANCg0KQXQgZmlyc3QgZ2xhbmNlLCBpdCBtaWdodCBzZWVtIHRoYXQgd2UgaGF2ZSB0aHJlZSB2YXJpYWJsZXMgYXMgaW4gdGhlIGVhcmxpZXIgZXhhbXBsZSwgYnV0IHVwb24gY2xvc2VyIGV4YW1pbmF0aW9uLCB3ZSBzZWUgdGhhdCB3ZSBjYW4gdGVhc2Ugb3V0IHR3byB2YXJpYWJsZXMgZnJvbSB0aGUgY29sdW1uIG5hbWVzOiBzZXggKGBtYWxlYCBhbmQgYGZlbWFsZWApIGFuZCB3b3JrIGV4cGVyaWVuY2UgKGBmdWxsdGltZWAgYW5kIGBvdGhlcmApLg0KDQpgcGl2b3RfbG9uZ2VyYCBoYXMgYW4gYXJndW1lbnQsIGBuYW1lc19zZXBgLCB0aGF0IGlzIHBhc3NlZCB0aGUgY2hhcmFjdGVyIHRoYXQgaXMgdXNlZCB0byBkZWxpbWl0IHRoZSB0d28gdmFyaWFibGUgdmFsdWVzLiBJbiBvdXIgZXhhbXBsZSwgdGhpcyBjaGFyYWN0ZXIgaXMgYF9gLiBTaW5jZSB0aGUgY29sdW1uIHZhbHVlcyB3aWxsIGJlIHNwbGl0IGFjcm9zcyB0d28gdmFyaWFibGVzIHdlIHdpbGwgYWxzbyBuZWVkIHRvIHBhc3MgdHdvIGNvbHVtbiBuYW1lcyB0byB0aGUgYG5hbWVzX3RvYCBhcmd1bWVudC4NCg0KYGBge3IsICBldmFsPVR9DQppbmNvbWVfbG9uZyA8LSBpbmNvbWUgJT4lICBwaXZvdF9sb25nZXIoY29scyA9IC1zdGF0ZSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfdG8gPSBjKCJnZW5kZXIiLCJ3b3JrIiksIA0KICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWVzX3NlcCA9ICJfIiwgDQogICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWVzX3RvID0gImluY29tZSIpDQogICAgICAgICAgICAgICAgICAgICAgICAgDQppbmNvbWVfbG9uZw0KYGBgDQoNCk9idmlvdXNseSwgdGhlIHJldmVyc2UgaXMgcG9zc2libGUgdXNpbmcgYHBpdm90X3dpZGVyYDoNCg0KYGBge3IsICBldmFsPVR9DQppbmNvbWVfbG9uZyAlPiUgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbSA9IGMoZ2VuZGVyLHdvcmspLCANCiAgICAgICAgICAgIHZhbHVlc19mcm9tID0gaW5jb21lLA0KICAgICAgICAgICAgbmFtZXNfc2VwID0gIi4iKQ0KYGBgDQoNCiMjIFNwbGl0dGluZyBlbGVtZW50cw0KDQpUaGUgYHRpZHlyYCBwYWNrYWdlIG9mZmVycyBvdGhlciBmdW5jdGlvbnMgbm90IGRpcmVjdGx5IHRpZWQgdG8gcGl2b3RpbmcuIA0KDQojIyMgU3BsaXR0aW5nIGNvbHVtbnMNCg0KRm9yIGV4YW1wbGUsIGlmIHlvdSB3YW50IHRvIHNwbGl0IGEgY29sdW1uIGludG8gdHdvIG9yIG1vcmUgY29sdW1ucyBiYXNlZCBvbiBhIGNvbHVtbuKAmXMgZGVsaW1pdGVkIHZhbHVlLCB5b3UgY2FuIHVzZSB0aGUgYHNlcGFyYXRlYCBmdW5jdGlvbi4gDQoNCi0gTGV0J3MgY3JlYXRlIGEgdGFibGUgd2l0aCBhIGR1bW15IHZhcmlhYmxlIGNhbGxlZCBgdmFyMWANCg0KYGBge3IsICBldmFsPVR9DQojIExldCdzIGZpcnN0IGNyZWF0ZSBhIGRlbGltaXRlZCB0YWJsZQ0KaW5jb21lX2xvbmdfdmFyIDwtIGluY29tZSAlPiUgIHBpdm90X2xvbmdlcihjb2xzID0gLTEsIA0KICAgICAgICAgICAgICAgICAgICAgICAgIG5hbWVzX3RvID0gInZhcjEiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiaW5jb21lIikNCmluY29tZV9sb25nX3Zhcg0KYGBgDQoNCg0KLSBTcGxpdCBgdmFyMWAgaW50byB0d28gbmV3IGNvbHVtbnMNCg0KYGBge3IsICBldmFsPVR9DQojIFNwbGl0IHZhcjEgY29sdW1uIGludG8gdHdvIGNvbHVtbnMNCmluY29tZV9zZXAgPC0gaW5jb21lX2xvbmdfdmFyICU+JSAgc2VwYXJhdGUoY29sID0gdmFyMSwgDQogICAgICAgICAgICAgICAgICAgIHNlcCA9ICJfIiwgDQogICAgICAgICAgICAgICAgICAgIGludG8gPSBjKCJnZW5kZXIiLCAid29yayIpKQ0KaW5jb21lX3NlcA0KYGBgDQoNCiMjIyBTcGxpdHRpbmcgcm93cyANCg0KU3BsaXQgYHZhcjFgIGludG8gdHdvIHJvd3MNCg0KYGBge3IsICBldmFsPVR9DQppbmNvbWVfbG9uZ192YXIgJT4lIHNlcGFyYXRlX3Jvd3ModmFyMSwgc2VwID0gIl8iKQ0KYGBgDQoNCkZyb20gdGhlIGB0aWR5cmAsIGNoZWNrIGB1bmNvdW50KClgIHJlcGxpY2F0ZSByb3dzIGJ5IGNvdW50LCBgdW5pdGUoKWAgY29tYmluaW5nIGVsZW1lbnRzIGZyb20gbWFueSBjb2x1bW5zIGludG8gYSBzaW5nbGUgY29sdW1uLCBldGMuICBZb3UgaGF2ZSBtYW55ICBkb2N1bWVudGF0aW9uIGV4aXN0aW5nIG9ubGluZSBvbmxpbmUgb24gdGhlIHVzZSBvZiB0aGlzIHBhY2thZ2UuIEl0IGlzIGEgdmVyeSBjb252ZW5pZW50IHBjYWthZ2Ugd2hlbiB5b3UgaGF2ZSB0byByZXBlYXQgYSBmb3JtYXR0aW5nIHRhc2sgb24gYSBsYXJnZSBkYXRhIHNldC4NCg0KDQo8cCBjbGFzcz0iYWxlcnQiPg0KKipgciBrbml0cjo6YXNpc19vdXRwdXQoIlxVMjZBMCIpYCBQcmFjdGljZSAxOioqIFRoZSBkYXRhIHNldCBgcmFpcnVvaG9gIGlzIGF2YWlsYWJsZSBhdCB0aGUgZm9sbG93aW5nIFtsaW5rXShodHRwczovL3d3dy5kaXBpbnRvdGhlcmVlZi5jb20vdXBsb2Fkcy8zLzcvMy81LzM3MzU5MjQ1L3JhaXJ1b2hvLnR4dCkuIEl0IHByb3ZpZGVzIDggZGF5cyBncm93dGggZGF0YSBvZiBFYXN0ZXIgZ3Jhc3MgZXhwb3NlZCB0byBkaWZmZXJlbnQgdHJlYXRtZW50cy4NClRoZSA2IHZhcmlhYmxlcyAqKmBkYXkzYCoqIHRvICoqYGRheThgKiogYXJlIG1lYW4gbGVuZ3RoIG9mIHRoZSBncmFzcyBhdCB0aGUgZ2l2ZW4gZGF5LiAqKmBnZXJtaW5hdGVgKiogaXMgdGhlIG5vLiBvZiBnZXJtaW5hdGVkIHNlZWRzLioqYGJlZGAqKiBpcyBhIGZhY3RvciB3aXRoIGZvdXIgbGV2ZWxzIChgbW91bGQxYCxgbW91bGQyYCwgYHBhcGVyNGAsIGBwYXBlcjhgKSBpbmRpY2F0aW5nIHdoZXJlIHRoZSBncmFzcyB3YXMgZ3Jvd2luZyBhbmQgdGhpY2tuZXNzLiAqKmB0cmVhdGVtZW50YCoqIGhhcyB0d28gbGV2ZWxzIGB3YXRlcmAgYW5kIGBudXRyaWVudGAgaW5kaWNhdGluZyB3YXRlcmluZyBzY2hlbWUgKHB1cmUgd2F0ZXIgb3IgZW5yaWNoZWQgd2l0aCBudXRyaWVudHMpLiAqKmBzcGF0aWFsMWAqKiBhbmQgKipgc3BhdGlhbDJgKiogYXJlIHRoZSB2ZXJ0aWNhbCBhbmQgaG9yaXpvbnRhbCBwb3NpdGlvbiBvZiB0aGUgcGxvdCwgcmVzcGVjdGl2ZWx5LiBUaGUgdmFyaWFibGUgYHJvd2AgYW5kIGBjb2x1bW5gIGFyZSBtZWFuaW5nbGVzcyBzaG91bGQgYmUgcmVtb3ZlZC4NCjwvcD4NCg0KDQo8cCBjbGFzcz0iYWxlcnQiPg0KKipJbnN0cnVjdGlvbjoqKiB3aXRoaW4gdGhlIHZhcmlhYmxlIGB0cmVhdGVtZW50YCwgYG51dHJpZW50YCBpcyBtaXNsZWFkaW5nIGJlY2F1c2UgaXQgaXMgd2F0ZXIgZW5yaWNoZWQgd2l0aCBudXRyaWVudC4gUmVwbGFjZSBgbnV0cmllbnRgIHdpdGggYGVucmljaGVkIGluIHRoZSBkYXRhIHNldGAuIFJlZm9ybWF0IHRoZSB0YWJsZSBpbiBvcmRlciB0byBoYXZlIHRoZSBgZGF5YCBhcyBhIHNpbmdsZSB2YXJpYWJsZSAoZmFjdG9yKSBjb250YWluaW5nIDYgbGV2ZWxzIChgZGF5M2AsIGBkYXk0YCwgYGRheTVgLCBgZGF5NmAsIGBkYXk3YCwgYGRheThgKS4gQW5vdGhlciB2YXJpYWJsZSBgbGVuZ3RoYCAgd2lsbCBiZSBjcmVhdGVkIHRvIHJlY2VpdmUgdGhlIGxlbmd0aCBvZiB0aGUgZ3Jhc3MgYXQgdGhlIGdpdmVuIGRheS4gTWVyZ2UgdmFyaWFibGVzIGBTcGF0aWFsMWAgYW5kIGBTcGF0aWFsMmAgaW4gb3JkZXIgdG8gb2J0YWluIHRoZSBmb2xsb3dpbmcgZm9ybWF0IGZvciB0aGUgc3BhdGlhbCBjb29yZGluYXRlcyBvZiBhbiBvYnNlcnZhdGlvbiBgMV8xYC4gVGhpcyBob21ld29yayBtdXN0IGJlIHByZXBhcmVkIGluICouUm1kKiBmb3JtYXQgdGhhdCB5b3Ugd2lsbCBrbml0IGFzIGEgKi5odG1sKiBmaWxlLiBZb3Ugd2lsbCAqKnB1c2gqKiB5b3VyIGZpbGVzIGludG8gYSBwdWJsaWMgcmVwb3NpdG9yeSBhdmFpbGFibGUgZnJvbSB5b3VyIEdpdGh1YiBhY2NvdW50LiBZb3Ugd2lsbCBzaGFyZSB3aXRoIG1lIGJlIGVtYWlsIFt2aWFubmV5ZGVuaXNAZy5udHUuZWR1LnR3XSB0aGUgYWRkcmVzcyAoVVJMKSBvZiB0aGlzIHJlcG9zaXRvcnkgKHN1Y2ggYXMgaHR0cHM6Ly9naXRodWIuY29tL3ZpYW5uZXlkZW5pcy9PQ0VBTjUwOTguZ2l0KSAqKmJlZm9yZSBuZXh0IE1vbmRheSoqIGluIG9yZGVyIGZvciBtZSB0byBjaGVjayB5b3VyIHdvcmsuIFRoZSAqKnRpdGxlIG9mIHlvdXIgZW1haWwgKiogc2hvdWxkIGJlIGBQcmFjdGljZSAxICh5b3VyIG5hbWU6IHlvdXIgc3R1ZGVudCBuby4pYC4gDQo8L3A+" download="tidyr.Rmd">Download tidyr.Rmd</a></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/plain;base64,bGlicmFyeSAodGlkeXIpDQoNCg0KVFdfY29yYWxzPC1yZWFkLnRhYmxlKCdEYXRhL3R3X2NvcmFscy50eHQnLCBoZWFkZXI9VCwgc2VwPSdcdCcsIGRlYz0nLicpIA0KVFdfY29yYWxzDQoNClRXX2NvcmFsc19sb25nIDwtIFRXX2NvcmFscyAlPiUgcGl2b3RfbG9uZ2VyKFNvdXRoZXJuX1RXOk5vcnRoZXJuX0lzLCBuYW1lc190byA9ICJSZWdpb24iLCB2YWx1ZXNfdG8gPSAiUmljaG5lc3MiKQ0KIyBUV19jb3JhbHNfbG9uZyA8LVRXX2NvcmFscyAlPiUgcGl2b3RfbG9uZ2VyKGNvbHMgPSBldmVyeXRoaW5nKCksIG5hbWVzX3RvID0gIlJlZ2lvbiIsIHZhbHVlc190byA9ICJSaWNobmVzcyIpIA0KVFdfY29yYWxzX2xvbmcgDQoNClRXX2NvcmFsc193aWRlIDwtIHBpdm90X3dpZGVyKFRXX2NvcmFsc19sb25nLCBuYW1lc19mcm9tID0gUmVnaW9uLCB2YWx1ZXNfZnJvbSA9IFJpY2huZXNzKSANClRXX2NvcmFsc193aWRlDQoNCmluY29tZTwtcmVhZC50YWJsZSgnRGF0YS9tZXRvby50eHQnLGhlYWRlcj1ULCBzZXA9Ilx0IiwgZGVjPSIuIiwgbmEuc3RyaW5ncyA9ICJuL2EiKQ0KaW5jb21lDQoNCmluY29tZV9sb25nIDwtIGluY29tZSAlPiUgIHBpdm90X2xvbmdlcihjb2xzID0gLXN0YXRlLCANCiAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lc190byA9IGMoImdlbmRlciIsIndvcmsiKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfc2VwID0gIl8iLCANCiAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiaW5jb21lIikNCiAgICAgICAgICAgICAgICAgICAgICAgICANCmluY29tZV9sb25nDQoNCmluY29tZV9sb25nICU+JSBwaXZvdF93aWRlcihuYW1lc19mcm9tID0gYyhnZW5kZXIsd29yayksIA0KICAgICAgICAgICAgdmFsdWVzX2Zyb20gPSBpbmNvbWUsDQogICAgICAgICAgICBuYW1lc19zZXAgPSAiLiIpDQoNCiMgTGV0J3MgZmlyc3QgY3JlYXRlIGEgZGVsaW1pdGVkIHRhYmxlDQppbmNvbWVfbG9uZ192YXIgPC0gaW5jb21lICU+JSAgcGl2b3RfbG9uZ2VyKGNvbHMgPSAtMSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAidmFyMSIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlc190byA9ICJpbmNvbWUiKQ0KaW5jb21lX2xvbmdfdmFyDQoNCiMgU3BsaXQgdmFyMSBjb2x1bW4gaW50byB0d28gY29sdW1ucw0KaW5jb21lX3NlcCA8LSBpbmNvbWVfbG9uZ192YXIgJT4lICBzZXBhcmF0ZShjb2wgPSB2YXIxLCANCiAgICAgICAgICAgICAgICAgICAgc2VwID0gIl8iLCANCiAgICAgICAgICAgICAgICAgICAgaW50byA9IGMoImdlbmRlciIsICJ3b3JrIikpDQppbmNvbWVfc2VwDQoNCmluY29tZV9sb25nX3ZhciAlPiUgc2VwYXJhdGVfcm93cyh2YXIxLCBzZXAgPSAiXyIpDQpgYGB7LnIgLmRpc3RpbGwtZm9yY2UtaGlnaGxpZ2h0aW5nLWNzc30NCmBgYA0K" download="tidyr.R">Download tidyr.R</a></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/plain;base64,U291dGhlcm5fVFcJTm9ydGhlcm5fVFcJRWFzdGVybl9UVwlMdWRhbwlMYW55dQlYaWFvbGl1cWl1CVBlbmdodV9Ob3J0aAlQZW5naHVfRWFzdAlQZW5naHVfSW5uZXIJUGVuZ2h1IFNvdXRoCURvbmdzaGEJVGFpcGluZwlOb3J0aGVybl9Jcw0KMjgwCTEzNgkyMTAJMjUwCTI0OAkyMzkJMTA3CTg0CTc1CTk5CTIyOQkxNjMJMTEyDQo=" download="tw_corals.txt">Download tw_corals.txt</a></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/plain;base64,c3RhdGUJbWFsZV9mdWxsdGltZQltYWxlX290aGVyCWZlbWFsZV9mdWxsdGltZQlmZW1hbGVfb3RoZXINCk1haW5lCTQxOTQJMTUwOAkzMzM3CTExNDgNCk1hc3NhY2h1c2V0dHMJNTUwNQkxNTQ3CTQ0ODYJMTI0OA0KTmV3SGFtcHNoaXJlCTQ5OTYJMTY4OQkzODQ4CTEyNjANClZlcm1vbnQJNDIxMAkxNDc1CTM1MTYJMTIwMQ0KVGFpd2FuCTE4MDYJbi9hCTE1MTAJbi9hDQo=" download="metoo.txt">Download metoo.txt</a></p>
+</div>
+<h1 id="overview">Overview</h1>
+<p>Data tables come in different sizes and shape; they can be a very simple two column dataset or they can consist of many columns and “sub-columns”. Understanding its structure, and learning how to reshape it into a workable form is critical to an effective and error free analysis.The goal of <code>tidyr</code> is to help you create <strong>tidy data</strong>. Tidy data is data where:</p>
+<ol type="1">
+<li><p>Every column is a variable</p></li>
+<li><p>Every row is an observation</p></li>
+<li><p>Every cell is a single values.</p></li>
+</ol>
+<p>Tidy data describes a standard way of storing data that is used wherever possible throughout the <a href="https://www.tidyverse.org/">tidyverse</a>. If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. A <strong>Cheatsheet</strong> is available <a href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf">here</a></p>
+<p>Learn more about tidy data: <code>vignette("tidy-data")</code></p>
+<h1 id="getting-started">Getting started</h1>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>charfac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>y.c</span><span class='op'>)</span>
-<span class='va'>charfac</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span> <span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] 23.8   6      100.01 6     
-Levels: 6 23.8 100.01</code></pre>
 </div>
-<p>There are many other coercion functions in R, a summary of some the most common ones we’ll be using in this course follows:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb45"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>() <span class="co">#    Convert to character</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>()  <span class="fu">as.double</span>()   <span class="co"># Convert to double</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>()    <span class="co"># Convert to integer</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.factor</span>() <span class="co"># Convert to factor</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.logical</span>()    <span class="co">#Convert to a Boolean</span></span></code></pre></div>
-</div>
-<hr />
-<blockquote>
-<p><em><span style="color: green"><strong>RP5</strong>: create the following data frame summarizing the results of a small experiment on 5 individuals testing the efficiency of a specific diet (drinking bubble tea only - feak data). Create another vector with the weight loss (in %) associated with subject no. What can you say on this bubble tea diet? Reformat the table by creating: a variable <code>individual</code> with the identity of the five individuals, a variable <code>diet</code> with two levels <code>before</code> and <code>after</code>, a variable <code>weight</code> containing the weight before and after the diet. </span></em></p>
-</blockquote>
-<p><code>class(students$height)</code> tells us that this column is an integer: a whole number (not a fractional number) that can be positive, negative, or zero. This can be converted as a numerical using the function: `as.numeric’</p>
+<p><code>tidyr</code> functions fall into five main categories:</p>
+<ul>
+<li><p><strong>Pivotting</strong> which converts between long and wide forms. tidyr 1.0.0 introduces <code>pivot_longer()</code> and <code>pivot_wider()</code>, replacing the older <code>spread()</code> and <code>gather()</code> functions. See <code>vignette("pivot")</code> for more details.</p></li>
+<li><p><strong>Rectangling</strong>, which turns deeply nested lists (as from JSON [JavaScript Object Notation]) into tidy tibbles. See <code>unnest_longer()</code>, <code>unnest_wider()</code>, <code>hoist()</code>, and <code>vignette("rectangle")</code> for more details.</p></li>
+<li><p><strong>Nesting</strong> converts grouped data to a form where each group becomes a single row containing a nested data frame, and unnesting does the opposite. See <code>nest()</code>, <code>unnest()</code>, and <code>vignette("nest")</code> for more details.</p></li>
+<li><p><strong>Splitting and combining</strong> character columns. Use <code>separate()</code> and <code>extract()</code> to pull a single character column into multiple columns; use <code>unite()</code> to combine multiple columns into a single character column.</p></li>
+<li><p>Make <strong>implicit missing values</strong> explicit with <code>complete()</code>; make explicit missing values implicit with <code>drop_na()</code>; replace missing values with next/previous value with <code>fill()</code>, or a known value with <code>replace_na()</code>.</p></li>
+</ul>
+<p>Those functions find their use in fastening data exploration and transformation. <code>tidyr</code> is the package by excellence to reorganize the structure of a table.</p>
+<h1 id="tidyr-at-work"><code>tidyr</code> at work</h1>
+<p>Visit <a href="https://www.tidyverse.org/">tidyverse</a> and <code>vignette("tidy-data")</code> for more examples on reshaping data set.</p>
+<h2 id="pivot-data">Pivot data</h2>
+<p>*As a package evolves, some function may turn <strong>depreciated</strong>. The function may still work but it would be recommended to shift for the new function performing the task. The package <code>tidyr</code> is a good example of this evolution. The function <code>gather</code> is depreciated (I am getting older and I keep using old function), and it is now recommended to switch to <code>pivot_longer()</code> still under active development. Thus <code>df %&gt;% gather("key", "value", x, y, z)</code>is now equivalent to <code>df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code>.</p>
+<p>Dai &amp; Horng (2009) summarize the coral diversity around Taiwan. <code>TW_corals</code> displays scleractinian coral richness by coral reef regions:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>students</span><span class='op'>$</span><span class='va'>height</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>students</span><span class='op'>$</span><span class='va'>height</span><span class='op'>)</span> <span class='co'># assigned numerical value to this column</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>students</span><span class='op'>$</span><span class='va'>height</span><span class='op'>)</span> <span class='co'># check the change was made</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TW_corals</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='st'>'Data/tw_corals.txt'</span>, header<span class='op'>=</span><span class='cn'>T</span>, sep<span class='op'>=</span><span class='st'>'\t'</span>, dec<span class='op'>=</span><span class='st'>'.'</span><span class='op'>)</span> 
+<span class='va'>TW_corals</span>
 </code></pre>
 </div>
+<pre><code>  Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
+1         280         136        210   250   248        239
+  Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping
+1          107          84           75           99     229     163
+  Northern_Is
+1         112</code></pre>
 </div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>This table is a <strong>wide table</strong>. It can easily be reformatted into a long table combining the pipe operator <code>%&gt;%</code> with <code>pivot_longer</code> as following:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TW_corals_long</span> <span class='op'>&lt;-</span> <span class='va'>TW_corals</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>Southern_TW</span><span class='op'>:</span><span class='va'>Northern_Is</span>, names_to <span class='op'>=</span> <span class='st'>"Region"</span>, values_to <span class='op'>=</span> <span class='st'>"Richness"</span><span class='op'>)</span>
+<span class='co'># TW_corals_long &lt;-TW_corals %&gt;% pivot_longer(cols = everything(), names_to = "Region", values_to = "Richness") </span>
+<span class='va'>TW_corals_long</span> 
+</code></pre>
+</div>
+<pre><code># A tibble: 13 x 2
+   Region       Richness
+   &lt;chr&gt;           &lt;int&gt;
+ 1 Southern_TW       280
+ 2 Northern_TW       136
+ 3 Eastern_TW        210
+ 4 Ludao             250
+ 5 Lanyu             248
+ 6 Xiaoliuqiu        239
+ 7 Penghu_North      107
+ 8 Penghu_East        84
+ 9 Penghu_Inner       75
+10 Penghu.South       99
+11 Dongsha           229
+12 Taiping           163
+13 Northern_Is       112</code></pre>
+</div>
+<p>The reverse operation can be made using <code>pivot_wider</code> in order to recreate the wide version of our table:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TW_corals_wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span><span class='va'>TW_corals_long</span>, names_from <span class='op'>=</span> <span class='va'>Region</span>, values_from <span class='op'>=</span> <span class='va'>Richness</span><span class='op'>)</span> 
+<span class='va'>TW_corals_wide</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1 x 13
+  Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
+        &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;
+1         280         136        210   250   248        239
+# ... with 7 more variables: Penghu_North &lt;int&gt;, Penghu_East &lt;int&gt;,
+#   Penghu_Inner &lt;int&gt;, Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;,
+#   Taiping &lt;int&gt;, Northern_Is &lt;int&gt;</code></pre>
+</div>
+<p><span style="color: red"><strong>Note</strong>: The pipe operator <code>%&gt;%</code> is optional, but it is generally more elegant and you will discover its importance later when your coding skills are maturing.</span></p>
+<h3 id="advanced-pivot-options">Advanced pivot options</h3>
+<p>Here’s a subset of median income by gender and by work experience for 2017 in four states in US and Taiwan (real data).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='st'>'Data/metoo.txt'</span>,header<span class='op'>=</span><span class='cn'>T</span>, sep<span class='op'>=</span><span class='st'>"\t"</span>, dec<span class='op'>=</span><span class='st'>"."</span>, na.strings <span class='op'>=</span> <span class='st'>"n/a"</span><span class='op'>)</span>
+<span class='va'>income</span>
+</code></pre>
+</div>
+<pre><code>          state male_fulltime male_other female_fulltime female_other
+1         Maine          4194       1508            3337         1148
+2 Massachusetts          5505       1547            4486         1248
+3  NewHampshire          4996       1689            3848         1260
+4       Vermont          4210       1475            3516         1201
+5        Taiwan          1806         NA            1510           NA</code></pre>
+</div>
+<p>At first glance, it might seem that we have three variables as in the earlier example, but upon closer examination, we see that we can tease out two variables from the column names: sex (<code>male</code> and <code>female</code>) and work experience (<code>fulltime</code> and <code>other</code>).</p>
+<p><code>pivot_longer</code> has an argument, <code>names_sep</code>, that is passed the character that is used to delimit the two variable values. In our example, this character is <code>_</code>. Since the column values will be split across two variables we will also need to pass two column names to the <code>names_to</code> argument.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_long</span> <span class='op'>&lt;-</span> <span class='va'>income</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='op'>-</span><span class='va'>state</span>, 
+                         names_to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gender"</span>,<span class='st'>"work"</span><span class='op'>)</span>, 
+                         names_sep <span class='op'>=</span> <span class='st'>"_"</span>, 
+                         values_to <span class='op'>=</span> <span class='st'>"income"</span><span class='op'>)</span>
+                         
+<span class='va'>income_long</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 20 x 4
+   state         gender work     income
+   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
+ 1 Maine         male   fulltime   4194
+ 2 Maine         male   other      1508
+ 3 Maine         female fulltime   3337
+ 4 Maine         female other      1148
+ 5 Massachusetts male   fulltime   5505
+ 6 Massachusetts male   other      1547
+ 7 Massachusetts female fulltime   4486
+ 8 Massachusetts female other      1248
+ 9 NewHampshire  male   fulltime   4996
+10 NewHampshire  male   other      1689
+11 NewHampshire  female fulltime   3848
+12 NewHampshire  female other      1260
+13 Vermont       male   fulltime   4210
+14 Vermont       male   other      1475
+15 Vermont       female fulltime   3516
+16 Vermont       female other      1201
+17 Taiwan        male   fulltime   1806
+18 Taiwan        male   other        NA
+19 Taiwan        female fulltime   1510
+20 Taiwan        female other        NA</code></pre>
+</div>
+<p>Obviously, the reverse is possible using <code>pivot_wider</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_long</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gender</span>,<span class='va'>work</span><span class='op'>)</span>, 
+            values_from <span class='op'>=</span> <span class='va'>income</span>,
+            names_sep <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 5 x 5
+  state         male.fulltime male.other female.fulltime female.other
+  &lt;chr&gt;                 &lt;int&gt;      &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
+1 Maine                  4194       1508            3337         1148
+2 Massachusetts          5505       1547            4486         1248
+3 NewHampshire           4996       1689            3848         1260
+4 Vermont                4210       1475            3516         1201
+5 Taiwan                 1806         NA            1510           NA</code></pre>
+</div>
+<h2 id="splitting-elements">Splitting elements</h2>
+<p>The <code>tidyr</code> package offers other functions not directly tied to pivoting.</p>
+<h3 id="splitting-columns">Splitting columns</h3>
+<p>For example, if you want to split a column into two or more columns based on a column’s delimited value, you can use the <code>separate</code> function.</p>
+<ul>
+<li>Let’s create a table with a dummy variable called <code>var1</code></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Let's first create a delimited table</span>
+<span class='va'>income_long_var</span> <span class='op'>&lt;-</span> <span class='va'>income</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, 
+                         names_to <span class='op'>=</span> <span class='st'>"var1"</span>, 
+                         values_to <span class='op'>=</span> <span class='st'>"income"</span><span class='op'>)</span>
+<span class='va'>income_long_var</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 20 x 3
+   state         var1            income
+   &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt;
+ 1 Maine         male_fulltime     4194
+ 2 Maine         male_other        1508
+ 3 Maine         female_fulltime   3337
+ 4 Maine         female_other      1148
+ 5 Massachusetts male_fulltime     5505
+ 6 Massachusetts male_other        1547
+ 7 Massachusetts female_fulltime   4486
+ 8 Massachusetts female_other      1248
+ 9 NewHampshire  male_fulltime     4996
+10 NewHampshire  male_other        1689
+11 NewHampshire  female_fulltime   3848
+12 NewHampshire  female_other      1260
+13 Vermont       male_fulltime     4210
+14 Vermont       male_other        1475
+15 Vermont       female_fulltime   3516
+16 Vermont       female_other      1201
+17 Taiwan        male_fulltime     1806
+18 Taiwan        male_other          NA
+19 Taiwan        female_fulltime   1510
+20 Taiwan        female_other        NA</code></pre>
+</div>
+<ul>
+<li>Split <code>var1</code> into two new columns</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Split var1 column into two columns</span>
+<span class='va'>income_sep</span> <span class='op'>&lt;-</span> <span class='va'>income_long_var</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>var1</span>, 
+                    sep <span class='op'>=</span> <span class='st'>"_"</span>, 
+                    into <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"gender"</span>, <span class='st'>"work"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>income_sep</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 20 x 4
+   state         gender work     income
+   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
+ 1 Maine         male   fulltime   4194
+ 2 Maine         male   other      1508
+ 3 Maine         female fulltime   3337
+ 4 Maine         female other      1148
+ 5 Massachusetts male   fulltime   5505
+ 6 Massachusetts male   other      1547
+ 7 Massachusetts female fulltime   4486
+ 8 Massachusetts female other      1248
+ 9 NewHampshire  male   fulltime   4996
+10 NewHampshire  male   other      1689
+11 NewHampshire  female fulltime   3848
+12 NewHampshire  female other      1260
+13 Vermont       male   fulltime   4210
+14 Vermont       male   other      1475
+15 Vermont       female fulltime   3516
+16 Vermont       female other      1201
+17 Taiwan        male   fulltime   1806
+18 Taiwan        male   other        NA
+19 Taiwan        female fulltime   1510
+20 Taiwan        female other        NA</code></pre>
+</div>
+<h3 id="splitting-rows">Splitting rows</h3>
+<p>Split <code>var1</code> into two rows</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_long_var</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></span><span class='op'>(</span><span class='va'>var1</span>, sep <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 40 x 3
+   state         var1     income
+   &lt;chr&gt;         &lt;chr&gt;     &lt;int&gt;
+ 1 Maine         male       4194
+ 2 Maine         fulltime   4194
+ 3 Maine         male       1508
+ 4 Maine         other      1508
+ 5 Maine         female     3337
+ 6 Maine         fulltime   3337
+ 7 Maine         female     1148
+ 8 Maine         other      1148
+ 9 Massachusetts male       5505
+10 Massachusetts fulltime   5505
+# ... with 30 more rows</code></pre>
+</div>
+<p>From the <code>tidyr</code>, check <code>uncount()</code> replicate rows by count, <code>unite()</code> combining elements from many columns into a single column, etc. You have many documentation existing online online on the use of this package. It is a very convenient pcakage when you have to repeat a formatting task on a large data set.</p>
+<p class="alert">
+<strong>⚠ Practice 1:</strong> The data set <code>rairuoho</code> is available at the following <a href="https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt">link</a>. It provides 8 days growth data of Easter grass exposed to different treatments. The 6 variables <strong><code>day3</code></strong> to <strong><code>day8</code></strong> are mean length of the grass at the given day. <strong><code>germinate</code></strong> is the no. of germinated seeds.<strong><code>bed</code></strong> is a factor with four levels (<code>mould1</code>,<code>mould2</code>, <code>paper4</code>, <code>paper8</code>) indicating where the grass was growing and thickness. <strong><code>treatement</code></strong> has two levels <code>water</code> and <code>nutrient</code> indicating watering scheme (pure water or enriched with nutrients). <strong><code>spatial1</code></strong> and <strong><code>spatial2</code></strong> are the vertical and horizontal position of the plot, respectively. The variable <code>row</code> and <code>column</code> are meaningless should be removed.
+</p>
+<p class="alert">
+<strong>Instruction:</strong> within the variable <code>treatement</code>, <code>nutrient</code> is misleading because it is water enriched with nutrient. Replace <code>nutrient</code> with <code>enriched in the data set</code>. Reformat the table in order to have the <code>day</code> as a single variable (factor) containing 6 levels (<code>day3</code>, <code>day4</code>, <code>day5</code>, <code>day6</code>, <code>day7</code>, <code>day8</code>). Another variable <code>length</code> will be created to receive the length of the grass at the given day. Merge variables <code>Spatial1</code> and <code>Spatial2</code> in order to obtain the following format for the spatial coordinates of an observation <code>1_1</code>. This homework must be prepared in <em>.Rmd</em> format that you will knit as a <em>.html</em> file. You will <strong>push</strong> your files into a public repository available from your Github account. You will share with me be email [<a href="mailto:vianneydenis@g.ntu.edu.tw" class="email">vianneydenis@g.ntu.edu.tw</a>] the address (URL) of this repository (such as <a href="https://github.com/vianneydenis/OCEAN5098.git" class="uri">https://github.com/vianneydenis/OCEAN5098.git</a>) <strong>before next Monday</strong> in order for me to check your work. The <strong>title of your email </strong> should be <code>Practice 1 (your name: your student no.)</code>.
+</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

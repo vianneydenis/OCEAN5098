@@ -31,8 +31,9 @@ navbar:
         - text: "dplyr"
           href: dplyr.html  
         - text: "tidyr"
+          href: tidyr.html  
     - text: "Graphics"
-#      href: Graphics.html
+#     href: Graphics.html
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
