@@ -2454,7 +2454,7 @@ Manipulation
 <div class="nav-dropdown-content">
 <a href="manipulation.html">Basics</a>
 <a href="dplyr.html">dplyr</a>
-<span class="nav-dropdown-header">tidyr</span>
+<a href="tidyr.html">tidyr</a>
 </div>
 </div>
 <span class="nav-dropdown-header">Graphics</span>
@@ -2475,225 +2475,6 @@ Manipulation
 
 
 <div class="d-article">
-<h2 id="package-tidyr">Package <code>tidyr</code></h2>
-<p>The function <code>gather</code> is depreciated (I am getting older and I keep using old function), and it is now recommended to switch to <code>pivot_longer()</code> still under active development: <code>df %&gt;% gather("key", "value", x, y, z)</code>is equivalent to <code>df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code></p>
-<p>Data tables come in different sizes and shape; they can be a very simple two column dataset or they can consist of many columns and “sub-columns”. Understanding its structure, and learning how to reshape it into a workable form is critical to an effective and error free analysis. The previous example illustrates the use of the package <code>tidyr</code> in tidying or reshaping tables. This package is the package by excellence to reorganize the structure of a table.</p>
-<h3 id="pivot-data">Pivot data</h3>
-<p>Dai &amp; Horng (2009) summarize the coral diversity around Taiwan. <code>TW_corals</code> displays scleractinian coral richness by coral reef regions:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TW_corals</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='st'>'Data/tw_corals.txt'</span>,header<span class='op'>=</span><span class='cn'>T</span>, sep<span class='op'>=</span><span class='st'>"\t"</span>, dec<span class='op'>=</span><span class='st'>"."</span><span class='op'>)</span>
-<span class='va'>TW_corals</span>
-</code></pre>
-</div>
-<pre><code>  Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
-1         280         136        210   250   248        239
-  Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping
-1          107          84           75           99     229     163
-  Northern_Is
-1         112</code></pre>
-</div>
-<p>This wide table can be easily reformat into a long table as we did before:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
-<span class='va'>TW_corals_long</span> <span class='op'>&lt;-</span> <span class='va'>TW_corals</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='va'>Southern_TW</span><span class='op'>:</span><span class='va'>Northern_Is</span>, names_to <span class='op'>=</span> <span class='st'>"Region"</span>, values_to <span class='op'>=</span> <span class='st'>"Richness"</span><span class='op'>)</span>
-<span class='va'>TW_corals_long</span> <span class='op'>&lt;-</span><span class='va'>TW_corals</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fu'><a href='https://tidyselect.r-lib.org/reference/everything.html'>everything</a></span><span class='op'>(</span><span class='op'>)</span>, names_to <span class='op'>=</span> <span class='st'>"Region"</span>, values_to <span class='op'>=</span> <span class='st'>"Richness"</span><span class='op'>)</span>
-<span class='va'>TW_corals_long</span> 
-</code></pre>
-</div>
-<pre><code># A tibble: 13 x 2
-   Region       Richness
-   &lt;chr&gt;           &lt;int&gt;
- 1 Southern_TW       280
- 2 Northern_TW       136
- 3 Eastern_TW        210
- 4 Ludao             250
- 5 Lanyu             248
- 6 Xiaoliuqiu        239
- 7 Penghu_North      107
- 8 Penghu_East        84
- 9 Penghu_Inner       75
-10 Penghu.South       99
-11 Dongsha           229
-12 Taiping           163
-13 Northern_Is       112</code></pre>
-</div>
-<p>The reverse operation can be made using <code>pivot_wider</code>:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TW_corals_wide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span><span class='va'>TW_corals_long</span>, names_from <span class='op'>=</span> <span class='va'>Region</span>, values_from <span class='op'>=</span> <span class='va'>Richness</span><span class='op'>)</span> 
-<span class='va'>TW_corals_wide</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 1 x 13
-  Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
-        &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;
-1         280         136        210   250   248        239
-# ... with 7 more variables: Penghu_North &lt;int&gt;, Penghu_East &lt;int&gt;,
-#   Penghu_Inner &lt;int&gt;, Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;,
-#   Taiping &lt;int&gt;, Northern_Is &lt;int&gt;</code></pre>
-</div>
-<p>We’ve now recreated the wide version of our table.</p>
-<p><span style="color: red"><strong>Note</strong>: The pipe operator <code>%&gt;%</code> is optional, but it is generally more elegant and you will discover its importance later when your coding skills are maturing.</span></p>
-<h3 id="advanced-pivot-options">Advanced pivot options</h3>
-<p>Here’s a subset of median income by sex and by work experience for 2017 in four states in US and Taiwan (real data).</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span><span class='st'>'Data/metoo.txt'</span>,header<span class='op'>=</span><span class='cn'>T</span>, sep<span class='op'>=</span><span class='st'>"\t"</span>, dec<span class='op'>=</span><span class='st'>"."</span>, na.strings <span class='op'>=</span> <span class='st'>"n/a"</span><span class='op'>)</span>
-<span class='va'>income</span>
-</code></pre>
-</div>
-<pre><code>          state male_fulltime male_other female_fulltime female_other
-1         Maine          4194       1508            3337         1148
-2 Massachusetts          5505       1547            4486         1248
-3  NewHampshire          4996       1689            3848         1260
-4       Vermont          4210       1475            3516         1201
-5        Taiwan          1806         NA            1510           NA</code></pre>
-</div>
-<p>At first glance, it might seem that we have three variables as in the earlier example, but upon closer examination, we see that we can tease out two variables from the column names: sex (<code>male</code> and <code>female</code>) and work experience (<code>fulltime</code> and <code>other</code>).</p>
-<p><code>pivot_longer</code> has an argument, <code>names_sep</code>, that is passed the character that is used to delimit the two variable values. In our example, this character is <code>_</code>. Since the column values will be split across two variables we will also need to pass two column names to the <code>names_to</code> argument.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_long</span> <span class='op'>&lt;-</span> <span class='va'>income</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='op'>-</span><span class='va'>state</span>, 
-                         names_to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sex"</span>,<span class='st'>"work"</span><span class='op'>)</span>, 
-                         names_sep <span class='op'>=</span> <span class='st'>"_"</span>, 
-                         values_to <span class='op'>=</span> <span class='st'>"income"</span><span class='op'>)</span>
-                         
-<span class='va'>income_long</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 20 x 4
-   state         sex    work     income
-   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
- 1 Maine         male   fulltime   4194
- 2 Maine         male   other      1508
- 3 Maine         female fulltime   3337
- 4 Maine         female other      1148
- 5 Massachusetts male   fulltime   5505
- 6 Massachusetts male   other      1547
- 7 Massachusetts female fulltime   4486
- 8 Massachusetts female other      1248
- 9 NewHampshire  male   fulltime   4996
-10 NewHampshire  male   other      1689
-11 NewHampshire  female fulltime   3848
-12 NewHampshire  female other      1260
-13 Vermont       male   fulltime   4210
-14 Vermont       male   other      1475
-15 Vermont       female fulltime   3516
-16 Vermont       female other      1201
-17 Taiwan        male   fulltime   1806
-18 Taiwan        male   other        NA
-19 Taiwan        female fulltime   1510
-20 Taiwan        female other        NA</code></pre>
-</div>
-<p>Obviously, the reverse is possible:</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income_long</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>sex</span>,<span class='va'>work</span><span class='op'>)</span>, 
-            values_from <span class='op'>=</span> <span class='va'>income</span>,
-            names_sep <span class='op'>=</span> <span class='st'>"."</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 5 x 5
-  state         male.fulltime male.other female.fulltime female.other
-  &lt;chr&gt;                 &lt;int&gt;      &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
-1 Maine                  4194       1508            3337         1148
-2 Massachusetts          5505       1547            4486         1248
-3 NewHampshire           4996       1689            3848         1260
-4 Vermont                4210       1475            3516         1201
-5 Taiwan                 1806         NA            1510           NA</code></pre>
-</div>
-<h3 id="separating-elements">Separating elements</h3>
-<p>The <code>tidyr</code> package offers other functions not directly tied to pivoting. For example, to split a column into two or more columns based on a column’s delimited value, use the <code>separate</code> function.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Let's first create a delimited table</span>
-<span class='va'>income.long</span> <span class='op'>&lt;-</span> <span class='va'>income</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, 
-                         names_to <span class='op'>=</span> <span class='st'>"var1"</span>, 
-                         values_to <span class='op'>=</span> <span class='st'>"income"</span><span class='op'>)</span>
-<span class='va'>income.long</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 20 x 3
-   state         var1            income
-   &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt;
- 1 Maine         male_fulltime     4194
- 2 Maine         male_other        1508
- 3 Maine         female_fulltime   3337
- 4 Maine         female_other      1148
- 5 Massachusetts male_fulltime     5505
- 6 Massachusetts male_other        1547
- 7 Massachusetts female_fulltime   4486
- 8 Massachusetts female_other      1248
- 9 NewHampshire  male_fulltime     4996
-10 NewHampshire  male_other        1689
-11 NewHampshire  female_fulltime   3848
-12 NewHampshire  female_other      1260
-13 Vermont       male_fulltime     4210
-14 Vermont       male_other        1475
-15 Vermont       female_fulltime   3516
-16 Vermont       female_other      1201
-17 Taiwan        male_fulltime     1806
-18 Taiwan        male_other          NA
-19 Taiwan        female_fulltime   1510
-20 Taiwan        female_other        NA</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Split var1 column into two columns</span>
-<span class='va'>income.sep</span> <span class='op'>&lt;-</span> <span class='va'>income.long</span> <span class='op'>%&gt;%</span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate.html'>separate</a></span><span class='op'>(</span>col <span class='op'>=</span> <span class='va'>var1</span>, 
-                    sep <span class='op'>=</span> <span class='st'>"_"</span>, 
-                    into <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sex"</span>, <span class='st'>"work"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>income.sep</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 20 x 4
-   state         sex    work     income
-   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
- 1 Maine         male   fulltime   4194
- 2 Maine         male   other      1508
- 3 Maine         female fulltime   3337
- 4 Maine         female other      1148
- 5 Massachusetts male   fulltime   5505
- 6 Massachusetts male   other      1547
- 7 Massachusetts female fulltime   4486
- 8 Massachusetts female other      1248
- 9 NewHampshire  male   fulltime   4996
-10 NewHampshire  male   other      1689
-11 NewHampshire  female fulltime   3848
-12 NewHampshire  female other      1260
-13 Vermont       male   fulltime   4210
-14 Vermont       male   other      1475
-15 Vermont       female fulltime   3516
-16 Vermont       female other      1201
-17 Taiwan        male   fulltime   1806
-18 Taiwan        male   other        NA
-19 Taiwan        female fulltime   1510
-20 Taiwan        female other        NA</code></pre>
-</div>
-<h3 id="splitting-rows">Splitting rows</h3>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>income.long</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></span><span class='op'>(</span><span class='va'>var1</span>, sep <span class='op'>=</span> <span class='st'>"_"</span><span class='op'>)</span>
-</code></pre>
-</div>
-<pre><code># A tibble: 40 x 3
-   state         var1     income
-   &lt;chr&gt;         &lt;chr&gt;     &lt;int&gt;
- 1 Maine         male       4194
- 2 Maine         fulltime   4194
- 3 Maine         male       1508
- 4 Maine         other      1508
- 5 Maine         female     3337
- 6 Maine         fulltime   3337
- 7 Maine         female     1148
- 8 Maine         other      1148
- 9 Massachusetts male       5505
-10 Massachusetts fulltime   5505
-# ... with 30 more rows</code></pre>
-</div>
-<p>Other functions from the <code>tidyr</code> package allow to (check help of the functions): replicate rows by count (<code>uncount</code>), combining elements from many columns into a single column (<code>unite</code>), etc. Many online documentation exists online on the use of this package especially convenient when you have to repeat a formatting task on a large data set.</p>
 <h2 id="data-object-type-and-structure">Data object type and structure</h2>
 <h3 id="core-data-types">Core data types</h3>
 <p>These data types, or modes, define how the values are stored in the computer. You can get an object’s mode using the <code>typeof</code> function. Note that R also has a built-in <code>mode</code> function that will serve the same purpose with the one exception in that it will not distinguish integers from doubles.</p>
@@ -2981,10 +2762,10 @@ Levels: U F M</code></pre>
 <span class='va'>m</span>
 </code></pre>
 </div>
-<pre><code>         [,1]     [,2]      [,3]
-[1,] 3.854680 5.563081 0.4826078
-[2,] 9.295886 1.121122 6.6976303
-[3,] 6.969340 1.400488 8.4460627</code></pre>
+<pre><code>         [,1]     [,2]     [,3]
+[1,] 2.718648 3.475708 3.865631
+[2,] 6.351348 6.841743 1.518447
+[3,] 1.309509 7.246773 9.058695</code></pre>
 </div>
 <p>If a higher dimension vector is desired, then use the <code>array</code> function to generate the n-dimensional object. A 3x3x3 array can be created as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2995,24 +2776,24 @@ Levels: U F M</code></pre>
 </div>
 <pre><code>, , 1
 
-          [,1]     [,2]      [,3]
-[1,] 9.7024890 3.027551 9.4432425
-[2,] 7.0633400 5.125132 0.0310566
-[3,] 0.8642937 6.092613 3.2635940
+          [,1]     [,2]     [,3]
+[1,] 6.7353348 7.940924 4.882212
+[2,] 0.8936732 4.400736 1.732593
+[3,] 3.0713774 1.913927 1.569838
 
 , , 2
 
          [,1]     [,2]     [,3]
-[1,] 4.653883 1.158219 2.745312
-[2,] 4.599272 9.792116 3.152753
-[3,] 5.463340 8.768171 6.116959
+[1,] 3.655027 3.297432 7.490495
+[2,] 3.288048 6.274010 5.536398
+[3,] 2.801467 2.861039 3.873206
 
 , , 3
 
          [,1]     [,2]     [,3]
-[1,] 2.334416 3.381646 9.032255
-[2,] 5.094868 7.947191 5.787425
-[3,] 4.683014 3.665626 2.747319</code></pre>
+[1,] 6.220897 4.814478 5.810918
+[2,] 1.854531 3.076502 4.002137
+[3,] 4.016560 8.542487 5.073290</code></pre>
 </div>
 <p>Matrices and arrays can store numeric or character data types, but they cannot store both.</p>
 <h4 id="data-frames">Data frames</h4>
@@ -3160,7 +2941,7 @@ $row.names
 [[3]]
 function (expr, name) 
 .External(C_doD, expr, name)
-&lt;bytecode: 0x000000001d1e6698&gt;
+&lt;bytecode: 0x000000001415ebf8&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <p>When lists do not have component names, the <code>names</code> function will return NULL.</p>
@@ -3318,11 +3099,11 @@ Levels: 6 23.8 100.01</code></pre>
 </div>
 <p>There are many other coercion functions in R, a summary of some the most common ones we’ll be using in this course follows:</p>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode" id="cb54"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>() <span class="co">#    Convert to character</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>()  <span class="fu">as.double</span>()   <span class="co"># Convert to double</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>()    <span class="co"># Convert to integer</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.factor</span>() <span class="co"># Convert to factor</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.logical</span>()    <span class="co">#Convert to a Boolean</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>() <span class="co">#    Convert to character</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>()  <span class="fu">as.double</span>()   <span class="co"># Convert to double</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>()    <span class="co"># Convert to integer</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.factor</span>() <span class="co"># Convert to factor</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.logical</span>()    <span class="co">#Convert to a Boolean</span></span></code></pre></div>
 </div>
 <hr />
 <blockquote>
@@ -3336,7 +3117,7 @@ Levels: 6 23.8 100.01</code></pre>
 </code></pre>
 </div>
 </div>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
