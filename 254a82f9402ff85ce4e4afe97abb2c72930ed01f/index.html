@@ -2346,6 +2346,17 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   }</style>
   <!--/radix_placeholder_distill-->
   <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+  <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+  <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+  <script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+  <link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+  <script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+  <script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+  <link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+  <script src="site_libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+  <script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+  <script src="site_libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2436,7 +2447,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a class="logo" href="http://www.oc.ntu.edu.tw/oceng/">
+<a class="logo" href="https://www.dipintothereef.com/">
 <img src="images/logo.png" alt="Logo"/>
 </a>
 <a href="index.html" class="title">OCEAN 5098</a>
@@ -2457,6 +2468,7 @@ Manipulation
 <a href="tidyr.html">tidyr</a>
 </div>
 </div>
+<a href="types.html">Types &amp; Structures</a>
 <span class="nav-dropdown-header">Graphics</span>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2495,6 +2507,20 @@ Manipulation
 <blockquote>
 <p>📝 The syllabus for this course can be download <a href=".\documents\OCEAN5098_syllabus.pdf">HERE</a>. Because of the pandemic, the format of this class is evolving. This website is the latest update. Accordingly, information in the following syllabus including the schedule, content and evaluation mode are susceptible to changes according to the evolution of the situation.</p>
 </blockquote>
+<style>
+.html-widget {
+    margin: auto;
+}
+</style>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<div id="htmlwidget-6362903b0cd4f1a86977" style="width:624px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6362903b0cd4f1a86977">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[25.021295,121.537338,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Institute of Oceanography",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[25.021295,25.021295],"lng":[121.537338,121.537338]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1: Interactive map of IONTU’s location
+</p>
+</div>
+</div>
 <h1 id="description">Description</h1>
 <p>This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis, multivariate analysis, etc.</p>
 <p><strong>Objectives</strong> The aim of this course is for the students to get familiar with R language. This course will explore the multiple advantages of using R language for formatting reports, preparing presentation, exploring and analyzing ecological, data creating and sharing project. The course will assume that students have no prior knowledge in R or other programming languages. It will start from scratch, <strong>i.e.</strong> downloading R and installing it on your computer. Along the semester, you will be introduced to the use of <a href="https://www.rstudio.com/">RStudio GUI</a>, <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a>, and <a href="https://github.com/">GitHub</a> repositories which all improve you Rrrrr experience.</p>

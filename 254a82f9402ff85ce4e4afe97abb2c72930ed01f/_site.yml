@@ -16,7 +16,7 @@ output_dir: "."
 navbar:
   logo:
     image: images/logo.png
-    href: http://www.oc.ntu.edu.tw/oceng/
+    href: https://www.dipintothereef.com/
   search: true
   source_url: true
   right:
@@ -31,7 +31,9 @@ navbar:
         - text: "dplyr"
           href: dplyr.html  
         - text: "tidyr"
-          href: tidyr.html  
+          href: tidyr.html 
+    - text: "Types & Structures"
+      href: types.html
     - text: "Graphics"
 #     href: Graphics.html
 #        - text: "Script"

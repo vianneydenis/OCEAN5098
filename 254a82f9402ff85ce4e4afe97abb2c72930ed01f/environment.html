@@ -2457,6 +2457,7 @@ Manipulation
 <a href="tidyr.html">tidyr</a>
 </div>
 </div>
+<a href="types.html">Types &amp; Structures</a>
 <span class="nav-dropdown-header">Graphics</span>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2609,7 +2610,7 @@ Show Solution
 </div>
 <pre><code>function (x, na.rm = FALSE, ...) 
 UseMethod(&quot;median&quot;)
-&lt;bytecode: 0x00000000133299c8&gt;
+&lt;bytecode: 0x0000028c32f1d008&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <ul>
@@ -2679,7 +2680,11 @@ UseMethod(&quot;median&quot;)
 <span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>character(0)</code></pre>
+<pre><code> [1] &quot;a&quot;          &quot;a.fact&quot;     &quot;arranged&quot;   &quot;arranged1&quot;  &quot;c&quot;         
+ [6] &quot;dat&quot;        &quot;filtered&quot;   &quot;filtered1&quot;  &quot;gp&quot;         &quot;gp.mean&quot;   
+[11] &quot;iris.sel&quot;   &quot;m&quot;          &quot;mutated1&quot;   &quot;name&quot;       &quot;selected&quot;  
+[16] &quot;selected1&quot;  &quot;selected2&quot;  &quot;stra&quot;       &quot;summarised&quot; &quot;value1&quot;    
+[21] &quot;value2&quot;     &quot;x&quot;          &quot;x1&quot;         &quot;y&quot;         </code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2690,7 +2695,11 @@ UseMethod(&quot;median&quot;)
 <span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># list objects 'a', 'b', 'c'</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<pre><code> [1] &quot;a&quot;          &quot;a.fact&quot;     &quot;arranged&quot;   &quot;arranged1&quot;  &quot;b&quot;         
+ [6] &quot;c&quot;          &quot;dat&quot;        &quot;filtered&quot;   &quot;filtered1&quot;  &quot;gp&quot;        
+[11] &quot;gp.mean&quot;    &quot;iris.sel&quot;   &quot;m&quot;          &quot;mutated1&quot;   &quot;name&quot;      
+[16] &quot;selected&quot;   &quot;selected1&quot;  &quot;selected2&quot;  &quot;stra&quot;       &quot;summarised&quot;
+[21] &quot;value1&quot;     &quot;value2&quot;     &quot;x&quot;          &quot;x1&quot;         &quot;y&quot;         </code></pre>
 </div>
 <p><strong>Note</strong>: two operators <code>&lt;-</code> and <code>=</code> can be used to import data. While longer, I favor <code>&lt;-</code> in the creation of object to avoid confusion with mathematical operator</p>
 <p>You can clean <code>rm</code> (remove) the objects <code>list</code> in memory <code>ls()</code> using:</p>
