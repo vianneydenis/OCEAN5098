@@ -102,15 +102,15 @@ A <- data.frame(
      y = c(5.2, 26.6, 31.2, 2.2, 13.8, 7.8, 35.2, 8.6, 20.3, 1.1) )
 B <- c(TRUE, FALSE)
 C <- c("apples", "oranges", "round")
-lst <- list(A = A, B = B, C = C)
+my.lst <- list(A = A, B = B, C = C)
 
-str(lst)
-names(lst)
+str(my.lst)
+names(my.lst)
 
-lst$A
+my.lst$A
 
-lst[[1]]
-class(lst[[1]])
+my.lst[[1]]
+class(my.lst[[1]])
 
 lst.notags <- list(A, B, D)
 lst.notags
@@ -140,13 +140,13 @@ numfac
 charfac <- as.factor(y.c)
 charfac
 
-as.character() #	Convert to character
-as.numeric()  as.double()	# Convert to double
-as.integer()	# Convert to integer
-as.factor()	# Convert to factor
-as.logical()	#Convert to a Boolean
-
-students$height<-as.numeric(students$height) # assigned numerical value to this column
-class(students$height) # check the change was made
+as.numeric()  as.double()	# Coerce to double
+as.integer()	# Coerce to integer
+as.character() #	Coerce to character
+as.logical()	# Coerce to Boolean (logical: TRUE | FALSE)
+as.factor()	# Coerce to factor
+as.Date()  # Coerce to date
+as.data.frame()  # Coerce to data frame
+as.list() # Coerce to list
 ```{.r .distill-force-highlighting-css}
 ```

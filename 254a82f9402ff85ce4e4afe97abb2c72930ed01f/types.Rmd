@@ -148,9 +148,7 @@ Remember, the order in which the levels are displayed match their integer repres
 factor(a, levels=c("U","F","M"))
 ```
 
-It is critcally important when you are trying to rearrange elements on a plot.
-
-
+It is critically important when you are trying to rearrange elements on a plot.
 
 <p class="comment">
 **Practice 1:** Understanding the factors and their levels is critical, especially when you will subset. Let's explore together why using our `iris` data set. Subset species `setosa` and `virginica` into an new data set `iris.sel`. Check the `levels` in the variable `iris.sel$Species`. Conclude on the possible problem?
@@ -171,23 +169,15 @@ It is now time to change the row names in our subset:
 rownames(iris.sel) = seq(length=nrow(iris.sel))
 ```
 
-<span style="color: red">**ALWAYS** CHECK THE DATA TYPE AND STRUCTRE OF YOUR DATA SET!</span>
-
-
-
-
-
-
-
+<span style="color: red">**ALWAYS**, **ALWAYS**,  CHECK THE DATA TYPE AND STRUCTURE OF YOUR DATA SET!</span>
 
 ## Date
 
-Date values are stored as numbers. But to be properly interpreted as a date object in R, their attribute must be explicitly defined as a **date**. R provides many facilities to convert and manipulate dates and times, but a package called `lubridate` makes working with dates/times much easier. Working wit data could be the object of a specific topic, and it will no be covered here.
+Date values are stored as numbers. But to be properly interpreted as a date object in R, their attribute must be explicitly defined as a **date**. `base` provides many facilities to convert and manipulate dates and times, but a package called `lubridate` [see `library (lubridate)`] makes working with dates/times much easier. Working with dates could be the object of a specific topic, and it will no be covered here.
 
-## NA and NULL
+## NAs and NULLs
 
-You will find that many data files contain missing or unknown values. It may be tempting to assign these missing or unknown values a `0` but doing so can lead to many undesirable results when analyzing the data. R has two placeholders for such elements: `NA` and `NULL`
-
+Often you will find missing or unknown values in data set.It may be tempting to assign these missing or unknown values to `0`. However, doing so can lead to many undesirable results when analyzing the data. R has two placeholders for such elements: `NA` and `NULL`
 
 ```{r class.source = "fold-show",  eval=T}
 x <- c(23, NA, 1.2, 5)
@@ -197,12 +187,11 @@ x <- c(23, NA, 1.2, 5)
 
 The `NULL` object also represents missing values but its interpretation is slightly different in that it suggests that the value does not exist or that it’s not measurable.
 
-
 ```{r class.source = "fold-show",  eval=T}
 y <- c(23, NULL, 1.2, 5)
 ```
 
-Remember when we previously removed the variables that we did not want to exist in our `students` dataset.The difference between `NA` and `NULL` may seem subtle, but their interpretation in some functions can lead to different outcomes. For example, when computing the mean of `x`, R returns an `NA` value:
+Remember when we previously removed variables that we did not want to exist in our `students` dataset.The difference between `NA` and `NULL` may seem subtle, but their interpretation in some functions can lead to different outcomes. For example, when computing the mean of `x`, R returns an `NA` value:
 
 ```{r class.source = "fold-show",  eval=T}
 mean(x)
@@ -219,31 +208,30 @@ mean(y)
 It’s more common to find data tables with missing elements populated with `NA`’s than `NULL`’s so unless you have a specific reason to use `NULL` as a missing value placeholder, use `NA` instead.
 
 
-
 # Data structures
 
-Most datasets we work with consist of batches of values such as a table of temperature values or a list of survey results. These batches are stored in R in one of several data structures. These include **(atomic) vectors**, **matrices**, **data frames** and **lists**.
+Most datasets we work with consist of batches of values such as a **table**  (ex: temperature values) or a list of results (ex: annual survey). These batches of data are stored in R in one of several data structures. These include **(atomic) vectors**, **matrices**, **data frames** and **lists**.
 
-![](Figures/data_structures.png)
+![](images/data_structures.png)
 
 
 ## (Atomic) vectors
 
-The **atomic vector** (or **vector** for short) is the simplest data structure in R which consists of an ordered set of values of the same type and or class (e.g. numeric, character, date, etc…). A vector can be created using the combine function c() as in
+The **atomic vector** (or **vector** for short) is the simplest data structure in R which consists of an ordered set of values of the same type and or class (e.g. numeric, character, date, etc…). As we did it before, a vector can be created using the combine function `c()` as in:
 
 ```{r class.source = "fold-show",  eval=T}
 x <- c(674 , 4186 , 5308 , 5083 , 6140 , 6381)
 x
 ```
 
-As we seen before, a vector object is an indexable collection of values which allows one to access a specific index number. For example, to access the third element of x, type:
+As we seen before, a vector object is an **indexable** collection of values which allows one to access a specific index number (subscript). For example, to access the third element of `x`, type:
 
 
 ```{r class.source = "fold-show",  eval=T}
 x[3]
 ```
 
-You can also select a subset of elements by index values using the combine function c().
+Already seen it before, but you can also select a subset of elements by index values using the combine function `c()`.
 
 ```{r class.source = "fold-show",  eval=T}
 x[c(1,3,4)]
@@ -269,7 +257,7 @@ x <- c("all", "b", "olive")
 x
 ```
 
-However, a vector can only be of one type. For example, you cannot mix numeric and character types as follows:
+However, **a vector can only be of one type**. For example, you cannot mix numeric and character types as follows:
 
 ```{r class.source = "fold-show",  eval=T}
 x <- c( 1.2, 5, "Rt", "2000")
@@ -281,11 +269,9 @@ In such a situation, R will convert the element types to the **highest common mo
 typeof(x)
 ```
 
-
 ## Matrices and arrays
 
-
-Matrices in R can be thought of as vectors indexed using two indices instead of one. For example, the following line of code creates a 3 by 3 matrix of randomly generated values. The parameters 'nrow' and 'ncol' define the matrix dimension and the function 'runif' generates the nine random numbers that populate this matrix.
+Matrices in R can be thought of as vectors indexed using two indices instead of one. For example, the following line of code creates a 3 by 3 matrix of randomly generated values. The parameters `nrow` and `ncol` define the matrix dimension and the function `runif` generates nine random numbers that populate this matrix.
 
 ```{r class.source = "fold-show",  eval=T}
 m <- matrix(runif(9,0,10), nrow = 3, ncol = 3)
@@ -301,11 +287,11 @@ m <- array(runif(27,0,10), c(3,3,3))
 m
 ```
 
-Matrices and arrays can store numeric or character data types, but they cannot store both. 
+Matrices and arrays can store numeric or character data types, but they cannot store both. They derived directly form vector structure but have a higher number of dimensions.
 
 ## Data frames
 
-A **data frame** is what comes closest to our perception of a data table. It’s an extension of the matrix object in that, unlike a matrix, a data frame can *mix* data types across columns (e.g. both numeric and character columns can coexist in a data frame) but data type remains the same across rows.
+A **data frame** is what comes closest to our perception of a data table. It’s an extension of the matrix object in that, unlike a matrix, a data frame can *mix* data types across columns (e.g. both **numeric** and **character** columns can coexist in a data frame) but data type remains the same across rows.
 
 
 ```{r class.source = "fold-show",  eval=T}
@@ -322,7 +308,7 @@ rownames(dat) # extract row names
 
 ## Lists
 
-A **list** is an ordered set of components stored in a 1D vector. In fact, it’s another kind of vector called a recursive vector where each vector element can be of different data type and structure. This implies that each element of a list can hold complex objects such as matrices, data frames and other list objects too! Think of a list as a single column spreadsheet where each cell stores anything from a number, to a three paragraph sentence, to a five column table.
+A **list** is an ordered set of components stored in a 1D vector. In fact, it’s another kind of vector called a **recursive vector** where each vector element can be of different data type and structure. This implies that **each element of a list** can hold complex objects such as **matrices**, **data frames** and even **other list objects**! Think of a list as a single column spreadsheet where each cell stores anything from a number, to a three paragraph sentence, to a five column table.
 
 A list is constructed using the `list` function. For example, the following list consists of 3 components: a two-column data frame (tagged as component `A`), a two element logical vector (tagged as component `B`) and a three element character vector (tagged as component `C`).
 
@@ -333,29 +319,29 @@ A <- data.frame(
      y = c(5.2, 26.6, 31.2, 2.2, 13.8, 7.8, 35.2, 8.6, 20.3, 1.1) )
 B <- c(TRUE, FALSE)
 C <- c("apples", "oranges", "round")
-lst <- list(A = A, B = B, C = C)
+my.lst <- list(A = A, B = B, C = C)
 ```
 
 You can view each component’s structure using the `str` function.
 
 
 ```{r class.source = "fold-show",  eval=T}
-str(lst)
-names(lst)
+str(my.lst)
+names(my.lst)
 ```
 
 Each component of a list can be extracted using the `$` symbol followed by that component’s name. For example, to access component A from list `lst`, type:
 
 
 ```{r class.source = "fold-show",  eval=T}
-lst$A
+my.lst$A
 ```
 
 You can also access that same component using its numerical index. Since A is the first component in `lst`, its numerical index is `1`.
 
 ```{r class.source = "fold-show",  eval=T}
-lst[[1]]
-class(lst[[1]])
+my.lst[[1]]
+class(my.lst[[1]])
 ```
 
 Note that components do not require names. For example, we could have created a list as follows (note the omission of `A=`, `B=`, etc…):
@@ -381,21 +367,23 @@ str(M)
 names(M)
 ```
 
-The `M` list is more complex than the simple list `lst` we created earlier. In addition to having more components, it stores a *wider* range of data types and structures. For example, element qr is itself a list of five elements!
+The `M` list is more complex than the simple list `lst` we created earlier. In addition to having more components, it stores a *wider* range of data types and structures. For example, element `qr` is itself a list of five elements!
 
 ```{r class.source = "fold-show",  eval=T}
 str(M$qr)
 ```
 
-So if we want to access the element rank in the component qr of list `M`, we can type:
+So if we want to access the element rank in the component `qr` of list `M`, we can use:
 
 ```{r class.source = "fold-show",  eval=T}
 M$qr$rank
 ```
 
+This structure of output from a function is common. Using `lm` it is specified in the help of the function (`?lm`): *"object of class "lm" is a **list** containing at least the following components"*
+
 # Coercing data
 
-Data can be coerced from one type to another. For example, to coerce the following vector object from character to numeric, use the `as.numeric` function.
+Data can be coerced (forced, ~ converted) from one type to another. For example, to coerce the following vector object from character to numeric, use the `as.numeric` function.
 
 ```{r class.source = "fold-show",  eval=T}
 y   <- c("23.8", "6", "100.01","6")
@@ -416,7 +404,7 @@ numchar <- as.character(y.c)
 numchar
 ```
 
-You can also coerce a number or character to a factor.
+You can also coerce a number or a character into a factor.
 
 ```{r class.source = "fold-show",  eval=T}
 numfac <- as.factor(y)
@@ -429,32 +417,32 @@ charfac
 ```
 
 
-There are many other coercion functions in R, a summary of some the most common ones we’ll be using in this course follows:
+There are many other coercion functions in R, a summary of some the most common ones we’ll be using in this course and others:
 
 
 ```{r class.source = "fold-show",  eval=F}
-as.character() #	Convert to character
-as.numeric()  as.double()	# Convert to double
-as.integer()	# Convert to integer
-as.factor()	# Convert to factor
-as.logical()	#Convert to a Boolean
+as.numeric()  as.double()	# Coerce to double
+as.integer()	# Coerce to integer
+as.character() #	Coerce to character
+as.logical()	# Coerce to Boolean (logical: TRUE | FALSE)
+as.factor()	# Coerce to factor
+as.Date()  # Coerce to date
+as.data.frame()  # Coerce to data frame
+as.list() # Coerce to list
 ```
+
+
+
+
+
+
 
 ---------
 
-> *<span style="color: green">**RP5**: create the following data frame summarizing the results of a small experiment on 5 individuals testing the efficiency of a specific diet (drinking bubble tea only - feak data). Create another vector with the weight loss (in %) associated with subject no. What can you say on this bubble tea diet? Reformat the table by creating: a variable `individual` with the identity of the five individuals,  a variable `diet` with two levels `before` and `after`, a variable `weight` containing the weight before and after the diet. </span>*
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice 2:** Create the following data frame from scratch. This short experiment aims at testing the efficiency of a diet made of bubble teas: three cups a day for a week. Weight of subjects is provided before and after this 'bubble tea' diet.  Reformat this data frame to obtain the `weight` as a double numeric into one column and the `time` of measurement as factor with two levels `before_diet` and `after_diet`. You will store this **data frame** as the first element of a list called **`BUBBLE_DIET`**. The second element of this list will be another list called **`WEIGHT_LOSS`** with three elements: [1] a **vector of character** extracting the row names of the table previously created; [2] a **numeric vector** (double) indicating the weight loss (in %) of each subject (can be positive or negative); [3] combine these two elements in a **table with two columns**: `subject` and `weight_loss`. This will be you third element of the `WEIGHT_LOSS` list. Push both your *.Rmd* and *.html* files into a public repository available from your Github account.You will share with me be email [vianneydenis@g.ntu.edu.tw] the address (URL) of this repository (such as https://github.com/vianneydenis/OCEAN5098.git) **before next Monday** in order for me to check your work. The **title of your email ** should be `Practice 2 (your name: your student no.). ENJOY ;)
+</p>
 
 
-
-
-
-
-
-
-
-`class(students$height)` tells us that this column is an integer: a whole number (not a fractional number) that can be positive, negative, or zero. This can be converted as a numerical using the function: `as.numeric'
-
-```{r,  eval=FALSE}
-students$height<-as.numeric(students$height) # assigned numerical value to this column
-class(students$height) # check the change was made
-```
+![](images/table_manip.png)
