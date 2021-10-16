@@ -16,6 +16,20 @@ Welcome to the website of *OCEAN 5098*. This  course will help you to get famili
 
 > `r knitr::asis_output("\U1F4DD")` The syllabus for this course can be download [HERE](.\documents\OCEAN5098_syllabus.pdf). Because of the pandemic, the  format of this class is evolving. This website is the latest update. Accordingly, information in the following syllabus including the schedule, content and evaluation mode are susceptible to changes according to the evolution of the situation.
 
+<style>
+.html-widget {
+    margin: auto;
+}
+</style>
+
+```{r, echo=F, fig.align = "center", fig.cap="Interactive map of IONTU's location"}
+library(leaflet)
+leaflet() %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  #addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=121.537338, lat=25.021295, popup="Institute of Oceanography")
+```
+
 # Description
 
 This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 

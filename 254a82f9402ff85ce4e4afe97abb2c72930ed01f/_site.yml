@@ -16,7 +16,7 @@ output_dir: "."
 navbar:
   logo:
     image: images/logo.png
-    href: http://www.oc.ntu.edu.tw/oceng/
+    href: https://www.dipintothereef.com/
   search: true
   source_url: true
   right:
