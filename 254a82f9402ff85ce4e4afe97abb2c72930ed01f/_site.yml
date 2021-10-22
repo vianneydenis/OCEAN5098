@@ -37,6 +37,7 @@ navbar:
     - text: "Graphics"
       href: graphics.html
       
+# commit graphics.html 
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
