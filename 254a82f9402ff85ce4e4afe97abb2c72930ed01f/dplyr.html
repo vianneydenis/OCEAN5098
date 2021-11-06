@@ -2459,6 +2459,7 @@ Manipulation
 </div>
 <a href="types.html">Types &amp; Structures</a>
 <a href="graphics.html">Graphics</a>
+<a href="mapping.html">Mapping</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2598,8 +2599,7 @@ Manipulation
 <p>It creates new columns (variables) and preserves the existing columns in a data set. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To create a column “Greater.Half” which stores TRUE if given condition is TRUE</span>
-<span class='va'>mutated1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>iris</span>, Greater.Half <span class='op'>=</span> <span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='va'>Sepal.Length</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#To create a column “Greater.Half” which stores TRUE if given condition is TRUE</span>NA<span class='va'>mutated1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>iris</span>, Greater.Half <span class='op'>=</span> <span class='va'>Sepal.Width</span> <span class='op'>&gt;</span> <span class='fl'>0.5</span> <span class='op'>*</span> <span class='va'>Sepal.Length</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>mutated1</span><span class='op'>)</span>
 </code></pre>
 </div>

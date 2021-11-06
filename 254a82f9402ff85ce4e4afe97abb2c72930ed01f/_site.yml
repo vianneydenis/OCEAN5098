@@ -36,6 +36,8 @@ navbar:
       href: types.html
     - text: "Graphics"
       href: graphics.html
+    - text: "Mapping"
+      href: mapping.html
       
 # commit graphics.html 
 #        - text: "Script"

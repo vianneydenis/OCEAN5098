@@ -2459,6 +2459,7 @@ Manipulation
 </div>
 <a href="types.html">Types &amp; Structures</a>
 <a href="graphics.html">Graphics</a>
+<a href="mapping.html">Mapping</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2610,7 +2611,7 @@ Show Solution
 </div>
 <pre><code>function (x, na.rm = FALSE, ...) 
 UseMethod(&quot;median&quot;)
-&lt;bytecode: 0x000002050511d080&gt;
+&lt;bytecode: 0x0000018c233cd228&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <ul>
@@ -2680,9 +2681,14 @@ UseMethod(&quot;median&quot;)
 <span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;arranged&quot;   &quot;arranged1&quot;  &quot;filtered&quot;   &quot;filtered1&quot;  &quot;gp&quot;        
- [6] &quot;gp.mean&quot;    &quot;mutated1&quot;   &quot;selected&quot;   &quot;selected1&quot;  &quot;selected2&quot; 
-[11] &quot;summarised&quot;</code></pre>
+<pre><code> [1] &quot;arranged&quot;     &quot;arranged1&quot;    &quot;blues&quot;        &quot;coords&quot;      
+ [5] &quot;df&quot;           &quot;filtered&quot;     &quot;filtered1&quot;    &quot;gbif.res&quot;    
+ [9] &quot;gp&quot;           &quot;gp.mean&quot;      &quot;greys&quot;        &quot;JPN&quot;         
+[13] &quot;KAO&quot;          &quot;mutated1&quot;     &quot;path1&quot;        &quot;scalefactor&quot; 
+[17] &quot;selected&quot;     &quot;selected1&quot;    &quot;selected2&quot;    &quot;spoints&quot;     
+[21] &quot;spointsdf&quot;    &quot;summarised&quot;   &quot;TAI&quot;          &quot;taiwan&quot;      
+[25] &quot;TW.bathy&quot;     &quot;TWN&quot;          &quot;TWN1&quot;         &quot;TWN2&quot;        
+[29] &quot;url&quot;          &quot;world&quot;        &quot;world_points&quot; &quot;wrld_simpl&quot;  </code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2693,9 +2699,15 @@ UseMethod(&quot;median&quot;)
 <span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># list objects 'a', 'b', 'c'</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;a&quot;          &quot;arranged&quot;   &quot;arranged1&quot;  &quot;b&quot;          &quot;c&quot;         
- [6] &quot;filtered&quot;   &quot;filtered1&quot;  &quot;gp&quot;         &quot;gp.mean&quot;    &quot;mutated1&quot;  
-[11] &quot;selected&quot;   &quot;selected1&quot;  &quot;selected2&quot;  &quot;summarised&quot;</code></pre>
+<pre><code> [1] &quot;a&quot;            &quot;arranged&quot;     &quot;arranged1&quot;    &quot;b&quot;           
+ [5] &quot;blues&quot;        &quot;c&quot;            &quot;coords&quot;       &quot;df&quot;          
+ [9] &quot;filtered&quot;     &quot;filtered1&quot;    &quot;gbif.res&quot;     &quot;gp&quot;          
+[13] &quot;gp.mean&quot;      &quot;greys&quot;        &quot;JPN&quot;          &quot;KAO&quot;         
+[17] &quot;mutated1&quot;     &quot;path1&quot;        &quot;scalefactor&quot;  &quot;selected&quot;    
+[21] &quot;selected1&quot;    &quot;selected2&quot;    &quot;spoints&quot;      &quot;spointsdf&quot;   
+[25] &quot;summarised&quot;   &quot;TAI&quot;          &quot;taiwan&quot;       &quot;TW.bathy&quot;    
+[29] &quot;TWN&quot;          &quot;TWN1&quot;         &quot;TWN2&quot;         &quot;url&quot;         
+[33] &quot;world&quot;        &quot;world_points&quot; &quot;wrld_simpl&quot;  </code></pre>
 </div>
 <p><strong>Note</strong>: two operators <code>&lt;-</code> and <code>=</code> can be used to import data. While longer, I favor <code>&lt;-</code> in the creation of object to avoid confusion with mathematical operator</p>
 <p>You can clean <code>rm</code> (remove) the objects <code>list</code> in memory <code>ls()</code> using:</p>
