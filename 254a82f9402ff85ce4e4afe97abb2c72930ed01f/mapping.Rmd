@@ -16,7 +16,7 @@ xfun::embed_file('mapping.R')
 
 Common solutions for creating maps usually involves GIS software, such as *ArcGIS*, *QGIS*, *eSpatial*, etc., which allow to visually prepare a map, in the same approach as one would prepare a poster or a document layout. On the other hand, R has also advanced spatial capabilities and can be used to draw maps. As we mentioned earlier for the graphics, R allows you to create map highly customization which makes it a solution increasingly attractive.  
 
-Several packahges will be used today. It is generally to group the package you will use at the beginning of your script:
+Several packahges will be used today. It is generally a good practice to group the package you will use at the beginning of your script:
 
 ```{r,  eval=T, message=F}
 library(maptools)
