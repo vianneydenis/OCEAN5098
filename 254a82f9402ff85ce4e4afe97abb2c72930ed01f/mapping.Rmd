@@ -518,12 +518,30 @@ plotProfile(tw.profile)
 
 [Leaflet](https://rstudio.github.io/leaflet/) is one of the most popular open-source JavaScript libraries for interactive maps. You can loose hours and its functionalities are amazing. The R package `leaflet` makes it easy to integrate and control Leaflet maps in R. 
 
+<style>
+.html-widget {
+    margin: auto;
+}
+</style>
+
 
 ```{r,  eval=T}
+FRE <- paste(sep = "<br/>",
+  "<b><a href='https://www.dipintothereef.com/'>FRELAb TAIWAN</a></b>",
+  "Functional Reef Ecology Lab",
+  "Institute of Oceanography, NTU")
+
+
 leaflet(taiwan) %>%
   addPolygons(weight=0.5) %>%
-  addTiles(group="Kort") 
+  addTiles(group="Kort") %>%
+  addPopups(121.53725, 25.021252, FRE, options = popupOptions(closeButton = FALSE))
+  
 ```
+
+
+<br>
+
 
 <p class="alert">
 **`r knitr::asis_output("\U26A0")` Practice 3:** Create and customize an interactive map of your choice after exploring the functionality of the `leaflet` package.  Push both your *.Rmd* and *.html* files into a public repository available from your Github account.You will share with me be email [vianneydenis@g.ntu.edu.tw] the address (URL) of this repository (such as https://github.com/vianneydenis/OCEAN5098.git) **before next Monday** in order for me to check your work. The **title of your email ** should be `Practice 3 (your name: your student no.). BE CREATIVE ;)
