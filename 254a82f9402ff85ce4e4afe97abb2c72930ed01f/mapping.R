@@ -234,8 +234,16 @@ plotProfile(tw.profile)
 #### manual.profile<-get.transect (TW.bathy, loc=T,dist=T) 
 #### plotProfile(manual.profile)
 
+FRE <- paste(sep = "<br/>",
+  "<b><a href='https://www.dipintothereef.com/'>FRELAb TAIWAN</a></b>",
+  "Functional Reef Ecology Lab",
+  "Institute of Oceanography, NTU")
+
+
 leaflet(taiwan) %>%
   addPolygons(weight=0.5) %>%
-  addTiles(group="Kort") 
+  addTiles(group="Kort") %>%
+  addPopups(121.53725, 25.021252, FRE, options = popupOptions(closeButton = FALSE))
+  
 ```{.r .distill-force-highlighting-css}
 ```
