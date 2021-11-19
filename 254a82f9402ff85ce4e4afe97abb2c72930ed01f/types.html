@@ -2460,6 +2460,7 @@ Manipulation
 <a href="types.html">Types &amp; Structures</a>
 <a href="graphics.html">Graphics</a>
 <a href="mapping.html">Mapping</a>
+<a href="loop.html">Loops &amp; Functions</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2798,10 +2799,10 @@ Show Solution
 <span class='va'>m</span>
 </code></pre>
 </div>
-<pre><code>         [,1]     [,2]      [,3]
-[1,] 1.042525 4.084322 0.9813412
-[2,] 1.368468 1.719885 3.5159807
-[3,] 3.599047 3.381525 1.0170215</code></pre>
+<pre><code>          [,1]     [,2]     [,3]
+[1,] 7.1432611 4.415539 6.026400
+[2,] 8.7777421 8.616618 7.308972
+[3,] 0.8006868 9.349895 2.186646</code></pre>
 </div>
 <p>If a higher dimension vector is desired, then use the <code>array</code> function to generate the n-dimensional object. A 3x3x3 array can be created as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2813,23 +2814,23 @@ Show Solution
 <pre><code>, , 1
 
           [,1]     [,2]     [,3]
-[1,] 2.0124516 1.947050 5.004764
-[2,] 5.7429255 7.272425 7.474013
-[3,] 0.8534634 3.938252 6.278188
+[1,] 0.5839557 9.718393 7.466418
+[2,] 6.9117435 0.204129 8.747133
+[3,] 5.1788450 3.368279 8.287394
 
 , , 2
 
-          [,1]      [,2]     [,3]
-[1,] 0.0928199 2.4798176 2.708269
-[2,] 2.5126266 0.6839945 5.226625
-[3,] 7.7762545 9.8204396 9.672682
+         [,1]     [,2]     [,3]
+[1,] 8.755440 4.891588 8.319006
+[2,] 7.920089 6.883998 1.804387
+[3,] 1.921177 2.367747 4.496379
 
 , , 3
 
-          [,1]     [,2]        [,3]
-[1,] 0.9743837 1.731686 0.007871392
-[2,] 2.7771217 1.470695 8.995950324
-[3,] 7.2402642 6.657777 5.137952587</code></pre>
+         [,1]    [,2]     [,3]
+[1,] 8.303646 7.17674 2.966175
+[2,] 5.078522 3.06219 4.343327
+[3,] 7.247854 5.90727 3.026811</code></pre>
 </div>
 <p>Matrices and arrays can store numeric or character data types, but they cannot store both. They derived directly form vector structure but have a higher number of dimensions.</p>
 <h2 id="data-frames">Data frames</h2>
@@ -2977,7 +2978,7 @@ $row.names
 [[3]]
 function (expr, name) 
 .External(C_doD, expr, name)
-&lt;bytecode: 0x0000018c40f87950&gt;
+&lt;bytecode: 0x000001cf0f878978&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <p>When lists do not have component names, the <code>names</code> function will return NULL.</p>
