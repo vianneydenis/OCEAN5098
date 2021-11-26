@@ -2461,6 +2461,7 @@ Manipulation
 <a href="graphics.html">Graphics</a>
 <a href="mapping.html">Mapping</a>
 <a href="loop.html">Loops &amp; Functions</a>
+<a href="statistics.html">Statistics</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2601,7 +2602,7 @@ Manipulation
 </div>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>a.fact</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>a.fact</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>a.fact</span><span class='op'>)</span><span class='co'># class factor</span>
 </code></pre>
 </div>
@@ -2645,7 +2646,7 @@ $class
 <p>There are two attributes: <code>levels</code> and <code>class</code>. The levels attribute lists the three unique values in <code>a.fact</code>. The order in which these levels are listed reflect their <em>numeric</em> representation [check <code>str (a.fact)</code> and numeric sequence created: <code>2 1 1 3 ...</code>]. So in essence, <code>a.fact</code> is storing each value as an integer that points to one of the three unique levels. The unique levels of a factor, and the order in which they are stored can be extracted using the <code>levels</code> function.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/raster/man/factor.html'>levels</a></span><span class='op'>(</span><span class='va'>a.fact</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>a.fact</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;F&quot; &quot;M&quot; &quot;U&quot;</code></pre>
@@ -2669,8 +2670,8 @@ Levels: U F M</code></pre>
 Show Solution
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iris.sel</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"virginica"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/pkg/raster/man/factor.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>  <span class='co'># 3 species are still there</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>iris.sel</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span> <span class='op'>==</span> <span class='st'>"virginica"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>  <span class='co'># 3 species are still there</span>
 <span class='co'># boxplot(Petal.Width ~ Species, iris.sel, horizontal = TRUE)</span>
 </code></pre>
 </div>
@@ -2680,7 +2681,7 @@ Show Solution
 <p>It is now time to change the row names in our subset:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>)</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>length<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/ncell.html'>nrow</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>)</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>)</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>length<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>iris.sel</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2799,10 +2800,10 @@ Show Solution
 <span class='va'>m</span>
 </code></pre>
 </div>
-<pre><code>          [,1]     [,2]     [,3]
-[1,] 7.1432611 4.415539 6.026400
-[2,] 8.7777421 8.616618 7.308972
-[3,] 0.8006868 9.349895 2.186646</code></pre>
+<pre><code>         [,1]      [,2]      [,3]
+[1,] 8.598474 7.9781614 3.6269774
+[2,] 4.107252 0.3304442 9.8300560
+[3,] 3.385831 6.8807189 0.3481563</code></pre>
 </div>
 <p>If a higher dimension vector is desired, then use the <code>array</code> function to generate the n-dimensional object. A 3x3x3 array can be created as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2813,24 +2814,24 @@ Show Solution
 </div>
 <pre><code>, , 1
 
-          [,1]     [,2]     [,3]
-[1,] 0.5839557 9.718393 7.466418
-[2,] 6.9117435 0.204129 8.747133
-[3,] 5.1788450 3.368279 8.287394
+         [,1]     [,2]     [,3]
+[1,] 9.675411 5.992363 1.038974
+[2,] 4.775463 4.556088 8.967386
+[3,] 6.008320 9.174087 3.064728
 
 , , 2
 
          [,1]     [,2]     [,3]
-[1,] 8.755440 4.891588 8.319006
-[2,] 7.920089 6.883998 1.804387
-[3,] 1.921177 2.367747 4.496379
+[1,] 0.909317 7.322280 6.992737
+[2,] 6.666884 3.015164 3.522536
+[3,] 7.963906 1.785027 4.590209
 
 , , 3
 
-         [,1]    [,2]     [,3]
-[1,] 8.303646 7.17674 2.966175
-[2,] 5.078522 3.06219 4.343327
-[3,] 7.247854 5.90727 3.026811</code></pre>
+         [,1]     [,2]     [,3]
+[1,] 3.378512 7.282578 9.157327
+[2,] 6.268263 8.008003 6.813499
+[3,] 5.364960 2.738223 6.445799</code></pre>
 </div>
 <p>Matrices and arrays can store numeric or character data types, but they cannot store both. They derived directly form vector structure but have a higher number of dimensions.</p>
 <h2 id="data-frames">Data frames</h2>
@@ -2869,7 +2870,7 @@ $class
 $row.names
 [1] 1 2 3</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='co'># extract colum names</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='co'># extract colum names</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;name&quot;   &quot;value1&quot; &quot;value2&quot;</code></pre>
@@ -2906,7 +2907,7 @@ $row.names
  $ B: logi [1:2] TRUE FALSE
  $ C: chr [1:3] &quot;apples&quot; &quot;oranges&quot; &quot;round&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>my.lst</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>my.lst</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
@@ -2978,13 +2979,13 @@ $row.names
 [[3]]
 function (expr, name) 
 .External(C_doD, expr, name)
-&lt;bytecode: 0x000001cf0f878978&gt;
+&lt;bytecode: 0x00000000146405f0&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <p>When lists do not have component names, the <code>names</code> function will return NULL.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>lst.notags</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>lst.notags</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>NULL</code></pre>
@@ -3054,7 +3055,7 @@ function (expr, name)
   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/raster/man/names.html'>names</a></span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>M</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
@@ -3110,7 +3111,7 @@ function (expr, name)
 <p>To convert a number to a character use <code>as.character</code></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>numchar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/as.character.html'>as.character</a></span><span class='op'>(</span><span class='va'>y.c</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>numchar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>y.c</span><span class='op'>)</span>
 <span class='va'>numchar</span>
 </code></pre>
 </div>
@@ -3119,7 +3120,7 @@ function (expr, name)
 <p>You can also coerce a number or a character into a factor.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>numfac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>numfac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
 <span class='va'>numfac</span>
 </code></pre>
 </div>
@@ -3128,7 +3129,7 @@ Levels: 100.01 23.8 6</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>charfac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>y.c</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>charfac</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>y.c</span><span class='op'>)</span>
 <span class='va'>charfac</span>
 </code></pre>
 </div>

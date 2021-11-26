@@ -2461,6 +2461,7 @@ Manipulation
 <a href="graphics.html">Graphics</a>
 <a href="mapping.html">Mapping</a>
 <a href="loop.html">Loops &amp; Functions</a>
+<a href="statistics.html">Statistics</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2612,7 +2613,7 @@ Show Solution
 </div>
 <pre><code>function (x, na.rm = FALSE, ...) 
 UseMethod(&quot;median&quot;)
-&lt;bytecode: 0x000001cf41e6d050&gt;
+&lt;bytecode: 0x000001bdf2bbd070&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <ul>
@@ -2682,13 +2683,9 @@ UseMethod(&quot;median&quot;)
 <span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;arranged&quot;     &quot;arranged1&quot;    &quot;demo&quot;         &quot;filtered&quot;    
- [5] &quot;filtered1&quot;    &quot;foo&quot;          &quot;foo.df&quot;       &quot;foo.squared&quot; 
- [9] &quot;foo.squared2&quot; &quot;generation&quot;   &quot;gp&quot;           &quot;gp.mean&quot;     
-[13] &quot;grow&quot;         &quot;grow2&quot;        &quot;grow3&quot;        &quot;i&quot;           
-[17] &quot;mutated1&quot;     &quot;n&quot;            &quot;N&quot;            &quot;num_gen&quot;     
-[21] &quot;p&quot;            &quot;selected&quot;     &quot;selected1&quot;    &quot;selected2&quot;   
-[25] &quot;summarised&quot;  </code></pre>
+<pre><code> [1] &quot;arranged&quot;   &quot;arranged1&quot;  &quot;filtered&quot;   &quot;filtered1&quot;  &quot;gp&quot;        
+ [6] &quot;gp.mean&quot;    &quot;mutated1&quot;   &quot;selected&quot;   &quot;selected1&quot;  &quot;selected2&quot; 
+[11] &quot;summarised&quot;</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2699,13 +2696,9 @@ UseMethod(&quot;median&quot;)
 <span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'># list objects 'a', 'b', 'c'</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;a&quot;            &quot;arranged&quot;     &quot;arranged1&quot;    &quot;b&quot;           
- [5] &quot;c&quot;            &quot;demo&quot;         &quot;filtered&quot;     &quot;filtered1&quot;   
- [9] &quot;foo&quot;          &quot;foo.df&quot;       &quot;foo.squared&quot;  &quot;foo.squared2&quot;
-[13] &quot;generation&quot;   &quot;gp&quot;           &quot;gp.mean&quot;      &quot;grow&quot;        
-[17] &quot;grow2&quot;        &quot;grow3&quot;        &quot;i&quot;            &quot;mutated1&quot;    
-[21] &quot;n&quot;            &quot;N&quot;            &quot;num_gen&quot;      &quot;p&quot;           
-[25] &quot;selected&quot;     &quot;selected1&quot;    &quot;selected2&quot;    &quot;summarised&quot;  </code></pre>
+<pre><code> [1] &quot;a&quot;          &quot;arranged&quot;   &quot;arranged1&quot;  &quot;b&quot;          &quot;c&quot;         
+ [6] &quot;filtered&quot;   &quot;filtered1&quot;  &quot;gp&quot;         &quot;gp.mean&quot;    &quot;mutated1&quot;  
+[11] &quot;selected&quot;   &quot;selected1&quot;  &quot;selected2&quot;  &quot;summarised&quot;</code></pre>
 </div>
 <p><strong>Note</strong>: two operators <code>&lt;-</code> and <code>=</code> can be used to import data. While longer, I favor <code>&lt;-</code> in the creation of object to avoid confusion with mathematical operator</p>
 <p>You can clean <code>rm</code> (remove) the objects <code>list</code> in memory <code>ls()</code> using:</p>
