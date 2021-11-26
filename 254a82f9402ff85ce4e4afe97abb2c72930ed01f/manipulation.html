@@ -2461,6 +2461,7 @@ Manipulation
 <a href="graphics.html">Graphics</a>
 <a href="mapping.html">Mapping</a>
 <a href="loop.html">Loops &amp; Functions</a>
+<a href="statistics.html">Statistics</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2704,14 +2705,14 @@ Show Solution
 <span class='va'>sf</span> <span class='co'># my two female students</span>
 </code></pre>
 </div>
-<pre><code>[1] 1 4</code></pre>
+<pre><code>[1] 1 5</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>females</span><span class='op'>[</span><span class='va'>sf</span>,<span class='op'>]</span> <span class='co'># apply my filter</span>
 </code></pre>
 </div>
-<pre><code>        height shoesize gender population
-Vanessa    167       38 female     taiwan
-Joyce      162       37 female     taiwan</code></pre>
+<pre><code>         height shoesize gender population
+Vanessa     167       38 female     taiwan
+Victoria    158       36 female     taiwan</code></pre>
 </div>
 <h1 id="sorting">Sorting</h1>
 <p>Sorting a data frame is done by combining command <code>order</code> with a subscript. Like for subsetting, we first need to create a vector that will tell into which order the rows of the table need to be arranged. Order <code>students</code> by increasing <code>height</code>:</p>
