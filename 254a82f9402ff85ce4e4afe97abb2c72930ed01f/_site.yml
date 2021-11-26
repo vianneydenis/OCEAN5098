@@ -40,7 +40,7 @@ navbar:
       href: mapping.html
     - text: "Loops & Functions"
       href: loop.html
-    - text: "statistics"
+    - text: "Statistics"
       href: statistics.html
       
 # commit graphics.html 

@@ -119,18 +119,20 @@ aggregate(iris[,1:4],by=list(iris$Species), median)
 tapply(iris$Sepal.Length , iris$Species, mean)
 ```
 
-## Hypothesis testing
+# Hypothesis testing
 
-Two broad categories: parametric (assuming normal distrbution & homoscedasticity) and non parametric (no assumption of normality).The most important is your **hypothesis**: *H0* represents the null hypothesis - an absence of difference (does not mean there is no difference), *H1* represents the alternative hypothesis - the presence of difference.
+Two broad categories: parametric (assuming normal distribution & homoscedasticity) and non parametric (no assumption of normality).The most important is your **hypotheses**: *H0* represents the null hypothesis - an absence of difference (does not mean there is no difference), *H1* represents the alternative hypothesis - the presence of a difference.
 
-### Correlations
+In those tests it is important to understand the concept of degrees of freedoom: it refers to **the maximum number of logically independent values**, which are values that have the freedom to vary, in the data sample. Have a look [here](https://www.youtube.com/watch?v=N20rl2llHno&ab_channel=zedstatistics) if this notion is not clear to you
 
-Let's first examine what is a correlation. It looks scary but it is actually very easy. 
+## Correlations
+
+Let's first examine what is a correlation. It may look scary but it is actually very easy to compute (see example).
 
 ![](Figures/corr.png)
 
 ```{r class.source = "fold-show",  eval=T}
-# dataset 
+# dataset hypotheses?
 x<-students$height
 y<-students$shoesize
 s<-students[,1:2] # a matrix
@@ -148,7 +150,7 @@ ggplot(students, aes(x = height, y = shoesize)) +
   stat_smooth(method = "lm", col = "red")
 ```
 
-This is a *Pearson* correlation (parametric). Non-parametric alterantives also exists such as the *Spearman*. It is based on rank, and monotonic relationship.
+This is a *Pearson* correlation (parametric). Non-parametric alternatives also exists such as the *Spearman*. It is based on rank, and monotonic relationship.
 
 ```{r,  eval=T}
 # Spearman correlation (monotonic)
@@ -165,9 +167,11 @@ cor.test(w,z,method='pearson') # super low
 cor.test(w,z,method='spearman') #super high
 ```
 
-> *<span style="color: green">**RP12**: Change one value from the student data set and check how the t and p values are affected. Check the change in the confidence interval. </span>* 
+<p class="comment">
+**Practice S2:** Change one value from the student data set and check how the t and p values are affected. Check the change in the confidence interval.
+</p>
 
-### Chi-square test
+## Chi-square test
 
 It is a goodness-of-fit test. Easier to understand with an example:
 
@@ -186,9 +190,9 @@ chisq.test(die)
 # I am cheating
 ```
 
-A common biological application of a Chi-square test is the Hardy-Weinberg equilibrium. Genotypes at the Hardy-Weinberg equilibrium will follow: p2 + 2pq +q2 = 1 when panmixia (random matin, p and q represent allele frequency). In this case, we want to compare our observation to a theoretical distribution.
+A common biological application of a Chi-square test is the Hardy-Weinberg equilibrium. Genotypes at the Hardy-Weinberg equilibrium will follow: *p*2 + 2*pq* + *q*2 = 1 at panmixia (random mating, *p* and *q* represent allele frequency). In this case, we want to compare our observation to a theoretical distribution.
 
-Let's assume 2 alleles (A and T) with observed genotypes in a population: 750 AA, 50 AT, 200 TT => f(A): 0.775 / f(T)= 0.225. Theoretical distribution should follow: 0.60(p2), 0.5 (2pq), 0.05 (q2) with p2 + 2pq +q2 = 1. Is our population at the HW-equilibrium (H0)?
+Let's assume 2 alleles (*A* and *T*) with observed genotypes in a population: 750 *AA*, *50* AT, 200 *TT* => *f(A)*: 0.775 / *f(T)*= 0.225. Theoretical distribution should follow: 0.60(*p2*), 0.5 (*2pq*), 0.05 (*q2*) with *p2* + *2pq* + *q2* = 1. Is our population at the HW-equilibrium (H0)?
 
 ```{r,  eval=T}
 obs <- c(750, 50, 200)
@@ -197,12 +201,13 @@ chisq.test (x=obs, p=exp)
 ```
 
 Chi-square test can simply be used to compare the distribution of frequencies in two populations: 
+
 ```{r,  eval=T}
 F <- matrix(nrow=4,ncol=2,data=c(33,14, 8,18,31,25,14,12))
 chisq.test(F) # alternative see `fisher.test`
 ```
 
-### Student t-test
+## Student t-test
 
 Several version: one sample compared to a known mean, two samples (with variance equal - Student's or with unequal variance -Welsh's), paired (compare two dependent (e.g. before-after) samples. 
 
@@ -221,9 +226,14 @@ The *t* statistic is obtained as following in the case of a two samples assuming
 
 ![](Figures/ttest.png)
 
-> *<span style="color: green">**RP13**: Using `iris`. Does `Sepal.Lenght` differ between `setosa` and `versicolor`? Does `Sepal.Lenght` differe between `virginica`  and `versicolor`? Make a plot, define your hypotheses, test them. </span>* 
 
-```{r class.source = "fold-hide",  eval=F}
+<p class="comment">
+**Practice S3:** Using `iris`. Does `Sepal.Lenght` differ between `setosa` and `versicolor`? Does `Sepal.Lenght` differe between `virginica`  and `versicolor`? Make a plot, define your hypotheses, test them.
+</p>
+
+
+
+```{r, code_folding = 'Show Solution',  eval=F}
 set <- iris[iris$Species == "setosa", ]$Sepal.Length
 ver <- iris[iris$Species == "versicolor", ]$Sepal.Length
 vir <- iris[iris$Species == "virginica", ]$Sepal.Length
@@ -232,7 +242,7 @@ setver <- t.test(set, ver, paired = FALSE, alternative = "two.sided", var.equal 
 vervir <- t.test(ver, vir, paired = FALSE, alternative = "two.sided", var.equal = FALSE)
 ```
 
-### Mann-Whitney and Wilcoxon tests
+## Mann-Whitney and Wilcoxon tests
 
 A non-parametric solution for the comparison of two samples: Mann-Whitney U-test (independent) or Wilcoxon W-test (dependant)
 
@@ -249,7 +259,7 @@ shapiro.test(students$height) # data are not normal
 wilcox.test (students$height~students$gender) 
 ```
 
-### Variance tests
+## Variance tests
 
 Variance tests are used to determine if the variances of two (or more) populations are equal. F-test are generally very sensitive to the non-normality of the data as you can imagine from the previous `boxplot`. The **homoscedasticity** (or homogeneity of variance) is an important condition in parametric statistics.
 
@@ -259,7 +269,6 @@ fligner.test (students$height ~ students$gender)
 ```
 
 Another example using the `ToothGrowth` dataset (`car` package) on multiple groups
-
 
 ```{r, eval=T}
 tg<-ToothGrowth
@@ -272,6 +281,9 @@ leveneTest(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-norma
 fligner.test(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-normality +
 ```
 
-> *<span style="color: green">**RP14**: Going back on `rairuoho` dataset. Calculate the correlation between day 6 and day 7. Create your __own__ `my.t.test` function, that you will use to test the effect  of `treatment` on _length_  at various _days_. Interpret.</span>* 
+
+<p class="alert">
+**Practice S3:** Create your __own__ `my.t.test` function, that you will use to test the effect  of `treatment` on _length_. Applied it a for various _days_. Interpret.
+</p>
 
 

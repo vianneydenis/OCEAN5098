@@ -52,7 +52,7 @@ iris %>% group_by(Species) %>% summarise_each(list(length))
 aggregate(iris[,1:4],by=list(iris$Species), median)
 tapply(iris$Sepal.Length , iris$Species, mean)
 
-# dataset 
+# dataset hypotheses?
 x<-students$height
 y<-students$shoesize
 s<-students[,1:2] # a matrix
