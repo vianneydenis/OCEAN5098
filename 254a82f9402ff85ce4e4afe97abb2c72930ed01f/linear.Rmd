@@ -36,7 +36,7 @@ library (lmerTest)
 library(nlme)
 ```
 
-We will go through this important section over the next **2 weeks**. 
+We will go through this section over the next **2 weeks**. 
 
 # Simple regression
 
