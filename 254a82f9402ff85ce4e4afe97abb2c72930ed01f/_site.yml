@@ -41,7 +41,12 @@ navbar:
     - text: "Loops & Functions"
       href: loop.html
     - text: "Statistics"
-      href: statistics.html
+      menu:
+        - text: "Descriptive and hypotheses"
+          href: statistics.html    
+        - text: "Linear models"
+          href: linear.html  
+
       
 # commit graphics.html 
 #        - text: "Script"
