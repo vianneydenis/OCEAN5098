@@ -140,7 +140,8 @@ numfac
 charfac <- as.factor(y.c)
 charfac
 
-as.numeric()  as.double()	# Coerce to double
+as.numeric()  # Coerce to numeric
+as.double()	# Coerce to double
 as.integer()	# Coerce to integer
 as.character() #	Coerce to character
 as.logical()	# Coerce to Boolean (logical: TRUE | FALSE)
