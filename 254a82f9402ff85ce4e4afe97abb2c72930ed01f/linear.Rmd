@@ -199,7 +199,7 @@ For example, the 95% confidence interval for the coefficient $\beta1$ is defined
 
 the lower limits of $\beta_1 = \beta_1 - 2*SE(\beta_1) = 0.415 - 2*0.009 = 0.397$
 
-the upper limits of $\beta1 = \beta1 + 2*SE(\beta1) = 0.415 - 2*0.009 = 0.435$
+the upper limits of $\beta1 = \beta1 + 2*SE(\beta1) = 0.415 + 2*0.009 = 0.435$
 
 That is, there is approximately a 95% chance that the interval [0.397, 0.435] will contain the true value of $\beta1$. Similarly the 95% confidence interval for $\beta0$ can be computed as $\beta0 +/- 2*SE(\beta0)$.
 
@@ -490,12 +490,12 @@ James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2014. An In
 
 Difference between linear regression, linear model, and ANOVA? Fundamentally, they’re all fundamentally the same thing!
 
-Linear regression and linear model are complete synonyms, and we usually use these terms when we’re quantifying the effect of a **continuous** explanatory variable on a **continuous** response variable: the change in $Y$ for a 1 unit change in $X$? We  did this using the `iris` data set: what is the increase of $Petal.width$ when $Sepal.Length$ and $Sepal.width$ increase?
+Linear regression and linear model are complete synonyms, and we usually use these terms when we’re quantifying the effect of a **continuous** explanatory variable on a **continuous** response variable: the change in $Y$ for a 1 unit change in $X$? We  did this using the `iris` data set: what is the increase of $Petal.Width$ when $Sepal.Length$ and $Sepal.Width$ increase?
 
 
-Now arrives the **ANOVA**, which stands for **Analysis of Variance**. We usually talk about an ANOVA when we’re quantifying the effect of a **discrete**, or **categorical** explanatory variable on a **continuous** response variable. How does the mean $Petal.Width$ vary depending on the iris $Species$ category? It is also a linear model, but instead of getting a slope that allows us to predict the $Petal.width$ for any value of $Sepal.Length$ or $Sepal.width$, we get an estimate of the $Petal.width$ for each $Species$.
+Now the **ANOVA**. ANOVA stands for **Analysis of Variance**. We usually talk about an ANOVA when we’re quantifying the effect of a **discrete**, or **categorical** explanatory variable on a **continuous** response variable. How does the mean $Petal.Width$ vary depending on the iris $Species$ (a categorial variable)? This is also a linear model, but instead of getting a slope that allows us to predict the $Petal.width$ for any value of $Sepal.Length$ or $Sepal.width$, we get an estimate of the $Petal.Width$ for each $Species$.
 
-ANOVA is a linear regression. You can run the `anova` function on a linear model object and see how you get the same p-value.
+ANOVA is a linear regression. You can run the `anova` function on a linear model object and see how you get the same *p*-value.
 
 
 ```{r,  eval=T, warning=F, message=F}
@@ -591,7 +591,7 @@ pirateplot(time ~ cleaner,
                   main = "formula = time ~ cleaner")
 ```
 
-Just from the plot, it is obvious that the cleaning agents `a` and `b` are about the same, and it looks a little bit faster when using the cleaning agent `c`. This is just visual, to test it. We’ll create an ANOVA object with `aov`. Because time is the dependent variable and cleaner is the independent variable, we’ll set the formula to `formula = time ~ cleaner`. Our hypotheses are the following: *H_0*, no difference in time between cleaning agents | *H_1*, at least one difference in time between cleaning agents.
+Just from the plot, it is obvious that the cleaning agents `a` and `b` are about the same, and it looks a little bit faster when using the cleaning agent `c`. This is just visual. To test it, we will create an ANOVA object with `aov`. Because time is the dependent variable and cleaner is the independent variable, we’ll set the formula to `formula = time ~ cleaner`. Our hypotheses are the following: ***H_0***, no difference in time between cleaning agents | ***H_1***, at least one difference in time between cleaning agents.
 
 ```{r,  eval=T, warning=F, message=F}
 # Step 1: aov object with time as DV and cleaner as IV
@@ -605,11 +605,11 @@ Now, to see a full ANOVA summary table of the ANOVA object, apply the `summary` 
 summary(cleaner.aov)
 ```
 
-The main result from our table is that we have a significant effect of cleaner on cleaning time. H_0 is rejected and we accepted H_1. The results of an ANOVA are usually reported as following. F(2, 597) = 5.29, p = 0.005.  Carefully examine the degrees of freedom, they tell you a lot about your data set!
+The main result from our anova table is that we have a significant effect of cleaner on cleaning time. ***H_0*** is rejected and we accept ***H_1***. The results of an ANOVA are usually reported as following. F(2, 597) = 5.29, p = 0.005.  Carefully examine the degrees of freedom, they tell you a lot about your data set!
 
 However, the ANOVA table does not tell us which levels of the independent variable differ. In other words, we don’t know which cleaning agent is better than which ones. To answer this, we need to conduct a **post-hoc** test.
 
-If you’ve found a significant effect of a factor, you can then do **post-hoc** tests to test the difference between all pairs of levels of the independent variable. There are many types of **pairwise comparisons** that rely on different assumptions. One of the most common post-hoc tests for standard ANOVAs is the Tukey **Honestly Significant Difference (HSD)** test. To do an HSD test, apply the `TukeyHSD` function to your ANOVA object as follows:
+If you’ve found a significant effect of a factor, you can then do **post-hoc** tests to test the difference between all pairs of levels of the independent variable. There are many types of **pairwise comparisons** that rely on different assumptions. One of the most common post-hoc tests for standard ANOVAs is the Tukey **Honestly Significant Difference (HSD)** test. See `library('multcomp')` for other common alternatives. To do an HSD test, apply the `TukeyHSD` function to your ANOVA object as follows: 
 
 
 ```{r,  eval=T, warning=F, message=F}
@@ -617,7 +617,7 @@ If you’ve found a significant effect of a factor, you can then do **post-hoc**
 TukeyHSD(cleaner.aov)
 ```
 
-This table shows us the pair-wise differences between each group pair. The `diff` column shows us the **mean differences between groups** (of course, identical to what we found in the summary of the regression object before), a **confidence interval** for the difference, and a **p-value** testing the null hypothesis that the group differences are not different.
+This table shows us the pair-wise differences between each group pair. The `diff` column shows us the **mean differences between groups** (of course, identical to what we found in the summary of a regression object), a **confidence interval** for the difference, and a **p-value** testing the null hypothesis that the group differences are not different.
 
 it is always helpful to combine an **ANOVA summary** table with a **regression summary** table. Because ANOVA is just a special case of regression (where all the independent variables are factors), you’ll get the same results with a regression object as you will with an ANOVA object. However, the format of the results are different and frequently easier to interpret using an ANOVA tables.
 
@@ -699,15 +699,20 @@ You can see, it becomes quickly much more complicated to interpret. Therefore yo
 cat_plot(cleaner.type.int.lm, pred = cleaner, modx = type, interval = TRUE)
 ```
 
-> RP15: Analysis of Co-variance. Interpret the following interaction plot after looking at the corresponding linear model. Build your an Anova table - reverse your factors in your `lm` and try it again. Compare F-values and level of significance.   
 
-```{r,  eval=F, warning=F, message=F}
+
+
+<p class="comment">
+**Practice S5:** Analysis of Co-variance: interpret the following interaction plot after looking at the corresponding linear model. Build your an anova table - reverse your independent variables `Petal.Length` and `Species` in another `lm`. Compare the two `lm` models for their F-values and level of significance. Explain.
+</p>
+
+```{r,  eval=T, warning=F, message=F, echo=F}
+fitiris <- lm(Petal.Width ~ Petal.Length*Species, data = iris)
 interact_plot(fitiris, pred = Petal.Length, modx = Species, plot.points=T)
 ```
 
-
-```{r class.source = "fold-hide",  eval=F}
-fitiris <- lm(Petal.Width ~   Petal.Length*Species, data = iris)
+```{r, code_folding = 'Show Solution',  eval=F}
+fitiris <- lm(Petal.Width ~ Petal.Length*Species, data = iris)
 # In evaluating an ANCOVA model, we want to sequentially ask first whether there is a difference in slope, then if there is not, look for differences in intercept. 
 # In addition, there is variety of way to calculate the sum of squares. Here (but this debatable), we would prefer a type 3 Anova especially since we have an interaction term in our Ancova (see Homogeneity of slope assumption in ANCOVA)
 car::Anova(fitiris, type = 3)
@@ -717,7 +722,7 @@ car::Anova(fitiris, type = 3)
 
 https://besjournals.onlinelibrary.wiley.com/doi/pdf/10.1111/j.1365-2656.2009.01634.x
 
-It turns out that there is not just one way to calculate ANOVAs. In fact, there are three different types - called, Type 1, 2, and 3 (or Type I, II and III). These types differ in how they calculate variability (specifically the **sums of of squares**). If your data is relatively **BALANCED**, meaning that there are relatively equal numbers of observations in each group, then all three types will give you the same answer. However, if your data are **UNBALANCED**, meaning that some groups of data have many more observations than others, then you need to use Type II or Type III. The **ANCOVA** model is an expection wher this issue must be considered.
+It turns out that there is not just one way to calculate ANOVAs. In fact, there are three different types - called, Type 1, 2, and 3 (or Type I, II and III). These types differ in how they calculate variability (specifically the **sums of of squares**). If your data is relatively **BALANCED**, meaning that there are relatively equal numbers of observations in each group, then all three types will give you the same answer. However, if your data are **UNBALANCED**, meaning that some groups of data have many more observations than others, then you need to use Type II or Type III. The **ANCOVA** model is an exception where this issue must be considered.
 
 
 The standard `aov` function in `base` package uses **Type I** sums of squares. Therefore, it is appropriate when your data are **BALANCED**. If your data are **UNBALANCED**, you should consider an ANOVA with Type II or Type III sums of squares. To do this, you can use the `Anova` function in the `car` package. The `Anova` function has an argument called type that allows you to specify the type of ANOVA you want to calculate.
@@ -729,7 +734,7 @@ First, create a regression object with `lm`. As you’ll see, the `Anova` functi
 time.lm <- lm(formula = time ~ type + cleaner, data = poopdeck)
 ```
 
-Now that I’ve created the regression object `time.lm`, I can calculate the three different types of ANOVAs by entering the object as the main argument to either `aov` for a Type I ANOVA, or `Anova` in the `car` package for a Type I II or  III ANOVA:
+Now that I’ve created the regression object `time.lm`, I can calculate the three different types of ANOVAs by entering the object as the main argument to either `aov` for a Type I ANOVA, or `Anova` in the `car` package for a Type I, II, or  III ANOVA:
 
 
 ```{r,  eval=T, warning=F, message=F}
@@ -755,7 +760,7 @@ with(poopdeck, table(cleaner, type))
 
 As you can see, in the `poopdeck` data set, the observations are perfectly balanced (see previously the justifcation for **full-factorial, between-subjects ANOVAs**) , so it doesn’t matter which type of ANOVA we use to analyze the data.
 
-For more detail on the different types, check out [here](https://mcfromnz.wordpress.com/2011/03/02/anova-type-iiiiii-ss-explained/) for a techincal discussion. Also check [Hector et al. (2010)](https://besjournals.onlinelibrary.wiley.com/doi/pdf/10.1111/j.1365-2656.2009.01634.x) for a discussion on the topic in the field of ecology and evolution.
+This is very important to consider if you data are balanced when performing an ANOVA. For more detail on the different types, check out [here](https://mcfromnz.wordpress.com/2011/03/02/anova-type-iiiiii-ss-explained/) for a techincal discussion. Also check [Hector et al. (2010)](https://besjournals.onlinelibrary.wiley.com/doi/pdf/10.1111/j.1365-2656.2009.01634.x) for a discussion on the topic in the field of ecology and evolution. 
  
 
 **A quick summary**
@@ -783,7 +788,7 @@ mean(abs(poopdeck$int.fit - poopdeck$time))
 mean(abs(poopdeck$me.fit - poopdeck$time))
 ```
 
-As you can see, the **interaction model** was off from the data by `15.35` minutes on average, while the **main effects model** was off from the data by `16.54` on average. This is not surprising as the interaction model is more complex than the main effects only model. However, b careful, just because the interaction model is better at fitting the data doesn’t necessarily mean that the interaction is either meaningful or reliable.
+As you can see, the **interaction model** was off from the data by `15.35` minutes on average, while the **main effects model** was off from the data by `16.54` on average. This is not surprising as the interaction model is more complex than the main effects only model. However, be careful, just because the interaction model is better at fitting the data doesn’t necessarily mean that the interaction is either meaningful or reliable.
 
 ### Model assumptions 
 
@@ -870,13 +875,13 @@ From the summary of our model we can see that European Shag abundance varies sig
 ```{r,  eval=T, warning=F, message=F}
 shag.p <- ggplot(shag, aes(x = year, y = pop)) +
     geom_point(colour = "#483D8B") +
-    geom_smooth(method = glm, colour = "#483D8B", fill = "#483D8B", alpha = 0.6) +
+    geom_smooth(method = "glm", method.args = list(family = 'poisson'),se=TRUE, colour = "#483D8B", fill = "#483D8B", alpha = 0.6) +
     scale_x_continuous(breaks = c(1975, 1980, 1985, 1990, 1995, 2000, 2005)) +
     labs(x = " ", y = "European Shag abundance")
 shag.p
 ```
 
-*European shag abundance on the Isle of May, Scotland, between 1970 and 2006. Points represent raw data and model fit represents a generalised linear model with 95% confidence intervals.*
+*European shag abundance on the Isle of May, Scotland, between 1970 and 2006. Points represent raw data and model fit represents a generalized linear model with 95% confidence intervals.*
 
 ## A model with a binomial distribution
 

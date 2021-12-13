@@ -160,9 +160,10 @@ summary(cleaner.type.int.lm)
 
 cat_plot(cleaner.type.int.lm, pred = cleaner, modx = type, interval = TRUE)
 
+fitiris <- lm(Petal.Width ~ Petal.Length*Species, data = iris)
 interact_plot(fitiris, pred = Petal.Length, modx = Species, plot.points=T)
 
-fitiris <- lm(Petal.Width ~   Petal.Length*Species, data = iris)
+fitiris <- lm(Petal.Width ~ Petal.Length*Species, data = iris)
 # In evaluating an ANCOVA model, we want to sequentially ask first whether there is a difference in slope, then if there is not, look for differences in intercept. 
 # In addition, there is variety of way to calculate the sum of squares. Here (but this debatable), we would prefer a type 3 Anova especially since we have an interaction term in our Ancova (see Homogeneity of slope assumption in ANCOVA)
 car::Anova(fitiris, type = 3)
@@ -204,7 +205,7 @@ summary(shag.m)
 
 shag.p <- ggplot(shag, aes(x = year, y = pop)) +
     geom_point(colour = "#483D8B") +
-    geom_smooth(method = glm, colour = "#483D8B", fill = "#483D8B", alpha = 0.6) +
+    geom_smooth(method = "glm", method.args = list(family = 'poisson'),se=TRUE, colour = "#483D8B", fill = "#483D8B", alpha = 0.6) +
     scale_x_continuous(breaks = c(1975, 1980, 1985, 1990, 1995, 2000, 2005)) +
     labs(x = " ", y = "European Shag abundance")
 shag.p
