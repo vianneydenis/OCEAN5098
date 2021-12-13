@@ -283,7 +283,7 @@ fligner.test(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-nor
 
 
 <p class="alert">
-**Practice S3:** Create your __own__ `my.t.test` function, that you will use to test the effect  of `treatment` on _length_. Applied it a for various _days_. Interpret.
+**Practice S4:** Create your __own__ `my.t.test` function, that you will use to test the effect  of `treatment` on _length_. Applied it a for various _days_. Interpret.
 </p>
 
 
