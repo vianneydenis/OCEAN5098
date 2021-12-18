@@ -1,0 +1,67 @@
+---
+title: "Multivariate"
+---
+
+```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
+knitr::purl('multi.Rmd', documentation = F)
+```
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('multi.Rmd')
+```
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('multi.R')
+```
+
+
+```{r,  eval=T, warning=F, message=F}
+library(vegan)
+library(ade4)
+library(gclus)
+library(qgraph)
+library(factoextra)
+library(fpc)
+library(ggplot2)
+library(gridExtra)
+library(e1071)
+library(corrplot)
+library(tree)
+library(rpart)
+library(rattle)
+library(randomForest)
+library(caret)
+library(devtools)
+library(mvpart) # install_github("cran/mvpart", force = T) # after devtools
+library(MVPARTwrap) # install_github("cran/MVPARTwrap", force = T) # after devtools
+```
+
+
+
+Ecological phenomena are inherently complex, and it is rare that a single variable is sufficient to describe an ecological system. Therefore, it is common to deal with:
+
++ __multiple response variable__
+
++ multiple explanatory variables
+
+Multivariate analyses may reveal patterns that would not be detectable by combination of univariate methods.
+
+![*__Comparaison between univariate and multivariate analyses__: multivariate methods allow the evaluation of all response variables simultaneously. R~1,...,i~: Response variables; E~1,...,i~: Explanatory variables; S~1,...,i~: Samples*](Figures/multi.png)
+
+## Applications
+
+Five types of scientific inquiries usually suit to the application of multivariate methods.
+
++ **Data reduction or structural simplification**: summarize multiple variables through a comparatively smaller set of 'synthetic' variables. *Ex: Principal Component Analysis (PCA)*
+
++ **Sorting and grouping**: many ecological questions are concerned with the similarity or dissimilarity. *Ex:Cluster analysis, non Metric Dimensional Scaling (nMDS)*
+
++ **Investigation of the dependence among variables**: dependence among response variables, among explanatory variables, or among both. *Ex: Redundancy analysis and other constrained analysis* </span>
+
++ **Prediction**: once the dependence detected and characterized multivariate models may be constructed in a very similar as we did before with univariate models.
+
++ **Hypothesis testing**: detect and test pattern in the data (be careful of data dredging) . *Ex: MANOVA, PERMANOVA, ANOSIM* </span>
+
+![](Figures/multi_methods.png)
+
+![*__Correspondance analysis of methods usage in various scientific fields__: axis 1 differentiate microscopic from macroscopic organisms. Cluster, PCA, etc are exploratory methods and apply preferentially to small organisms.* ](Figures/multi_CA.png)

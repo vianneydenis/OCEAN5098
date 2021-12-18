@@ -45,8 +45,9 @@ navbar:
         - text: "Descriptive and hypotheses"
           href: statistics.html    
         - text: "Linear models"
-          href: linear.html  
-
+          href: linear.html
+    - text: "Multivariate"
+      href: multi.html
       
 # commit graphics.html 
 #        - text: "Script"

@@ -2472,6 +2472,7 @@ Statistics
 <a href="linear.html">Linear models</a>
 </div>
 </div>
+<a href="multi.html">Multivariate</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2639,9 +2640,9 @@ Coefficients:
 <p>The results show the intercept (<span class="math inline">\(\beta_0\)</span>) and the slope (<span class="math inline">\(\beta_1\)</span>), i.e. the beta coefficients for the <code>Petal.Length</code> variable</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Petal.Length</span>, y <span class='op'>=</span> <span class='va'>Petal.Width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>stat_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, col <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Petal.Length</span>, y <span class='op'>=</span> <span class='va'>Petal.Width</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>stat_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, col <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="linear_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
@@ -3587,7 +3588,7 @@ Bartlett&#39;s K-squared = 7.3232, df = 5, p-value = 0.1977</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>shag</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"Data/shagLPI.csv"</span>, header <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='va'>shag</span><span class='op'>$</span><span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>shag</span><span class='op'>$</span><span class='va'>year</span><span class='op'>)</span>  <span class='co'>#  year should be a numeric variable</span>
-<span class='va'>shag.hist</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>shag</span>, <span class='fu'>aes</span><span class='op'>(</span><span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_histogram</span><span class='op'>(</span><span class='op'>)</span> 
+<span class='va'>shag.hist</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>shag</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='op'>)</span> 
 <span class='va'>shag.hist</span>
 </code></pre>
 </div>
@@ -3626,11 +3627,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <p>From the summary of our model we can see that European Shag abundance varies significantly based on the predictor year. Let’s visualise how European Shag abundance has changed through the years:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>shag.p</span> <span class='op'>&lt;-</span> <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>shag</span>, <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, y <span class='op'>=</span> <span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_point</span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"#483D8B"</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>geom_smooth</span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"glm"</span>, method.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>'poisson'</span><span class='op'>)</span>,se<span class='op'>=</span><span class='cn'>TRUE</span>, colour <span class='op'>=</span> <span class='st'>"#483D8B"</span>, fill <span class='op'>=</span> <span class='st'>"#483D8B"</span>, alpha <span class='op'>=</span> <span class='fl'>0.6</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>scale_x_continuous</span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1975</span>, <span class='fl'>1980</span>, <span class='fl'>1985</span>, <span class='fl'>1990</span>, <span class='fl'>1995</span>, <span class='fl'>2000</span>, <span class='fl'>2005</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-    <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>" "</span>, y <span class='op'>=</span> <span class='st'>"European Shag abundance"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>shag.p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>shag</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, y <span class='op'>=</span> <span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>colour <span class='op'>=</span> <span class='st'>"#483D8B"</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"glm"</span>, method.args <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>family <span class='op'>=</span> <span class='st'>'poisson'</span><span class='op'>)</span>,se<span class='op'>=</span><span class='cn'>TRUE</span>, colour <span class='op'>=</span> <span class='st'>"#483D8B"</span>, fill <span class='op'>=</span> <span class='st'>"#483D8B"</span>, alpha <span class='op'>=</span> <span class='fl'>0.6</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1975</span>, <span class='fl'>1980</span>, <span class='fl'>1985</span>, <span class='fl'>1990</span>, <span class='fl'>1995</span>, <span class='fl'>2000</span>, <span class='fl'>2005</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>" "</span>, y <span class='op'>=</span> <span class='st'>"European Shag abundance"</span><span class='op'>)</span>
 <span class='va'>shag.p</span>
 </code></pre>
 </div>
