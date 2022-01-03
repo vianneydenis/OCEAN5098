@@ -14,7 +14,6 @@ xfun::embed_file('multi.Rmd')
 xfun::embed_file('multi.R')
 ```
 
-
 ```{r,  eval=T, warning=F, message=F}
 library(vegan)
 library(ade4)
@@ -103,6 +102,10 @@ Measured variables can be binary, quantitative, qualitative, rank-ordered, or ev
 
 
 The function `decostand` from the `vegan` package offers an easy way to transform your data. The `varespec` data frame has **24 rows** and **44 columns**. Columns are estimated cover values of **44 lichen species**. The variable names are formed from the scientific names, and are self explanatory for anybody familiar with vegetation type / lichen species. 
+
+
+
+
 
 ```{r,  eval=T}
 # ?varespec
@@ -837,7 +840,7 @@ using our Doubs dataset
 ![Four fuzzy clusters along the Doubs River](Figures/multi_fuzzy.png)
 
 
-<p class="alert">
+<p class="comment">
 **Practice M3:** Using `iris` data set: (1) make a K-means cascade and use the silhouette width indicator to determine the optimal number of clusters. (2)  since we know that 3 species are involved, group the data into 3 clusters (common sense) using the `kmeans` function. How many points are wrongly classified between optimal in (1) and the solution here? Plot both solutions.
 </p>
 
@@ -849,3 +852,187 @@ pairs(iris[,1:4], pch = 19,  cex = 0.5,
 ```
 
 
+```{r, code_folding = 'Show Solution',  eval=F}
+fviz_nbclust(iris[, 1:4], kmeans, method = "silhouette")
+spe.KM.cascade<-cascadeKM(iris[,1:4],inf.gr=2, sup.gr=10, iter=100, criterion='calinski')
+plot(spe.KM.cascade,sortg=TRUE)
+
+set.seed(1)
+irisCluster<-kmeans(iris[, 1:4], 3, nstart= 20)
+table(irisCluster$cluster, iris$Species)
+irisCluster$cluster<-as.factor(irisCluster$cluster)
+plot7<-ggplot(iris, aes(Petal.Length, Petal.Width, color = irisCluster$cluster + geom_point()
+plot8<-ggplot(iris, aes(Petal.Length, Petal.Width, color = Species)) + geom_point()
+grid.arrange(plot7, plot8, ncol=2)
+```
+
+
+## Decision trees
+
+[Here](https://www.youtube.com/watch?v=7VeUPuFGJHk&ab_channel=StatQuestwithJoshStarmer) for a basic understanding of decision trees: 
+
+### Classification And Regression Trees (CART)
+
+The function `ctree` builds decision trees ([recursive partitioning algorithm](https://cran.r-project.org/web/packages/partykit/vignettes/ctree.pdf)). The first parameter is a formula, which defines a target variable and a list of independent variables.
+
+```{r class.source = "fold-show",  eval=T}
+tree1<-tree(Species~Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data=iris)
+summary(tree1 )
+plot(tree1)
+text(tree1)
+```
+
+
+Another fancier option with the package `rpart`:
+
+```{r class.source = "fold-show",  eval=T}
+tree2 <- rpart(Species ~ ., data=iris, method="class")
+fancyRpartPlot(tree2, main="Iris")
+```
+
+One of the disadvantages of decision trees may be **overfitting** i.e. continually creating partitions to achieve a relatively homogeneous population. This problem can be alleviated by **pruning** the tree (CART), which is basically removing the decisions from the bottom to up. Another way is to **combine several trees** and obtain a consensus, which can be done via a process called **random forests** (bootstrapped version of CART - many trees built based on subsets of the data, in addition not all predictor variables are used every time, rather a random subset).
+
+```{r class.source = "fold-show",  eval=T}
+# Extra to exciting your curiosity
+iris.rf=randomForest(Species~., data=iris, importance=TRUE, proximity=TRUE, ntree=500)
+# Required number of trees gives errors for each species and the average for all species (black):
+plot(iris.rf,lty=2)
+# Misclassification error rates:
+iris.rf$confusion
+# Importance of individual predictor variables for classification (the further the value is on the right of the plot, the more important):
+varImpPlot(iris.rf)
+# The membership of a particular class as a function of a variable value can be displayed with this
+partialPlot(iris.rf,iris,Petal.Width,"setosa")
+# we can predict unclassified observations. We make up some sample new observations from the original dataset to save some time importing (the first three rows are P. setosa, lets see if RandomForest gets that right:
+newobs=iris[1:3,1:4]
+predict(iris.rf,newobs)
+# This last plot conveys the confidence in your predictions for each individual sample. Colors represent species and points are samples. In this case, many samples can be predicted with great certainty (1) and only few classifications are questionable (approaching 0)
+plot(margin(iris.rf))
+```
+
+### Multivariate Regression Trees: constrained clustering
+
+**Multivariate regression trees** (MRT; De’ath 2002) are an extension of univariate regression trees, a method allowing the recursive partitioning of a quantitative response variable under the control of a set of quantitative or categorical explanatory variables (Breiman et al. 1984). Such a procedure is sometimes called **constrained** or **supervised** clustering.The result is a tree whose “leaves” (terminal groups of sites) are composed of subsets of 'sites' chosen to minimize the within-group sums of squares (as in a _k_-means clustering), but where each successive partition is defined by a threshold value or a state of one of the explanatory variables.
+
+
+The only package implementing a complete and handy version of MRT is `mvpart`. Unfortunately, this package is no longer supported by the R Core Team, so that no updates are available for R versions posterior to R 3.0.3. Nevertheless, `mvpart` can still be installed via github.
+
+
+```{r class.source = "fold-show",  eval=T}
+data(doubs)
+spe.norm<-decostand(doubs$fish[-8,], 'nor')
+env<-doubs$env[-8,]
+
+# par(mfrow=c(1,2))
+spe.ch.mvpart <-
+  mvpart(data.matrix(spe.norm)~.,
+         env,
+         margin = 0.08,
+         cp=0,
+         xv='min', # try 'pick' best number, '1se'
+         xval=nrow(spe),
+         xvmult = 100
+         )
+```
+
+
+
+
+
+#### Hello World to Machine Learning
+
+
+Create a **Validation Dataset** We will split `iris` dataset into two, 80% of which we will use to train our models and 20% that we will hold back as a validation dataset. 
+
+```{r class.source = "fold-show",  eval=T}
+# create a list of 80% of the rows in the original dataset that we can use for training
+validation_index <- createDataPartition(iris$Species, p=0.80, list=FALSE)
+# select 20% of the data for validation
+validation <- iris[-validation_index,]
+# use the remaining 80% of data to training and testing the models
+idataset <- iris[validation_index,]
+```
+
+You now have training data in the dataset variable and a validation set we will use later in the validation variable.
+
+**Evaluate Algorithm** it is time to create some models of the data and estimate their accuracy on unseen data. 
+
+ + Step 1: set-up the test harness to use 10-fold cross validation.
+ We will 10-fold crossvalidation to estimate accuracy.This will split our dataset into 10 parts, train in 9 and test on 1 and release for all combinations of train-test splits. We will also repeat the process 3 times for each algorithm with different splits of the data into 10 groups, in an effort to get a more accurate estimate
+
+```{r class.source = "fold-show",  eval=T}
+# Run algorithms using 10-fold cross validation
+control <- trainControl(method="cv", number=10)
+metric <- "Accuracy"
+```
+
+We are using the metric of “Accuracy” to evaluate models. This is a ratio of the number of correctly predicted instances in divided by the total number of instances in the dataset multiplied by 100 to give a percentage (e.g. [XX]% accurate). We will be using the metric variable when we run build and evaluate each model next.
+
+  + Step 2: Build Models. We don’t know which algorithms would be good on this problem or what configurations to use, let's evaluate 3 different algorithms:
+
+    * Classification and Regression Trees (CART) - non linear algorithm
+    * k-Nearest Neighbors (kNN)  - non linear algorithm
+    * Linear Discriminant Analysis (LDA) - linear algorithm
+    * Random Forest (RF)  - advanced algorithms
+
+```{r class.source = "fold-show", eval=T, cache=T}
+# lda
+set.seed(10)
+fit.lda <- train(Species~., data=idataset, method="lda", metric=metric, trControl=control)
+# CART
+set.seed(10)
+fit.cart <- train(Species~., data=idataset, method="rpart", metric=metric, trControl=control)
+# kNN
+set.seed(10)
+fit.knn <- train(Species~., data=idataset, method="knn", metric=metric, trControl=control)
+# Random Forest
+set.seed(10)
+fit.rf <- train(Species~., data=idataset, method="rf", metric=metric, trControl=control)
+```
+
+ + Step 3: Build Models. We don’t know which algorithms would be good on this problem or what configurations to use, let's evaluate 3 different algorithms:
+
+We now have 4 models and accuracy estimations for each. We need to compare the models to each other and select the most accurate.
+
+We can report on the accuracy of each model by first creating a list of the created models and using the summary function.
+
+```{r class.source = "fold-show",  eval=T}
+# summarize accuracy of models
+results <- resamples(list(lda=fit.lda, cart=fit.cart, knn=fit.knn, rf=fit.rf))
+summary(results)$statistics$Accuracy
+```
+
+We can see that the most accurate model in this case was LDA:
+
+
+```{r class.source = "fold-show",  eval=T}
+# summarize Best Model
+print(fit.lda)
+```
+
+This gives a nice summary of what was used to train the model and the mean and standard deviation (SD) accuracy achieved, specifically XX.X% accuracy +/- X%
+
+
+**Prediction**
+
+The LDA was the most accurate model. Now we want to get an idea of the accuracy of the model on our validation set.
+
+This will give us an independent final check on the accuracy of the best model. It is valuable to keep a validation set just in case you made a slip during such as overfitting to the training set or a data leak. Both will result in an overly optimistic result.
+
+We can run the LDA model directly on the validation set and summarize the results in a confusion matrix.
+
+```{r, class.source = "fold-show", eval=T}
+# estimate skill of LDA on the validation dataset
+predictions <- predict(fit.lda, validation)
+confusionMatrix(predictions, validation$Species)
+```
+
+We can see that the accuracy is XXX%. It was a small validation dataset (20%), but this result is within our expected margin of XX% +/-X% (Accuracy +/- SD of lda model) suggesting we may have an accurate and a reliably accurate model.
+
+*See more* https://machinelearningmastery.com/machine-learning-in-r-step-by-step/
+
+
+Basically, we learn about one **neurone** of a network. You are only one step toward Deep Learning.   
+
+
+![Machine Learning vs. Deep Learning](Figures/multi_MLDL.png)
