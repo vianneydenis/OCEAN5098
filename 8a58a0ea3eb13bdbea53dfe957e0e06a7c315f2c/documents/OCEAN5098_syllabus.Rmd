@@ -1,0 +1,73 @@
+---
+title: "Ecological data analysis in R (OCEAN 5098)"
+output: pdf_document
+---
+
+## Information
+
+**Time**: Tuesday 13:20- 16:20 (Spring Semester - odd year)
+
+**Lecturers**: Vianney DENIS
+
+**Credits**: 3 
+
+## Description
+
+This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
+
+## Aim and objectives
+
+The aim of this course is for the students to get familiar with R language. This course will explore the multiple advantages of using R language for formatting reports,  preparing presentations, exploring and analyzing ecological, data creating and sharing project. The cours will assume hat students have no prior knowledge in R or other programming languages. It will start from scratch, i.e. downloading R and installing it on your computer. Along this class, you will be introduced to  RStudio GUI, Rmarkdown, and GitHub repositories that complete harmoniously the use of R. 
+
+
+At the end of this class, student should: 
+
+- see the multiples advantages of using R in comparison with Excel;
+- not be afraid of using code to organize, visualize and analyze data;
+- become a self-learner, able to explore and solve problem;
+- analyze and valorize scientifically simple data sets;
+- know several statistical tools for the analysis of ecological data in particular;
+- help and recommend on the use of R.
+
+## Tentative Schedule 
+
+Schedule is  susceptible to changes according to progress of the class
+
+| Week | Day | Date     | Tentative Topic | Content|
+|------|-----|----------|-----------------|--------|
+| 1    | Tue | ---------| Introduction: First step | Introduction R, R Studio, Markdown, GitHub|
+| 2 & 3 | Tue | ---------| Data manipulation, basic graphics and statistical functions | Manipulate dataset, basic operation, make and edit a plot|
+| 4 & 5 | Tue | ---------| Data exploration | Summarize dataset, preliminary analyses |
+| 6 | Tue | ---------| Ecological resemblance | Association coefficient, similarity matrix |
+| 7 | Tue | ---------| Numerical classification | Cluster analysis |
+| 8 & 9 | Tue | ---------| Unconstrained ordination | PCA, PCoA, nMDS |
+| 10 & 11 | Tue | ---------| Constrained ordination | Redundancy and cannonical analysis |
+| 12 & 13 | Tue | ---------| Generalized Linear Model | Linear regression, and GLMs |
+| 14 | Tue | ---------| From traits to functions | --- |
+
+
+## Evaluation & Final Assignment
+
+Each week students prepare an example of the application of the things learned in previous class . One student randomly chosen will introduce its example at the beginning the class (using Rmarkdown). 
+
+For the final assignment, group (2-3 students) will pick up a research topic along the semester, and will prepare a report emphasis methodology and results (scientific format). Introduction and discussion can be presented as bullet points. Report should be sent as a markdown file before the last class of the semester. Do not wait the last minute!
+
+
+## Requirement
+
+This course requires students to bring/use their own personal computer.
+
+## References & Readings
+
+Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology with R. Springer. DOI: [10.1007/978-3-319-71404-2](https://www.springer.com/gp/book/9783319714035)
+
+
+Paradis, E. (2005) R for beginner. Available among many others documentation at https://cran.r-project.org/other-docs.html (page frozen and no longer actively maintained) 
+
+Ramette, A. (2007) Multivariate analyses in microbial ecology. FEMS Microbiology Ecology, 62: 142-160. DOI: [10.1111/j.1574-6941.2007.00375.x](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1574-6941.2007.00375.x)
+
+Xie, Y., Allaire, J.J.,Grolemund, G. (2020) R Markdown: The Definitive Guide. Chapman & Hall/CRC. The online version of this book is free to read [here](https://bookdown.org/yihui/rmarkdown/). 
+
+Zuur, A. F., Ieno E. N., Smith, G. M. (2007) Analysing Ecological Data. Springer.  DOI: [10.1007/978-0-387-45972-1](https://www.springer.com/gp/book/9780387459677)
+
+Zuur, A. F. (2010) A protocol for data exploration to avoid common statistical problems. Methods in Ecology and Evolution, 1: 3-14. DOI: [10.1111/j.2041-210X.2009.00001.x](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x)
