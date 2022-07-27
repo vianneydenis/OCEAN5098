@@ -24,37 +24,37 @@ navbar:
       href: index.html
     - text: "Environment"
       href: environment.html
-    - text: "Manipulation"
-      menu:
-        - text: "Basics"
-          href: manipulation.html    
-        - text: "dplyr"
-          href: dplyr.html  
-        - text: "tidyr"
-          href: tidyr.html 
-    - text: "Types & Structures"
-      href: types.html
-    - text: "Graphics"
-      href: graphics.html
-    - text: "Mapping"
-      href: mapping.html
-    - text: "Loops & Functions"
-      href: loop.html
-    - text: "Statistics"
-      menu:
-        - text: "Descriptive and hypotheses"
-          href: statistics.html    
-        - text: "Linear models"
-          href: linear.html
-    - text: "Multivariate"
-      href: multi.html
+#    - text: "Manipulation"
+#      menu:
+#        - text: "Basics"
+#          href: manipulation.html    
+#        - text: "dplyr"
+#          href: dplyr.html  
+#        - text: "tidyr"
+#          href: tidyr.html 
+#    - text: "Types & Structures"
+#      href: types.html
+#    - text: "Graphics"
+#      href: graphics.html
+#    - text: "Mapping"
+#      href: mapping.html
+#    - text: "Loops & Functions"
+#      href: loop.html
+#    - text: "Statistics"
+#      menu:
+#        - text: "Descriptive and hypotheses"
+#          href: statistics.html    
+#        - text: "Linear models"
+#          href: linear.html
+#    - text: "Multivariate"
+#      href: multi.html
       
 # commit graphics.html 
 #        - text: "Script"
 #          href: script_1.html
 #        - text: "Practice"
 #          href: practice_1.html
-#
+
           
 output:
   distill::distill_article:
