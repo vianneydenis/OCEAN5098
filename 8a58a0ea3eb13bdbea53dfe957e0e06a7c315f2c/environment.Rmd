@@ -131,7 +131,7 @@ You don't know: relax! You can access .html help via the 'Help' menu: *Help/Sear
 
 - a simple summary on how to use a specifically named function such as `mean`
 
-```{r, code_folding = F, eval=T}
+```{r, code_folding = FALSE, eval=T}
 # simple help on the use of a function
 median
 ```
