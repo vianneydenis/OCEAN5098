@@ -19,6 +19,8 @@ library(mvabund)
 library(mvpart) # install_github("cran/mvpart", force = T) # after devtools
 library(MVPARTwrap) # install_github("cran/MVPARTwrap", force = T) # after devtools
 
+Sys.setlocale("LC_ALL", "English")
+
 
 source('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/coldiss.r') # import coldiss () function  (Borcard et al. 2011) 
 source ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/panelutils.r')
@@ -566,9 +568,9 @@ grp.lev <- levels(factor(spe.bw.groups))
 sit.sc <- scores(spe.nmds)
 p <- ordiplot (sit.sc, type='n', main='NMDS/BRAY – clusters Ward/Bray')
 for (i in 1:length(grp.lev)) {
-  	points(sit.sc[spe.bw.groups==i,],pch=(14+	i),cex=2, col=i+1)
+  	points(sit.sc$sites[spe.bw.groups==i,],pch=(14+	i),cex=2, col=i+1)
 	}
-text(sit.sc,row.names(spe),pos=4,cex=0.7)
+text(sit.sc$sites,row.names(spe),pos=4,cex=0.7)
 #add the dendrogram
 ordicluster(p,spe.bray.ward,col='dark grey')
 
