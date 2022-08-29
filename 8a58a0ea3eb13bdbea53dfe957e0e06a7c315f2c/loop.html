@@ -1,0 +1,2927 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>OCEAN 5098: Loops and Functions</title>
+
+
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+  <link rel="icon" type="image/png" href="images/logo.png"/>
+
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="OCEAN 5098: Loops and Functions"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="OCEAN 5098"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="OCEAN 5098: Loops and Functions"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["Loops and Functions"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+  <script type="application/javascript">
+
+  function getMeta(metaName) {
+    var metas = document.getElementsByTagName('meta');
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === metaName) {
+        return metas[i].getAttribute('content');
+      }
+    }
+    return '';
+  }
+
+  function offsetURL(url) {
+    var offset = getMeta('distill:offset');
+    return offset ? offset + '/' + url : url;
+  }
+
+  function createFuseIndex() {
+
+    // create fuse index
+    var options = {
+      keys: [
+        { name: 'title', weight: 20 },
+        { name: 'categories', weight: 15 },
+        { name: 'description', weight: 10 },
+        { name: 'contents', weight: 5 },
+      ],
+      ignoreLocation: true,
+      threshold: 0
+    };
+    var fuse = new window.Fuse([], options);
+
+    // fetch the main search.json
+    return fetch(offsetURL('search.json'))
+      .then(function(response) {
+        if (response.status == 200) {
+          return response.json().then(function(json) {
+            // index main articles
+            json.articles.forEach(function(article) {
+              fuse.add(article);
+            });
+            // download collections and index their articles
+            return Promise.all(json.collections.map(function(collection) {
+              return fetch(offsetURL(collection)).then(function(response) {
+                if (response.status === 200) {
+                  return response.json().then(function(articles) {
+                    articles.forEach(function(article) {
+                      fuse.add(article);
+                    });
+                  })
+                } else {
+                  return Promise.reject(
+                    new Error('Unexpected status from search index request: ' +
+                              response.status)
+                  );
+                }
+              });
+            })).then(function() {
+              return fuse;
+            });
+          });
+
+        } else {
+          return Promise.reject(
+            new Error('Unexpected status from search index request: ' +
+                        response.status)
+          );
+        }
+      });
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // get search element (bail if we don't have one)
+    var searchEl = window.document.getElementById('distill-search');
+    if (!searchEl)
+      return;
+
+    createFuseIndex()
+      .then(function(fuse) {
+
+        // make search box visible
+        searchEl.classList.remove('hidden');
+
+        // initialize autocomplete
+        var options = {
+          autoselect: true,
+          hint: false,
+          minLength: 2,
+        };
+        window.autocomplete(searchEl, options, [{
+          source: function(query, callback) {
+            const searchOptions = {
+              isCaseSensitive: false,
+              shouldSort: true,
+              minMatchCharLength: 2,
+              limit: 10,
+            };
+            var results = fuse.search(query, searchOptions);
+            callback(results
+              .map(function(result) { return result.item; })
+            );
+          },
+          templates: {
+            suggestion: function(suggestion) {
+              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+                : '';
+              var html = `
+                <div class="search-item">
+                  <h3>${suggestion.title}</h3>
+                  <div class="search-item-description">
+                    ${suggestion.description || ''}
+                  </div>
+                  <div class="search-item-preview">
+                    ${img}
+                  </div>
+                </div>
+              `;
+              return html;
+            }
+          }
+        }]).on('autocomplete:selected', function(event, suggestion) {
+          window.location.href = offsetURL(suggestion.path);
+        });
+        // remove inline display style on autocompleter (we want to
+        // manage responsive display via css)
+        $('.algolia-autocomplete').css("display", "");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+  });
+
+  </script>
+
+  <style type="text/css">
+
+  .nav-search {
+    font-size: x-small;
+  }
+
+  /* Algolioa Autocomplete */
+
+  .algolia-autocomplete {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: sub;
+    background-color: white;
+    color: black;
+    padding: 6px;
+    padding-top: 8px;
+    padding-bottom: 0;
+    border-radius: 6px;
+    border: 1px #0F2E3D solid;
+    width: 180px;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-nav .algolia-autocomplete {
+      display: none;
+      visibility: hidden;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete {
+      display: inline-block;
+      visibility: visible;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+      margin-left: 0;
+      width: 400px;
+      max-height: 400px;
+    }
+  }
+
+  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+    width: 90%;
+    outline: none;
+    border: none;
+  }
+
+  .algolia-autocomplete .aa-hint {
+    color: #999;
+  }
+  .algolia-autocomplete .aa-dropdown-menu {
+    width: 550px;
+    max-height: 70vh;
+    overflow-x: visible;
+    overflow-y: scroll;
+    padding: 5px;
+    margin-top: 3px;
+    margin-left: -150px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #999;
+    border-top: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+    cursor: pointer;
+    padding: 5px 4px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+    border-bottom: none;
+    margin-bottom: 2px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+    overflow: hidden;
+    font-size: 0.8em;
+    line-height: 1.4em;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+    font-size: 1rem;
+    margin-block-start: 0;
+    margin-block-end: 5px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+    display: inline-block;
+    overflow: hidden;
+    height: 2.8em;
+    width: 80%;
+    margin-right: 4%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+    display: inline-block;
+    width: 15%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+    height: 3em;
+    width: auto;
+    display: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+    display: initial;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+    background-color: #eee;
+  }
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  </style>
+
+
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #4C4C4C;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+    .distill-site-header .logo img {
+      max-height: 30px;
+      width: auto;
+      margin-bottom: -7px;
+    }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base style */
+
+  /* FONT FAMILIES */
+
+  :root {
+    --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  body,
+  .posts-list .post-preview p,
+  .posts-list .description p {
+    font-family: var(--body-font), var(--body-default);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .posts-list .post-preview h2,
+  .posts-list .description h2 {
+    font-family: var(--heading-font), var(--heading-default);
+  }
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: var(--mono-font), var(--mono-default);
+  }
+
+
+  /*-- TITLE --*/
+  d-title h1,
+  .posts-list > h1 {
+    color: var(--title-color, black);
+  }
+
+  d-title h1 {
+    font-size: var(--title-size, 50px);
+  }
+
+  /*-- HEADERS --*/
+  d-article h1,
+  d-article h2,
+  d-article h3,
+  d-article h4,
+  d-article h5,
+  d-article h6 {
+    color: var(--header-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- BODY --*/
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 1.06rem);
+  }
+
+
+  /*-- CODE --*/
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-size: var(--code-size, 14px);
+  }
+
+  /*-- ASIDE --*/
+  d-article aside {
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- FIGURE CAPTIONS --*/
+  figure .caption,
+  figure figcaption,
+  .figure .caption {
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- METADATA --*/
+  d-byline h3 {
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-byline {
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  d-byline a,
+  d-article d-byline a {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- TABLE OF CONTENTS --*/
+  .d-contents nav h3 {
+    font-size: var(--heading-size, 18px);
+  }
+
+  .d-contents nav a {
+    font-size: var(--contents-size, 13px);
+  }
+
+  /*-- APPENDIX --*/
+  d-appendix h3 {
+    font-size: var(--heading-size, 15px);
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  }
+
+  d-appendix {
+    font-size: var(--text-size, 0.8em);
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-appendix d-footnote-list a.footnote-backlink {
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  .distill-site-header .title {
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .distill-site-header a,
+  .nav-dropdown .nav-dropbtn {
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
+  }
+
+  .distill-site-header {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer a:hover {
+    color: var(--hover-color, white);
+  }</style>
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <style type="text/css">
+  .screenshot {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .fake-img {
+    background: #bbb;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
+  .fake-img p {
+    font-family: monospace;
+    color: white;
+    text-align: left;
+    margin: 12px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+
+
+  html {
+    scroll-behavior: smooth;
+  }
+  d-article {
+      contain: none;
+    }
+  #TOC {
+    position: fixed;
+    z-index: 50;
+    background: #ebebeb;     /* or   background: white; */
+    padding: 10px;           /* optional */
+    border-radius: 5px;      /* optional */
+    }
+
+  /* Hide the ToC when resized to mobile or tablet:  480px, 768px, 900px */
+  @media screen and (max-width: 900px) {
+  #TOC {
+      position: relative;
+    }
+  }
+
+  p.comment {
+  background-color: #94F99B;
+  padding: 10px;
+  border: 1px solid black;
+  margin-left: 25px;
+  border-radius: 5px;
+  font-style: normal;
+  }
+
+  p.alert {
+  background-color: #F0756D;
+  padding: 10px;
+  border: 1px solid black;
+  margin-left: 25px;
+  border-radius: 5px;
+  font-style: normal;
+  }
+
+
+  </style>
+  <!--/radix_placeholder_site_in_header-->
+
+  <link rel="stylesheet" href="styles.css" type="text/css"/>
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Loops and Functions","authors":[]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a class="logo" href="https://www.dipintothereef.com/">
+<img src="images/logo.png" alt="Logo"/>
+</a>
+<a href="index.html" class="title">OCEAN 5098</a>
+<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
+</div>
+<div class="nav-right">
+<a href="index.html">Home</a>
+<a href="environment.html">Environment</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Loops and Functions</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+
+</div>
+
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#loops" id="toc-loops">Loops</a></li>
+<li><a href="#function" id="toc-function">Function</a></li>
+<li><a href="#animation" id="toc-animation">Animation</a></li>
+</ul>
+</nav>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogIkxvb3BzIGFuZCBGdW5jdGlvbnMiDQotLS0NCg0KYGBge3IgZXZhbCA9IFRSVUUsICBtZXNzYWdlPUYsIGluY2x1ZGU9Riwgd2FybmluZz1GLCBwdXJsPUYsIHJlc3VsdHM9ImhpZGUifQ0Ka25pdHI6OnB1cmwoJ2xvb3AuUm1kJywgZG9jdW1lbnRhdGlvbiA9IEYpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnbG9vcC5SbWQnKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2xvb3AuUicpDQpgYGANCg0KYGBge3IsICBldmFsPVR9DQpsaWJyYXJ5KGFuaW1hdGlvbikNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkgKGdnYW5pbWF0ZSkNCmBgYA0KDQpUb2RheSwgd2UgYXJlIGdvaW5nIHRvIHNwZWFrIGFib3V0IGxvb3BzIGFuZCB0aGVpciB1c2UgaW4gY3VzdG9taXplZCBmdW5jdGlvbi4gRm9yIHRoaXMgcHVycG9zZSwgd2Ugd2lsbCBpbGx1c3RyYXRlIHRoZWlyIHVzZSB3aXRoIHRoZSBoZWxwIG9mIHNpbXBsZSBkZW1vZ3JhcGhpYyBtb2RlbHMuIFRvIG1ha2UgaXQgZnVubmllciBidXQgYWxzbyBiZWFjdXNlIGl0IHJlcXVpcmVzIGxvb3BzIHdlIHdpbGwgdmlzdWFsaXplIHBvcHVsYXRpb24gZHluYW1pY3MgdXNpbmcgYW5pbWF0aW9uLiBTcGVjaWZpY2FsbHksIFdlIHdpbGwgY3JlYXRlIGEgR0lGIHVzaW5nIHRoZSBwYWNrYWdlIGBhbmltYXRpb25gLiBUaGUgZnVuY3Rpb24gYHNhdmVHSUZgIHdpbGwgb25seSB3b3JrIGlmIHlvdSBoYXZlIGluc3RhbGwgW0ltYWdlIE1hZ2lja10oaHR0cDovL2ltYWdlbWFnaWNrLm9yZykgb3IgW0dyYXBoaWNzTWFnaWNrXShodHRwOi8vd3d3LmdyYXBoaWNzbWFnaWNrLm9yZykgb24geW91ciBjb21wdXRlci4gSW5zdGFsbCB3aXRoIGxlZ2FjeSB1dGlsaXRpZXMgKGUuZy4gY29udmVydCkuT2J2aW91c2x5IHRoZSBhbmltYXRpb24gd2lsbCBub3Qgd29yayBpZiB5b3Ugc2tpcCB0aGlzIHN0ZXAuIA0KDQohW10oRmlndXJlcy9JbWFnZU1hZ2ljazcuMC5wbmcpDQoNCiMgTG9vcHMNCg0KKipXaGF0J3MgdGhhdD8qKiBBIGxvb3AgaXMgc2ltcGx5IHRvbyByZXBlYXQgdGhlIHNhbWUgdGFzayBhIHNwZWNpZmljIG51bWJlciBvZiB0aW1lLiBBbGwgbG9vcHMgKHdoYXRldmVyIHRoZWlyIHNpemVzKSBoYXZlIGFsd2F5cyB0aGUgc2FtZSBzdHJ1Y3R1cmUgKGFyY2hpdGVjdHVyZSkuIEFzIGZvciBhbiBleGFtcGxlIGEgYGZvcmAgbG9vcCBpcyBnaXZlbiBhczogIA0KDQpgZm9yYCBgKGBjb3VudGVyIGluIHZlY3RvcmApe2B0YXNrYH1gDQoNCmBmb3JgIGxvb3BzIGFyZSB2ZXJ5IGNvbW1vbi4gSXQgbWVhbnMgKipmb3IqKiBhIGNvbmRpdGlvbiBkbyBzb21ldGhpbmcuIHV0IG9mIGNvdXJzZSB0aGlzIGBmb3JgIGNhbiBiZSByZXBsYWNlIGJ5IGB3aGlsZWAgb3IgYHJlcGVhdGAuIFRob3NlIGFyZSBgd2hpbGVgIGFuZCBgcmVwZWF0YCBsb29wcw0KDQohW10oRmlndXJlcy9sb29wcy5wbmcpDQoNCg0KIyMgQmFzaWMgc3RydWN0dXJlDQoNCkEgdmVyeSBzaW1wbGUgbG9vcCBjYW4gYmUgcHJvZHVjZWQgdXNpbmc6DQoNCmBgYHtyLCAgZXZhbD1GQUxTRX0NCmZvcihpIGluIDE6MTAwKSB7DQpwcmludCgiSGVsbG8gd29ybGQhIikNCnByaW50KGkqaSkNCn0NCmBgYA0KDQpgZm9yKGkgaW4gMToxMDApYCBpcyBvdXIgY291bnRlcjogYGlgIChidXQgY2FuIGJlIGFueXRoaW5nLCBgaWAgaXMgYW4gc3RhbmRhcmQpIHdpbGwgdGFrZSB0aGUgdmFsdWVzIDEsIDIsIDMsIC4uLiwgMTAwLiBUaGVyZWZvcmUgdGhlIGxvb3Agd2lsbCByZXBlYXQgMTAwIHRpbWVzIHRoZSBlbGVtZW50IHRoYXQgZm9sbG93cyB3aXRoaW4gdGhlIGB7fWAuIA0KDQpJbiBvdXIgbG9vcCwgYGlgIHdpbGwgdGFrZSB0aGUgdmFsdWUgMSBkdXJpbmcgdGhlIGZpcnN0ICJjeWNsZSIuIFdpdGhpbiB0aGUgc2FtZSBjeWNsZSwgaXQgd2lsbCBhbHNvIGBwcmludGAgYCJIZWxsbyBXb3JsZGAiIGZvbGxvd3MgYnkgdGhlIHJlc3VsdCBvZiB0aGUgcHJvZHVjdCBgaSppYCBlLmcuIDEgZm9yIHRoZSBmaXJzdCBjeWNsZS4gVGhpcyB3aWxsIGJlIHRoZSBzYW1lIHRhc2sgZm9yIHRoZSBuZXh0IDk5IHJlbWFpbmluZyBjeWNsZXMgb2Ygb3VyIGxvb3AuIEdvdCBpdD8gTGV0J3Mgbm93IG1ha2UgaXQgYSBiaXQgbW9yZSBlbGVnYW50Lg0KDQpUaGUgImNvdW50ZXIiIGlzIGNvbW1vbmx5IHNldCBkaXN0aW5jdGx5LiAgQ2hlY2sgY2FyZWZ1bGx5LCB0aGUgc3ludGF4IG9mIGEgbG9vcDoNCg0KYGBge3IsICBldmFsPVR9DQpmb28gPC0gc2VxICgxLDEwMCxieT0yKSAjIHNlcXVlbmNlICAxLCAzLCAuLi4sIDk5DQpuPC1sZW5ndGgoZm9vKSAjICBzaXplIG9mIHRoZSBmb28gc2VxdWVuY2UNCmZvby5zcXVhcmVkID0gTlVMTCAjICBlbXB0eSBvYmplY3QNCg0KZm9yIChpIGluIDE6bikgeyAjIG91ciBjb3VudGVyDQogIGZvby5zcXVhcmVkW2ldID0gZm9vW2ldXjIgIyB0aGUgdGFzaw0KfQ0KDQpmb28uZGY8LWRhdGEuZnJhbWUoZm9vLGZvby5zcXVhcmVkKSANCnBsb3QgKGZvby5kZiRmb29+Zm9vLmRmJGZvby5zcXVhcmVkKQ0KYGBgDQoNCioqQmVhdXRpZnVsKiosIGJ1dCB0b3RhbGx5ICAqKnVzZWxlc3MqKi4gVGhlIHNhbWUgd2lsbCBiZSBhY2NvbXBsaXNoZWQgd2l0aCB0aGUgZm9sbG93aW5nIGxpbmVzIG9mIGNvZGU6IA0KDQpgYGB7ciwgIGV2YWw9RkFMU0V9DQpmb28uc3F1YXJlZDI8LWZvb14yDQpwbG90IChmb29+Zm9vLnNxdWFyZWQyKQ0KYGBgDQoNCkFzIEkgdG9sZCB5b3UgZWFybGllciBhbmQgYXMgd2UgYWxyZWFkeSBzYXcgaW4gYWN0aW9uLCB0aGUgZnVuY3Rpb25zIGluIFIgYXJlIHZlY3Rvcml6ZWQuIEl0IG1lYW5zIHdoZW4geW91IGFwcGxpZWQgdGhlbSB0byBhIHZlY3RvciwgdGhleSB3aWxsIGFwcGx5IHRvIGFsbCB0aGUgZWxlbWVudHMgb2YgdGhpcyB2ZWN0b3IuIEx1Y2tpbHkgaXQgbWFrZXMgb3VyIGxpZmUgZWFzaWVyIHRoYXQgeW91IGRvbid0IG5lZWQgdG8gc2F5IHlvdSB3YW50IHRvIGFwcGx5IHNvbWV0aGluZyB0byB0aGUgZmlyc3QgZWxlbWVudCBvZiB0aGlzIHZlY3RvciwgdGhlbiByZXBlYXQgdGhlIHNhbWUgZm9yIHRoZSBzZWNvbmQgZWxlbWVudCwgZXRjLiAod2hhdCB3ZSBkaWQgaW4gb3VyIGxvb3ApLiBJbiBhZGRpdGlvbiwgdmVjdG9yaXplZCBmdW5jdGlvbnMgYXJlIHdheSBmYXN0ZXIgdGhhbiBtYWtpbmcgbG9vcHMuIENvbXBhcmUgdGhlIHRpbWUgb2YgdGhlIGZvbGxvd2luZyB3aXRoIHRoZSB0aW1lIHRoYXQgeW91IG5lZWQgdG8gZG8gdGhlIHNhbWUgdXNpbmcgYSBsb29wLiBNYWtlIHRoZSBzZXF1ZW5jZSBsb25nZXIsIHN1Y2ggYXMgdXAgdG8gMSwwMDAsMDAwLiAgDQoNCmBgYHtyLCAgZXZhbD1GQUxTRX0NCnN5c3RlbS50aW1lKGZvby5zcXVhcmVkMjwtZm9vXjIpDQpgYGANCg0KQSBmdW5jdGlvbiB3aWxsIHVzdWFsbHkgY29uc2lkZXIgYSB2ZWN0b3IgYXMgYSBibG9jayBhbmQgd2lsbCBhcHBseSB0aGlzIHRhc2sgdG8gYWxsIGVsZW1lbnRzIGF0IG9uY2UuIFRoYXQncyB3aHkgaXQgaXMgd2F5IGZhc3Rlci4gU28sIHdoeSBkbyB3ZSBjYXJlIGFib3V0IGxvb3BzPw0KDQpTaW1wbHkgc2F5aW5nLCBhIGxvb3AgaGF2ZSB0aGVpciB1c2UgYW5kIGludGVyZXN0IGluIHJlY3ljbGluZyBhbiBlbGVtZW50IHlvdSBqdXN0IGNyZWF0ZWQgaW4gYSBwcmV2aW91cyBjeWNsZS4gVGhlIG5leHQgY3ljbGUgd2lsbCB1c2UgdGhlIHNhbWUgdGFzayBidXQgaXQgd2lsbCAiZW5yaWNoZWQiIGJ5IHRoZSBlbGVtZW50IChpbmZvcm1hdGlvbikgb2YgYW4gZWxlbWVudCBjcmV0ZWQgZm9ybSB0aGUgcHJldmlvdXMgY3ljbGUuIA0KDQojIyBSZWN5Y2xlDQoNCkxldCdzIHRoaW5rIGFib3V0IHBvcHVsYXRpb24gZ3Jvd3RoIHdoZXJlIHRoZSBudW1iZXIgb2YgaW5kaXZpZHVhbHMgYXQgb25lIGdlbmVyYXRpb24gKGN5Y2xlIFgpIHdpbGwgZGV0ZXJtaW5lIHRoZSBwb3B1bGF0aW9uIGF0IHRoZSBmb2xsb3dpbmcgZ2VuZXJhdGlvbiAoY3ljbGUgWCsxKToNCg0KYGBge3IsICBldmFsPUZBTFNFfQ0KbnVtX2dlbiA8LSAxMCAjICAgbm8uIGdlbmVyYXRpb24NCk4gPC0gcmVwICgwLG51bV9nZW4pICMgICJ2ZWN0b3IiIG9mIDEwIHplcm9zIChjb3VsZCBiZSBgTlVMTGApDQpOWzFdIDwtIDIgIyBXZSBuZWVkIGEgYmVnaW5uaW5nIGZvciBvdXIgcG9wdWxhdGlvbg0KZm9yIChpIGluIDI6bnVtX2dlbil7ICMgY291bnRlcg0KTltpXT0yKk5baS0xXSAjIHRhc2s6IGRvdWJsZSBpbmRpdmlkdWFscw0KfQ0KcGxvdCAoTikNCmBgYA0KDQpMZXQncyBhZGQgYSB2YXJpYWJsZSBgZ2VuZXJhdGlvbmAsIHRvIG1ha2Ugb3VyIHBsb3QgbW9yZSB2aXN1YWw6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KbnVtX2dlbjwtMTAgDQpnZW5lcmF0aW9uPC0xOm51bV9nZW4gDQpOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KTlsxXSA8LSAyDQpmb3IgKGkgaW4gMjpudW1fZ2VuKSB7IA0KICBOW2ldPTIqTltpLTFdDQogICB9DQpwbG90KE5+Z2VuZXJhdGlvbiwgdHlwZT0nYicpDQpgYGANCg0KQ29uZ3JhdHMhIFlvdSBqdXN0IHdyb3RlIHlvdXIgZmlyc3QgZGVtb2dyYXBoaWMgbW9kZWwgY2FsbGVkIGV4cG9uZW50aWFsIGdyb3d0aC4gVGhpcyBpcyB0eXBpY2FsbHkgdGhlIHR5cGUgb2YgbW9kZWwgdXNlZCB0byBleGFtaW5lIGJhY3RlcmlhIGdyb3d0aC4gSW4gb3VyIG1vZGVsLCB0aGUgcG9wdWxhdGlvbiBkb3VibGUgYXQgZWFjaCBnZW5lcmF0aW9uICh0aW1lKS4gWW91IGNhbiBub3cgcGxheSBhdCBpbmNyZWFzaW5nIGluaXRpYWwgcG9wdWxhdGlvbiBzaXplIGFuZCBtYW5pcHVsYXRpbmcgZ3Jvd3RoIHJhdGUuIEFsbCB0aGUgb3RoZXIgbG9vcHMgd2lsbCBmb2xsb3cgdGhlIHNhbWUgc3RydWN0dXJlLCBqdXN0IHRoZSB0YXNrIG1heSBiZSBhICdsaXR0bGUnIGJpdCBtb3JlIGNvbXBsaWNhdGVkLiBZb3UgY2FuIGFsc28gYWRkIGxvb3Agd2l0aGluIGxvb3AsIGV0Yy4gDQoNCk1vcmUgcmVhZCBvbiBsb29wcyBpbiB0aGUgZnJlZSBvbmxpbmUgY2xhc3MgYXZhaWxhYmxlIFtoZXJlXShodHRwczovL3d3dy5kYXRhY2FtcC5jb20vY29tbXVuaXR5L3R1dG9yaWFscy90dXRvcmlhbC1vbi1sb29wcy1pbi1yKQ0KDQojIEZ1bmN0aW9uDQoNCldlIGFscmVhZHkgdXNlZCBwbGVudHkgb2YgZnVuY3Rpb24gc28gZmFyLCBzbyBsZXQncyBub3cgY3JlYXRlIG91cnMuIFdlIGNyZWF0ZSBhICoqZnVuY3Rpb24qKiB3aXRoIGFuIG5hbWVkIG9iamVjdCBjb250YWluaW5nIGEgYGZ1bmN0aW9uYC4gWW91IGNhbiBzcGVjaWZ5IHdpdGhpbiB0aGUgKiphcmd1bWVudHMqKiB5b3Ugd2FubmEgY29udHJvbC4gTGV0J3MgaWxsdXN0cmF0ZSBpdCBieSB3cmFwcGluZyBvdXIgc21hbGwgZGVtb2dyYXBoaWMgbW9kZWwgaW50byBhIGZ1bmN0aW9uIGdpdmluZyBpdCBtb3JlIGZsZXhpYmlsaXR5IGluIGN1c3RvbWl6aW5nIHRoZSBncm93dGggcmF0ZSBvZiB0aGUgcG9wdWxhdGlvbi4NCg0KYGBge3IsICBldmFsPVR9IA0KZ3JvdyA8LSBmdW5jdGlvbiAoZ3Jvd3RoLnJhdGUpIHsgIyBhcmd1bWVudCAiZ3Jvd3RoLnJhdGUiIG9mIGZ1bmN0aW9uICJncm93IiANCm51bV9nZW48LTEwDQpnZW5lcmF0aW9uPC0xOm51bV9nZW4NCk4gPC0gcmVwICgwLG51bV9nZW4pDQpOWzFdIDwtIDENCmZvciAoaSBpbiAyOm51bV9nZW4pIHsNCiAgTltpXT1ncm93dGgucmF0ZSpOW2ktMV0gIyBub3QgdGhlIHVzZSBncm93dGgucmF0ZSBhcmd1bWVudA0KfQ0KICBwbG90KE5+Z2VuZXJhdGlvbix0eXBlPSdiJywgbWFpbj1wYXN0ZSgiUmF0ZSA9IiwgZ3Jvd3RoLnJhdGUpKSANCn0NCmBgYA0KDQpJdCBjcmVhdGVkIGEgZnVuY3Rpb24gY2FsbGVkIGBncm93YCBhbWQgbm93IHZpc2libGUgaW4gUlN0dWRpbyBlbnZpcm9ubWVudCANCg0KIVtdKEZpZ3VyZXMvRW52X2Z1bmN0LnBuZykNCg0KWW91IGNhbiBzaW1wbHkgdXNlIHRoaXMgbmV3IGZ1bmN0aW9uIGJ5IGNhbGxpbmcgaXQgYW5kIGNoYW5naW5nIHRoZSBhcmd1bWVudCBgZ3Jvd3RoLnJhdGVgLiBUaGUgZnVuY3Rpb24gY2FuIGl0c2VsZiBiZSBpbiBhIGxvb3AgKHRoZXJlZm9yZSwgY3JlYXRpbmcgYSBsb29wIHdpdGhpbiBhIGxvb3ApLiBJdCBpcyB1c3VhbGx5IG5vIHJlY29tbWVuZGVkIGJlY2F1c2UgaXQgbWF5IHR1cm4gdG8gYmUgcXVpdGUgICdzbG93JyAoY2hlY2tgc3lzdGVtLnRpbWUoKWApLg0KDQpgYGB7ciwgIGV2YWw9VH0gDQpwYXIobWZyb3c9YygyLDMpKQ0KZm9yIChpIGluIDI6Nyl7DQogIGdyb3coaSkNCn0NCmBgYA0KDQpPdXIgZnVuY3Rpb24gY2FuIGJlIGZ1cnRoZXIgZXh0ZW5kZWQgd2l0aCBhbiBleHRyYSBhcmd1bWVudCBzdWNoIGFzIHRoZSBudW1iZXIgb2YgZ2VuZXJhdGlvbi4gDQoNCjxwIGNsYXNzPSJjb21tZW50Ij4NCioqUHJhY3RpY2UgTDE6KiogQ3JlYXRlIGEgZnVuY3Rpb24gY2FsbGVkIGBncm93MmAgd2hlcmUgYm90aCBhcmd1bWVudHM6IHRoZSBgZ3Jvd3RoLnJhdGVgIGFuZCBgbnVtYmVyLmdlbmVyYXRpb25gIGFyZSBjdXN0b21pemFibGUuDQo8L3A+DQoNCmBgYHtyLCBjb2RlX2ZvbGRpbmcgPSAnU2hvdyBTb2x1dGlvbicsICBldmFsPUZBTFNFfQ0KZ3JvdzIgPC0gZnVuY3Rpb24gKGdyb3d0aC5yYXRlLCBudW1iZXIuZ2VuZXJhdGlvbikgeyANCiAgbnVtX2dlbjwtbnVtYmVyLmdlbmVyYXRpb24NCiAgZ2VuZXJhdGlvbjwtMTpudW1fZ2VuDQogIE4gPC0gcmVwICgwLG51bV9nZW4pDQogIE5bMV0gPC0gMQ0KICBmb3IgKGkgaW4gMjpudW1fZ2VuKSB7DQogICAgTltpXT1ncm93dGgucmF0ZSpOW2ktMV0gDQogIH0NCiAgcGxvdChOfmdlbmVyYXRpb24sdHlwZT0nYicsIG1haW49cGFzdGUoIlJhdGUgPSIsIGdyb3d0aC5yYXRlLCAiLCAiLCBudW1iZXIuZ2VuZXJhdGlvbiwgImdlbmVyYXRpb25zIikpDQogIH0NCmBgYA0KDQojIEFuaW1hdGlvbg0KDQojIyBnaWYNCg0KQW4gYW5pbWF0aW9uIHR5cGUgKipnaWYqKiBjb25zaXN0cyBpbiBvdmVybGFwcGluZyBzZXF1ZW50aWFsIHBsb3RzLiBCeSBnZW5lcmF0aW5nIHBsb3RzICBmb3IgZWFjaCBjeWNsZXMgb2Ygb3VyIGxvb3AgYW5kIHB1dHRpbmd0aGVtIGJlaGluZCBlYWNoIG90aGVyIHlvdSBjYW4gZWFzaWx5IGZpZ3VyZSBvdXQgdGhhdCB5b3Ugd2lsbCBnZXQgYW4gYW5pbWF0ZWQgcGxvdCAoaW4gYSB2ZXJ5IHNpbWlsYXIgd2F5IHRoYW4gYW4gYW5pbWF0ZSkuICBPYnZpb3VzbHkgYW5kIGJlY2F1c2Ugd2Ugd2FudCB0byBvdmVybGFwIHBsb3QsIHdlIHdpbGwgZml4IHRoZSBsaW1pdCBvZiBvdXIgYXhlcy4gTGV0J3MgZG8gaXQgZm9yIGBncm93dGgucmF0ZWAgYW5kIGNyZWF0ZSBhIGZ1bmN0aW9uIGNhbGxlZCBgZ3JvdzNgIHdpdGggZml4ZWQgbGltaXRzIGZvciB0aGUgYXhlcy4NCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQpncm93MyA8LSBmdW5jdGlvbiAoZ3Jvd3RoLnJhdGUpIHsgDQogIG51bV9nZW48LTEwDQogIGdlbmVyYXRpb248LTE6bnVtX2dlbg0KICBOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KICBOWzFdIDwtIDENCiAgZm9yIChpIGluIDI6bnVtX2dlbikgew0KICAgIE5baV09Z3Jvd3RoLnJhdGUqTltpLTFdDQogIH0NCiAgcGxvdChOfmdlbmVyYXRpb24sIHhsaW09YygwLDEwKSwgeWxpbT1jKDAsMTAwMDAwKSwgdHlwZT0nYicsIG1haW49cGFzdGUoIlJhdGUgPSIsIGdyb3d0aC5yYXRlKSkNCn0NCmBgYA0KDQpPdXIgZnVuY3Rpb24gY3JlYXRlZCwgbGV0J3MgdXNlIHRoaXMgYGdyb3czYCBmdW5jdGlvbiBhcyBhICoqZ2lmKiouIFRoZSAgZnVuY3Rpb24gYHNhdmVHSUZgIGZyb20gdGhlICBwYWNrYWdlICBgYW5pbWF0aW9uYCAoKipJTVBPUlRBTlQqKjogd2l0aCAibGVnYWN5IiB1dGlsaXRpZXMpIHdpbGwgY29tYmluZSBhbGwgcGxvdHMgY3JlYXRlZC4NCg0KYGBge3IsICBldmFsPVR9IA0Kc2F2ZUdJRih7DQpmb3IgKGkgaW4gMjoxMCl7DQogIGdyb3czKGkpDQp9fSkNCmBgYA0KDQohW10oRmlndXJlcy9hbmltYXRpb24uZ2lmKQ0KDQoNCkl0IHJlc3VsdHMgaW4gYW5pbWF0ZWQgaW1hZ2UgcmVwcmVzZW50aW5nIGV4cG9uZW50aWFsIGdyb3d0aCBvdmVyIDEwIGdlbmVyYXRpb25zIGZvciB2YXJpb3VzIGdyb3d0aCByYXRlcy4NCg0KDQojIyBgZ2dhbmltYXRlYA0KDQpUaGUgcGFja2FnZXMgYGdncGxvdDJgIGFuZCBgZ2dhbmltYXRlYCBwcm92aWRlcyBhbHNvICAgDQoNCmBgYHtyLCAgZXZhbD1UfSANCmRlbW88LU5VTEwNCmRlbW8kY291bnQ8LU4NCmRlbW8kZ2VuZXJhdGlvbjwtZ2VuZXJhdGlvbg0KZGVtbzwtYXMuZGF0YS5mcmFtZShkZW1vKQ0KDQpwIDwtIGdncGxvdChkZW1vLCBhZXMoeCA9IGdlbmVyYXRpb24sIHk9Y291bnQsIHNpemUgPTIpKSArDQogICBnZW9tX3BvaW50KHNob3cubGVnZW5kID0gRkFMU0UsIGFscGhhID0gMC43KSArDQogICBzY2FsZV9jb2xvcl92aXJpZGlzX2QoKSArDQogICBzY2FsZV9zaXplKHJhbmdlID0gYygwLCAxMikpICsNCiAgIGxhYnMoeCA9ICJHZW5lcmF0aW9uIiwgeSA9ICJJbmRpdmlkdWFscyIpDQoNCnAgKyB0cmFuc2l0aW9uX3RpbWUoZ2VuZXJhdGlvbikgKw0KICAgbGFicyh0aXRsZSA9ICJHZW5lcmF0aW9uOiB7ZnJhbWVfdGltZX0iKSArDQogICBzaGFkb3dfd2FrZSh3YWtlX2xlbmd0aCA9IDAuMiwgYWxwaGEgPSBGQUxTRSkNCmBgYA0KDQoNCkNoZWNrIGl0IFtoZXJlXShodHRwczovL3d3dy5kYXRhbm92aWEuY29tL2VuL2Jsb2cvZ2dhbmltYXRlLWhvdy10by1jcmVhdGUtcGxvdHMtd2l0aC1iZWF1dGlmdWwtYW5pbWF0aW9uLWluLXIvKSBmb3IgbW9yZSBmYW5jeSBvcHRpb24uIE9idmlvdXNseSwgeW91IGNhbiBjb21iaW5lIHRob3NlIGFuaW1hdGlvbnMgaW4gYSBbbWFwXShodHRwczovL2dpc3QuZ2l0aHViLmNvbS9yYWZhcGVyZWlyYWJyLzBkNjhmN2NjZmMzYWYxNjgwYzRjODM1M2NmOWFiMzQ1KQ0KDQojIyBESVkNCg0KDQo8cCBjbGFzcz0iY29tbWVudCI+DQoqKlByYWN0aWNlIEwyOioqICBXcml0ZSB0aGUgY29kZSB0byBpbGx1c3RyYXRlIGEgZGlmZmVyZW50IGtpbmQgb2YgZ3Jvd3RoLCB0aGUgbG9naXN0aWMgZ3Jvd3RoLiBMb2dpc3RpYyBncm93dGggZm9sbG93czogDQokJE5fe3QrMX09IE5fe3R9K1xsZWZ0W2dyb3d0aC5yYXRlKiBOX3t0fSpcbGVmdChcZnJhY3sxMDAtTl97dH19ezEwMH1ccmlnaHQpXHJpZ2h0XSQkDQpUaGUgMTAwIHZhbHVlIGlzIGNhbGxlZCB0aGUgImNhcnJ5aW5nIGNhcGFjaXRpZXMiIG9yICpLKiwgaXQgbWVhbnMgdGhlIHBvcHVsYXRpb24gd2lsbCBiZSBsaW1pdGVkIGF0IDEwMCBpbmRpdmlkdWFscy4gSW4geW91ciBtb2RlbCB5b3Ugd2lsbCBzdGFydCB3aXRoIGEgcG9wdWxhdGlvbiBvZiAxMCBpbmRpdmlkdWFscy4gWW91IHdpbGwgdGhlbiBtYWtlIHRoZSBudW1iZXIgb2YgZ2VuZXJhdGlvbiBmbGV4aWJsZSB1c2luZyBhIGZ1bmN0aW9uIHNpbXVsYXRpbmcgcG9wdWxhdGlvbiBncm93dGggb3ZlciA1MCBnZW5lcmF0aW9ucy4gWW91IHdpbGwgZnVydGhlciBtYWtlIHRoaXMgZnVuY3Rpb24gZmxleGlibGUgYnkgY2hhbmdpbmcgZ3Jvd3RoLnJhdGUuIFdoYXQgZG8geW91IG9ic2VydmU/IFNhdmUgdGhlIG91dGNvbWUgYXMgYSAuZ2lmLiBDYWxsZWQgbWUgd2hlbiB5b3UgaGF2ZSB0aGUgc29sdXRpb24uIA0KPC9wPg0KDQoNCmBgYHtyLCBjb2RlX2ZvbGRpbmcgPSAnU2hvdyBTb2x1dGlvbiBJJywgIGV2YWw9Rn0NCiNFeHBsYW5hdGlvbiwgYnV0IG5vIHNvbHV0aW9uLiBDYWxsZWQgbWUgd2hlbiB5b3UgYXJlIGhlcmUuDQoNCiMgaWYgciA8IDEgdGhlbiB0aGUgaW5jcmVhc2UgaW4gcG9wdWxhdGlvbiBzaXplIGJldHdlZW4gdCBhbmQgdCsxIHdpbGwgYmUgbGVzcyB0aGFuIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gTiBhbmQgSyBhbmQgdGhlIHBvcHVsYXRpb24gd2lsbCBhZGp1c3QgbW9ub3RvbmljYWxseS4NCg0KIyBpZiAxIDwgciA8IDIgdGhlbiB0aGUgcG9wdWxhdGlvbiB3aWxsIGhhdmUgYSBkYW1wZW5lZCBvc2NpbGF0aW9uLg0KDQojIFdoZW4gciA+IDIgYnV0IDwgMi41IHRoZSBwb3B1bGF0aW9uIG1heSBkaXNsYXkgYSBzdGFibGUgKHJlZ3VsYXIgd2l0aCBzYW1lIGFtcGxpdHVkZSkgbGltaXQgY3ljbGUuDQoNCiMgV2hlbiByID4gMiBlc3BlY2lsbHkgaWYgciA+IDIuNTIgb3NjaWxsYXRpb24gd2lsbCBhY3R1YWxseSBpbmNyZWFzZSBhbmQgdGhlIHBvcHVhbHRvbiBncm93dGggd2lsbCBiZWNvbWUgY2hhb3RpYw0KDQojIFdoZW4gciA+PiAyIHRoZSBwb3B1bGF0aW9uIHdpbGwgbGlrZWx5IGNyYXNoLCBnZW5lcmFsbHkgaW4gYSBzaG9ydCB0aW1lDQpgYGANCg0KDQpgYGB7ciwgY29kZV9mb2xkaW5nID0gJ1Nob3cgU29sdXRpb24gSUknLCAgZXZhbD1GfQ0KIyBCeSBjbGlja2luZyBoZXJlLCB5b3UgYXJlIHJlYWR5IGZvciB0aGUgbmV4dCBzdGVwIGJlbG93DQpgYGANCg0KIyMgUGVyZmVjdGlvbg0KDQo8cCBjbGFzcz0iYWxlcnQiPg0KKipgciBrbml0cjo6YXNpc19vdXRwdXQoIlxVMjZBMCIpYCBQcmFjdGljZSBMMzoqKiBXaGVuIGhhdmluZyB0d28gc3BlY2llcyB1c2luZyB0aGUgc2FtZSByZXNvdXJjZXMgYnV0IHdpdGggZGlmZmVyZW50IHJhdGVzIG9mIGVmZmljaWVuY3kpLCB3ZSBjYW4gbW9kZWwgdGhlaXIgcG9wdWxhdGlvbiBncm93dGggdXNpbmcgdHdvIGxpbmtlZCBlcXVhdGlvbnM6DQokJE4xX3t0KzF9PSBOMV97dH0rXGxlZnRbZ3Jvd3RoLnJhdGUqTjFfe3R9KlxsZWZ0KFxmcmFje0sxLU4xX3t0fS1cYWxwaGFfezEyfU4yX3t0fX17SzF9XHJpZ2h0KVxyaWdodF0kJA0KJCROMl97dCsxfT0gTjJfe3R9K1xsZWZ0W2dyb3d0aC5yYXRlKk4yX3t0fSpcbGVmdChcZnJhY3tLMi1OMl97dH0tXGFscGhhX3syMX1OMl97dH19e0syfVxyaWdodClccmlnaHRdJCQNClRob3NlIGVxdWF0aW9uIGFyZSBrbm93biBhcyB0aGUgX0xvdGthLVZvbHRlcnJhXyBlcXVhdGlvbnMgd2hlcmUgX0tfIHZhbHVlcyBhcmUgdGhlIGNhcnJ5aW5nIGNhcGFjaXRpZXMgZm9yIGVhY2ggb2YgdGhlIHR3byBzcGVjaWVzLCBib3RoICRcYWxwaGEkIHZhbHVlcyBhcmUgY29tcGV0aXRpb24gY29lZmZpY2llbnRzIHRoYXQgdHJhbnNsYXRlIHRoZSBlZmZlY3Qgb2Ygb25lIHNwZWNpZXMgb24gYW5vdGhlci4gRG8gbm90IHdvcnJ5IGFib3V0IHRoaXMgZm9yIG5vdywgdHJ5IGEgcmFuZ2Ugb2YgMC41IHRvIDEuNSwgd2hpY2ggd291bGQgaW5kaWNhdGUgdGhhdCBzcGVjaWVzIGFyZSBmYWlybHkgc2ltaWxhciBjb21wZXRpdG9ycy4NCkkgd3JvdGUgdGhlIHNjcmlwdCwgYXBwcm9hY2hpbmcgdGhlIHNvbHV0aW9uIGJ1dCBkYW1uLi4uIHN0aWxsIG5vdCB3b3JraW5nISBIZWxwIG1lIHRvIGZpeCB0aGUgZm9sbG93aW5nIGNvZGVzIC0gdGhpcyB0aW1lIHlvdSBjYW4gbG9vayBhdCBpdCEgU2VlIGlmIHlvdSBjYW4gZGVidWcgdGhpcyBwcm9ncmFtIHRoYXQgZ3Jvd3MgZWFjaCBzcGVjaWVzIGFsb25lIChubyBjb21wZXRpdGlvbiB3aXRoIHRoZSBvdGhlciBzcGVjaWVzLCB0aGVuIHB1dCB0aGUgdHdvIHNwZWNpZXMgaW50ZXJhY3RpbmcuIENvbXBhcmUgdGhlIHJlc3VsdHMgMyBkaWZmZXJlbnQgcGxvdC4gSXQgd291bGQgYmUgZWFzaWVyIGlmIHlvdSBmaXJzdCBmb2N1cyBvbiB0aGUgZnVuY3Rpb24gb2YgdHdvIHNwZWNpZXMgY29tcGV0aW5nLiBNYWtlIGFuIGFuaW1hdGlvbiB0aGF0IG1ha2VzIHNlbnNlIHdpbGwgZnVydGhlciBiZSBhbWF6aW5nDQo8L3A+DQoNCg0KYGBge3IsIGNvZGVfZm9sZGluZyA9ICdTaG93IENvZGUgdG8gYmUgZml4ZWQnLCAgZXZhbD1GfQ0KIyBXUk9ORyBDT0RFDQojIEFEVklDRVM6IFNUQVJUIEZST00gU0NSQVRDSCwgDQojIEpVU1QgR0VUIElOU1BJUkFUSU9OIEZST00gTVkgQ09ERSwgV09SSyBTVEVQIEJZIFNURVANCmdyb3c8LWZ1bmN0aW9uKHN0YXJ0XzEpew0KICBudW1fZ2VuPD0zMA0KICBOMSA8LSByZXAoMCwxMCkNCiAgTjIgPC0gcmVwKDAsMTApDQogIGdlbmVyYXRpb248LXJlcCgxLG51bV9nZW4pDQogIGdyb3d0aC5yYXRlPC0xLjINCiAgSzE8LTEwMA0KICBLMjwtMTIwDQogIGExMjwtMC44DQogIGEyMTwtMC44DQogIE4xWzFdPC0wDQogIE4yWzFdPC1zdGFydF8yDQogIGZvciAoaSBpbiAyOjMpICB7DQogICAgTjFbaV0gPSBOMVtpLTFdICsgKDMuMiogTjFbaS0xXSAqICgoSzEtTjFbaS0xXS0oYTEyKk4yW2ktMV0pKS9LMSkpDQogICAgTjJbaV0gPSBOMltpXSArIChncm93dGgucmF0ZSAqIE4yW2ktMV0gKiAoKEsyLU4yW2ktMV0tKGEyMSpOMVtpLTFdKSkqSzIpKQ0KICAgIGdlbmVyYXRpb25bMV09MQ0KICAgIHByaW50IChOMVtpXSkNCiAgKQ0KICBpZiAoTjFbMV0+Mil7DQogICAgcGxvdChOMX5nZW5lcmF0aW9uLHR5cD0iYiIseWxpbT1jKDAsbWluKGMoSzEsSzIpKSkseWxhYj0iTiIpDQogIH0gIGVsc2Ugew0KICAgIHBsb3QoTjF+Z2VuZXJhdGlvbix0eXA9Im4iLHlsaW09YygwLG1pbihjKEsxLEsyKSkpLHlsYWI9Ik4iKQ0KICB9DQogIHByaW50KE4yWzFdKQ0KICBpZiAoTjJbMV0+MCl7DQogICAgbGluZXMoTjJ+Z2VuZXJhdGlvbix0eXA9ImIiLGNvbD0yKX0NCiAgfQ0KDQpwYXIobWFyPWMoOSw0LDEsMSksbWZyb3c9Yyg1LDEpLGxhcz0xKQ0KDQpncm93KDEsMCkNCnRleHQoNCwxMTAsIlNwZWNpZXMgMSBhbG9uZSIpDQoNCmdyb3coMCwxKQ0KdGV4dCg0LDExMCwiU3BlY2llcyAyIGFsb25lIikNCg0KZ3JvdygxLDIpDQp0ZXh0KDYsMTEwLCJCb3RoIFNwZWNpZXMgY29tcGV0aW5nIikNCmBgYA0KDQoNCg0K" download="loop.Rmd">Download loop.Rmd</a></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><a href="data:text/plain;base64,bGlicmFyeShhbmltYXRpb24pDQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5IChnZ2FuaW1hdGUpDQoNCmZvcihpIGluIDE6MTAwKSB7DQpwcmludCgiSGVsbG8gd29ybGQhIikNCnByaW50KGkqaSkNCn0NCg0KZm9vIDwtIHNlcSAoMSwxMDAsYnk9MikgIyBzZXF1ZW5jZSAgMSwgMywgLi4uLCA5OQ0KbjwtbGVuZ3RoKGZvbykgIyAgc2l6ZSBvZiB0aGUgZm9vIHNlcXVlbmNlDQpmb28uc3F1YXJlZCA9IE5VTEwgIyAgZW1wdHkgb2JqZWN0DQoNCmZvciAoaSBpbiAxOm4pIHsgIyBvdXIgY291bnRlcg0KICBmb28uc3F1YXJlZFtpXSA9IGZvb1tpXV4yICMgdGhlIHRhc2sNCn0NCg0KZm9vLmRmPC1kYXRhLmZyYW1lKGZvbyxmb28uc3F1YXJlZCkgDQpwbG90IChmb28uZGYkZm9vfmZvby5kZiRmb28uc3F1YXJlZCkNCg0KZm9vLnNxdWFyZWQyPC1mb29eMg0KcGxvdCAoZm9vfmZvby5zcXVhcmVkMikNCg0Kc3lzdGVtLnRpbWUoZm9vLnNxdWFyZWQyPC1mb29eMikNCg0KbnVtX2dlbiA8LSAxMCAjICAgbm8uIGdlbmVyYXRpb24NCk4gPC0gcmVwICgwLG51bV9nZW4pICMgICJ2ZWN0b3IiIG9mIDEwIHplcm9zIChjb3VsZCBiZSBgTlVMTGApDQpOWzFdIDwtIDIgIyBXZSBuZWVkIGEgYmVnaW5uaW5nIGZvciBvdXIgcG9wdWxhdGlvbg0KZm9yIChpIGluIDI6bnVtX2dlbil7ICMgY291bnRlcg0KTltpXT0yKk5baS0xXSAjIHRhc2s6IGRvdWJsZSBpbmRpdmlkdWFscw0KfQ0KcGxvdCAoTikNCg0KbnVtX2dlbjwtMTAgDQpnZW5lcmF0aW9uPC0xOm51bV9nZW4gDQpOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KTlsxXSA8LSAyDQpmb3IgKGkgaW4gMjpudW1fZ2VuKSB7IA0KICBOW2ldPTIqTltpLTFdDQogICB9DQpwbG90KE5+Z2VuZXJhdGlvbiwgdHlwZT0nYicpDQoNCmdyb3cgPC0gZnVuY3Rpb24gKGdyb3d0aC5yYXRlKSB7ICMgYXJndW1lbnQgImdyb3d0aC5yYXRlIiBvZiBmdW5jdGlvbiAiZ3JvdyIgDQpudW1fZ2VuPC0xMA0KZ2VuZXJhdGlvbjwtMTpudW1fZ2VuDQpOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KTlsxXSA8LSAxDQpmb3IgKGkgaW4gMjpudW1fZ2VuKSB7DQogIE5baV09Z3Jvd3RoLnJhdGUqTltpLTFdICMgbm90IHRoZSB1c2UgZ3Jvd3RoLnJhdGUgYXJndW1lbnQNCn0NCiAgcGxvdChOfmdlbmVyYXRpb24sdHlwZT0nYicsIG1haW49cGFzdGUoIlJhdGUgPSIsIGdyb3d0aC5yYXRlKSkgDQp9DQoNCnBhcihtZnJvdz1jKDIsMykpDQpmb3IgKGkgaW4gMjo3KXsNCiAgZ3JvdyhpKQ0KfQ0KDQpncm93MiA8LSBmdW5jdGlvbiAoZ3Jvd3RoLnJhdGUsIG51bWJlci5nZW5lcmF0aW9uKSB7IA0KICBudW1fZ2VuPC1udW1iZXIuZ2VuZXJhdGlvbg0KICBnZW5lcmF0aW9uPC0xOm51bV9nZW4NCiAgTiA8LSByZXAgKDAsbnVtX2dlbikNCiAgTlsxXSA8LSAxDQogIGZvciAoaSBpbiAyOm51bV9nZW4pIHsNCiAgICBOW2ldPWdyb3d0aC5yYXRlKk5baS0xXSANCiAgfQ0KICBwbG90KE5+Z2VuZXJhdGlvbix0eXBlPSdiJywgbWFpbj1wYXN0ZSgiUmF0ZSA9IiwgZ3Jvd3RoLnJhdGUsICIsICIsIG51bWJlci5nZW5lcmF0aW9uLCAiZ2VuZXJhdGlvbnMiKSkNCiAgfQ0KDQpncm93MyA8LSBmdW5jdGlvbiAoZ3Jvd3RoLnJhdGUpIHsgDQogIG51bV9nZW48LTEwDQogIGdlbmVyYXRpb248LTE6bnVtX2dlbg0KICBOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KICBOWzFdIDwtIDENCiAgZm9yIChpIGluIDI6bnVtX2dlbikgew0KICAgIE5baV09Z3Jvd3RoLnJhdGUqTltpLTFdDQogIH0NCiAgcGxvdChOfmdlbmVyYXRpb24sIHhsaW09YygwLDEwKSwgeWxpbT1jKDAsMTAwMDAwKSwgdHlwZT0nYicsIG1haW49cGFzdGUoIlJhdGUgPSIsIGdyb3d0aC5yYXRlKSkNCn0NCg0Kc2F2ZUdJRih7DQpmb3IgKGkgaW4gMjoxMCl7DQogIGdyb3czKGkpDQp9fSkNCg0KZGVtbzwtTlVMTA0KZGVtbyRjb3VudDwtTg0KZGVtbyRnZW5lcmF0aW9uPC1nZW5lcmF0aW9uDQpkZW1vPC1hcy5kYXRhLmZyYW1lKGRlbW8pDQoNCnAgPC0gZ2dwbG90KGRlbW8sIGFlcyh4ID0gZ2VuZXJhdGlvbiwgeT1jb3VudCwgc2l6ZSA9MikpICsNCiAgIGdlb21fcG9pbnQoc2hvdy5sZWdlbmQgPSBGQUxTRSwgYWxwaGEgPSAwLjcpICsNCiAgIHNjYWxlX2NvbG9yX3ZpcmlkaXNfZCgpICsNCiAgIHNjYWxlX3NpemUocmFuZ2UgPSBjKDAsIDEyKSkgKw0KICAgbGFicyh4ID0gIkdlbmVyYXRpb24iLCB5ID0gIkluZGl2aWR1YWxzIikNCg0KcCArIHRyYW5zaXRpb25fdGltZShnZW5lcmF0aW9uKSArDQogICBsYWJzKHRpdGxlID0gIkdlbmVyYXRpb246IHtmcmFtZV90aW1lfSIpICsNCiAgIHNoYWRvd193YWtlKHdha2VfbGVuZ3RoID0gMC4yLCBhbHBoYSA9IEZBTFNFKQ0KDQojRXhwbGFuYXRpb24sIGJ1dCBubyBzb2x1dGlvbi4gQ2FsbGVkIG1lIHdoZW4geW91IGFyZSBoZXJlLg0KDQojIGlmIHIgPCAxIHRoZW4gdGhlIGluY3JlYXNlIGluIHBvcHVsYXRpb24gc2l6ZSBiZXR3ZWVuIHQgYW5kIHQrMSB3aWxsIGJlIGxlc3MgdGhhbiB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIE4gYW5kIEsgYW5kIHRoZSBwb3B1bGF0aW9uIHdpbGwgYWRqdXN0IG1vbm90b25pY2FsbHkuDQoNCiMgaWYgMSA8IHIgPCAyIHRoZW4gdGhlIHBvcHVsYXRpb24gd2lsbCBoYXZlIGEgZGFtcGVuZWQgb3NjaWxhdGlvbi4NCg0KIyBXaGVuIHIgPiAyIGJ1dCA8IDIuNSB0aGUgcG9wdWxhdGlvbiBtYXkgZGlzbGF5IGEgc3RhYmxlIChyZWd1bGFyIHdpdGggc2FtZSBhbXBsaXR1ZGUpIGxpbWl0IGN5Y2xlLg0KDQojIFdoZW4gciA+IDIgZXNwZWNpbGx5IGlmIHIgPiAyLjUyIG9zY2lsbGF0aW9uIHdpbGwgYWN0dWFsbHkgaW5jcmVhc2UgYW5kIHRoZSBwb3B1YWx0b24gZ3Jvd3RoIHdpbGwgYmVjb21lIGNoYW90aWMNCg0KIyBXaGVuIHIgPj4gMiB0aGUgcG9wdWxhdGlvbiB3aWxsIGxpa2VseSBjcmFzaCwgZ2VuZXJhbGx5IGluIGEgc2hvcnQgdGltZQ0KDQojIEJ5IGNsaWNraW5nIGhlcmUsIHlvdSBhcmUgcmVhZHkgZm9yIHRoZSBuZXh0IHN0ZXAgYmVsb3cNCg0KIyBXUk9ORyBDT0RFDQojIEFEVklDRVM6IFNUQVJUIEZST00gU0NSQVRDSCwgDQojIEpVU1QgR0VUIElOU1BJUkFUSU9OIEZST00gTVkgQ09ERSwgV09SSyBTVEVQIEJZIFNURVANCmdyb3c8LWZ1bmN0aW9uKHN0YXJ0XzEpew0KICBudW1fZ2VuPD0zMA0KICBOMSA8LSByZXAoMCwxMCkNCiAgTjIgPC0gcmVwKDAsMTApDQogIGdlbmVyYXRpb248LXJlcCgxLG51bV9nZW4pDQogIGdyb3d0aC5yYXRlPC0xLjINCiAgSzE8LTEwMA0KICBLMjwtMTIwDQogIGExMjwtMC44DQogIGEyMTwtMC44DQogIE4xWzFdPC0wDQogIE4yWzFdPC1zdGFydF8yDQogIGZvciAoaSBpbiAyOjMpICB7DQogICAgTjFbaV0gPSBOMVtpLTFdICsgKDMuMiogTjFbaS0xXSAqICgoSzEtTjFbaS0xXS0oYTEyKk4yW2ktMV0pKS9LMSkpDQogICAgTjJbaV0gPSBOMltpXSArIChncm93dGgucmF0ZSAqIE4yW2ktMV0gKiAoKEsyLU4yW2ktMV0tKGEyMSpOMVtpLTFdKSkqSzIpKQ0KICAgIGdlbmVyYXRpb25bMV09MQ0KICAgIHByaW50IChOMVtpXSkNCiAgKQ0KICBpZiAoTjFbMV0+Mil7DQogICAgcGxvdChOMX5nZW5lcmF0aW9uLHR5cD0iYiIseWxpbT1jKDAsbWluKGMoSzEsSzIpKSkseWxhYj0iTiIpDQogIH0gIGVsc2Ugew0KICAgIHBsb3QoTjF+Z2VuZXJhdGlvbix0eXA9Im4iLHlsaW09YygwLG1pbihjKEsxLEsyKSkpLHlsYWI9Ik4iKQ0KICB9DQogIHByaW50KE4yWzFdKQ0KICBpZiAoTjJbMV0+MCl7DQogICAgbGluZXMoTjJ+Z2VuZXJhdGlvbix0eXA9ImIiLGNvbD0yKX0NCiAgfQ0KDQpwYXIobWFyPWMoOSw0LDEsMSksbWZyb3c9Yyg1LDEpLGxhcz0xKQ0KDQpncm93KDEsMCkNCnRleHQoNCwxMTAsIlNwZWNpZXMgMSBhbG9uZSIpDQoNCmdyb3coMCwxKQ0KdGV4dCg0LDExMCwiU3BlY2llcyAyIGFsb25lIikNCg0KZ3JvdygxLDIpDQp0ZXh0KDYsMTEwLCJCb3RoIFNwZWNpZXMgY29tcGV0aW5nIikNCmBgYHsuciAuZGlzdGlsbC1mb3JjZS1oaWdobGlnaHRpbmctY3NzfQ0KYGBgDQo=" download="loop.R">Download loop.R</a></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yihui.org/animation/'>animation</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span> <span class='op'>(</span><span class='va'><a href='https://gganimate.com'>gganimate</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Today, we are going to speak about loops and their use in customized
+function. For this purpose, we will illustrate their use with the help
+of simple demographic models. To make it funnier but also beacuse it
+requires loops we will visualize population dynamics using animation.
+Specifically, We will create a GIF using the package
+<code>animation</code>. The function <code>saveGIF</code> will only work
+if you have install <a href="http://imagemagick.org">Image Magick</a> or
+<a href="http://www.graphicsmagick.org">GraphicsMagick</a> on your
+computer. Install with legacy utilities (e.g. convert).Obviously the
+animation will not work if you skip this step.</p>
+<p><img src="Figures/ImageMagick7.0.png" /></p>
+<h1 id="loops">Loops</h1>
+<p><strong>What’s that?</strong> A loop is simply too repeat the same
+task a specific number of time. All loops (whatever their sizes) have
+always the same structure (architecture). As for an example a
+<code>for</code> loop is given as:</p>
+<p><code>for</code> <code>(</code>counter in
+vector<code>){</code>task<code>}</code></p>
+<p><code>for</code> loops are very common. It means <strong>for</strong>
+a condition do something. ut of course this <code>for</code> can be
+replace by <code>while</code> or <code>repeat</code>. Those are
+<code>while</code> and <code>repeat</code> loops</p>
+<p><img src="Figures/loops.png" /></p>
+<h2 id="basic-structure">Basic structure</h2>
+<p>A very simple loop can be produced using:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"Hello world!"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>*</span><span class='va'>i</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p><code>for(i in 1:100)</code> is our counter: <code>i</code> (but can
+be anything, <code>i</code> is an standard) will take the values 1, 2,
+3, …, 100. Therefore the loop will repeat 100 times the element that
+follows within the <code>{}</code>.</p>
+<p>In our loop, <code>i</code> will take the value 1 during the first
+“cycle”. Within the same cycle, it will also <code>print</code>
+<code>"Hello World</code>” follows by the result of the product
+<code>i*i</code> e.g. 1 for the first cycle. This will be the same task
+for the next 99 remaining cycles of our loop. Got it? Let’s now make it
+a bit more elegant.</p>
+<p>The “counter” is commonly set distinctly. Check carefully, the syntax
+of a loop:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>foo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span> <span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>100</span>,by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span> <span class='co'># sequence  1, 3, ..., 99</span></span>
+<span><span class='va'>n</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>foo</span><span class='op'>)</span> <span class='co'>#  size of the foo sequence</span></span>
+<span><span class='va'>foo.squared</span> <span class='op'>=</span> <span class='cn'>NULL</span> <span class='co'>#  empty object</span></span>
+<span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>n</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># our counter</span></span>
+<span>  <span class='va'>foo.squared</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>=</span> <span class='va'>foo</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>^</span><span class='fl'>2</span> <span class='co'># the task</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>foo.df</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>foo</span>,<span class='va'>foo.squared</span><span class='op'>)</span> </span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>foo.df</span><span class='op'>$</span><span class='va'>foo</span><span class='op'>~</span><span class='va'>foo.df</span><span class='op'>$</span><span class='va'>foo.squared</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="loop_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<p><strong>Beautiful</strong>, but totally <strong>useless</strong>. The
+same will be accomplished with the following lines of code:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>foo.squared2</span><span class='op'>&lt;-</span><span class='va'>foo</span><span class='op'>^</span><span class='fl'>2</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>foo</span><span class='op'>~</span><span class='va'>foo.squared2</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>As I told you earlier and as we already saw in action, the functions
+in R are vectorized. It means when you applied them to a vector, they
+will apply to all the elements of this vector. Luckily it makes our life
+easier that you don’t need to say you want to apply something to the
+first element of this vector, then repeat the same for the second
+element, etc. (what we did in our loop). In addition, vectorized
+functions are way faster than making loops. Compare the time of the
+following with the time that you need to do the same using a loop. Make
+the sequence longer, such as up to 1,000,000.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>foo.squared2</span><span class='op'>&lt;-</span><span class='va'>foo</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>A function will usually consider a vector as a block and will apply
+this task to all elements at once. That’s why it is way faster. So, why
+do we care about loops?</p>
+<p>Simply saying, a loop have their use and interest in recycling an
+element you just created in a previous cycle. The next cycle will use
+the same task but it will “enriched” by the element (information) of an
+element creted form the previous cycle.</p>
+<h2 id="recycle">Recycle</h2>
+<p>Let’s think about population growth where the number of individuals
+at one generation (cycle X) will determine the population at the
+following generation (cycle X+1):</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>num_gen</span> <span class='op'>&lt;-</span> <span class='fl'>10</span> <span class='co'>#   no. generation</span></span>
+<span><span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span> <span class='op'>(</span><span class='fl'>0</span>,<span class='va'>num_gen</span><span class='op'>)</span> <span class='co'>#  "vector" of 10 zeros (could be `NULL`)</span></span>
+<span><span class='va'>N</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>2</span> <span class='co'># We need a beginning for our population</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='va'>num_gen</span><span class='op'>)</span><span class='op'>{</span> <span class='co'># counter</span></span>
+<span><span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>=</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='co'># task: double individuals</span></span>
+<span><span class='op'>}</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>N</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>Let’s add a variable <code>generation</code>, to make our plot more
+visual:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>num_gen</span><span class='op'>&lt;-</span><span class='fl'>10</span> </span>
+<span><span class='va'>generation</span><span class='op'>&lt;-</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>num_gen</span> </span>
+<span><span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span> <span class='op'>(</span><span class='fl'>0</span>,<span class='va'>num_gen</span><span class='op'>)</span></span>
+<span><span class='va'>N</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>2</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='va'>num_gen</span><span class='op'>)</span> <span class='op'>{</span> </span>
+<span>  <span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>=</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span>   <span class='op'>}</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>N</span><span class='op'>~</span><span class='va'>generation</span>, type<span class='op'>=</span><span class='st'>'b'</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="loop_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<p>Congrats! You just wrote your first demographic model called
+exponential growth. This is typically the type of model used to examine
+bacteria growth. In our model, the population double at each generation
+(time). You can now play at increasing initial population size and
+manipulating growth rate. All the other loops will follow the same
+structure, just the task may be a ‘little’ bit more complicated. You can
+also add loop within loop, etc.</p>
+<p>More read on loops in the free online class available <a
+href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r">here</a></p>
+<h1 id="function">Function</h1>
+<p>We already used plenty of function so far, so let’s now create ours.
+We create a <strong>function</strong> with an named object containing a
+<code>function</code>. You can specify within the
+<strong>arguments</strong> you wanna control. Let’s illustrate it by
+wrapping our small demographic model into a function giving it more
+flexibility in customizing the growth rate of the population.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>grow</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>growth.rate</span><span class='op'>)</span> <span class='op'>{</span> <span class='co'># argument "growth.rate" of function "grow" </span></span>
+<span><span class='va'>num_gen</span><span class='op'>&lt;-</span><span class='fl'>10</span></span>
+<span><span class='va'>generation</span><span class='op'>&lt;-</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>num_gen</span></span>
+<span><span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span> <span class='op'>(</span><span class='fl'>0</span>,<span class='va'>num_gen</span><span class='op'>)</span></span>
+<span><span class='va'>N</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='va'>num_gen</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>  <span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>=</span><span class='va'>growth.rate</span><span class='op'>*</span><span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='co'># not the use growth.rate argument</span></span>
+<span><span class='op'>}</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>N</span><span class='op'>~</span><span class='va'>generation</span>,type<span class='op'>=</span><span class='st'>'b'</span>, main<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Rate ="</span>, <span class='va'>growth.rate</span><span class='op'>)</span><span class='op'>)</span> </span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>It created a function called <code>grow</code> amd now visible in
+RStudio environment</p>
+<p><img src="Figures/Env_funct.png" /></p>
+<p>You can simply use this new function by calling it and changing the
+argument <code>growth.rate</code>. The function can itself be in a loop
+(therefore, creating a loop within a loop). It is usually no recommended
+because it may turn to be quite ‘slow’
+(check<code>system.time()</code>).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/randomForest/man/grow.html'>grow</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+<p><img src="loop_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<p>Our function can be further extended with an extra argument such as
+the number of generation.</p>
+<p class="comment">
+<strong>Practice L1:</strong> Create a function called
+<code>grow2</code> where both arguments: the <code>growth.rate</code>
+and <code>number.generation</code> are customizable.
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show Solution
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>grow2</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>growth.rate</span>, <span class='va'>number.generation</span><span class='op'>)</span> <span class='op'>{</span> </span>
+<span>  <span class='va'>num_gen</span><span class='op'>&lt;-</span><span class='va'>number.generation</span></span>
+<span>  <span class='va'>generation</span><span class='op'>&lt;-</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>num_gen</span></span>
+<span>  <span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span> <span class='op'>(</span><span class='fl'>0</span>,<span class='va'>num_gen</span><span class='op'>)</span></span>
+<span>  <span class='va'>N</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span>  <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='va'>num_gen</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>=</span><span class='va'>growth.rate</span><span class='op'>*</span><span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> </span>
+<span>  <span class='op'>}</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>N</span><span class='op'>~</span><span class='va'>generation</span>,type<span class='op'>=</span><span class='st'>'b'</span>, main<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Rate ="</span>, <span class='va'>growth.rate</span>, <span class='st'>", "</span>, <span class='va'>number.generation</span>, <span class='st'>"generations"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='op'>}</span></span></code></pre>
+</div>
+</details>
+</div>
+<h1 id="animation">Animation</h1>
+<h2 id="gif">gif</h2>
+<p>An animation type <strong>gif</strong> consists in overlapping
+sequential plots. By generating plots for each cycles of our loop and
+puttingthem behind each other you can easily figure out that you will
+get an animated plot (in a very similar way than an animate). Obviously
+and because we want to overlap plot, we will fix the limit of our axes.
+Let’s do it for <code>growth.rate</code> and create a function called
+<code>grow3</code> with fixed limits for the axes.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>grow3</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>growth.rate</span><span class='op'>)</span> <span class='op'>{</span> </span>
+<span>  <span class='va'>num_gen</span><span class='op'>&lt;-</span><span class='fl'>10</span></span>
+<span>  <span class='va'>generation</span><span class='op'>&lt;-</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>num_gen</span></span>
+<span>  <span class='va'>N</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span> <span class='op'>(</span><span class='fl'>0</span>,<span class='va'>num_gen</span><span class='op'>)</span></span>
+<span>  <span class='va'>N</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span>  <span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='va'>num_gen</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span>    <span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>=</span><span class='va'>growth.rate</span><span class='op'>*</span><span class='va'>N</span><span class='op'>[</span><span class='va'>i</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span></span>
+<span>  <span class='op'>}</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>N</span><span class='op'>~</span><span class='va'>generation</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>, ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>100000</span><span class='op'>)</span>, type<span class='op'>=</span><span class='st'>'b'</span>, main<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Rate ="</span>, <span class='va'>growth.rate</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span></code></pre>
+</div>
+</div>
+<p>Our function created, let’s use this <code>grow3</code> function as a
+<strong>gif</strong>. The function <code>saveGIF</code> from the package
+<code>animation</code> (<strong>IMPORTANT</strong>: with “legacy”
+utilities) will combine all plots created.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/animation/man/saveGIF.html'>saveGIF</a></span><span class='op'>(</span><span class='op'>{</span></span>
+<span><span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>  <span class='fu'>grow3</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span></span>
+<span><span class='op'>}</span><span class='op'>}</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] TRUE</code></pre>
+</div>
+<p><img src="Figures/animation.gif" /></p>
+<p>It results in animated image representing exponential growth over 10
+generations for various growth rates.</p>
+<h2 id="gganimate"><code>gganimate</code></h2>
+<p>The packages <code>ggplot2</code> and <code>gganimate</code> provides
+also</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>demo</span><span class='op'>&lt;-</span><span class='cn'>NULL</span></span>
+<span><span class='va'>demo</span><span class='op'>$</span><span class='va'>count</span><span class='op'>&lt;-</span><span class='va'>N</span></span>
+<span><span class='va'>demo</span><span class='op'>$</span><span class='va'>generation</span><span class='op'>&lt;-</span><span class='va'>generation</span></span>
+<span><span class='va'>demo</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>demo</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>demo</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>generation</span>, y<span class='op'>=</span><span class='va'>count</span>, size <span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span>show.legend <span class='op'>=</span> <span class='cn'>FALSE</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_viridis.html'>scale_color_viridis_d</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_size.html'>scale_size</a></span><span class='op'>(</span>range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"Generation"</span>, y <span class='op'>=</span> <span class='st'>"Individuals"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='https://gganimate.com/reference/transition_time.html'>transition_time</a></span><span class='op'>(</span><span class='va'>generation</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Generation: {frame_time}"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://gganimate.com/reference/shadow_wake.html'>shadow_wake</a></span><span class='op'>(</span>wake_length <span class='op'>=</span> <span class='fl'>0.2</span>, alpha <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img
+src="loop_files/figure-html5/unnamed-chunk-16-1.gif" /><!-- --></p>
+</div>
+<p>Check it <a
+href="https://www.datanovia.com/en/blog/gganimate-how-to-create-plots-with-beautiful-animation-in-r/">here</a>
+for more fancy option. Obviously, you can combine those animations in a
+<a
+href="https://gist.github.com/rafapereirabr/0d68f7ccfc3af1680c4c8353cf9ab345">map</a></p>
+<h2 id="diy">DIY</h2>
+<p class="comment">
+<strong>Practice L2:</strong> Write the code to illustrate a different
+kind of growth, the logistic growth. Logistic growth follows: <span
+class="math display">\[N_{t+1}= N_{t}+\left[growth.rate*
+N_{t}*\left(\frac{100-N_{t}}{100}\right)\right]\]</span> The 100 value
+is called the “carrying capacities” or <em>K</em>, it means the
+population will be limited at 100 individuals. In your model you will
+start with a population of 10 individuals. You will then make the number
+of generation flexible using a function simulating population growth
+over 50 generations. You will further make this function flexible by
+changing growth.rate. What do you observe? Save the outcome as a .gif.
+Called me when you have the solution.
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show Solution I
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#Explanation, but no solution. Called me when you are here.</span></span>
+<span></span>
+<span><span class='co'># if r &lt; 1 then the increase in population size between t and t+1 will be less than the difference between N and K and the population will adjust monotonically.</span></span>
+<span></span>
+<span><span class='co'># if 1 &lt; r &lt; 2 then the population will have a dampened oscilation.</span></span>
+<span></span>
+<span><span class='co'># When r &gt; 2 but &lt; 2.5 the population may dislay a stable (regular with same amplitude) limit cycle.</span></span>
+<span></span>
+<span><span class='co'># When r &gt; 2 especilly if r &gt; 2.52 oscillation will actually increase and the popualton growth will become chaotic</span></span>
+<span></span>
+<span><span class='co'># When r &gt;&gt; 2 the population will likely crash, generally in a short time</span></span></code></pre>
+</div>
+</details>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show Solution II
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># By clicking here, you are ready for the next step below</span></span></code></pre>
+</div>
+</details>
+</div>
+<h2 id="perfection">Perfection</h2>
+<p class="alert">
+<strong>⚠ Practice L3:</strong> When having two species using the same
+resources but with different rates of efficiency), we can model their
+population growth using two linked equations: <span
+class="math display">\[N1_{t+1}=
+N1_{t}+\left[growth.rate*N1_{t}*\left(\frac{K1-N1_{t}-\alpha_{12}N2_{t}}{K1}\right)\right]\]</span>
+<span class="math display">\[N2_{t+1}=
+N2_{t}+\left[growth.rate*N2_{t}*\left(\frac{K2-N2_{t}-\alpha_{21}N2_{t}}{K2}\right)\right]\]</span>
+Those equation are known as the <em>Lotka-Volterra</em> equations where
+<em>K</em> values are the carrying capacities for each of the two
+species, both <span class="math inline">\(\alpha\)</span> values are
+competition coefficients that translate the effect of one species on
+another. Do not worry about this for now, try a range of 0.5 to 1.5,
+which would indicate that species are fairly similar competitors. I
+wrote the script, approaching the solution but damn… still not working!
+Help me to fix the following codes - this time you can look at it! See
+if you can debug this program that grows each species alone (no
+competition with the other species, then put the two species
+interacting. Compare the results 3 different plot. It would be easier if
+you first focus on the function of two species competing. Make an
+animation that makes sense will further be amazing
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show Code to be fixed
+</summary>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># WRONG CODE</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ADVICES: START FROM SCRATCH, </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># JUST GET INSPIRATION FROM MY CODE, WORK STEP BY STEP</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>grow<span class="ot">&lt;-</span><span class="cf">function</span>(start_1){</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  num_gen<span class="sc">&lt;=</span><span class="dv">30</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  N1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  N2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  generation<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">1</span>,num_gen)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  growth.rate<span class="ot">&lt;-</span><span class="fl">1.2</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  K1<span class="ot">&lt;-</span><span class="dv">100</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  K2<span class="ot">&lt;-</span><span class="dv">120</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  a12<span class="ot">&lt;-</span><span class="fl">0.8</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  a21<span class="ot">&lt;-</span><span class="fl">0.8</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  N1[<span class="dv">1</span>]<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  N2[<span class="dv">1</span>]<span class="ot">&lt;-</span>start_2</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)  {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    N1[i] <span class="ot">=</span> N1[i<span class="dv">-1</span>] <span class="sc">+</span> (<span class="fl">3.2</span><span class="sc">*</span> N1[i<span class="dv">-1</span>] <span class="sc">*</span> ((K1<span class="sc">-</span>N1[i<span class="dv">-1</span>]<span class="sc">-</span>(a12<span class="sc">*</span>N2[i<span class="dv">-1</span>]))<span class="sc">/</span>K1))</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    N2[i] <span class="ot">=</span> N2[i] <span class="sc">+</span> (growth.rate <span class="sc">*</span> N2[i<span class="dv">-1</span>] <span class="sc">*</span> ((K2<span class="sc">-</span>N2[i<span class="dv">-1</span>]<span class="sc">-</span>(a21<span class="sc">*</span>N1[i<span class="dv">-1</span>]))<span class="sc">*</span>K2))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    generation[<span class="dv">1</span>]<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span> (N1[i])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="er">)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (N1[<span class="dv">1</span>]<span class="sc">&gt;</span><span class="dv">2</span>){</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(N1<span class="sc">~</span>generation,<span class="at">typ=</span><span class="st">&quot;b&quot;</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">min</span>(<span class="fu">c</span>(K1,K2))),<span class="at">ylab=</span><span class="st">&quot;N&quot;</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  }  <span class="cf">else</span> {</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(N1<span class="sc">~</span>generation,<span class="at">typ=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">min</span>(<span class="fu">c</span>(K1,K2))),<span class="at">ylab=</span><span class="st">&quot;N&quot;</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(N2[<span class="dv">1</span>])</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (N2[<span class="dv">1</span>]<span class="sc">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(N2<span class="sc">~</span>generation,<span class="at">typ=</span><span class="st">&quot;b&quot;</span>,<span class="at">col=</span><span class="dv">2</span>)}</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">1</span>),<span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">grow</span>(<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">4</span>,<span class="dv">110</span>,<span class="st">&quot;Species 1 alone&quot;</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">grow</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">4</span>,<span class="dv">110</span>,<span class="st">&quot;Species 2 alone&quot;</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">grow</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">6</span>,<span class="dv">110</span>,<span class="st">&quot;Both Species competing&quot;</span>)</span></code></pre></div>
+</details>
+</div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="reuse">Reuse</h3>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

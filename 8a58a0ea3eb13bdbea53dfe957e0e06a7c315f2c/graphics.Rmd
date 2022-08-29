@@ -83,13 +83,12 @@ col.iris
 We can insert this color vector in the argument `col` and controlling its opacity with the `alpha` function from the package `scales`. You can guess the argument `col` can accept a vector of character with just the name of color instead of a `rgb` code.
 
 ```{r,  eval=T}
-library(scales)
 plot(Petal.Length ~ Petal.Width, data = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
      pch = 19, cex=2, 
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 ```
  
 We now must add a legend to our plot. Observe the conversion of the color list into a factor, and the extraction of levels in the `col` argument.
@@ -100,9 +99,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
      pch = 19, cex=2, 
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
     
 ```
 
@@ -114,9 +113,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
      pch = 19, cex=2, las=1,
-     col = alpha(col.iris, 0.2)) 
+     col = scales::alpha((col.iris), 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 ```
 
 The size of the main title, axis, labels is also control with `cex` arguments 
@@ -128,9 +127,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      main = 'Petal width and length of iris flower',
      cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
      pch = 19, cex=2, las=1,
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 ```
 
@@ -144,9 +143,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      main = 'Petal width and length of iris flower',
      cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
      pch = 19, las=1, cex= ratio * 2, 
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 ```
 
 It looks like the variable`Sepal.Width` is poorly informative in discriminating the three species.
@@ -159,7 +158,7 @@ The function `pairs` allows a quick examination of the relationship among variab
 #### Panel plot
 
 ```{r,  eval=T}
-pairs(iris[1:4], pch=19, col = alpha(col.iris, 0.2))
+pairs(iris[1:4], pch=19, col = scales::alpha(col.iris, 0.2))
 ```
 
 #### Line plot
@@ -241,11 +240,11 @@ points(Petal.Length ~ Petal.Width, dat = iris.ver, pch = 20,cex=2,
        
 # Add points for versicolor
 points(Petal.Length ~ Petal.Width, dat = iris.vir, pch = 20,cex=2, 
-      col =  alpha('#fc03c6', 0.2))
+      col =  scales::alpha('#fc03c6', 0.2))
 
 # Add legend
 legend("topleft", c("versicolor", "virginica"), pch = 19, cex=1.2,
-       col = c(rgb(0,0,1,0.10), alpha('#fc03c6', 0.2)))
+       col = c(rgb(0,0,1,0.10), scales::alpha('#fc03c6', 0.2)))
 ```
 
 Note 1: that `na.rm=T` is added in the `range` function to prevent `NA` value in the data from returning an `NA` value in the range.
@@ -443,9 +442,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
-     col = alpha(col.iris, 0.2)) # set up symbol types and their color 
+     col = scales::alpha(col.iris, 0.2)) # set up symbol types and their color 
 
-legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 ``` 
 
 
@@ -491,9 +490,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
-     col = alpha(col.iris, 0.2)) # set up symbol types and their color 
+     col = scales::alpha(col.iris, 0.2)) # set up symbol types and their color 
 
-legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 dev.off()
 ```
@@ -509,9 +508,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
-     col = alpha(col.iris, 0.2)) # set up symbol types and their color 
+     col = scales::alpha(col.iris, 0.2)) # set up symbol types and their color 
 
-legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 dev.off()
 ```
@@ -670,9 +669,9 @@ Today, we will use the following data sets (examine objects created) :
 library(tidyr)
 library(dplyr)
 dat1 <- read.csv("Data/FAO_grains_NA.csv", header=TRUE)
-dat1w <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Country =="United States of America", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% select (Year, Crop, Value) %>% spread(key = Crop,value="Value")
+dat1w <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Country =="United States of America", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% dplyr::select (Year, Crop, Value) %>% spread(key = Crop,value="Value")
 dat1l <- dat1w %>% pivot_longer(2:6, names_to = "Crop", values_to = "Yield")
-dat1l2 <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% select( Year, Crop, Country, Yield = Value)  # Note that we are renaming the Value field
+dat1l2 <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% dplyr::select( Year, Crop, Country, Yield = Value)  # Note that we are renaming the Value field
 ```
 
 (2) `dat2`: [income/education census data] (https://www.socialexplorer.com/data/ACS2016/metadata/?ds=ACS16&table=B20004) for the US and its long version (only for advance use later).  
@@ -692,7 +691,7 @@ st.reg <- rbind(st.reg , data.frame(State="dc", Region="South"))
 dat2b <- dat2 %>%
   gather(key = "variable", value = "value", -1:-2)  %>%
   left_join(Edu.Gend, by="variable" )              %>%
-  select(State, County, Level, Gender, value)       %>%
+  dplyr::select(State, County, Level, Gender, value)       %>%
   mutate(Level = factor(Level, levels = c("All","NoHS","HS", "AD", "BD", "Grad"))) %>%
   left_join(st.reg , by="State")
 
@@ -853,15 +852,14 @@ ggplot(dat2, aes(fct_rev(fct_infreq(State,ordered = TRUE)))) + geom_bar()
 The `geom_bar` function can also be used with count values (i.e. variable already summarized by count). First, we’ll summaries the number of counties by state using the dplyr package. This will generate a data frame with just 51 records: one for each of the 50 states and the District of Columbia.
 
 ```{r,  eval=T}
-dat2.ct <- dat2 %>% group_by(State) %>% 
-                summarize(Counties = n())
+dat2.ct <- dat2 %>% group_by(State) %>% summarise(Counties = n())
 head(dat2.ct)
 ```
 
 When using summarized data, we must pass the parameter `stat="identity"` to the `geom_bar` function. We must also explicitly map the *x* and *y* axes geometries. Note that since we are now generating bar heights from a value field and not a frequency, we will need to use another `forcats` ordering function called `fct_reorder`. This function takes three parameters: the variable to be ordered (`State`), the variable whose values will determine the order (`Counties`) and the function, `fun=`, which defines the statistic used to summaries the sorting variable. Since there is just one value per state, we can use any summary statistic such as `median`, `mean`, `sum`, `min` or `max`.
 
-```{r,  eval=T}
-ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = Counties)) + geom_bar(stat = "identity")
+```{chunk79,  eval=T}
+ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = County)) + geom_bar(stat = "identity")
 ```
 
 Note that you can replace `fct_reorder` from the `forcats` packages with the `base` function `reorder` mentioned ealier in the class.
@@ -1054,7 +1052,7 @@ scale_fill_distiller|
 The following chunk of code summarizes dat2 by tallying the number of counties in each state and by computing the median county income values.
 
 ```{r,  eval=T}
-dat2.ct2 <- dat2 %>% group_by(State) %>% summarize(Counties = n(), Income = median(B20004001))
+dat2.ct2 <- dat2 %>% group_by(State) %>% summarise(Counties = n(), Income = median(B20004001))
 ```
 
 The following chunk applies a green to red color gradient fill to each bar based on the median county incomes. Note that we are using the summarized count table (and not the original dat2 table). Recall that when plotting bars from counts that are already tabulated we must specify `stat="identity"` in the `geom_bar` function.

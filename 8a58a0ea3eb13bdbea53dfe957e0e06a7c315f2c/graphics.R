@@ -22,22 +22,21 @@ plot(Petal.Length ~ Petal.Width, data = iris,
 col.iris<-ifelse(iris$Species=='setosa','purple',ifelse(iris$Species=='versicolor','blue','pink')) 
 col.iris
 
-library(scales)
 plot(Petal.Length ~ Petal.Width, data = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
      pch = 19, cex=2, 
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
      pch = 19, cex=2, 
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
     
 
 plot(Petal.Length ~ Petal.Width, dat = iris,
@@ -45,9 +44,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
      pch = 19, cex=2, las=1,
-     col = alpha(col.iris, 0.2)) 
+     col = scales::alpha((col.iris), 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
@@ -55,9 +54,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      main = 'Petal width and length of iris flower',
      cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
      pch = 19, cex=2, las=1,
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 
 ratio<-iris$Petal.Length/iris$Sepal.Width  # ratio between the length of petal and the width of Sepal
@@ -67,11 +66,11 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      main = 'Petal width and length of iris flower',
      cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
      pch = 19, las=1, cex= ratio * 2, 
-     col = alpha(col.iris, 0.2))
+     col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
-pairs(iris[1:4], pch=19, col = alpha(col.iris, 0.2))
+pairs(iris[1:4], pch=19, col = scales::alpha(col.iris, 0.2))
 
 # generate a data frame with chronological variable
 blossom<-NULL
@@ -124,11 +123,11 @@ points(Petal.Length ~ Petal.Width, dat = iris.ver, pch = 20,cex=2,
        
 # Add points for versicolor
 points(Petal.Length ~ Petal.Width, dat = iris.vir, pch = 20,cex=2, 
-      col =  alpha('#fc03c6', 0.2))
+      col =  scales::alpha('#fc03c6', 0.2))
 
 # Add legend
 legend("topleft", c("versicolor", "virginica"), pch = 19, cex=1.2,
-       col = c(rgb(0,0,1,0.10), alpha('#fc03c6', 0.2)))
+       col = c(rgb(0,0,1,0.10), scales::alpha('#fc03c6', 0.2)))
 
 boxplot(iris$Sepal.Width, na.rm = TRUE)
 
@@ -195,9 +194,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
-     col = alpha(col.iris, 0.2)) # set up symbol types and their color 
+     col = scales::alpha(col.iris, 0.2)) # set up symbol types and their color 
 
-legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 title (main='title', ylab='y-axis title", xlab'x-axis title')
 
@@ -215,9 +214,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
-     col = alpha(col.iris, 0.2)) # set up symbol types and their color 
+     col = scales::alpha(col.iris, 0.2)) # set up symbol types and their color 
 
-legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 dev.off()
 
@@ -229,9 +228,9 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
      main = 'Petal width and length of iris flower',
-     col = alpha(col.iris, 0.2)) # set up symbol types and their color 
+     col = scales::alpha(col.iris, 0.2)) # set up symbol types and their color 
 
-legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 dev.off()
 
@@ -272,9 +271,9 @@ library(ggplot2)
 library(tidyr)
 library(dplyr)
 dat1 <- read.csv("Data/FAO_grains_NA.csv", header=TRUE)
-dat1w <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Country =="United States of America", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% select (Year, Crop, Value) %>% spread(key = Crop,value="Value")
+dat1w <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Country =="United States of America", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% dplyr::select (Year, Crop, Value) %>% spread(key = Crop,value="Value")
 dat1l <- dat1w %>% pivot_longer(2:6, names_to = "Crop", values_to = "Yield")
-dat1l2 <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% select( Year, Crop, Country, Yield = Value)  # Note that we are renaming the Value field
+dat1l2 <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Crop %in% c("Oats", "Maize", "Barley", "Buckwheat","Rye")) %>% dplyr::select( Year, Crop, Country, Yield = Value)  # Note that we are renaming the Value field
 
 library(stringr)
 dat2 <- read.csv("Data/Income_education.csv", header=TRUE)
@@ -290,7 +289,7 @@ st.reg <- rbind(st.reg , data.frame(State="dc", Region="South"))
 dat2b <- dat2 %>%
   gather(key = "variable", value = "value", -1:-2)  %>%
   left_join(Edu.Gend, by="variable" )              %>%
-  select(State, County, Level, Gender, value)       %>%
+  dplyr::select(State, County, Level, Gender, value)       %>%
   mutate(Level = factor(Level, levels = c("All","NoHS","HS", "AD", "BD", "Grad"))) %>%
   left_join(st.reg , by="State")
 
@@ -340,11 +339,11 @@ ggplot(dat2, aes(fct_infreq(State,ordered = TRUE))) + geom_bar()
 
 ggplot(dat2, aes(fct_rev(fct_infreq(State,ordered = TRUE)))) + geom_bar()
 
-dat2.ct <- dat2 %>% group_by(State) %>% 
-                summarize(Counties = n())
+dat2.ct <- dat2 %>% group_by(State) %>% summarise(Counties = n())
 head(dat2.ct)
 
-ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = Counties)) + geom_bar(stat = "identity")
+## ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = County)) + geom_bar(stat = "identity")
+
 
 ggplot(dat2.ct , aes(x = Counties, y = State)) + geom_point()
 
@@ -411,7 +410,7 @@ ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
        xlab("Female income ($)") + ylab("Male income ($)") +
        coord_equal(ratio = 1)
 
-dat2.ct2 <- dat2 %>% group_by(State) %>% summarize(Counties = n(), Income = median(B20004001))
+dat2.ct2 <- dat2 %>% group_by(State) %>% summarise(Counties = n(), Income = median(B20004001))
 
 ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
    geom_bar(stat = "identity") + 

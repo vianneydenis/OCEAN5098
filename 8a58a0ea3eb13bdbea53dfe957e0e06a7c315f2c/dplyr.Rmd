@@ -2,8 +2,8 @@
 title: "dplyr"
 ---
 
-```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
-knitr::purl('dplyr.Rmd', documentation = F)
+```{r eval = TRUE,  message=F, include= FALSE, warning=F, purl=F, results="hide"}
+knitr::purl('dplyr.Rmd', documentation = 0)
 ```
 
 
@@ -40,15 +40,15 @@ It is used to select data by column name. Several syntaxes are possible. For exa
 
 ```{r class.source = "fold-show",  eval=T}
 # by column names
-selected <- select(iris, Sepal.Length, Sepal.Width, Petal.Length)
+selected <- dplyr::select(iris, Sepal.Length, Sepal.Width, Petal.Length)
 head(selected) 
 
 # by column range
-selected1 <- select(iris, Sepal.Length:Petal.Length)
+selected1 <- dplyr::select(iris, Sepal.Length:Petal.Length)
 head(selected1, 4)
 
 # by column range number
-selected2 <- select(iris,c(2:5))
+selected2 <- dplyr::select(iris,c(2:5))
 head(selected2)
 ```
 

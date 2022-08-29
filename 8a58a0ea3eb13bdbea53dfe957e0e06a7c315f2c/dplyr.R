@@ -4,15 +4,15 @@ summarised <- summarise(iris, Mean.Width = mean(Sepal.Width))
 head(summarised)
 
 # by column names
-selected <- select(iris, Sepal.Length, Sepal.Width, Petal.Length)
+selected <- dplyr::select(iris, Sepal.Length, Sepal.Width, Petal.Length)
 head(selected) 
 
 # by column range
-selected1 <- select(iris, Sepal.Length:Petal.Length)
+selected1 <- dplyr::select(iris, Sepal.Length:Petal.Length)
 head(selected1, 4)
 
 # by column range number
-selected2 <- select(iris,c(2:5))
+selected2 <- dplyr::select(iris,c(2:5))
 head(selected2)
 
 selected <- select(iris, -Sepal.Length, -Sepal.Width)

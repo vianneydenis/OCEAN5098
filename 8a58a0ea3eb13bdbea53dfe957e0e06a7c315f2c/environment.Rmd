@@ -3,8 +3,8 @@ title: "Environment"
 ---
 
 
-```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
-knitr::purl('environment.Rmd', documentation = F)
+```{r eval = TRUE,  message=F, include=FALSE, warning=F, purl=F, results="hide"}
+knitr::purl('environment.Rmd', documentation = 0)
 ```
 
 ```{r echo=FALSE, purl=F}

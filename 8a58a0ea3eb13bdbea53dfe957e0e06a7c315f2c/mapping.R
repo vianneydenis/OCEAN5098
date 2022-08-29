@@ -12,6 +12,9 @@ library(mapr)
 library(marmap)
 library(leaflet)
 
+#Sys.setlocale("LC_TIME", "English")
+#Sys.setlocale(category = "LC_ALL", "Chinese (Traditional)_Taiwan.950")
+
 data(wrld_simpl) 
 # NOT RUN: ? wrld_simpl
 
@@ -109,7 +112,7 @@ sessionInfo()
 url <- 'https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0'
 path1 <- tempfile(fileext = ".zip")
 if (file.exists(path1))  'file alredy exists' else download.file(url, path1, mode="wb")
-unzip(zipfile = path1,exdir = 'Data')
+zip::unzip(zipfile = path1,exdir = 'Data')
 
 taiwan <- readOGR('Data/COUNTY_MOI_1090820.shp', use_iconv=TRUE, encoding='UTF-8')
 
