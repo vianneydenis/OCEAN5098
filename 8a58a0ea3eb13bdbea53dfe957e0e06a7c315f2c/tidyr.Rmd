@@ -2,8 +2,8 @@
 title: "tidyr"
 ---
 
-```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
-knitr::purl('tidyr.Rmd', documentation = F)
+```{r eval = TRUE,  message=F, include=FALSE, warning=F, purl=F, results="hide"}
+knitr::purl('tidyr.Rmd', documentation = 0)
 ```
 
 

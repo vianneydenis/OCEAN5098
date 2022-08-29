@@ -2,8 +2,8 @@
 title: "Data types and structures"
 ---
 
-```{r eval = TRUE,  message=F, include=F, warning=F, purl=F, results="hide"}
-knitr::purl('types.Rmd', documentation = F)
+```{r eval = TRUE,  message=F, include=FALSE, warning=F, purl=F, results="hide"}
+knitr::purl('types.Rmd', documentation = 0)
 ```
 
 
@@ -421,15 +421,15 @@ There are many other coercion functions in R, a summary of some the most common 
 
 
 ```{r class.source = "fold-show",  eval=F}
-as.numeric()  # Coerce to numeric
-as.double()	# Coerce to double
-as.integer()	# Coerce to integer
-as.character() #	Coerce to character
-as.logical()	# Coerce to Boolean (logical: TRUE | FALSE)
-as.factor()	# Coerce to factor
-as.Date()  # Coerce to date
-as.data.frame()  # Coerce to data frame
-as.list() # Coerce to list
+as.numeric  # Coerce to numeric
+as.double	# Coerce to double
+as.integer	# Coerce to integer
+as.character #	Coerce to character
+as.logical	# Coerce to Boolean (logical: TRUE | FALSE)
+as.factor	# Coerce to factor
+as.Date  # Coerce to date
+as.data.frame  # Coerce to data frame
+as.list # Coerce to list
 ```
 
 ---------
