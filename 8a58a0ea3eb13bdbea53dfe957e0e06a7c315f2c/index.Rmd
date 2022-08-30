@@ -103,7 +103,7 @@ All information is pending. Updates will be directly posted here or will be ment
 
 
 <p class="comment">
-**Practice A:** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can't make it, it means you are behind and it is very important for you to catch back as soon as possible.
+**Practice A** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can't make it, it means you are behind and it is very important for you to catch back as soon as possible.
 </p>
 
 
@@ -111,7 +111,7 @@ All information is pending. Updates will be directly posted here or will be ment
 
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice B:** this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me teh solution by email at [vianneydenis@g.ntu.edu.tw]. To make sure I received your email, you will use **Practice B (your name: your student no.)** as a title for this email. I only accept *.Rmd* and *.html* formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see [Environment](./environment.html)).</p>
+**`r knitr::asis_output("\U26A0")` Practice B** this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me teh solution by email at [vianneydenis@g.ntu.edu.tw]. To make sure I received your email, you will use **Practice B (your name: your student no.)** as a title for this email. I only accept *.Rmd* and *.html* formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see [Environment](./environment.html)).</p>
 
 
 **(2)** At the beginning of the class, one student may be randomly pick up  in order to summarize his homework (*.Rmd* and/or *.html*) or knowledge he got form previous class (5-10 minutes). The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: *Always be ready*. 
