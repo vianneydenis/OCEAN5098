@@ -13,54 +13,64 @@ output: pdf_document
 
 ## Description
 
-This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
+This course is mainly designed to introduce students with the use of R language. It will introduce R environment but also popular functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
 
 ## Aim and objectives
 
-The aim of this course is for the students to get familiar with R language. This course will explore the multiple advantages of using R language for formatting reports,  preparing presentations, exploring and analyzing ecological, data creating and sharing project. The cours will assume hat students have no prior knowledge in R or other programming languages. It will start from scratch, i.e. downloading R and installing it on your computer. Along this class, you will be introduced to  RStudio GUI, Rmarkdown, and GitHub repositories that complete harmoniously the use of R. 
+The aim of this course is for the students to get familiar with R language. This course explores the multiple advantages of using R language for formatting reports,  preparing presentation, exploring and analyzing ecological, data editing and sharing project. The course assumes that students have no prior knowledge in R or other programming languages. It will start from scratch, **i.e.** downloading R and installing it on your computer. Along the semester, you will be introduced to the use of  [RStudio/Posit GUI](https://www.rstudio.com/), [Rmarkdown](https://rmarkdown.rstudio.com/), and [GitHub](https://github.com/) repositories that complete harmoniously your R experience. 
 
+After taking this course, a student should: 
 
-At the end of this class, student should: 
+- be aware of the multiples advantages of using R; 
 
-- see the multiples advantages of using R in comparison with Excel;
 - not be afraid of using code to organize, visualize and analyze data;
+
 - become a self-learner, able to explore and solve problem;
-- analyze and valorize scientifically simple data sets;
+
 - know several statistical tools for the analysis of ecological data in particular;
-- help and recommend on the use of R.
+
+- be able to analyze and valorize scientifically any simple ecological data sets;
+
+- be able to help and advices on the use of R.
 
 ## Tentative Schedule 
 
-Schedule is  susceptible to changes according to progress of the class
+Schedule is  susceptible to changes according to progress along the semester
 
-| Week | Day | Date     | Tentative Topic | Content|
-|------|-----|----------|-----------------|--------|
-| 1    | Tue | ---------| Introduction: First step | Introduction R, R Studio, Markdown, GitHub|
-| 2 & 3 | Tue | ---------| Data manipulation, basic graphics and statistical functions | Manipulate dataset, basic operation, make and edit a plot|
-| 4 & 5 | Tue | ---------| Data exploration | Summarize dataset, preliminary analyses |
-| 6 | Tue | ---------| Ecological resemblance | Association coefficient, similarity matrix |
-| 7 | Tue | ---------| Numerical classification | Cluster analysis |
-| 8 & 9 | Tue | ---------| Unconstrained ordination | PCA, PCoA, nMDS |
-| 10 & 11 | Tue | ---------| Constrained ordination | Redundancy and cannonical analysis |
-| 12 & 13 | Tue | ---------| Generalized Linear Model | Linear regression, and GLMs |
-| 14 | Tue | ---------| From traits to functions | --- |
+|Week |Tentative Topic           |             Content (main)                         |
+|-----|--------------------------|----------------------------------------------------|
+|1    |Introduction              | Presentation course               |
+|2    |Environment               | R, R Studio, R Markdown, Git/GitHub                |
+|3    |Data manipulation         | Formatting and converting data set                 |
+|4    |Graphics                  | Visualization functions and customization, ggplot2 |
+|5    |Statistics  I             | Generate and test simple hypotheses                |
+|6-7  |Statistics  II            | Generalized Linear Models                          |
+|8-9  |Similarities              | Ecological resemblance and matrix                  |
+|10   |Classification            | Cluster analysis                                   |
+|11-12|Ordination: unconstrained | PCA, PCoA, nMDS                                    |
+|13-14|Ordination: constrained   | Redundancy and canonical analysis                  |
+|15-16|Functional analysis       | From trait to ecological functions                 |
 
 
 ## Evaluation & Final Assignment
 
-Each week students prepare an example of the application of the things learned in previous class . One student randomly chosen will introduce its example at the beginning the class (using Rmarkdown). 
 
-For the final assignment, group (2-3 students) will pick up a research topic along the semester, and will prepare a report emphasis methodology and results (scientific format). Introduction and discussion can be presented as bullet points. Report should be sent as a markdown file before the last class of the semester. Do not wait the last minute!
+**(1)** Along the semester, you will be assigned with a couple of more or less simple exercise to practice what was learn in class. There is no secret, practice will make you better and I need to make sure you are not lost. 
+
+**(2)** At the beginning of the class, one student may be randomly pick up  in order to summarize his homework (*.Rmd* and/or *.html*) or knowledge he got form previous class (5-10 minutes). 
+
+**(3)** DATATHON (**NEW**) as final assignement. Students will be provided with a data set to analyze (type 'Scientific Data': https://www.nature.com/sdata/). Groups (2-3 students) will identify relevant research questions based on this data set and will prepare a short scientific report (max. 20 pages + references)  while emphasizing methodology and results (scientific format). Introduction and discussion/conclusion could be presented as bullet points. Report should be sent as a *.Rmd* **AND** *.html* or share through a GitHub repository.
+
+<p style="color:red">Final score is typically composed of participation/assiduity in class (**10%**), homework/review  (**20%**), final group report (**70%**)</p>
 
 
-## Requirement
+## Requirements
 
-This course requires students to bring/use their own personal computer.
+Basic knowledge and interest in Biology/Ecology/Informatics. The course requires students to bring/use their own personal computer.
 
 ## References & Readings
 
 Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology with R. Springer. DOI: [10.1007/978-3-319-71404-2](https://www.springer.com/gp/book/9783319714035)
-
 
 Paradis, E. (2005) R for beginner. Available among many others documentation at https://cran.r-project.org/other-docs.html (page frozen and no longer actively maintained) 
 

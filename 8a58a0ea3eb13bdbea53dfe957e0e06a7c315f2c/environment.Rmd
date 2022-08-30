@@ -21,7 +21,7 @@ xfun::embed_file('Data/reef_fish.xlsx')
 
 
 
-# R software
+# R Software
 
 ## What is R?
 
@@ -110,7 +110,7 @@ library("abc")
 ```
 
 <p class="comment">
-**Practice 1:** The `vegan` package provides tools for descriptive community ecology. It has most basic functions of diversity analysis, community ordination and dissimilarity analysis. Most of its multivariate tools can be used for other data types as well, not restricted to ecological purpose.Install and load the package `vegan`.
+**Practice 1.1:** The `vegan` package provides tools for descriptive community ecology. It has most basic functions of diversity analysis, community ordination and dissimilarity analysis. Most of its multivariate tools can be used for other data types as well, not restricted to ecological purpose.Install and load the package `vegan`.
 </p>
 
 ```{r, code_folding = 'Show Solution',  eval=FALSE}
@@ -265,7 +265,7 @@ fish<-read.table(file.choose (), header = TRUE,sep="\t", dec=".")
 
 
 <p class="comment">
-**Practice 2:** Download `reef_fish.xlsx`, save it in a working directory you dedicated for this course, and import it in R. Do the same after converting this `reef_fish` file into a `.txt` file.
+**Practice 1.2:** Download `reef_fish.xlsx`, save it in a working directory you dedicated for this course, and import it in R. Do the same after converting this `reef_fish` file into a `.txt` file.
 </p>
 
 ```{r, code_folding = 'Show Solution',  eval=FALSE}
@@ -287,12 +287,14 @@ q()
 
 Saving the workspace image will allow you to save all objects created in the R memory into your working directory (.Rdata). It also saves all commands given during the session (.Rhistory). Quit **without saving**.
 
-# RStudio
+# R Studio
 
 ## What's RStudio?
 
 RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. It is open source (i.e. free)
-and available at http://www.rstudio.com/
+and available at http://www.rstudio.com/. Have a look at this introductive [video]<https://www.rstudio.com/products/rstudio/> 
+
+Important note: RStudio is becoming Posit in October for better 'embracing multi-lingual data science'. Explore it [here]<https://posit.co/> and be ready for the change. 
 
 ## Installation
 
@@ -334,7 +336,7 @@ barplot(fish$richness, main="Top 10 reef fish Richness (Allen, 2000)", horiz=TRU
 **Note**: using the options in R studio, you can easily export the resulting plot as and image, a pdf, or to copy it to your clipboard.  
 
 
-# R markdown
+# R Markdown
 
 
 R markdown is text-based formatting that allows you to embed code and explanatory text in the same document.R markdown documents consist of a header, code chunks and text. R markdown files (.Rmd) can be rendered to other document formats (e.g. html, pdf, docx) to generate reports or web applications.Formatting analyses in R markdown keeps the entire research process in one document that can easily regenerate reports and output if the data are changed.For example, the course website is a set of R markdown files that have been rendered to html files and are hosted on an online repository: https://github.com/vianneydenis/OCEAN5098.git
@@ -345,15 +347,15 @@ Visit R markdown [webpage](https://rmarkdown.rstudio.com/) for an overview of it
 <span style="color: red">**BEGINNER**</span> In order to understand its multiple advantages, simply go to *File>New File>R Markdown* in RStudio. Give your document a title `test`. Select *HTML* Output. **Knit** the document create, and save it as `test` to visualize it.The options `r knitr::asis_output("\U2699")` should allow you to 'Preview in Window' or to 'Preview in viewer Panel'. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
 
 
-<span style="color: red">**ADVANCED I**</span> On the top of this **Introduction** page, you can download a *Introduction.Rmd*. By knitting it in RStudio, you should be able to **render** this *.Rmd* as html page similar to the present webpage. In order for it to work you would have to: (1) install **ALL** the packages used in this *.Rmd* (`knitr`, `xfun`, `abc`, `vegan`, `readxl`, `formatR`) (2) make sure to have in your working directory a file called **Data** where you will have download `reef_fish.xlsx` and generate `reef_fish.txt`. 
+<span style="color: red">**ADVANCED**</span> On the top of this **Introduction** page, you can download a *Introduction.Rmd*. By knitting it in RStudio, you should be able to **render** this *.Rmd* as html page similar to the present webpage. In order for it to work you would have to: (1) install **ALL** the packages used in this *.Rmd* (`knitr`, `xfun`, `abc`, `vegan`, `readxl`, `formatR`, etc.) (2) make sure to have in your working directory a file called **Data** where you will have download `reef_fish.xlsx` and generate `reef_fish.txt`. 
 
 
-<span style="color: red">**ADVANCED II**</span> This [repository](https://github.com/vianneydenis/OCEAN5098.git) available on GitHub is the working directory of the OCEAN5098.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to **fork** this repository to your GitHub account, then clone a copy of this forked repository (from your own Github account to your computer).
+<span style="color: red">**EXPERT**</span> This [repository](https://github.com/vianneydenis/OCEAN5098.git) available on GitHub is the working directory of the OCEAN5098.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to **fork** this repository to your GitHub account, then clone a copy of this forked repository (from your own Github account to your computer).
 
 
-# Git & GitHub
+# Git/GitHub
 
-You will need a bit of time to get use to it, but the best way to work with R is by using online repositories. You can first create an **account** on [GitHub](https://github.com/) and **create a first repository** that you will later use connected with  RStudio.
+You will need a bit of time to get use to it, but the best way to work with R is a version control and using online repositories. You can first create an **account** on [GitHub](https://github.com/) and **create a first repository** that you will later use connected with  RStudio.
 
 ## Installation
 
@@ -391,15 +393,22 @@ You may already have Git installed. If not, you can try to install it via your d
 
 + you will create a .RProject. Any change in your repository will appear in 'Git'
 
-+ changes needs to be 'commit' (prepared) and 'push' (uploaded) to GitHub in order to be synchronized
++ changes needs to be 'commit' (prepared to git, local) and 'push' (uploaded) to GitHub in order to be synchronized
 
 + first 'commit' will fail and ask you to set up Git with email and username. Open Git CMD and process as indicated
 
-+ first 'push' will be pending your GitHub login and password
++ first 'push' will be pending your GitHub login, password, token (see below)
 
-+ any changes in your GitHub repo must be 'pull' prior working on your project in RStudio
++ any changes in your GitHub repo must be 'pull' prior working on your project in RStudio.
 
-<p class="comment"> **Practice 3:** Try You best to complete **ADVANCED I** and **ADVANCED II**. It may be challenging at first but if you succeed you will have master important functionalities of the R environment  
+Lost on this part? see this excellent tutorial on [How to Use Git/GitHub with R](https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/)
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice 1.3:** Complete **ADVANCED** (see above). Push both the *.Rmd* and *.html* files into a public repository available from your Github account. You will send  the address (URL) of this repository (such as https://github.com/vianneydenis/OCEAN5098.git) to [vianneydenis@g.ntu.edu.tw]  **before next Monday** in order to check your work. The **title of your email ** should be `Practice 1.3 (your name: your student no.). It will be challenging but once you succeed you will have master important functionalities of the R environment. Have fun ;)
+</p>
+
+
+
 </p>
 
 # Credits

@@ -2,19 +2,19 @@
 title: "Fun with R: Ecological data analysis in R"
 ---
 
-Welcome to the website of *OCEAN 5098*. This  course will help you to get familiar with R environment and some its common functionalities for ecological studies. No prior knowledge in R or in any other programming languages is required to enroll the course. 
+Welcome to the website of *OCEAN 5098*. This  course will help you to get familiar with R environment and some of its common functionalities for ecological studies. No prior knowledge in R or in any other programming languages is required to enroll the course. 
 
 # Information
 
 **Credits**: 3 
 
-**Time**: Tuesday 13:20- 16:20 (Spring Semester - odd year)
+**Time**: Tuesday 13:20- 16:20 (fall Semester - even year)
 
 **Location**: Institute of Oceanography, 2nd floor, Room 231 
 
-**Instructor:** Vianney DENIS [vianneydenis@g.ntu.edu.tw] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan
+**Instructors:** Vianney DENIS [vianneydenis@g.ntu.edu.tw] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan. Yu-Ting Vicky LIN, Lauriane RIBAS-DEULOFEU, Stéphane DE PALMAS and Rodrigo CARBALLO-BOLANOS will help me along the semester. 
 
-> `r knitr::asis_output("\U1F4DD")` The syllabus for this course can be download [HERE](.\documents\OCEAN5098_syllabus.pdf). Because of the pandemic, the  format of this class is evolving. This website is the latest update. Accordingly, information in the following syllabus including the schedule, content and evaluation mode are susceptible to changes according to the evolution of the situation.
+> `r knitr::asis_output("\U1F4DD")` The syllabus for this course is available on NTU Cool but can also be downloaded [HERE](.\documents\OCEAN5098_syllabus.pdf). Because of the recent pandemic, the  format of this class has been evolving. This website is the latest update. Accordingly, information in the syllabus including the schedule, content and evaluation mode are susceptible to changes of regulations. Hopefully, this semester will see a return back to the normal.
 
 <style>
 .html-widget {
@@ -32,32 +32,30 @@ leaflet() %>%
 
 # Description
 
-This course is mainly designed to introduce students with the use of R language. It will introduce popular R functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
+This course is mainly designed to introduce students with the use of R language. It will introduce R environment but also popular functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
 
-**Objectives** The aim of this course is for the students to get familiar with R language. This course will explore the multiple advantages of using R language for formatting reports,  preparing presentation, exploring and analyzing ecological, data creating and sharing project. The course will assume that students have no prior knowledge in R or other programming languages. It will start from scratch, **i.e.** downloading R and installing it on your computer. Along the semester, you will be introduced to the use of  [RStudio GUI](https://www.rstudio.com/), [Rmarkdown](https://rmarkdown.rstudio.com/), and [GitHub](https://github.com/) repositories which all improve you Rrrrr experience.
-
+**Objectives** The aim of this course is for the students to get familiar with R language. This course explores the multiple advantages of using R language for formatting reports,  preparing presentation, exploring and analyzing ecological, data editing and sharing project. The course assumes that students have no prior knowledge in R or other programming languages. It will start from scratch, **i.e.** downloading R and installing it on your computer. Along the semester, you will be introduced to the use of  [RStudio/Posit GUI](https://www.rstudio.com/), [Rmarkdown](https://rmarkdown.rstudio.com/), and [GitHub](https://github.com/) repositories that complete harmoniously your R experience. 
 
 After taking this course, a student should: 
 
-`r knitr::asis_output("\U1F449")` see the multiples advantages of using R; 
+`r knitr::asis_output("\U1F449")` be aware of the multiples advantages of using R; 
 
 `r knitr::asis_output("\U1F449")` not be afraid of using code to organize, visualize and analyze data;
 
+`r knitr::asis_output("\U1F449")` become a self-learner, able to explore and solve problem;
+
 `r knitr::asis_output("\U1F449")` know several statistical tools for the analysis of ecological data in particular;
 
-`r knitr::asis_output("\U1F449")` become a self-learner, able to explore and solve ecological problem;
+`r knitr::asis_output("\U1F449")` be able to analyze and valorize scientifically any simple ecological data sets;
 
-`r knitr::asis_output("\U1F449")` analyze and valorize scientifically any simple data sets;
-
-`r knitr::asis_output("\U1F449")` be able to help and advices on the use of R
+`r knitr::asis_output("\U1F449")` be able to help and advices on the use of R.
 
 
-**Requirement** This course requires students to bring/use their own personal computer.
+**Requirements** Basic knowledge and interest in Biology/Ecology/Informatics. The course requires students to bring/use their own personal computer.
 
+**Disclaimer** Format of this course is largely inspired by online documentation. Examples are often illustarted on well-known data set publicly available.
 
-**Disclaimer** Format of this course is largely inspired by online documentation from Fukami T. & Coyle J. (Standford University) and others. Examples used are often famous data set publicly available.
-
-**References**
+**Useful References**
 
 Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology with R. Springer. DOI: [10.1007/978-3-319-71404-2](https://www.springer.com/gp/book/9783319714035)
 
@@ -74,37 +72,38 @@ Zuur, A. F. (2010) A protocol for data exploration to avoid common statistical p
 
 # Schedule
 
-
-Schedule is  susceptible to changes according to progress of the class
+Schedule is  susceptible to changes according to progress along the semester
 
 |Week |Tentative Topic           |             Content (main)                         |
 |-----|--------------------------|----------------------------------------------------|
-|1    |Introduction              | R, R Studio, R Markdown, Git/GitHub                |
-|2    |Data manipulation         | Formatting and converting data set                 |
-|3    |Graphics                  | Visualization functions and customization, ggplot2 |
-|4    |Statistics  I             | Generate and test simple hypotheses                |
-|5-6  |Statistics  II            | Generalized Linear Models                          |
-|7-8  |Similarities              | Ecological resemblance and matrix                  |
-|9    |Classification            | Cluster analysis                                   |
-|10-11|Ordination: unconstrained | PCA, PCoA, nMDS                                    |
-|12-13|Ordination: constrained   | Redundancy and canonical analysis                  |
-|12-13|Functional analysis       | From trait to ecological functions                 |
+|1    |Introduction              | Presentation course               |
+|2    |Environment               | R, R Studio, R Markdown, Git/GitHub                |
+|3    |Data manipulation         | Formatting and converting data set                 |
+|4    |Graphics                  | Visualization functions and customization, ggplot2 |
+|5    |Statistics  I             | Generate and test simple hypotheses                |
+|6-7  |Statistics  II            | Generalized Linear Models                          |
+|8-9  |Similarities              | Ecological resemblance and matrix                  |
+|10   |Classification            | Cluster analysis                                   |
+|11-12|Ordination: unconstrained | PCA, PCoA, nMDS                                    |
+|13-14|Ordination: constrained   | Redundancy and canonical analysis                  |
+|15-16|Functional analysis       | From trait to ecological functions                 |
 
 
-I am not a statistician or a programmer, so I explain with simple words avoiding as much as possible technical jargon. The ultimate aim is more to teach you how to look for relevant information. Don't aim to know everything, but to be able to learn anything.
+This class aims to learn while exploring. I am a marine ecologist and not an informatician or biostatistician. Therefore, we will avoid technical jargon as much as possible while trying to find some fun in what we learn and in the use of R. Basically, the ultimate aim of this class is to teach you how to look for relevant information. Don't hope to know everything possible in R, but aim to be able to master anything in R ;)
+
 
 # Evaluation
 
-All information below may change according to the evolution of the pandemic. Updates will be directly posted here.
+All information is pending. Updates will be directly posted here or will be mentioned in class.
 
 
-**(1)** As long as the class will be online, you will be assigned with a couple of simple exercise to practice what we saw during the class. Practice will make you better, and it is strongly recommended that you  consider those exercises as a priority. Across the lectures, you will find two types of **practical sessions**:
+**(1)** Along the semester, you will be assigned with a couple of more or less simple exercise to practice what was learn in class. There is no secret, practice will make you better and I need to make sure you are not lost. Across the lectures, you will find two types of **practical sessions**:
 
 + The 1st type is highlighted in green
 
 
 <p class="comment">
-**Practice A:** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own.
+**Practice A:** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can't make it, it means you are behind and it is very important for you to catch back as soon as possible.
 </p>
 
 
@@ -112,10 +111,10 @@ All information below may change according to the evolution of the pandemic. Upd
 
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice B:** this is a practical session that I expected you to send the solution on the Monday before the next class. Use [vianneydenis@g.ntu.edu.tw], title of the email should be the name of the practical session **Practice B**. I only accept *.Rmd* and *.html* formats. Therefore, make sure to understand rapidly how to generate those formats using R (see [Introduction](./introduction.html)).</p>
+**`r knitr::asis_output("\U26A0")` Practice B:** this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me teh solution by email at [vianneydenis@g.ntu.edu.tw]. To make sure I received your email, you will use **Practice B (your name: your student no.)** as a title for this email. I only accept *.Rmd* and *.html* formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see [Environment](./environment.html)).</p>
 
 
-**(2)** If pandemic is getting better and we can eventually start on-site class, one student will be randomly pick up at the beginning of the class in order to summarize  the previous class within 5-10 minutes. Student selected will use *.Rmd* and/or *.html*  for **presentation**. The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: *Always be ready*.
+**(2)** At the beginning of the class, one student may be randomly pick up  in order to summarize his homework (*.Rmd* and/or *.html*) or knowledge he got form previous class (5-10 minutes). The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: *Always be ready*. 
 
 ```{r,  eval=F}
 library(dplyr)
@@ -123,7 +122,8 @@ list_student<-c('Student_1','Student_2','Student_3','Student_4')
 sample(list_student, 1, replace = TRUE)
 ```
 
+Note that this selection will not be random if the homework is not sent. 
 
-**(3)** A short (5-10 printed A4 pages max.) **research project** (*.Rmd* and/or *.html*) must be prepared along the semester and will be sent on week before the day of the final exam. Format must follow the format of a scientific publication but with introduction and discussion summarized to the maximum as bullet points. A focus should be given on the methods (data set and analysis) and the results. Because of the pandemic, I will assign you with a data set and a research question. If situation is getting better, you may pick up by yourself a topic of your choice and work on this project as a small group (2-3  people max.) and present your work on the final week. In the latter case, a **small proposal** (1-2 pages, *.Rmd* and/or *.html*) will have to be submitted before mid-term week and are encouraged to develop your own experiment or develop original research question based on already published data sets (avoid topics related to COVID-19 in order to be original, > 50 % of projects last year ). 
+**(3)** DATATHON (**NEW**) as final assignement. Students will be provided with a data set to analyze (type 'Scientific Data': https://www.nature.com/sdata/). Groups (2-3 students) will identify relevant research questions based on this data set and will prepare a short scientific report (max. 20 pages + references)  while emphasizing methodology and results (scientific format). Introduction and discussion/conclusion could be presented as bullet points. Report should be sent as a *.Rmd* **AND** *.html* or share through a GitHub repository.
 
-<p style="color:red">Final score is typically composed of mid-term  (**30%**), final (**50%**) reports, and others: weekly participation and assignments (**20%**)</p>
+<p style="color:red">Final score is typically composed of participation/assiduity in class (**10%**), homework/review  (**20%**), final group report (**70%**)</p>
