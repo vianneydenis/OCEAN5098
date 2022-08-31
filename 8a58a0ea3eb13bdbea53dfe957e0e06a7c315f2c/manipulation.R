@@ -1,8 +1,8 @@
-library (datasets) # load package
 rm(list=ls()) # clean memory
+library (datasets) # load package
 data(iris) # import dataset
 head (iris) # visualize 'head' dataset
-# note that using data automatically create an object called 'iris'
+# 'data' automatically  creates the object 'iris'
 
 summary(iris) #  object summary
 
@@ -11,7 +11,10 @@ str(iris) # examine the structure of the object
 fix(iris) # spreadsheet
 
 students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # read data set from url
-str(students)
+str(students) 
+
+students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # read data set from url
+str(students) 
 
 # students[,1]
 students$height
@@ -43,21 +46,22 @@ sample(data, size, replace = FALSE, prob = NULL)
 # check in detail source code 
 # View(sample) OR getAnywhere(sample()) 
 
-# NOT RUN, number of rows in females: nrow(females)
-1:nrow(females) # create a vector from 1 to nrow(females)
-sf<-sample(1:nrow(females), 2) # filter 2 female students on my initial 5 female students
-sf # my two female students
-females[sf,] # apply my filter
+# NOT RUN nrow(females)
+1:nrow(females) # create a vector from 1 to the number of row in 'females'
+sf<-sample(1:nrow(females), 2) # filter with two randomly selected female students
+sf # the selection
+females[sf,] # apply the filter on our original data set
 
-# NOT RUN, ind 1 should move at position 5: students
-ind1<-order (students$height) # vector order
-students [ind1,] # sorting my data with my vector of order, check ind.1 is at position 5 
+# NOT RUN, check data set ind no.1 should move at position no. 5
+ind1<-order (students$height) # create a vector with order
+students [ind1,] # sorting data set with  with filter
+# ind no.1 moved at position no. 5
 
 students[order(students$height),]
 
 ind2<-order(-students$height)
 
-# If condition true, it gives 'blue'. If false, it gives red.
+# If `condition` then give 'blue'. If not then gives 'red'.
 colors<-ifelse(students$gender=='male', 'blue','red') 
 colors
 
@@ -70,8 +74,6 @@ students$shoesize < 37 # students with shoes size smaller than 37
 students$height <= 165 & students$shoesize < 37 # students equal or shoter than 165 and shoes size smaller than 37
 # NOT RUN: students$dual.cond<-ifelse(students$height<=165 & students$shoesize<37,'blue','red') 
 
-# `iris` dataset
-iris$color<-ifelse(iris$Species=='setosa','purple', ifelse(iris$Species=='versicolor','blue','pink'))
-iris[order(iris$Sepal.Width, decreasing = T),]
+# ask for password
 ```{.r .distill-force-highlighting-css}
 ```
