@@ -240,6 +240,8 @@ students$height <= 165 & students$shoesize < 37 # students equal or shoter than 
 # NOT RUN: students$dual.cond<-ifelse(students$height<=165 & students$shoesize<37,'blue','red') 
 ```
 
+Let's finally put all this in practice. 
+
 <p class="comment">
 **Practice 2.2** Using the `iris` dataset create a new variable with flower colors. Iris setosa is purple.Iris versicolor is blue. Iris virginica is pink. Sort individuals by decreasing `Sepal.Width`. What can you hypothesize on the size of sepal for these three species. Get back the data set for the species having the smallest sepal width. Delete the variable `color` in this subset</span>* 
 </p>
