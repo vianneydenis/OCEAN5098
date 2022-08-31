@@ -17,7 +17,7 @@ xfun::embed_file('manipulation.R')
 
 Manipulating a data set involves modifying the data to make them easier to read and/or to make the entire data set more organized for the following analyses. Commonly, we manipulate data prior their visualization and/or analysis. It is often used and combined with the term ‘data exploration’ which involves organizing data with an available sets of variables. At times, the data collection process done by machines involves a lot of errors and inaccuracies in reading. Data manipulation is used to remove these inaccuracies and make data more accurate and precise.
 
-# Data sets
+# Dataset
 
 The package `datasets` provides data sets. It is part of the basics installation of R and you don't have to install the package (if you accept default option at R installation). Those data sets are used in many examples through help in R. Among those data sets, `iris` (`?iris`) provides measurements of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The `Species` is a categorical variable with three levels: *Iris setosa*, *versicolor*, and *virginica*. Flower measurements are quantitative and continous  variables, expressed in centimeters.   
 
