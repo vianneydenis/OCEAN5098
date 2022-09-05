@@ -43,7 +43,7 @@ str(iris) # examine the structure of the object
 
 The object `iris` is a `data.frame` and is composed of 5 variables (`Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`) and 150 observations. Four variables are numeric, one is a factor with 3 levels (`Species`). Other object types and structures also exist (integer, matrix, etc.) but more on this later (see [Types & Structures](./types.html)).
 
-Summarizing your data set and examining its structure allow you to an error in your data set (including format errors that may have been caused at the importation of data set, remember `reef_fish.txt`). You can fix format error using `read.table` or others. Alternatively, you can `fix` it to open a spreadsheet:
+Summarizing your data set and examining its structure allow you to spot a possible error in your data set (including format errors that may have been caused at the importation of data set, remember `reef_fish.txt`). You can fix format error using `read.table` or others. Alternatively, you can `fix` it to open a spreadsheet:
 
 ```{r,  eval=FALSE}
 fix(iris) # spreadsheet
@@ -121,7 +121,7 @@ females<-students[f,] # selection
 females
 ```
 
-Our subset is constituted of a selection of the five female students. The original `students` data set had ten observations, and I can check this change calling for the dimensions of the new object `females` and using `dim(females)`. The new data set is a `data.frame` of 5 observations x 4 columns. Column names `colnames(females)` remained unchanged, but I have now only 5 names for the rows `rownames(females)`. I can the rows by  combining `c` the names of the female students into a **vector**.
+Our subset is constituted of a selection of the five female students. The original `students` data set had ten observations, and I can check this change calling for the dimensions of the new object `females` and using `dim(females)`. The new data set is a `data.frame` of 5 observations x 4 columns. Column names `colnames(females)` remained unchanged, but I have now only 5 names for the rows `rownames(females)`. The rows can be renamed by  combining `c` the names of the female students into a **vector**.
 
 
 ```{r,  eval=T}
