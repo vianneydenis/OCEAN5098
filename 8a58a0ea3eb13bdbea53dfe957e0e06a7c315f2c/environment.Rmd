@@ -41,6 +41,8 @@ If you don't have R installed on your computer:
 - Run the `.exe` file that was just downloaded.
 - Once it’s installed, open R to make sure it works and you don’t get any error messages.
 
+<p style="color:red"> **DO NOT INSTALL R OR LATER SOFTWARES ON YOUR DESKTOP. ACCEPT DEFAULT AT LEAST YOU KNOW HOW TO CHANGE PATH FILES.** </p>
+
 If you already have R already install:
 
 To check the version of R you are using, start R: the version of R you are running is the first thing that appears on the terminal. Alternatively, Type `sessionInfo()` in the R console, which will  display which version of R you are running. Go on the [CRAN website](https://cran.r-project.org/) and check whether a more recent version is available. If so, please download and install it. You can check [here](https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f) for more information on how to remove old versions from your system if you wish to do so.

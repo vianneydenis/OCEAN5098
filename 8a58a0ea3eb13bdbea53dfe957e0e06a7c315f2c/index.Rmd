@@ -12,7 +12,7 @@ Welcome to the website of *OCEAN 5098*. This  course will help you to get famili
 
 **Location**: Institute of Oceanography, 2nd floor, Room 231 
 
-**Instructors:** Vianney DENIS [vianneydenis@g.ntu.edu.tw] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan. Yu-Ting Vicky LIN, Lauriane RIBAS-DEULOFEU, Stéphane DE PALMAS and Rodrigo CARBALLO-BOLANOS will help me along the semester. 
+**Instructors:** Vianney DENIS [vianneydenis@g.ntu.edu.tw] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan. Yu-Ting Vicky LIN [vickylinyuting@gmail.com], Lauriane RIBAS-DEULOFEU [lauriane.ribas@gmail.com], Stéphane DE PALMAS  [depalmasstephane@gmail.com] and Rodrigo CARBALLO-BOLANOS [rodragoncar@gmail.com] will help me along the semester. 
 
 > `r knitr::asis_output("\U1F4DD")` The syllabus for this course is available on NTU Cool but can also be downloaded [HERE](.\documents\OCEAN5098_syllabus.pdf). Because of the recent pandemic, the  format of this class has been evolving. This website is the latest update. Accordingly, information in the syllabus including the schedule, content and evaluation mode are susceptible to changes of regulations. Hopefully, this semester will see a return back to the normal.
 
