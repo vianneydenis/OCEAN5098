@@ -15,7 +15,7 @@ xfun::embed_file('dplyr.Rmd')
 xfun::embed_file('dplyr.R')
 ```
 
-The package `dplyr` is  dedicated to the data manipulation in R. It has many common functions to fasten  data exploration and transformation. Some important functions from this packages are covered below.
+The package `dplyr` is  specifically dedicated to the data manipulation in R. It has many common functions to fasten  data exploration and transformation. Some important functions from this packages are covered below.
 
 ```{r class.source = "fold-show",  eval=T}
 library (dplyr)
