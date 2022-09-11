@@ -11,85 +11,91 @@ knitr::purl('dplyr.Rmd', documentation = 0)
 xfun::embed_file('dplyr.Rmd')
 ```
 
+
 ```{r echo=FALSE, purl=F}
 xfun::embed_file('dplyr.R')
 ```
 
-The package `dplyr` is  specifically dedicated to the data manipulation in R. It has many common functions to fasten  data exploration and transformation. Some important functions from this packages are covered below.
+# Background
 
 ```{r class.source = "fold-show",  eval=T}
 library (dplyr)
 ```
 
+As indicated in the description of the package (`?dplyr`) `dplyr` is all about data manipulation **_dplyr: A grammar of data Manipulation_**. It is part of the `tidyverse` universe, a set of packages that has imposed itself in the art of data set manipulation and transformation. The package `dplyr` has many functions to fasten  data exploration and transformation. To learn more about `dplyr`, you can explore the vignette: `browseVignettes(package = "dplyr")`. You can also Visit the following [website](https://dplyr.tidyverse.org/) for more information on the `dplyr` package. Some important functions from this packages are covered in the following sections.
 
 
-# Summary
+# Summarize
 
-The function `summarise` is used to find insights (mean, median, mode, etc.) from a dataset. It reduces multiple values down to a single value. For example:
+The function `summarise` is used to find insights (mean, median, mode, etc.) from a data set. It reduces multiple values down to a single value. For example:
 
 ```{r,  eval=T}
 summarised <- summarise(iris, Mean.Width = mean(Sepal.Width))
 head(summarised)
 ```
 
-# Manipulation
+The original `iris` data set is a data frame of dimensions (`dim(iris)`) 150 observations by 5 vraiables. The function `summarise` summarise it into a data frame composed of 1 observation by 1 variable (the `mean(Sepal.width)`).
+
+# Manipulate
 
 ## `select`
 
-It is used to select data by column name. Several syntaxes are possible. For example:
+The function `select` is used to select data using the name of a column. Several syntaxes are possible. For example:
 
 ```{r class.source = "fold-show",  eval=T}
 # by column names
-selected <- dplyr::select(iris, Sepal.Length, Sepal.Width, Petal.Length)
-head(selected) 
+selected1 <- dplyr::select(iris, Sepal.Length, Sepal.Width, Petal.Length)
+head(selected1) 
 
 # by column range
-selected1 <- dplyr::select(iris, Sepal.Length:Petal.Length)
-head(selected1, 4)
+selected2 <- dplyr::select(iris, Sepal.Length:Petal.Length)
+head(selected2, 4)
 
 # by column range number
-selected2 <- dplyr::select(iris,c(2:5))
-head(selected2)
+selected3 <- dplyr::select(iris,c(2:5))
+head(selected3)
 ```
 
 Use `-` to hide a particular column
 
 ```{r,  eval=F}
-selected <- select(iris, -Sepal.Length, -Sepal.Width)
+selected4 <- dplyr::select(iris, -Sepal.Length, -Sepal.Width)
 ```
+
+Note the use of the notation `::`. The use of `::` is to call a function from a specific package without necessarily loading the package. The main advantage is to avoid possible conflicts among functions. Indeed, it may happen that different packages will use the same name for different functions. `dplyr::select` specifies we want to use the function `select` from the `dplyr` package.
+
 
 ## `filter`
 
-It is used to filter rows with matching criteria. It works in teh same way than the function `select` (i.e., we pass a data frame along with a condition separated by a comma).
+The function `filter` is used to filter rows with matching criteria. The idea is the same as  previously seen (see [Manipulation](./manipulation.html)). It works in the same way than the function `select` (i.e., we pass a data frame along with a condition separated by a comma). 
 
 - Single condition:
 
 ```{r,  eval=T}
 # Select setosa species
-filtered <- filter(iris, Species == "setosa" )
-head(filtered,3)
+filtered1 <- filter(iris, Species == "setosa" )
+head(filtered1,3)
 ```
 
 - Dual conditions:
 
 ```{r,  eval=T}
 # Select versicolor species with Sepal width more than 3
-filtered1 <- filter(iris, Species == "versicolor", Sepal.Width > 3)
-tail(filtered1)
+filtered2 <- filter(iris, Species == "versicolor", Sepal.Width > 3)
+tail(filtered2)
 ```
-
 
 ## `mutate`
 
-It creates new columns (variables) and preserves the existing columns in a data set. For example:
+The function `mutate` is to create new columns (variables) while preserving existing columns in a data set. For example:
 
 ```{r,  eval=T}
-#To create a column “Greater.Half” which stores TRUE if given condition is TRUE
+#To create a column “Greater.Half” which stores a logical vector
 mutated1 <- mutate(iris, Greater.Half = Sepal.Width > 0.5 * Sepal.Length)
 tail(mutated1)
 ```
 
-To check how many flower satisfy this condition, the output of the function `table{base}` is a contingency table with the no. of individual (`FALSE` and `TRUE`):
+To check how many flowers fall in this condition, the function `table` from the `base` package produces a contingency table with the no. of individual where the condition is `TRUE` and `FALSE`:
 
 ```{r,  eval=T}
 table(mutated1$Greater.Half)
@@ -97,21 +103,21 @@ table(mutated1$Greater.Half)
 
 ## `arrange`
 
-It is used to sort rows by variables in both an ascending and descending order. For example:
+The function `arrange` is used to sort rows by variables in both an ascending (default) or descending order. For example:
 
 ```{r,  eval=T}
 # Sepal Width by ascending order
-arranged <- arrange(iris, Sepal.Width)
-head(arranged)
+arranged1 <- arrange(iris, Sepal.Width)
+head(arranged1)
 
 # Sepal Width by descending order
-arranged1 <- arrange(iris, desc(Sepal.Width))
-head(arranged1)
+arranged2 <- arrange(iris, desc(Sepal.Width))
+head(arranged2)
 ```
 
 ## `group_by`
 
-It is done to group observations within a dataset by one or more variables. Data operations are often performed on groups defined by variables. For example when combined:
+The function `group_by` groups observations within a data set by one or more variables. Data operations are often performed on groups defined by variables. `ungroup` removes grouping. For example, to `summarise`  a data set `group_by` by `Species` :
 
 ```{r,  eval=T}
 # Mean sepal width by Species
@@ -120,7 +126,7 @@ gp.mean <- summarise(gp,Mean.Sepal = mean(Sepal.Width))
 gp.mean
 ```
 
-Visit the follwoing [website](https://dplyr.tidyverse.org/) for more information on the `dplyr` package
+Which produces a `tibble` (a data frame with stricter checking and better formatting), see `?tibble::tibble` providing mean of `Mean.Sepal` width for the three flower `Species`.
 
 # Pipe operator
 
