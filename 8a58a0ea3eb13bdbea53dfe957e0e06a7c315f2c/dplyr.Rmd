@@ -130,7 +130,8 @@ Which produces a `tibble` (a data frame with stricter checking and better format
 
 # Pipe operator
 
-The pipe operator `%>%` allows to wrap multiple functions together. It can be used with functions like `filter`, `select`, `arrange`, `summarise`, `group_by`, etc. As for  an example:
+
+The use of the previous functions as seen above is simple and straightforward. However, the use of this synthax will quickly show its limits as operations get more complicated. The use of the pipe operator `%>%` allows to wrap multiple functions together. It can be used with functions like `filter`, `select`, `arrange`, `summarise`, `group_by`, etc. As for  an example:
 
 ```{r,  eval=T}
 #To select the rows with conditions
@@ -143,3 +144,4 @@ To find mean `Sepal`Length by `Species`, we use teh pipe operator as following:
 iris  %>% group_by(Species) %>% summarise(Mean.Length = mean(Sepal.Length))
 ```
 
+The use of the pipe operator `%>%` has now imposed itself for manipulating and transforming data in R. R language is not fixed and as it evolves this synthax has became very common. It is now a common part in most script you will discover while using R.

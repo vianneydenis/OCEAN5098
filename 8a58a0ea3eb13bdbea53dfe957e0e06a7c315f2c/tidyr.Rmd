@@ -24,9 +24,9 @@ xfun::embed_file('Data/tw_corals.txt')
 xfun::embed_file('Data/metoo.txt')
 ```
 
-# Overview
+# `tidyr`
 
-Data tables come in different sizes and shape; they can be a very simple two column dataset or they can consist of many columns and “sub-columns”. Understanding its structure, and learning how to reshape it into a workable form is critical to an effective and error free analysis.The goal of `tidyr` is to help you create **tidy data**. Tidy data is data where:
+Data tables come in different sizes and shape; they can be a very simple two column data set or they can consist of many columns and “sub-columns”. Understanding its structure, and learning how to reshape it into a workable format is critical to an effective and error free analysis.The goal of `tidyr` is to help you create **tidy data**. Tidy data is data where:
 
 1. Every column is a variable 
 
@@ -34,19 +34,9 @@ Data tables come in different sizes and shape; they can be a very simple two col
 
 3. Every cell is a single values.
 
-Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](https://www.tidyverse.org/). If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. A **Cheatsheet** is available [here](https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf)
-
-Learn more about tidy data: `vignette("tidy-data")`
-
-
-# Getting started
-
-```{r class.source = "fold-show",  eval=T}
-library (tidyr)
-```
+Tidy data describes a standard way of storing data that is used wherever possible throughout the [tidyverse](https://www.tidyverse.org/). If you ensure that your data is tidy, you’ll spend less time fighting with the tools and more time working on your analysis. A **Cheatsheet** is available [here](https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf). 
 
 `tidyr` functions fall into five main categories:
-
 
 - **Pivotting** which converts between long and wide forms. tidyr 1.0.0 introduces `pivot_longer()` and `pivot_wider()`, replacing the older `spread()` and `gather()` functions. See `vignette("pivot")` for more details.
 
@@ -62,15 +52,12 @@ library (tidyr)
 Those functions find their use in fastening  data exploration and transformation.
 `tidyr` is the package by excellence to reorganize the structure of a table. 
 
-# `tidyr` at work
 
-Visit [tidyverse](https://www.tidyverse.org/) and `vignette("tidy-data")` for more examples on reshaping data set.  
+```{r class.source = "fold-show",  eval=T}
+library (tidyr)
+```
 
-
-## Pivot data
-
-*As a package evolves, some function may turn **depreciated**. The function may still work but it would be recommended to shift for the new function performing the task. The package `tidyr` is a good example of this evolution. The function `gather` is depreciated (I am getting older and I keep using old function), and it is now recommended to switch to `pivot_longer()` still under active development. Thus `df %>% gather("key", "value", x, y, z)`is now equivalent to `df %>% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`.
-
+# Pivotting
 
 Dai & Horng (2009) summarize the coral diversity around Taiwan. `TW_corals` displays scleractinian coral richness by coral reef regions:
 
@@ -95,12 +82,9 @@ TW_corals_wide <- pivot_wider(TW_corals_long, names_from = Region, values_from =
 TW_corals_wide
 ```
 
-<span style="color: red">**Note**: The pipe operator `%>%` is optional, but it is generally more elegant and you will discover its importance later when your coding skills are maturing.</span>
+<span style="color: red">**Note**: The pipe operator `%>%` is optional, but it is generally more elegant and you will discover its importance  when your coding skills are maturing and data sets become more complex as following.</span>
 
-
-### Advanced pivot options
-
-Here’s a subset of median income by gender and by work experience for 2017 in four states in US and Taiwan (real data).
+Here’s a subset of median income by gender and by work experience for 2017 in four states in US compared with Taiwan (real data).
 
 ```{r,  eval=T}
 income<-read.table('Data/metoo.txt',header=T, sep="\t", dec=".", na.strings = "n/a")
@@ -128,11 +112,15 @@ income_long %>% pivot_wider(names_from = c(gender,work),
             names_sep = ".")
 ```
 
-## Splitting elements
+
+*As a package evolves, some functions may turn **depreciated**. The function may still work but it would be recommended to shift for the new function performing the task. The package `tidyr` is a good example of this evolution. The function `gather` is depreciated but still exists (I am getting older and I keep using old function). It is now recommended to switch to `pivot_longer()` still under active development. Thus `df %>% gather("key", "value", x, y, z)`is now equivalent to `df %>% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")`.
+
+
+# Splitting
 
 The `tidyr` package offers other functions not directly tied to pivoting. 
 
-### Splitting columns
+## columns
 
 For example, if you want to split a column into two or more columns based on a column’s delimited value, you can use the `separate` function. 
 
@@ -157,7 +145,7 @@ income_sep <- income_long_var %>%  separate(col = var1,
 income_sep
 ```
 
-### Splitting rows 
+## rows 
 
 Split `var1` into two rows
 
@@ -165,11 +153,11 @@ Split `var1` into two rows
 income_long_var %>% separate_rows(var1, sep = "_")
 ```
 
-From the `tidyr`, check `uncount()` replicate rows by count, `unite()` combining elements from many columns into a single column, etc.  You have many  documentation existing online online on the use of this package. It is a very convenient pcakage when you have to repeat a formatting task on a large data set.
+Within the packge `tidyr`, check `uncount` replicating rows by count, `unite` combining elements from many columns into a single column, etc.  You have many  documentation existing online online on the use of this package. It is a very convenient package when you have to repeat a formatting task on a large data set. You can also learn more about tidy data using: `vignette("tidy-data")` and visit [tidyverse](https://www.tidyverse.org/) for more examples on reshaping data set.  
 
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice 1:** The data set `rairuoho` is available at the following [link](https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt). It provides 8 days length data of Easter grass exposed to different treatments.
+**`r knitr::asis_output("\U26A0")` Practice 2.2** The data set `rairuoho` is available at the following [link](https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt). It provides 8 days length data of Easter grass exposed to different treatments.
 The 6 variables **`day3`** to **`day8`** are mean length of the grass at the given day. **`germinate`** is the no. of germinated seeds.**`bed`** is a factor with four levels (`mould1`,`mould2`, `paper4`, `paper8`) indicating where the grass was growing and thickness. **`treatement`** has two levels `water` and `nutrient` indicating watering scheme (pure water or enriched with nutrients). **`spatial1`** and **`spatial2`** are the vertical and horizontal position of the plot, respectively. The variable `row` and `column` are meaningless should be removed.
 </p>
 
