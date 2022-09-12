@@ -22,7 +22,7 @@ xfun::embed_file('dplyr.R')
 library (dplyr)
 ```
 
-As indicated in the description of the package (`?dplyr`) `dplyr` is all about data manipulation **_dplyr: A grammar of data Manipulation_**. It is part of the `tidyverse` universe, a set of packages that has imposed itself in the art of data set manipulation and transformation. The package `dplyr` has many functions to fasten  data exploration and transformation. To learn more about `dplyr`, you can explore the vignette: `browseVignettes(package = "dplyr")`. You can also Visit the following [website](https://dplyr.tidyverse.org/) for more information on the `dplyr` package. Some important functions from this packages are covered in the following sections.
+As indicated in the description of the package (`?dplyr`), `dplyr` is all about data manipulation **_"dplyr: A grammar of data Manipulation"_**. It is part of the `tidyverse` universe, a set of packages that has imposed itself in the art of data set manipulation and transformation. The package `dplyr` has many functions to fasten  data exploration and transformation. To learn more about `dplyr`, you can explore the vignette: `browseVignettes(package = "dplyr")`. You can also Visit the following [website](https://dplyr.tidyverse.org/) for more information on the `dplyr` package. Some important functions from this packages are covered in the following sections.
 
 
 # Summarize
