@@ -349,7 +349,7 @@ Visit R markdown [webpage](https://rmarkdown.rstudio.com/) for an overview of it
 <span style="color: red">**BEGINNER**</span> In order to understand its multiple advantages, simply go to *File>New File>R Markdown* in RStudio. Give your document a title `test`. Select *HTML* Output. **Knit** the document create, and save it as `test` to visualize it.The options `r knitr::asis_output("\U2699")` should allow you to 'Preview in Window' or to 'Preview in viewer Panel'. Try to modify and play with it with the information available in the cheat sheets you downloaded.  
 
 
-<span style="color: red">**ADVANCED**</span> On the top of this **Introduction** page, you can download a *Introduction.Rmd*. By knitting it in RStudio, you should be able to **render** this *.Rmd* as html page similar to the present webpage. In order for it to work you would have to: (1) install **ALL** the packages used in this *.Rmd* (`knitr`, `xfun`, `abc`, `vegan`, `readxl`, `formatR`, etc.) (2) make sure to have in your working directory a file called **Data** where you will have download `reef_fish.xlsx` and generate `reef_fish.txt` (tip: see practice 1.2). 
+<span style="color: red">**ADVANCED**</span> On the top of this **Environment** page, you can download a *environment.Rmd*. By knitting it in RStudio, you should be able to **render** this *.Rmd* as html page similar to the present webpage. In order for it to work you would have to: (1) install **ALL** the packages used in this *.Rmd* (`knitr`, `xfun`, `abc`, `vegan`, `readxl`, `formatR`, etc.) (2) make sure to have in your working directory a file called **Data** where you will have download `reef_fish.xlsx` and generate `reef_fish.txt` (tip: see practice 1.2). 
 
 
 <span style="color: red">**EXPERT**</span> This [repository](https://github.com/vianneydenis/OCEAN5098.git) available on GitHub is the working directory of the OCEAN5098.Rproj file and it contains all of the .Rmd, .html and data files used to review this course. While you can can individually download and render the .Rmd files. It is better to **fork** this repository to your GitHub account, then clone a copy of this forked repository (from your own Github account to your computer).
@@ -383,6 +383,9 @@ Follow the instructions below or view this [video tutorial](https://www.youtube.
 
 
 **Note**: if you have OSX El Capitan you may experience some errors when running Git if you don’t have an updated XCODE.[Here](https://stackoverflow.com/questions/32893412/command-line-tools-not-working-os-x-el-capitan-sierra-high-sierra-mojave) is a description of the issue on StackOverflow and the solution is to open a Terminal window and type `xcode-select--install`.
+
+
+**Update  2022/9/13** 'Issue with pushing': check this fix [here](https://youtu.be/84kqxrE8kWM) that should help you to connect RStudio with GitHub using an SSH key.
 
 ### Linux 
 
