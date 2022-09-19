@@ -24,14 +24,14 @@ navbar:
       href: index.html
     - text: "Environment"
       href: environment.html
-#    - text: "Manipulation"
-#      menu:
-#        - text: "Basics"
-#          href: manipulation.html    
-#        - text: "dplyr"
-#          href: dplyr.html  
-#        - text: "tidyr"
-#          href: tidyr.html 
+    - text: "Manipulation"
+      menu:
+        - text: "Basics"
+          href: manipulation.html    
+        - text: "dplyr"
+          href: dplyr.html  
+        - text: "tidyr"
+          href: tidyr.html 
 #    - text: "Types & Structures"
 #      href: types.html
 #    - text: "Graphics"

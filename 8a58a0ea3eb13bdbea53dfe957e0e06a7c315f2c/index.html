@@ -783,6 +783,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1855,15 +1856,21 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2378,7 +2385,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
   <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
   <script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
   <link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -2489,6 +2496,18 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="nav-right">
 <a href="index.html">Home</a>
 <a href="environment.html">Environment</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Manipulation
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="manipulation.html">Basics</a>
+<a href="dplyr.html">dplyr</a>
+<a href="tidyr.html">tidyr</a>
+</div>
+</div>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2517,38 +2536,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul>
 </nav>
 </div>
-<p>Welcome to the website of <em>OCEAN 5098</em>. This course will help
-you to get familiar with R environment and some of its common
-functionalities for ecological studies. No prior knowledge in R or in
-any other programming languages is required to enroll the course.</p>
+<p>Welcome to the website of <em>OCEAN 5098</em>. This course will help you to get familiar with R environment and some of its common functionalities for ecological studies. No prior knowledge in R or in any other programming languages is required to enroll the course.</p>
 <h1 id="information">Information</h1>
 <p><strong>Credits</strong>: 3</p>
-<p><strong>Time</strong>: Tuesday 13:20- 16:20 (fall Semester - even
-year)</p>
-<p><strong>Location</strong>: Institute of Oceanography, 2nd floor, Room
-231</p>
-<p><strong>Instructors:</strong> Vianney DENIS [<a
-href="mailto:vianneydenis@g.ntu.edu.tw"
-class="email">vianneydenis@g.ntu.edu.tw</a>] - Functional Reef Ecology
-Laboratory, R406, 4F, Institute of Oceanography, National Taiwan
-University, Taiwan. Yu-Ting Vicky LIN [<a
-href="mailto:vickylinyuting@gmail.com"
-class="email">vickylinyuting@gmail.com</a>], Lauriane RIBAS-DEULOFEU [<a
-href="mailto:lauriane.ribas@gmail.com"
-class="email">lauriane.ribas@gmail.com</a>], Stéphane DE PALMAS [<a
-href="mailto:depalmasstephane@gmail.com"
-class="email">depalmasstephane@gmail.com</a>] and Rodrigo
-CARBALLO-BOLANOS [<a href="mailto:rodragoncar@gmail.com"
-class="email">rodragoncar@gmail.com</a>] will help me along the
-semester.</p>
+<p><strong>Time</strong>: Tuesday 13:20- 16:20 (fall Semester - even year)</p>
+<p><strong>Location</strong>: Institute of Oceanography, 2nd floor, Room 231</p>
+<p><strong>Instructors:</strong> Vianney DENIS [<a href="mailto:vianneydenis@g.ntu.edu.tw" class="email">vianneydenis@g.ntu.edu.tw</a>] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan. Yu-Ting Vicky LIN [<a href="mailto:vickylinyuting@gmail.com" class="email">vickylinyuting@gmail.com</a>], Lauriane RIBAS-DEULOFEU [<a href="mailto:lauriane.ribas@gmail.com" class="email">lauriane.ribas@gmail.com</a>], Stéphane DE PALMAS [<a href="mailto:depalmasstephane@gmail.com" class="email">depalmasstephane@gmail.com</a>] and Rodrigo CARBALLO-BOLANOS [<a href="mailto:rodragoncar@gmail.com" class="email">rodragoncar@gmail.com</a>] will help me along the semester.</p>
 <blockquote>
-<p>📝 The syllabus for this course is available on NTU Cool but can also
-be downloaded <a href=".\documents\OCEAN5098_syllabus.pdf">HERE</a>.
-Because of the recent pandemic, the format of this class has been
-evolving. This website is the latest update. Accordingly, information in
-the syllabus including the schedule, content and evaluation mode are
-susceptible to changes of regulations. Hopefully, this semester will see
-a return back to the normal.</p>
+<p>📝 The syllabus for this course is available on NTU Cool but can also be downloaded <a href=".\documents\OCEAN5098_syllabus.pdf">HERE</a>. Because of the recent pandemic, the format of this class has been evolving. This website is the latest update. Accordingly, information in the syllabus including the schedule, content and evaluation mode are susceptible to changes of regulations. Hopefully, this semester will see a return back to the normal.</p>
 </blockquote>
 <style>
 .html-widget {
@@ -2557,72 +2552,34 @@ a return back to the normal.</p>
 </style>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
-<div id="htmlwidget-3a7f55a391e0600e7735" style="width:624px;height:384px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3a7f55a391e0600e7735">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[25.021295,121.537338,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Institute of Oceanography",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[25.021295,25.021295],"lng":[121.537338,121.537338]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-373ecea1c9b7595b5441" style="width:624px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-373ecea1c9b7595b5441">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.Toner",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[25.021295,121.537338,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Institute of Oceanography",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[25.021295,25.021295],"lng":[121.537338,121.537338]}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1: Interactive map of IONTU’s location
 </p>
 </div>
 </div>
 <h1 id="description">Description</h1>
-<p>This course is mainly designed to introduce students with the use of
-R language. It will introduce R environment but also popular functions
-to sort, visualize and analyze data in ecology. Broad topics covered
-will include: introduction to R language and basic functions, data
-manipulation, graphics, maps, linear model, parametric and
-non-parametric analysis, multivariate analysis, etc.</p>
-<p><strong>Objectives</strong> The aim of this course is for the
-students to get familiar with R language. This course explores the
-multiple advantages of using R language for formatting reports,
-preparing presentation, exploring and analyzing ecological, data editing
-and sharing project. The course assumes that students have no prior
-knowledge in R or other programming languages. It will start from
-scratch, <strong>i.e.</strong> downloading R and installing it on your
-computer. Along the semester, you will be introduced to the use of <a
-href="https://www.rstudio.com/">RStudio/Posit GUI</a>, <a
-href="https://rmarkdown.rstudio.com/">Rmarkdown</a>, and <a
-href="https://github.com/">GitHub</a> repositories that complete
-harmoniously your R experience.</p>
+<p>This course is mainly designed to introduce students with the use of R language. It will introduce R environment but also popular functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis, multivariate analysis, etc.</p>
+<p><strong>Objectives</strong> The aim of this course is for the students to get familiar with R language. This course explores the multiple advantages of using R language for formatting reports, preparing presentation, exploring and analyzing ecological, data editing and sharing project. The course assumes that students have no prior knowledge in R or other programming languages. It will start from scratch, <strong>i.e.</strong> downloading R and installing it on your computer. Along the semester, you will be introduced to the use of <a href="https://www.rstudio.com/">RStudio/Posit GUI</a>, <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a>, and <a href="https://github.com/">GitHub</a> repositories that complete harmoniously your R experience.</p>
 <p>After taking this course, a student should:</p>
 <p>👉 be aware of the multiples advantages of using R;</p>
-<p>👉 not be afraid of using code to organize, visualize and analyze
-data;</p>
+<p>👉 not be afraid of using code to organize, visualize and analyze data;</p>
 <p>👉 become a self-learner, able to explore and solve problem;</p>
-<p>👉 know several statistical tools for the analysis of ecological data
-in particular;</p>
-<p>👉 be able to analyze and valorize scientifically any simple
-ecological data sets;</p>
+<p>👉 know several statistical tools for the analysis of ecological data in particular;</p>
+<p>👉 be able to analyze and valorize scientifically any simple ecological data sets;</p>
 <p>👉 be able to help and advices on the use of R.</p>
-<p><strong>Requirements</strong> Basic knowledge and interest in
-Biology/Ecology/Informatics. The course requires students to bring/use
-their own personal computer.</p>
-<p><strong>Disclaimer</strong> Format of this course is largely inspired
-by online documentation. Examples are often illustarted on well-known
-data set publicly available.</p>
+<p><strong>Requirements</strong> Basic knowledge and interest in Biology/Ecology/Informatics. The course requires students to bring/use their own personal computer.</p>
+<p><strong>Disclaimer</strong> Format of this course is largely inspired by online documentation. Examples are often illustarted on well-known data set publicly available.</p>
 <p><strong>Useful References</strong></p>
-<p>Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology
-with R. Springer. DOI: <a
-href="https://www.springer.com/gp/book/9783319714035">10.1007/978-3-319-71404-2</a></p>
-<p>Paradis, E. (2005) R for beginner. Available among many others
-documentation at <a href="https://cran.r-project.org/other-docs.html"
-class="uri">https://cran.r-project.org/other-docs.html</a> (page frozen
-and no longer actively maintained)</p>
-<p>Ramette, A. (2007) Multivariate analyses in microbial ecology. FEMS
-Microbiology Ecology, 62: 142-160. DOI: <a
-href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1574-6941.2007.00375.x">10.1111/j.1574-6941.2007.00375.x</a></p>
-<p>Xie, Y., Allaire, J.J.,Grolemund, G. (2020) R Markdown: The
-Definitive Guide. Chapman &amp; Hall/CRC. The online version of this
-book is free to read <a
-href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
-<p>Zuur, A. F., Ieno E. N., Smith, G. M. (2007) Analysing Ecological
-Data. Springer. DOI: <a
-href="https://www.springer.com/gp/book/9780387459677">10.1007/978-0-387-45972-1</a></p>
-<p>Zuur, A. F. (2010) A protocol for data exploration to avoid common
-statistical problems. Methods in Ecology and Evolution, 1: 3-14. DOI: <a
-href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x">10.1111/j.2041-210X.2009.00001.x</a></p>
+<p>Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology with R. Springer. DOI: <a href="https://www.springer.com/gp/book/9783319714035">10.1007/978-3-319-71404-2</a></p>
+<p>Paradis, E. (2005) R for beginner. Available among many others documentation at <a href="https://cran.r-project.org/other-docs.html" class="uri">https://cran.r-project.org/other-docs.html</a> (page frozen and no longer actively maintained)</p>
+<p>Ramette, A. (2007) Multivariate analyses in microbial ecology. FEMS Microbiology Ecology, 62: 142-160. DOI: <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1574-6941.2007.00375.x">10.1111/j.1574-6941.2007.00375.x</a></p>
+<p>Xie, Y., Allaire, J.J.,Grolemund, G. (2020) R Markdown: The Definitive Guide. Chapman &amp; Hall/CRC. The online version of this book is free to read <a href="https://bookdown.org/yihui/rmarkdown/">here</a>.</p>
+<p>Zuur, A. F., Ieno E. N., Smith, G. M. (2007) Analysing Ecological Data. Springer. DOI: <a href="https://www.springer.com/gp/book/9780387459677">10.1007/978-0-387-45972-1</a></p>
+<p>Zuur, A. F. (2010) A protocol for data exploration to avoid common statistical problems. Methods in Ecology and Evolution, 1: 3-14. DOI: <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x">10.1111/j.2041-210X.2009.00001.x</a></p>
 <h1 id="schedule">Schedule</h1>
-<p>Schedule is susceptible to changes according to progress along the
-semester</p>
+<p>Schedule is susceptible to changes according to progress along the semester</p>
 <table>
 <colgroup>
 <col style="width: 6%" />
@@ -2694,52 +2651,23 @@ semester</p>
 </tr>
 </tbody>
 </table>
-<p>This class aims to learn while exploring. I am a marine ecologist and
-not an informatician or biostatistician. Therefore, we will avoid
-technical jargon as much as possible while trying to find some fun in
-what we learn and in the use of R. Basically, the ultimate aim of this
-class is to teach you how to look for relevant information. Don’t hope
-to know everything possible in R, but aim to be able to master anything
-in R ;)</p>
+<p>This class aims to learn while exploring. I am a marine ecologist and not an informatician or biostatistician. Therefore, we will avoid technical jargon as much as possible while trying to find some fun in what we learn and in the use of R. Basically, the ultimate aim of this class is to teach you how to look for relevant information. Don’t hope to know everything possible in R, but aim to be able to master anything in R ;)</p>
 <h1 id="evaluation">Evaluation</h1>
-<p>All information is pending. Updates will be directly posted here or
-will be mentioned in class.</p>
-<p><strong>(1)</strong> Along the semester, you will be assigned with a
-couple of more or less simple exercise to practice what was learn in
-class. There is no secret, practice will make you better and I need to
-make sure you are not lost. Across the lectures, you will find two types
-of <strong>practical sessions</strong>:</p>
+<p>All information is pending. Updates will be directly posted here or will be mentioned in class.</p>
+<p><strong>(1)</strong> Along the semester, you will be assigned with a couple of more or less simple exercise to practice what was learn in class. There is no secret, practice will make you better and I need to make sure you are not lost. Across the lectures, you will find two types of <strong>practical sessions</strong>:</p>
 <ul>
 <li>The 1st type is highlighted in green</li>
 </ul>
 <p class="comment">
-<strong>Practice A</strong> this is a practical session that you should
-try on your own. You do not have to send me, but you have to make sure
-you can do it on your own. If you can’t make it, it means you are behind
-and it is very important for you to catch back as soon as possible.
+<strong>Practice A</strong> this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can’t make it, it means you are behind and it is very important for you to catch back as soon as possible.
 </p>
 <ul>
 <li>The 2nd type is highlighted in red</li>
 </ul>
 <p class="alert">
-<strong>⚠ Practice B</strong> this is a practical session that I
-expected you to send me the solution on the Monday before the next
-class. Read carefully the instructions and send me teh solution by email
-at [<a href="mailto:vianneydenis@g.ntu.edu.tw"
-class="email">vianneydenis@g.ntu.edu.tw</a>]. To make sure I received
-your email, you will use <strong>Practice B (your name: your student
-no.)</strong> as a title for this email. I only accept <em>.Rmd</em> and
-<em>.html</em> formats or a link toward a repository where I can find
-those files. Therefore, make sure to understand rapidly how to generate
-those formats using R (see <a
-href="./environment.html">Environment</a>).
+<strong>⚠ Practice B</strong> this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me teh solution by email at [<a href="mailto:vianneydenis@g.ntu.edu.tw" class="email">vianneydenis@g.ntu.edu.tw</a>]. To make sure I received your email, you will use <strong>Practice B (your name: your student no.)</strong> as a title for this email. I only accept <em>.Rmd</em> and <em>.html</em> formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see <a href="./environment.html">Environment</a>).
 </p>
-<p><strong>(2)</strong> At the beginning of the class, one student may
-be randomly pick up in order to summarize his homework (<em>.Rmd</em>
-and/or <em>.html</em>) or knowledge he got form previous class (5-10
-minutes). The following R chunk code will make the decision, and you may
-be picked several time in the semester (lucky) or never (unlucky).
-Conclusion: <em>Always be ready</em>.</p>
+<p><strong>(2)</strong> At the beginning of the class, one student may be randomly pick up in order to summarize his homework (<em>.Rmd</em> and/or <em>.html</em>) or knowledge he got form previous class (5-10 minutes). The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: <em>Always be ready</em>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
@@ -2747,25 +2675,12 @@ Conclusion: <em>Always be ready</em>.</p>
 <span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='va'>list_student</span>, <span class='fl'>1</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>Note that this selection will not be random if the homework is not
-sent.</p>
-<p><strong>(3)</strong> DATATHON (<strong>NEW</strong>) as final
-assignement. Students will be provided with a data set to analyze (type
-‘Scientific Data’: <a href="https://www.nature.com/sdata/"
-class="uri">https://www.nature.com/sdata/</a>). Groups (2-3 students)
-will identify relevant research questions based on this data set and
-will prepare a short scientific report (max. 20 pages + references)
-while emphasizing methodology and results (scientific format).
-Introduction and discussion/conclusion could be presented as bullet
-points. Report should be sent as a <em>.Rmd</em> <strong>AND</strong>
-<em>.html</em> or share through a GitHub repository.</p>
+<p>Note that this selection will not be random if the homework is not sent.</p>
+<p><strong>(3)</strong> DATATHON (<strong>NEW</strong>) as final assignement. Students will be provided with a data set to analyze (type ‘Scientific Data’: <a href="https://www.nature.com/sdata/" class="uri">https://www.nature.com/sdata/</a>). Groups (2-3 students) will identify relevant research questions based on this data set and will prepare a short scientific report (max. 20 pages + references) while emphasizing methodology and results (scientific format). Introduction and discussion/conclusion could be presented as bullet points. Report should be sent as a <em>.Rmd</em> <strong>AND</strong> <em>.html</em> or share through a GitHub repository.</p>
 <p style="color:red">
-Final score is typically composed of participation/assiduity in class
-(<strong>10%</strong>), homework/review (<strong>20%</strong>), final
-group report (<strong>70%</strong>)
+Final score is typically composed of participation/assiduity in class (<strong>10%</strong>), homework/review (<strong>20%</strong>), final group report (<strong>70%</strong>)
 </p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
