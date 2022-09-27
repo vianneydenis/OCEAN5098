@@ -34,7 +34,7 @@ summarised <- summarise(iris, Mean.Width = mean(Sepal.Width))
 head(summarised)
 ```
 
-The original `iris` data set is a data frame of dimensions (`dim(iris)`) 150 observations by 5 vraiables. The function `summarise` summarise it into a data frame composed of 1 observation by 1 variable (the `mean(Sepal.width)`).
+The original `iris` data set is a data frame of dimensions (`dim(iris)`) 150 observations by 5 variables. The function `summarise` summarise it into a data frame composed of 1 observation by 1 variable (the `mean(Sepal.width)`).
 
 # Manipulate
 
@@ -138,7 +138,7 @@ The use of the previous functions as seen above is simple and straightforward. H
 iris %>% filter(Species == "setosa",Sepal.Width > 3.8)
 ```
 
-To find mean `Sepal`Length by `Species`, we use teh pipe operator as following:
+To find mean `Sepal`Length by `Species`, we use the pipe operator as following:
 
 ```{r,  eval=T}
 iris  %>% group_by(Species) %>% summarise(Mean.Length = mean(Sepal.Length))

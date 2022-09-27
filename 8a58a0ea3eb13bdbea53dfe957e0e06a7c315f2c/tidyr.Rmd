@@ -38,7 +38,7 @@ Tidy data describes a standard way of storing data that is used wherever possibl
 
 `tidyr` functions fall into five main categories:
 
-- **Pivotting** which converts between long and wide forms. tidyr 1.0.0 introduces `pivot_longer()` and `pivot_wider()`, replacing the older `spread()` and `gather()` functions. See `vignette("pivot")` for more details.
+- **Pivoting** which converts between long and wide forms. tidyr 1.0.0 introduces `pivot_longer()` and `pivot_wider()`, replacing the older `spread()` and `gather()` functions. See `vignette("pivot")` for more details.
 
 - **Rectangling**, which turns deeply nested lists (as from JSON [JavaScript Object Notation]) into tidy tibbles. See `unnest_longer()`, `unnest_wider()`, `hoist()`, and `vignette("rectangle")` for more details.
 
@@ -57,7 +57,7 @@ Those functions find their use in fastening  data exploration and transformation
 library (tidyr)
 ```
 
-# Pivotting
+# Pivoting
 
 Dai & Horng (2009) summarize the coral diversity around Taiwan. `TW_corals` displays scleractinian coral richness by coral reef regions:
 
