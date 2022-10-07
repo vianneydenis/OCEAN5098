@@ -37,7 +37,7 @@ plot(iris$Petal.Length) # index observation for Petal.Length
 plot(iris$Petal.Width) # index observation for Petal.Width
 ```
 
-- Scatter plots
+- Scatterplot
 
 ```{r,  eval=T}
 plot(Petal.Length ~ Petal.Width, data = iris) # pairwise
@@ -527,7 +527,7 @@ dev.off()
 #As title, call me and show me your pdf
 ```
 
-# Package `lattice` 
+# `lattice` 
 
 The `lattice` package is an implementation of the **Trellis** display (or multi-panel display) used to visualize multivariate data or, more specifically, to visualize the dependencies and interactions between multiple variables. 
 
@@ -635,7 +635,7 @@ trellis.par.get()
 It gives you an idea about how many parameters can be customized. Those defaults can be store in an object to further restore them. Many tutorials are available online on the `lattice` package in order to customize your plots as you need. However, the `lattice` package is not always easy to use, and inspire the main author of another package `ggplot` that now becomes the "reference" in matter of graphics in R.
 
 
-# Package `ggplot` 
+# `ggplot` 
 
 *Tutorial from Manny Gimond (2020)*
 

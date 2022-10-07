@@ -2478,6 +2478,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div class="nav-right">
 <a href="index.html">Home</a>
 <a href="environment.html">Environment</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Manipulation
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="manipulation.html">Basics</a>
+<a href="dplyr.html">dplyr</a>
+<a href="tidyr.html">tidyr</a>
+</div>
+</div>
+<a href="types.html">Types &amp; Structures</a>
+<a href="graphics.html">Graphics</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -3371,8 +3385,8 @@ accomplished by simply book-ending the plotting routines between the
 <span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>RStudioGD 
-        2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 </div>
 <p>To save the same plot to a pdf file format, simply substitute
 <code>tiff</code> with <code>pdf</code> and adjust the relevant
@@ -3393,8 +3407,8 @@ parameters:</p>
 <span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code>RStudioGD 
-        2 </code></pre>
+<pre><code>png 
+  2 </code></pre>
 </div>
 <p class="comment">
 <strong>Practice 2:</strong> Export your previous <code>rairuoho</code>
@@ -4363,7 +4377,7 @@ income group. We can use the <code>cut</code> function to accomplish
 this task (we’ll also omit all values greater than 100,000):</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat2c</span><span class='op'>$</span><span class='va'>incrng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/raster/man/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>dat2c</span><span class='op'>$</span><span class='cn'>F</span> , breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>25000</span>, <span class='fl'>50000</span>, <span class='fl'>75000</span>, <span class='fl'>100000</span><span class='op'>)</span> <span class='op'>)</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat2c</span><span class='op'>$</span><span class='va'>incrng</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span><span class='op'>(</span><span class='va'>dat2c</span><span class='op'>$</span><span class='cn'>F</span> , breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>25000</span>, <span class='fl'>50000</span>, <span class='fl'>75000</span>, <span class='fl'>100000</span><span class='op'>)</span> <span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <p>In this chunk of code, we create a new variable, <code>incrng</code>,
