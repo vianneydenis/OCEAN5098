@@ -22,6 +22,7 @@ xfun::embed_file('Data/FAO_grains_NA.csv')
 xfun::embed_file('Data/Income_education.csv')
 ```
 
+
 # `base` plot
 
 ## Point and line plots
@@ -45,13 +46,13 @@ plot(Petal.Length ~ Petal.Width, data = iris) # pairwise
 
 ### Customization
 
-The latest takes two arguments: Petal.Length ~ Petal.Width which is to be read as plotting the variable `Petal.Length` as a function of `Petal.Width`. **Argument** `data` indicates the plot function from which data frame to extract the variables  Another way to call this command is to type:
+The latest takes two arguments: `Petal.Length` and `Petal.Width` which is to be read as plotting the variable `Petal.Length` as a function of `Petal.Width`. The **argument** `data` simply indicates the plot function from which data frame to extract the variables  Another way to call this command is to type:
 
 ```{r,  eval=F}
 plot(iris$Petal.Length ~ iris$Petal.Width) # using the $ operator
 ```
 
-The `plot` function can take on many other arguments to help customize the default plot options. For example, we may want to change the axis labels to something more descriptive than the simple variable name:
+Of course, the `plot` function can take on many other arguments to help customize the default plot options. For example, we may want to change the axis labels to something more descriptive than the simple variable name and give a title to our plot:
 
 ```{r,  eval=T}
 # add labels to x- and y-axes, title 
@@ -61,7 +62,7 @@ plot(Petal.Length ~ Petal.Width, data = iris,
      main = 'Petal width & length of iris flower') 
 ```
 
-We can change the symbole type using argument `pch` (**p**lotting **ch**aracter’, see `?pch` for options). `pch = 19` will produce a solid circle. The argument `cex` will control his size (character **exp**ansion). We can also set its **col**ors to be 90% transparent (10% opaque) using expression `col = rgb (0,0,0,0.10)`. The `rgb` function defines the intensity for each of the display primary colors (on a scale of 0 to 1). The primary colors are **red**, **green** and **blue**. The forth value is optional and provides the fraction opaqueness (or transparency) with a value of 1 being completely opaque. 
+We can change the symbol type using argument `pch` (**p**lotting **ch**aracter, see `?pch` for options). `pch = 19` will produce a solid circle. The argument `cex` will control his size (**c**haracter **ex**pansion). We can also set its **col**ors to be 90% transparent (10% opaque) using `col = rgb (0,0,0,0.10)`. The `rgb` function defines the intensity for each of the display primary colors (on a scale of 0 to 1). The primary colors are **red**, **green** and **blue**. The forth value is optional and provides the fraction opaqueness (or transparency) with 1 being completely opaque. 
 
 ```{r,  eval=T}
 plot(Petal.Length ~ Petal.Width, data = iris,
@@ -72,15 +73,19 @@ plot(Petal.Length ~ Petal.Width, data = iris,
      col = rgb (1,0,0,0.10))
 ```
 
-Now it is time to combine this with what we previously learned on conditional selection. How to add different colors for the three different species. Remember the `ifelse`?
+Now it is time to combine this with what we learned previously on conditional selection. How to add different colors for the three different species. Do you remember the `ifelse`?
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=T, results="hide"}
 # create a vector of character with color names
 col.iris<-ifelse(iris$Species=='setosa','purple',ifelse(iris$Species=='versicolor','blue','pink')) 
 col.iris
 ```
 
-We can insert this color vector in the argument `col` and controlling its opacity with the `alpha` function from the package `scales`. You can guess the argument `col` can accept a vector of character with just the name of color instead of a `rgb` code.
+
+
+We can simply insert this color vector in the `col` argument. In this case, the opacity can be control with the `alpha` function from the package `scales`. Form this example, you can guess the argument `col` can accept a vector of **character** with just the **name of color** instead of a `rgb` code. Conveniently, you just need to call the color you want.
 
 ```{r,  eval=T}
 plot(Petal.Length ~ Petal.Width, data = iris,
@@ -91,9 +96,11 @@ plot(Petal.Length ~ Petal.Width, data = iris,
      col = scales::alpha(col.iris, 0.2))
 ```
  
-We now must add a legend to our plot. Observe the conversion of the color list into a factor, and the extraction of levels in the `col` argument.
+Now, a legend must be added  to the plot. Check below the conversion of the color into a factor, and the extraction of its levels in the `col` argument of the `legend`.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
@@ -101,13 +108,27 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, cex=2, 
      col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
     
 ```
 
-The argument `las=1` will rotate y-axis labels. This is often a requirement for publication quality plots. 
 
-```{r,  eval=T}
+```{r,  eval=T, echo = F}
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     pch = 19, cex=2, 
+     col = scales::alpha(col.iris, 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+```
+
+The argument `las=1` will rotate y-axis labels. This is often a requirement for publication of quality plots. 
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
@@ -115,12 +136,26 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, cex=2, las=1,
      col = scales::alpha((col.iris), 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 ```
+
+```{r,  eval=T, echo=F}
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     pch = 19, cex=2, las=1,
+     col = scales::alpha((col.iris), 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+```
+
 
 The size of the main title, axis, labels is also control with `cex` arguments 
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
      ylab = 'Petal length (cm)', 
@@ -129,13 +164,30 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, cex=2, las=1,
      col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 ```
 
-The size of the points can be set as a proportion of a given continuous variable
 
-```{r,  eval=T}
+
+```{r,  eval=T, echo=F}
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
+     pch = 19, cex=2, las=1,
+     col = scales::alpha(col.iris, 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+
+```
+
+Finally the size of the points can be set as a proportion of a given continuous variable
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 ratio<-iris$Petal.Length/iris$Sepal.Width  # ratio between the length of petal and the width of Sepal
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
@@ -145,17 +197,34 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, las=1, cex= ratio * 2, 
      col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 ```
 
-It looks like the variable`Sepal.Width` is poorly informative in discriminating the three species.
+```{r,  eval=T, echo=T}
+ratio<-iris$Petal.Length/iris$Sepal.Width  # ratio between the length of petal and the width of Sepal
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
+     pch = 19, las=1, cex= ratio * 2, 
+     col = scales::alpha(col.iris, 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+```
 
 
-The function `pairs` allows a quick examination of the relationship among variables of interest: a scatterplot matrix. 
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./images/iris.png') # a picture illustrating difference among flowers
+```
+
+It looks like the variable `Sepal.Width` is poorly informative in discriminating the three species.
 
 ### Types
 
 #### Panel plot
+
+The function `pairs` allows a quick examination of the relationship among variables : that's called a **scatterplot matrix**. 
 
 ```{r,  eval=T}
 pairs(iris[1:4], pch=19, col = scales::alpha(col.iris, 0.2))
@@ -163,12 +232,13 @@ pairs(iris[1:4], pch=19, col = scales::alpha(col.iris, 0.2))
 
 #### Line plot
 
-A conversion to a line plot is easily made by specifying the `type` of plot.
+A conversion to a **line** plot is easily made by specifying the `type` of plot.
+Let's consider a new data frame reporting the number of iris blossoming in a garden in Alaska and in a garden in Canada from 2010 to 2019
 
 ```{r,  eval=T}
 # generate a data frame with chronological variable
 blossom<-NULL
-blossom$year <- 2010:2019                                               # 
+blossom$year <- 2010:2019
 blossom$count.alaska <- c(3, 1, 5, 2, 3, 8, 4, 7, 6, 9)
 blossom$count.canada <- c(4, 6, 5, 7, 10, 8, 10, 11, 15, 17)
 as.data.frame(blossom)
@@ -202,7 +272,7 @@ lines(count.canada ~ year,dat = blossom, type='b', pch=20,
      lty=3, lwd=0.5, col='blue')
 ```
 
-The plot is a static object meaning that we need to define the axes limits before calling the original plot function. Both axes limits can be set using the `xlim` and `ylim` parameters. We don’t need to set the x-axis range since both variables cover the same year range. We will therefore only focus on the y-axis limits. We can grab both the minimum and maximum values for the variables `count.alaska` and `count.canada` using the `range` function, then pass the range to the `ylim` parameter in the call to plot.
+The plot is a static object meaning that we need to define the axes limits before calling the original plot function. Both axes limits can be set using the `xlim` and `ylim` parameters. We don’t need to set the x-axis range since both variables cover the same year range. We will therefore only focus on the y-axis limits. We can grab both the minimum and maximum values for the variables `count.alaska` and `count.canada` using the `range` function, then pass this range as the limits using the `ylim` argument within the plot function.
 
 ```{r,  eval=T}
 y.rng<-range(c(blossom$count.alaska, blossom$count.canada))
@@ -215,15 +285,16 @@ lines(count.canada ~ year,dat = blossom,
 ```
 
 
-Note: point plots from different variables can also be combined into a single plot using the `points` function instead of the `lines` function. Let's get back to our iris dataset and build our plot sequentially for two species.
+Note: point plots from different variables can also be combined into a single plot using the `points` function instead of the `lines` function. Let's get back to our iris dataset and build our plot sequentially for two species only.
 
+<div style="overflow: auto !important;>
 
-```{r,  eval=T}
+```{r,  eval=F}
 iris.ver<- subset(iris, Species == "versicolor")
 iris.vir<- subset(iris, Species == "virginica")
 
 y.rng <- range( c(iris.ver$Petal.Length, iris.vir$Petal.Length) , na.rm = TRUE) 
-x.rng <- range( c(iris.ver$Petal.Width, iris.vir$Petal.width) , na.rm = TRUE) 
+x.rng <- range( c(iris.ver$Petal.Width, iris.vir$Petal.Width) , na.rm = TRUE) 
 
 # Plot an empty plot
 
@@ -247,14 +318,44 @@ legend("topleft", c("versicolor", "virginica"), pch = 19, cex=1.2,
        col = c(rgb(0,0,1,0.10), scales::alpha('#fc03c6', 0.2)))
 ```
 
-Note 1: that `na.rm=T` is added in the `range` function to prevent `NA` value in the data from returning an `NA` value in the range.
 
-Note 2: You can define the color using the `rgb` function, or by color name such as `col = "red"` or `col = "bisque"`. For a full list of color names, type colors() at a command prompt. You can also the hexadecimal code of the color. Google "color picker". Color gradient can easily be created and personalized [here](https://www.webfx.com/web-design/color-picker/) and in many other websites.
+```{r,  eval=T, echo=F}
+iris.ver<- subset(iris, Species == "versicolor")
+iris.vir<- subset(iris, Species == "virginica")
+
+y.rng <- range( c(iris.ver$Petal.Length, iris.vir$Petal.Length) , na.rm = TRUE) 
+x.rng <- range( c(iris.ver$Petal.Width, iris.vir$Petal.Width) , na.rm = TRUE) 
+
+# Plot an empty plot
+
+plot(Petal.Length ~ Petal.Width, dat = iris.ver,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     cex.axis=1.0, cex.lab=1.5, cex.main=1.5, type='n',
+     xlim=x.rng,  ylim=y.rng)
+
+# Add points for versicolor
+points(Petal.Length ~ Petal.Width, dat = iris.ver, pch = 20,cex=2, 
+       col = rgb(0,0,1,0.10))
+       
+# Add points for versicolor
+points(Petal.Length ~ Petal.Width, dat = iris.vir, pch = 20,cex=2, 
+      col =  scales::alpha('#fc03c6', 0.2))
+
+# Add legend
+legend("topleft", c("versicolor", "virginica"), pch = 19, cex=1.2,
+       col = c(rgb(0,0,1,0.10), scales::alpha('#fc03c6', 0.2)))
+```
+
+*Note 1*: that `na.rm=T` is added in the `range` function to prevent `NA` value in the data from returning an `NA` in the range.
+
+*Note 2*: You can define the color using the `rgb` function, or by color name such as `col = "red"` or `col = "bisque"`. For a full list of color names, type colors() at a command prompt. You can also the hexadecimal code of the color. Google "color picker". Color gradient can easily be created and personalized [here](https://www.webfx.com/web-design/color-picker/) and in many other websites.
 
 
 #### Box plot
 
-A boxplot is one of many graphical tools used to summarize the distribution of a data batch: behind the simple visualization, it inform on the data themselves. The graphic consists of a “box” that depicts the range covered by 50% of the data (*aka* the interquartile range, IQR), a horizontal line that displays the median, and “whiskers” that depict 1.5 times the IQR or the largest (for the top half) or smallest (for the bottom half) values.
+A **boxplot** is one of many graphical tools used to summarize the distribution of a data batch: behind the simple visualization, it inform on the data themselves. The graphic consists of a “box” that depicts the range covered by 50% of the data (*aka* the interquartile range, IQR), a horizontal line that displays the median, and “whiskers” that depict 1.5 times the IQR or the largest (for the top half) or smallest (for the bottom half) values.
 
 For example, we can summarize the width of the sepal for all individuals in our iris dataset:
 
@@ -264,17 +365,30 @@ boxplot(iris$Sepal.Width, na.rm = TRUE)
 
 Several variables can be summarized on the same plot.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits")
+```
+
+```{r,  eval=T, echo=F}
 boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits")
 ```
 
 The `names` argument labels the x-axis and the `main` argument labels the plot title. The outliers can be removed from the plot, if desired, by setting the `outline` parameter to FALSE. The boxplot graph can also be plotted horizontally by setting the `horizontal` parameter to `TRUE`:
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits",outline = FALSE, horizontal = TRUE )
 ```
 
-Using a long version of a table (`pivot_longer`), the variable can be summarized by the levels of a factor, here the `Species` levels
+```{r,  eval=T, echo=F}
+boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits",outline = FALSE, horizontal = TRUE )
+```
+
+
+Using a long version of a table (`pivot_longer`), the variable can be summarized by the levels of a factor, here the `Species` levels.
 
 ```{r,  eval=T}
 boxplot(Sepal.Width ~ Species,iris) 
@@ -287,10 +401,11 @@ iris$Species.ord <- reorder(iris$Species,iris$Sepal.Width, median)
 levels(iris$Species.ord)
 boxplot(Sepal.Width ~ Species.ord, iris)
 ```       
+
         
 #### Histogram plot
 
-The histogram is another form of data distribution visualization. It consists of partitioning a batch of values into intervals of equal length then tallying their count in each interval. The height of each bar represents these counts. For example, we can plot the histogram of the width od sepal using the `hist` function as follows:
+The **histogram** is another form of data distribution visualization. It consists of partitioning a batch of values into intervals of equal length then tallying their count in each interval. The height of each bar represents these counts. For example, we can plot the histogram of the width of sepals using the `hist` function as follows:
         
 ```{r,  eval=T}
 hist(iris$Sepal.Width, xlab = "Width of Sepal", main = NA)
@@ -302,7 +417,7 @@ To control the number of bins add the `breaks` argument. The `breaks` argument c
 hist(iris$Sepal.Width, xlab = "Width of Sepal", main = NA, breaks=10)
 ```
 
-The documentation states that the breaks value “**is a suggestion only as the breakpoints will be set to `pretty` values**”. `pretty` refers to a function that rounds values to powers of 1, 2 or 5 times a power of 10.
+The documentation states that the breaks value “**is a suggestion only as the breakpoints will be set to `pretty` values**”. `pretty` actually refers to a function that rounds values to powers of 1, 2 or 5 times a power of 10.
 
 If you want total control of the bin numbers, manually create the breaks as follows:     
 
@@ -316,7 +431,7 @@ hist(iris$Sepal.Width, xlab = "Width of Sepal", main = NA, breaks = bins)
 
 #### Density plot
 
-Histograms have their pitfalls. For example, the number of bins can drastically affect the appearance of a distribution. One alternative is the density plot which, for a series of x-values, computes the density of observations at each x-value. This generates a “smoothed” distribution of values.
+Histograms have their pitfalls. For example, the number of bins can drastically affect the appearance of a distribution. One alternative is the **density plot** which, for a series of x-values, computes the density of observations at each x-value. This generates a “smoothed” distribution of values.
 
 Unlike the other plotting functions, `density` does not generate a plot but a list object instead. But the output of `density` can be wrapped with a `plot` function to generate the plot.
 
@@ -337,7 +452,7 @@ The bandwidth parameter adopts the variable’s units.
 
 #### QQ plot
 
-This is an important plot called by the function `qqnorm` to examine the normality of a variable. A `qqline` can be added to represent a “theoretical”, by default normal, quantile-quantile plot.  
+**QQplot* is an important plot called by the function `qqnorm` to examine the normality of a variable. A `qqline` can be added to represent a “theoretical”, by default normal, quantile-quantile plot.  
 
 ```{r,  eval=F}
 qqnorm(iris$Sepal.Width)
@@ -346,7 +461,7 @@ qqline(iris$Sepal.Width)
 
 
 <p class="comment">
-**Practice 1:** Using `rairuoho` dataset, examine the relationship between the length of the plant at `day3` and the length at `day7`: create a scatterplot. Examine if the length at `day7` is pretty normal (i.e. following a normal distribution, not just your feeling): you will use `hist`, a `density` plot and `qqnorm`. How does the`treatment` affect the length at day7: make a `boxplot`.Make a comparison of the length of the plant between each day using function `pairs`.
+**Practice 4.1** Using `rairuoho` dataset, look at the relationship between the length of the plant at `day3` and the length at `day7`: create a scatterplot. Examine if the length at `day7` is approaching a normal distribution. You will make a use of `hist`, `density` plot and `qqnorm`. How does the`treatment` affect the length at day7? Make a `boxplot` to visualize it. Compare the length of the Easter Grass among days using function `pairs` (scatterplot matrix). Conclude.
 </p>
 
 ```{r, code_folding = 'Show Solution',  eval=FALSE}
@@ -354,7 +469,7 @@ rairuoho<-read.table('Data/rairuoho.txt',header=T, sep="\t", dec=".")
 plot(day3 ~ day7,dat=rairuoho,
     xlab = 'Length at day 3', 
     ylab = 'Length at day 7', 
-    main = 'Realtionship between the length at day 3 and day 7')
+    main = 'Relationship between the length at day 3 and day 7')
 hist(rairuoho$day7)
 dens.rai <- density(rairuoho$day7, bw=6)
 plot(dens.rai, main = "Density distribution of the length at day 7")
@@ -475,6 +590,7 @@ abline (v=1)
 
 - Already mentioned: `line`, `points`, `legend`, etc.
 
+
 # Exporting
 
 You might need to export your plots as standalone image files for publications. R can export to many different **raster** image file formats such as jpg, png, gif and tiff, and several **vector** file formats such as PostScript, svg and PDF. You can specify the image resolution (in dpi), the image height and width, and the size of the margins.
@@ -520,11 +636,11 @@ dev.off()
 
 
 <p class="comment">
-**Practice 2:** Export your previous `rairuoho` scatterplot. Make it more informative by adding as many elements you think it needs and by customizing graphical options. Make the y-axis starting at **exactly** 0 and ending at 130. Save your plot as a `pdf`, ready for publication!
+**Practice 4.2** Export the previous `rairuoho` scatterplot. Tune it as much  informative as you think it needs while customizing graphical options. Make the y-axis starting at **exactly** 0 and ending at 130. Save your plot as a `pdf` as it should be prepared to submit a publication!
 </p>
 
 ```{r, code_folding = 'Show Me The Solution',  eval=FALSE}
-#As title, call me and show me your pdf
+# As title, call me and show me your pdf
 ```
 
 # `lattice` 
@@ -539,8 +655,14 @@ library(lattice)
 
 Let’s look at a simple example where the density distribution of `Petal.Length` is conditioned by Species.
 
-```{r,  eval=T}
-library(lattice)
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+densityplot(~ Petal.Length | Species, iris, plot.points = "", layout=c(1,3))
+```
+
+```{r,  eval=T, echo=F}
 densityplot(~ Petal.Length | Species, iris, plot.points = "", layout=c(1,3))
 ```
 
@@ -550,22 +672,44 @@ The first thing to note is that the x-scale axis range is the same for all five 
 
 The `lattice` packages also has a `histogram` function
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 histogram(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(1,3))
 ```
+
+```{r,  eval=T, echo=F}
+histogram(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(1,3))
+```
+
 
 Note the importance of having a table shaped in **long format**. The density plots are conditioned on **species** which requires that  species be treated as different values of a same variable (i.e. column `Species` in `iris`). The above plot could not be generated if the various **species**  were treated as separate variables (i.e. columns).
 
 You can also compare the distributions to a normal distribution using `qqmath` (i.e. a Q-Q plot):
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 qqmath(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(3,1))
 ```
 
-**Boxplots** are another popular way to view the distribution of values. In the following example, we create boxplots of Petal Length as a function of a dummy variable `variety` (`Petal.Length ~  variety`) created fro the purpose of this demo. We condition this comparison using species information (`|Species`) 
+```{r,  eval=T, echo=T}
+qqmath(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(3,1))
+```
 
-```{r,  eval=T}
-iris$variety<-rep(c(rep('pure',25), rep('hybrid',25)),3) # dummy variable
+
+**Boxplots** are another popular way to view the distribution of values. In the following example, we create boxplots of Petal Length as a function of a fake variable `variety` (`Petal.Length ~  variety`) created for the purpose of this demo. We condition this comparison using species information (`|Species`) 
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+iris$variety<-rep(c(rep('main',25), rep('hybrid',25)),3) # fake variable
+bwplot(Petal.Length ~  variety|Species, iris)
+```
+
+
+```{r,  eval=T, echo=F}
+iris$variety<-rep(c(rep('main',25), rep('hybrid',25)),3) # fake variable
 bwplot(Petal.Length ~  variety|Species, iris)
 ```
 
@@ -575,7 +719,16 @@ bwplot(Petal.Length ~  variety|Species, iris)
 
 The `lattice` package allows logically to plot several variables on a same plot. For example, we can plot `Sepal.Length + Sepal.Width` vs `Petal.Length + Petal.Width` for each `Species` on a same plot:
 
-```{r,  eval=T}
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
+       data = iris, scales = "free", layout = c(2, 2), type=c("p","g"),
+       auto.key = list(x = .6, y = .7, corner = c(0, 0)))
+```
+
+```{r,  eval=T, echo =F}
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
        data = iris, scales = "free", layout = c(2, 2), type=c("p","g"),
        auto.key = list(x = .6, y = .7, corner = c(0, 0)))
@@ -598,17 +751,36 @@ Option|Adds
 
 Let's check how `Petal.Length` is related to other variables in each species
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
        data = iris, scales = "free", layout = c(2, 2), type=c("p","r"),
        auto.key = list(x = .6, y = .7, corner = c(0, 0)))
 ```
 
+```{r,  eval=T, echo=F}
+xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
+       data = iris, scales = "free", layout = c(2, 2), type=c("p","r"),
+       auto.key = list(x = .6, y = .7, corner = c(0, 0)))
+```
+
+
+
 ### Line plots
 
-After `order` my data `iris` by `Petal.Length`!
+One more example for illustrating line plots using `lattice` and after `order` data `iris` by `Petal.Length`.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
+       data = iris[order(iris$Petal.Length),], scales = "free", layout = c(2, 2), 
+       type=c("l"), auto.key = list(x = .6, y = .7, corner = c(0, 0)))
+```
+
+
+```{r,  eval=T, echo=F }
 xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
        data = iris[order(iris$Petal.Length),], scales = "free", layout = c(2, 2), 
        type=c("l"), auto.key = list(x = .6, y = .7, corner = c(0, 0)))
@@ -618,11 +790,21 @@ The parameters `pch` and `cex` define the symbol shape and size. The parameter `
 
 We can take this a step further. We could condition the previous relationship by species and variety.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | variety+Species,
        data = iris[order(iris$Petal.Length),], scales = "free", layout = c(3, 2),
        type=c("l"), auto.key = T)
 ```
+
+```{r,  eval=T, echo = F}
+xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | variety+Species,
+       data = iris[order(iris$Petal.Length),], scales = "free", layout = c(3, 2),
+       type=c("l"), auto.key = T)
+```
+
+And so on (...)
 
 ## Customization
 
@@ -635,9 +817,10 @@ trellis.par.get()
 It gives you an idea about how many parameters can be customized. Those defaults can be store in an object to further restore them. Many tutorials are available online on the `lattice` package in order to customize your plots as you need. However, the `lattice` package is not always easy to use, and inspire the main author of another package `ggplot` that now becomes the "reference" in matter of graphics in R.
 
 
-# `ggplot` 
+# `ggplot2` 
 
-*Tutorial from Manny Gimond (2020)*
+This is a wide topic which could be the entire course on its own. With the raise of `tidyverse`, the package `ggplot2` has now imposed itself in the **art** of data visualization in R. Below is a very short introduction of this package, and full tutorial can be found online. Here is a recent tutorial from Manny Gimond (2020) is used to demonstrate the power of this package. You can review this section on your own as too many details will not be covered here.
+
 
 ## Basic grammar
 
@@ -665,6 +848,8 @@ Today, we will use the following data sets (examine objects created) :
 
 (1) `dat1`: [grain harvest for North-America] (http://www.fao.org/faostat/en/#data/QC) + several long and wide versions of this dataset. Examine objects created.  
 
+<div style="overflow: auto !important;>
+
 ```{r,  eval=T, message=F}
 library(tidyr)
 library(dplyr)
@@ -675,6 +860,8 @@ dat1l2 <- dat1 %>% filter(Information == "Yield (Hg/Ha)", Crop %in% c("Oats", "M
 ```
 
 (2) `dat2`: [income/education census data] (https://www.socialexplorer.com/data/ACS2016/metadata/?ds=ACS16&table=B20004) for the US and its long version (only for advance use later).  
+
+<div style="overflow: auto !important;>
 
 ```{r,  eval=T}
 library(stringr)
@@ -690,7 +877,7 @@ st.reg <- rbind(st.reg , data.frame(State="dc", Region="South"))
 # Start the piping operations
 dat2b <- dat2 %>%
   gather(key = "variable", value = "value", -1:-2)  %>%
-  left_join(Edu.Gend, by="variable" )              %>%
+  dplyr::left_join(Edu.Gend, by="variable" )              %>%
   dplyr::select(State, County, Level, Gender, value)       %>%
   mutate(Level = factor(Level, levels = c("All","NoHS","HS", "AD", "BD", "Grad"))) %>%
   left_join(st.reg , by="State")
@@ -761,15 +948,24 @@ Note the difference in how `color=` is implemented here. It’s no longer **mapp
 This generates point geometries. This is often used in generating scatterplots. For example, using `dat` dataste to plot  female income (variable `B20004013`) vs male income (variable `B20004007`):
 
 ```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) 
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
+  geom_point(alpha = 0.3) 
 ```
 
 As did earlier, we modify the point’s transparency by passing the `alpha=0.3` parameter to the `geom_point` function. Other parameters that can be passed to point geoms include `colour`, `pch` and `cex`.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
   geom_point(colour = "red", pch=3 , alpha = 0.3, cex=0.6)
 ```
+
+```{r,  eval=T, echo =F}
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
+  geom_point(colour = "red", pch=3 , alpha = 0.3, cex=0.6)
+```
+
 
 ### `geom_hex`
 
@@ -788,14 +984,16 @@ The `binwidth` argument defines the width and height of each bin in the variable
 In the following example, a boxplot of `Yield` is generated for each `Crop` type.
 
 ```{r,  eval=T}
-ggplot(dat1l, aes(x = Crop, y = Yield)) + geom_boxplot(fill = "bisque") 
+ggplot(dat1l, aes(x = Crop, y = Yield)) +
+  geom_boxplot(fill = "bisque") 
 ```
 
 If we want to generate a single boxplot (for example for all yields irrespective of crop type) we need to pass a dummy variable to `x=`:
 
 ```{r,  eval=T}
 ggplot(dat1l, aes(x = "", y = Yield)) + 
-  geom_boxplot(fill = "bisque") + xlab("All crops")
+  geom_boxplot(fill = "bisque") +
+  xlab("All crops")
 ```
 
 ### `geom_violin`
@@ -803,7 +1001,8 @@ ggplot(dat1l, aes(x = "", y = Yield)) +
 A violin plot is a symmetrical version of a density plot which provides even greater detail of a sample’s distribution than a boxplot.
 
 ```{r,  eval=T}
-ggplot(dat1l, aes(x = "", y = Yield)) + geom_violin(fill = "bisque") 
+ggplot(dat1l, aes(x = "", y = Yield)) +
+  geom_violin(fill = "bisque") 
 ```
 
 ### `geom_histogram`
@@ -811,7 +1010,8 @@ ggplot(dat1l, aes(x = "", y = Yield)) + geom_violin(fill = "bisque")
 Histograms can be plotted for single variables only (unless faceting is used) as can be noted by the absence of a `y=` parameter in `aes`:
 
 ```{r,  eval=T}
-ggplot(dat1w, aes(x = Oats)) + geom_histogram(fill = "grey50")
+ggplot(dat1w, aes(x = Oats)) +
+  geom_histogram(fill = "grey50")
 ```
 
 The bin widths can be specified in terms of the value’s units. In our example, the unit is yield of oats (in hg/Ha). So if we want to generate bin widths that cover 1000 hg/Ha (= 100 kg / Ha), we can type:
@@ -833,33 +1033,44 @@ ggplot(dat1w, aes(x = Oats)) +
 Bar plots are used to summaries the counts of a categorical value. For example, to plot the number of counties in each state (note that each record in `dat2` is assigned a county):
 
 ```{r,  eval=T}
-ggplot(dat2, aes(State)) + geom_bar()
+ggplot(dat2, aes(State)) +
+  geom_bar()
 ```
 
 To sort the bars by length we need to rearrange the State factor level order based on the number of counties in each state (which is the number of times a state appears in the data frame). We’ll make use of `forcats`’s `fct_infreq` function to reorder the State factor levels based on frequency.
 
 ```{r,  eval=T}
 library(forcats)
-ggplot(dat2, aes(fct_infreq(State,ordered = TRUE))) + geom_bar()
+ggplot(dat2, aes(fct_infreq(State,ordered = TRUE))) +
+  geom_bar()
 ```
 
 If we want to reverse the order (i.e. plot from smallest number of counties to greatest), wrap the `fct_infreq` function with `fct_rev`.
 
 ```{r,  eval=T}
-ggplot(dat2, aes(fct_rev(fct_infreq(State,ordered = TRUE)))) + geom_bar()
+ggplot(dat2, aes(fct_rev(fct_infreq(State,ordered = TRUE)))) +
+  geom_bar()
 ```
 
 The `geom_bar` function can also be used with count values (i.e. variable already summarized by count). First, we’ll summaries the number of counties by state using the dplyr package. This will generate a data frame with just 51 records: one for each of the 50 states and the District of Columbia.
 
 ```{r,  eval=T}
-dat2.ct <- dat2 %>% group_by(State) %>% summarise(Counties = n())
-head(dat2.ct)
+dat2.ct <- dat2 %>% group_by(State) %>%
+  summarise(Counties = n())
 ```
 
 When using summarized data, we must pass the parameter `stat="identity"` to the `geom_bar` function. We must also explicitly map the *x* and *y* axes geometries. Note that since we are now generating bar heights from a value field and not a frequency, we will need to use another `forcats` ordering function called `fct_reorder`. This function takes three parameters: the variable to be ordered (`State`), the variable whose values will determine the order (`Counties`) and the function, `fun=`, which defines the statistic used to summaries the sorting variable. Since there is just one value per state, we can use any summary statistic such as `median`, `mean`, `sum`, `min` or `max`.
 
-```{chunk79,  eval=T}
-ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = County)) + geom_bar(stat = "identity")
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = Counties)) +
+  geom_bar(stat = "identity")
+```
+
+```{r,  eval=T, echo=F}
+ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = Counties)) +
+  geom_bar(stat = "identity")
 ```
 
 Note that you can replace `fct_reorder` from the `forcats` packages with the `base` function `reorder` mentioned ealier in the class.
@@ -874,13 +1085,20 @@ ggplot(dat2.ct , aes(x = Counties, y = State)) + geom_point()
 
 Dot plot graphics benefit from sorting–more so then bar plots. Here, we’ll make use of **`forcats::fct_reorder`** function (note on this notation: it is to call a function from a specific package, such as it can avoid conflicts).
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 ggplot(dat2.ct , aes(x = Counties, y = fct_reorder(State, Counties, .fun = median))) + geom_point()
 ```
 
+```{r,  eval=T, echo=F}
+ggplot(dat2.ct , aes(x = Counties, y = fct_reorder(State, Counties, .fun = median))) + geom_point()
+```
+
+
 ### Combining geometries
 
-Obviously, geometries can be  layered. For example, to overlay a linear regression line to the data we can add a `geom_smooth` layer:
+Logically, geometries can be  layered. For example, to overlay a linear regression line to the data we can add a `geom_smooth` layer:
 
 ```{r,  eval=T}
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
@@ -907,7 +1125,9 @@ Little trick for data visualization with `ggplot2` summarized [here](https://rst
 You can add a plot title using the `ggtile` function.
 
 ```{r,  eval=T}
-ggplot(dat2, aes(State)) + geom_bar() + ggtitle("Number of counties by state")
+ggplot(dat2, aes(State)) +
+  geom_bar() +
+  ggtitle("Number of counties by state")
 ```
 
 ### Axes titles
@@ -915,7 +1135,10 @@ ggplot(dat2, aes(State)) + geom_bar() + ggtitle("Number of counties by state")
 Axes titles can be explicitly defined using the `xlab` and `ylab` functions.
 
 ```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) + xlab("Female income ($)") + ylab("Male income ($)")
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  xlab("Female income ($)") +
+  ylab("Male income ($)")
 ```
 
 To remove axis labels, simply pass NULL to the functions as in `xlab(NULL)` and `ylab(NULL)`
@@ -925,7 +1148,17 @@ To remove axis labels, simply pass NULL to the functions as in `xlab(NULL)` and 
 
 You can customize an axis’ label elements. If you are mapping continuous values along the x and y axes, use the `scale_x_continuous` and `scale_y_continuous` functions. For example, to specify where to place the tics and the accompanying labels, type:
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2, aes(x = B20004013, y = B20004007))+ 
+  geom_point(alpha = 0.3) +
+  xlab("Female income ($)") + 
+  ylab("Male income ($)") +
+  scale_x_continuous(breaks = c(10000, 30000, 50000),labels = c("$10,000", "$30,000", "$50,000"))
+```
+
+```{r,  eval=T, echo=F}
 ggplot(dat2, aes(x = B20004013, y = B20004007))+ 
   geom_point(alpha = 0.3) +
   xlab("Female income ($)") + 
@@ -935,7 +1168,17 @@ ggplot(dat2, aes(x = B20004013, y = B20004007))+
 
 You change the label formats whereby the numbers are truncated to a thousandth of their original value, you can make use of `unit_format` from the `scales` package:
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
+   xlab("Female income ($)") + ylab("Male income ($)") +
+   scale_x_continuous(labels=scales::unit_format(suffix="k",scale=0.001, sep="")) +
+   scale_y_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep=""))
+```
+
+
+```{r,  eval=T, echo=F}
 ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
    xlab("Female income ($)") + ylab("Male income ($)") +
    scale_x_continuous(labels=scales::unit_format(suffix="k",scale=0.001, sep="")) +
@@ -944,7 +1187,18 @@ ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
 
 You can rotate axes labels using the theme function.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+
+```{r,  eval=F}
+ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
+   xlab("Female income ($)") + ylab("Male income ($)") +
+   scale_x_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
+   scale_y_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+```{r,  eval=T, echo=F}
 ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
    xlab("Female income ($)") + ylab("Male income ($)") +
    scale_x_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
@@ -958,19 +1212,36 @@ If you want the label values rotated 90° you might also need to justify vertica
 
 ### Axes limits
 
-
 The axis range can be set using `xlim` and `ylim`.
 
+<div style="overflow: auto !important;>
 
-```{r,  eval=T}
+```{r,  eval=F}
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
        xlab("Female income ($)") + ylab("Male income ($)") +
        xlim(10000, 75000) + ylim(10000, 75000)
 ```
 
+```{r,  eval=T, echo=F}
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
+       xlab("Female income ($)") + ylab("Male income ($)") +
+       xlim(10000, 75000) + ylim(10000, 75000)
+```
+
+
 However, if you are calling the `scale_x_continuous` and `scale_y_continuous` functions, you do not want to use `xlim` and `ylim`. Instead, you should set the `limit=` argument to the aforementioned functions. For example:
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
+   xlab("Female income ($)") + ylab("Male income ($)") +
+   scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format()) +
+   scale_y_continuous(limit  = c(10000, 75000), labels = scales::comma_format())
+```
+
+
+```{r,  eval=T, echo=F}
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
    xlab("Female income ($)") + ylab("Male income ($)") +
    scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format()) +
@@ -983,10 +1254,23 @@ Note the use of the function `comma_format` from the `scale` that will add comma
 
 You can explicitly define the breaks with the `breaks` argument. Continuing with the last example, we get:
 
-```{r,  eval=T}
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-   xlab("Female income ($)") + ylab("Male income ($)") +
-   scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000)) +
+   xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000)) +
+   scale_y_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000))
+```
+
+
+```{r,  eval=T, echo=F}
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
+   xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000)) +
    scale_y_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000))
 ```
 
@@ -997,9 +1281,11 @@ Note that the `breaks` argument can be used in conjunction with other arguments 
 If you wish to apply a non-linear transformation to either axes (while preserving the untransformed axis values) add the `coord_trans` function as follows:
 
 ```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       coord_trans(x = "log")
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) + 
+  xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  coord_trans(x = "log")
 ```
 
 You can also transform the y-axis by specifying the parameter `y=`. The `log` transformation defaults to the natural log. For a log base 10, use"`log10`" instead. For a square root transformation, use "`sqrt`". For the inverse use "`reciprocal`".
@@ -1007,18 +1293,22 @@ You can also transform the y-axis by specifying the parameter `y=`. The `log` tr
 Advanced transformations can be called via the `scales` package. For example, to implement the box-cox transformation (with a power of `-0.3`), type:
 
 ```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       coord_trans(x = scales::boxcox_trans(-0.3))
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  coord_trans(x = scales::boxcox_trans(-0.3))
 ```
 
 Note that any statistical geom (such as the regression line) will be applied to the *un-transformed* data. So a linear model may end up looking non-linear after an axis transformation. If a linear fit is to be applied to the transformed data, a better alternative is to transform the values instead of the axes. The transformation can be done on the original data or it can be implemented in ggplot using the `scale_x_continuous` and `scale_y_continuous` functions such as:
 
 ```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       geom_smooth(method = "lm", se = FALSE) +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       scale_x_continuous(trans = "log", breaks = seq(10000,60000,10000))
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("Female income ($)") + 
+  ylab("Male income ($)") + 
+  scale_x_continuous(trans = "log", breaks = seq(10000,60000,10000))
 ```
 
 The `scale_x_continuous` and `scale_y_continuous` functions will accept `scales` transformation parameters–e.g. `scale_x_continuous(trans = scales::boxcox_trans(-0.3))`. Note that the parameter `breaks` is not required but is used here to highlight the transformed nature of the axis.
@@ -1028,10 +1318,12 @@ The `scale_x_continuous` and `scale_y_continuous` functions will accept `scales`
 You can impose an aspect ratio to your plot using the `coord_equal` function. For example, to set the axes units equal (in length) to one another set `ratio=1`:
 
 ```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       geom_smooth(method = "lm") +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       coord_equal(ratio = 1)
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  coord_equal(ratio = 1)
 ```
 
 ### Colors
@@ -1052,12 +1344,23 @@ scale_fill_distiller|
 The following chunk of code summarizes dat2 by tallying the number of counties in each state and by computing the median county income values.
 
 ```{r,  eval=T}
-dat2.ct2 <- dat2 %>% group_by(State) %>% summarise(Counties = n(), Income = median(B20004001))
+dat2.ct2 <- dat2 %>%
+  group_by(State) %>%
+  summarise(Counties = n(), Income = median(B20004001))
 ```
 
 The following chunk applies a green to red color gradient fill to each bar based on the median county incomes. Note that we are using the summarized count table (and not the original dat2 table). Recall that when plotting bars from counts that are already tabulated we must specify `stat="identity"` in the `geom_bar` function.
 
-```{r,  eval=T}
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
+   geom_bar(stat = "identity") + 
+   scale_fill_gradient(low = "green", high = "red")
+```
+
+```{r,  eval=T, echo=F}
 ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
    geom_bar(stat = "identity") + 
    scale_fill_gradient(low = "green", high = "red")
@@ -1065,15 +1368,33 @@ ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Inco
 
 The following chunk applies a divergent color scheme while allowing one to specify the central value of this scheme. Note that the colors are symmetrical about the midpoint which may result in only a partial range of the full possible gradient of colors.
 
-```{r,  eval=T}
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
 ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
    geom_bar(stat = "identity") + 
    scale_fill_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
 ```
 
-In the last two chunk, we *filled* the bars with colors (note the use of functions with the string `_fill_`). When assigning color to point or line symbols, use the function with the `_colour_` string. For example:
 
-```{r,  eval=T}
+```{r,  eval=T, echo=F}
+ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
+   geom_bar(stat = "identity") + 
+   scale_fill_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
+```
+
+In the last two chunks, we *filled* the bars with colors (note the use of functions with the string `_fill_`). When assigning color to point or line symbols, use the function with the `_colour_` string. For example:
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2.ct2, aes(y = fct_reorder(State, Counties), x = Counties, col = Income)) +
+   geom_point() +
+   scale_colour_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
+```
+
+```{r,  eval=T, echo=F}
 ggplot(dat2.ct2, aes(y = fct_reorder(State, Counties), x = Counties, col = Income)) +
    geom_point() +
    scale_colour_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
@@ -1083,7 +1404,15 @@ ggplot(dat2.ct2, aes(y = fct_reorder(State, Counties), x = Counties, col = Incom
 
 In the following chunk, we assign colors manually to each level in the variable `Yield`. The order of the color names mirror the order of the variable levels.
 
-```{r,  eval=T}
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat1l, aes(Year, Yield, col = Crop)) + 
+       geom_line() +
+       scale_colour_manual(values = c("red", "orange", "green", "blue", "yellow"))
+```
+
+```{r,  eval=T, echo=F}
 ggplot(dat1l, aes(Year, Yield, col = Crop)) + 
        geom_line() +
        scale_colour_manual(values = c("red", "orange", "green", "blue", "yellow"))
@@ -1101,7 +1430,17 @@ You can also apply sequential or divergent "Brewer" color schemes to variables h
 
 Let’s assume that there is an implied order to the crop types. For example, we’ll reorder the crop types based on their median yield (this creates an ordered factor from the `Crop` variable). We can then use one of Brewer’s sequential color schemes such as `Reds`.
 
-```{r,  eval=T}
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat1l, aes(Year, Yield, col = reorder(Crop, Yield, median))) + 
+              geom_line() +
+              guides(colour = guide_legend(title = "Crops")) +  
+              scale_colour_brewer(palette = "Reds") 
+```
+
+```{r,  eval=T, echo=F}
 ggplot(dat1l, aes(Year, Yield, col = reorder(Crop, Yield, median))) + 
               geom_line() +
               guides(colour = guide_legend(title = "Crops")) +  
@@ -1118,10 +1457,22 @@ You can view a list of predifined Brewer color schemes using `RColorBrewer::disp
 
 You can embed math symbols using `plotmath`’s mathematical expressions by wrapping these expressions in an `expression` function. For example:
 
-```{r,  eval=T}
-ggplot(dat2, aes(x = B20004013^0.333, y = sqrt(B20004007))) + geom_point(alpha = 0.3) +
-       xlab( expression(("Female income") ^ frac(1,3))) + 
-       ylab( expression(sqrt("Male income")))
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+ggplot(dat2, aes(x = B20004013^0.333, y = sqrt(B20004007))) +
+  geom_point(alpha = 0.3) +
+  xlab( expression(("Female income") ^ frac(1,3))) +
+  ylab( expression(sqrt("Male income")))
+```
+
+
+```{r,  eval=T, echo=F}
+ggplot(dat2, aes(x = B20004013^0.333, y = sqrt(B20004007))) +
+  geom_point(alpha = 0.3) +
+  xlab( expression(("Female income") ^ frac(1,3))) +
+  ylab( expression(sqrt("Male income")))
 ```
 
 To view the full list of mathematical expressions, call for help `?plotmath`.
@@ -1137,8 +1488,9 @@ The functionality of the `lattice` package are also available in `ggplot2`. It i
 Faceting (or conditioning on a variable) can be implemented in `ggplot2` using the `facet_wrap` function.
 
 ```{r,  eval=T}
-ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) + geom_line() + 
-       facet_wrap( ~ Country, nrow = 1)
+ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() +
+  facet_wrap( ~ Country, nrow = 1)
 ```
 
 The parameter `~ Country` tells ggplot to condition the plots on country. If we wanted the plots to be stacked, we would set `nrow` to `2`.
@@ -1146,27 +1498,29 @@ The parameter `~ Country` tells ggplot to condition the plots on country. If we 
 We can also condition the plots on two variables such as `Crop` and `Country`. In essence, this stacks the categories (Note that we will also rotate the x-axis labels to prevent overlaps).
 
 ```{r,  eval=T}
-ggplot(dat1l2, aes(x = Year, y=Yield)) + geom_line() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    facet_wrap(Crop ~ Country, nrow = 1)
+ggplot(dat1l2, aes(x = Year, y=Yield)) +
+  geom_line() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  facet_wrap(Crop ~ Country, nrow = 1)
 ```
 
 You can wrap the facet headers using the `label_wrap_gen` function as an argument value to `labeler`. For example, to wrap the `United States of America` value, we’ll specify the maximum number of characters per line using the `width` argument:
 
 ```{r,  eval=T}
-ggplot(dat1l2, aes(x = Year, y=Yield)) + geom_line() +
+ggplot(dat1l2, aes(x = Year, y=Yield)) +
+  geom_line() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
   facet_wrap(Crop ~ Country, nrow = 1, labeller = label_wrap_gen(width = 12))
 ```
-
 
 #### `facet_grid`
 
 The above `facet_wrap` example generated unique combinations of the variables `Crop` and `Country`. But such plots are usually best represented in a grid structure where one variable is spread along one axis and the other variable is spread along another axis of the plot layout. This can be accomplished using the `facet_grid` function:
 
 ```{r,  eval=T}
-ggplot(dat1l2, aes(x = Year, y = Yield)) + geom_line() + 
-       facet_grid( Crop ~ Country)
+ggplot(dat1l2, aes(x = Year, y = Yield)) +
+  geom_line() +
+  facet_grid( Crop ~ Country)
 ```
  
 ### Faceting by continous variables (advance)
@@ -1208,11 +1562,11 @@ Note that the order in which the names are passed must match that of the origina
 
 Now we can facet male vs. female scatter plots by income ranges. We will also throw in a best fit line to the plots.
 
-
 ```{r,  eval=T}
-ggplot(dat2c, aes(x = F, y = M)) + geom_point(alpha=0.2, pch=20) +
-       geom_smooth(method = "lm", col = "red") +
-       facet_grid( . ~ incrng) 
+ggplot(dat2c, aes(x = F, y = M)) +
+  geom_point(alpha=0.2, pch=20) +
+  geom_smooth(method = "lm", col = "red") +
+  facet_grid( . ~ incrng) 
 ```
 
 One reason we would want to explore our data across different ranges of value is to assess the consistency in relationship between variables. In our example, this plot helps assess whether the relationship between male and female income is consistent across income groups.
@@ -1221,8 +1575,20 @@ One reason we would want to explore our data across different ranges of value is
 
 you can export a ggplot figure to an image using the `ggsave` function. For example:
 
-```{r,  eval=T}
-p1 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) + geom_line() + 
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+p1 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() +
+  facet_wrap( ~ Country, nrow = 1) +
+  scale_y_continuous(labels = scales::comma_format())
+
+ggsave("Figures/fig0.png", plot = p1, width = 6, height = 2, units = "in", device = "png")
+```
+
+```{r,  eval=T, echo=F}
+p1 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() +
   facet_wrap( ~ Country, nrow = 1) +
   scale_y_continuous(labels = scales::comma_format())
 
@@ -1236,8 +1602,27 @@ The width and height arguments are defined in units of inches, `in`. You can als
 
 For greater control of the font sizes, you need to make use of the `theme` function when buiding the plot.
 
-```{r,  eval=T}
-p2 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) + geom_line() + 
+
+<div style="overflow: auto !important;>
+
+```{r,  eval=F}
+p2 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() + 
+  facet_wrap( ~ Country, nrow = 1) +
+  scale_y_continuous(labels = scales::comma_format()) +
+  theme(axis.text    = element_text(size = 8, family = "mono"),
+        axis.title   = element_text(size = 11, face = "bold"),
+        strip.text   = element_text(size = 11, face="italic", family = "serif"),
+        legend.title = element_text(size = 10, family = "sans"),
+        legend.text  = element_text(size = 8,  color = "grey40"))
+
+ggsave("Figures/fig1.png", plot = p2, width = 6, height = 2, units = "in")
+```
+
+
+```{r,  eval=T, echo=F}
+p2 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() + 
   facet_wrap( ~ Country, nrow = 1) +
   scale_y_continuous(labels = scales::comma_format()) +
   theme(axis.text    = element_text(size = 8, family = "mono"),

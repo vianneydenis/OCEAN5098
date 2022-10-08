@@ -36,8 +36,17 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, cex=2, 
      col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
     
+
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     pch = 19, cex=2, 
+     col = scales::alpha(col.iris, 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
@@ -46,7 +55,16 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, cex=2, las=1,
      col = scales::alpha((col.iris), 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     pch = 19, cex=2, las=1,
+     col = scales::alpha((col.iris), 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 plot(Petal.Length ~ Petal.Width, dat = iris,
      xlab = 'Petal width (cm)', 
@@ -56,7 +74,18 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, cex=2, las=1,
      col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+
+
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
+     pch = 19, cex=2, las=1,
+     col = scales::alpha(col.iris, 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
 
 
 ratio<-iris$Petal.Length/iris$Sepal.Width  # ratio between the length of petal and the width of Sepal
@@ -68,13 +97,26 @@ plot(Petal.Length ~ Petal.Width, dat = iris,
      pch = 19, las=1, cex= ratio * 2, 
      col = scales::alpha(col.iris, 0.2))
 
-legend(x="bottomright", pch= 19, cex=1.5, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+
+ratio<-iris$Petal.Length/iris$Sepal.Width  # ratio between the length of petal and the width of Sepal
+plot(Petal.Length ~ Petal.Width, dat = iris,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     cex.axis=1.0, cex.lab=1.5, cex.main=1.5,
+     pch = 19, las=1, cex= ratio * 2, 
+     col = scales::alpha(col.iris, 0.2))
+
+legend(x="bottomright", pch= 19, cex=1.0, legend= c("versicolor","setosa", "virginica"), col=levels(as.factor(scales::alpha(col.iris, 0.2))))
+
+knitr::include_graphics('./images/iris.png') # a picture illustrating difference among flowers
 
 pairs(iris[1:4], pch=19, col = scales::alpha(col.iris, 0.2))
 
 # generate a data frame with chronological variable
 blossom<-NULL
-blossom$year <- 2010:2019                                               # 
+blossom$year <- 2010:2019
 blossom$count.alaska <- c(3, 1, 5, 2, 3, 8, 4, 7, 6, 9)
 blossom$count.canada <- c(4, 6, 5, 7, 10, 8, 10, 11, 15, 17)
 as.data.frame(blossom)
@@ -106,7 +148,34 @@ iris.ver<- subset(iris, Species == "versicolor")
 iris.vir<- subset(iris, Species == "virginica")
 
 y.rng <- range( c(iris.ver$Petal.Length, iris.vir$Petal.Length) , na.rm = TRUE) 
-x.rng <- range( c(iris.ver$Petal.Width, iris.vir$Petal.width) , na.rm = TRUE) 
+x.rng <- range( c(iris.ver$Petal.Width, iris.vir$Petal.Width) , na.rm = TRUE) 
+
+# Plot an empty plot
+
+plot(Petal.Length ~ Petal.Width, dat = iris.ver,
+     xlab = 'Petal width (cm)', 
+     ylab = 'Petal length (cm)', 
+     main = 'Petal width and length of iris flower',
+     cex.axis=1.0, cex.lab=1.5, cex.main=1.5, type='n',
+     xlim=x.rng,  ylim=y.rng)
+
+# Add points for versicolor
+points(Petal.Length ~ Petal.Width, dat = iris.ver, pch = 20,cex=2, 
+       col = rgb(0,0,1,0.10))
+       
+# Add points for versicolor
+points(Petal.Length ~ Petal.Width, dat = iris.vir, pch = 20,cex=2, 
+      col =  scales::alpha('#fc03c6', 0.2))
+
+# Add legend
+legend("topleft", c("versicolor", "virginica"), pch = 19, cex=1.2,
+       col = c(rgb(0,0,1,0.10), scales::alpha('#fc03c6', 0.2)))
+
+iris.ver<- subset(iris, Species == "versicolor")
+iris.vir<- subset(iris, Species == "virginica")
+
+y.rng <- range( c(iris.ver$Petal.Length, iris.vir$Petal.Length) , na.rm = TRUE) 
+x.rng <- range( c(iris.ver$Petal.Width, iris.vir$Petal.Width) , na.rm = TRUE) 
 
 # Plot an empty plot
 
@@ -132,6 +201,10 @@ legend("topleft", c("versicolor", "virginica"), pch = 19, cex=1.2,
 boxplot(iris$Sepal.Width, na.rm = TRUE)
 
 boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits")
+
+boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits")
+
+boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits",outline = FALSE, horizontal = TRUE )
 
 boxplot(iris$Sepal.Width,iris$Sepal.Length, iris$Petal.Width,iris$Petal.Length, names = c("Sepal.Width", "Sepal.Length", "Petal.Length","Petal.Width"), main = "Iris flower traits",outline = FALSE, horizontal = TRUE )
 
@@ -164,7 +237,7 @@ rairuoho<-read.table('Data/rairuoho.txt',header=T, sep="\t", dec=".")
 plot(day3 ~ day7,dat=rairuoho,
     xlab = 'Length at day 3', 
     ylab = 'Length at day 7', 
-    main = 'Realtionship between the length at day 3 and day 7')
+    main = 'Relationship between the length at day 3 and day 7')
 hist(rairuoho$day7)
 dens.rai <- density(rairuoho$day7, bw=6)
 plot(dens.rai, main = "Density distribution of the length at day 7")
@@ -234,19 +307,31 @@ legend(x="bottomright", pch= 19, cex=0.8, legend= c("versicolor","setosa", "virg
 
 dev.off()
 
-#As title, call me and show me your pdf
+# As title, call me and show me your pdf
 
 library(lattice)
 
-library(lattice)
 densityplot(~ Petal.Length | Species, iris, plot.points = "", layout=c(1,3))
+
+densityplot(~ Petal.Length | Species, iris, plot.points = "", layout=c(1,3))
+
+histogram(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(1,3))
 
 histogram(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(1,3))
 
 qqmath(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(3,1))
 
-iris$variety<-rep(c(rep('pure',25), rep('hybrid',25)),3) # dummy variable
+qqmath(~ Petal.Length | Species, iris, plot.points = "", nint = 20, layout=c(3,1))
+
+iris$variety<-rep(c(rep('main',25), rep('hybrid',25)),3) # fake variable
 bwplot(Petal.Length ~  variety|Species, iris)
+
+iris$variety<-rep(c(rep('main',25), rep('hybrid',25)),3) # fake variable
+bwplot(Petal.Length ~  variety|Species, iris)
+
+xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
+       data = iris, scales = "free", layout = c(2, 2), type=c("p","g"),
+       auto.key = list(x = .6, y = .7, corner = c(0, 0)))
 
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
        data = iris, scales = "free", layout = c(2, 2), type=c("p","g"),
@@ -257,8 +342,20 @@ xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
        auto.key = list(x = .6, y = .7, corner = c(0, 0)))
 
 xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
+       data = iris, scales = "free", layout = c(2, 2), type=c("p","r"),
+       auto.key = list(x = .6, y = .7, corner = c(0, 0)))
+
+xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
        data = iris[order(iris$Petal.Length),], scales = "free", layout = c(2, 2), 
        type=c("l"), auto.key = list(x = .6, y = .7, corner = c(0, 0)))
+
+xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | Species,
+       data = iris[order(iris$Petal.Length),], scales = "free", layout = c(2, 2), 
+       type=c("l"), auto.key = list(x = .6, y = .7, corner = c(0, 0)))
+
+xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | variety+Species,
+       data = iris[order(iris$Petal.Length),], scales = "free", layout = c(3, 2),
+       type=c("l"), auto.key = T)
 
 xyplot(Sepal.Length + Sepal.Width + Petal.Width ~ Petal.Length  | variety+Species,
        data = iris[order(iris$Petal.Length),], scales = "free", layout = c(3, 2),
@@ -288,7 +385,7 @@ st.reg <- rbind(st.reg , data.frame(State="dc", Region="South"))
 # Start the piping operations
 dat2b <- dat2 %>%
   gather(key = "variable", value = "value", -1:-2)  %>%
-  left_join(Edu.Gend, by="variable" )              %>%
+  dplyr::left_join(Edu.Gend, by="variable" )              %>%
   dplyr::select(State, County, Level, Gender, value)       %>%
   mutate(Level = factor(Level, levels = c("All","NoHS","HS", "AD", "BD", "Grad"))) %>%
   left_join(st.reg , by="State")
@@ -308,7 +405,11 @@ ggplot(dat1w, aes(x = Year, y = Oats)) + geom_line()
 ggplot(dat1w, aes(x = Year, y = Oats)) + 
   geom_line(linetype = 2, color = "blue", size=0.4)
 
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) 
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
+  geom_point(alpha = 0.3) 
+
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
+  geom_point(colour = "red", pch=3 , alpha = 0.3, cex=0.6)
 
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
   geom_point(colour = "red", pch=3 , alpha = 0.3, cex=0.6)
@@ -317,14 +418,18 @@ library(hexbin)
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + 
   geom_hex(binwidth = c(1000, 1000))
 
-ggplot(dat1l, aes(x = Crop, y = Yield)) + geom_boxplot(fill = "bisque") 
+ggplot(dat1l, aes(x = Crop, y = Yield)) +
+  geom_boxplot(fill = "bisque") 
 
 ggplot(dat1l, aes(x = "", y = Yield)) + 
-  geom_boxplot(fill = "bisque") + xlab("All crops")
+  geom_boxplot(fill = "bisque") +
+  xlab("All crops")
 
-ggplot(dat1l, aes(x = "", y = Yield)) + geom_violin(fill = "bisque") 
+ggplot(dat1l, aes(x = "", y = Yield)) +
+  geom_violin(fill = "bisque") 
 
-ggplot(dat1w, aes(x = Oats)) + geom_histogram(fill = "grey50")
+ggplot(dat1w, aes(x = Oats)) +
+  geom_histogram(fill = "grey50")
 
 ggplot(dat1w, aes(x = Oats)) + 
   geom_histogram(fill = "grey50", binwidth = 1000) 
@@ -332,20 +437,28 @@ ggplot(dat1w, aes(x = Oats)) +
 ggplot(dat1w, aes(x = Oats)) + 
   geom_histogram(fill = "grey50", bins = 8) 
 
-ggplot(dat2, aes(State)) + geom_bar()
+ggplot(dat2, aes(State)) +
+  geom_bar()
 
 library(forcats)
-ggplot(dat2, aes(fct_infreq(State,ordered = TRUE))) + geom_bar()
+ggplot(dat2, aes(fct_infreq(State,ordered = TRUE))) +
+  geom_bar()
 
-ggplot(dat2, aes(fct_rev(fct_infreq(State,ordered = TRUE)))) + geom_bar()
+ggplot(dat2, aes(fct_rev(fct_infreq(State,ordered = TRUE)))) +
+  geom_bar()
 
-dat2.ct <- dat2 %>% group_by(State) %>% summarise(Counties = n())
-head(dat2.ct)
+dat2.ct <- dat2 %>% group_by(State) %>%
+  summarise(Counties = n())
 
-## ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = County)) + geom_bar(stat = "identity")
+ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = Counties)) +
+  geom_bar(stat = "identity")
 
+ggplot(dat2.ct, aes(x=fct_reorder(State, Counties, .fun = median), y = Counties)) +
+  geom_bar(stat = "identity")
 
 ggplot(dat2.ct , aes(x = Counties, y = State)) + geom_point()
+
+ggplot(dat2.ct , aes(x = Counties, y = fct_reorder(State, Counties, .fun = median))) + geom_point()
 
 ggplot(dat2.ct , aes(x = Counties, y = fct_reorder(State, Counties, .fun = median))) + geom_point()
 
@@ -357,9 +470,20 @@ ggplot(dat2, aes(x = B20004013, y = B20004007)) +
   geom_point(alpha = 0.3, color='#4f4b4b') +
   geom_smooth(method = "loess", color='green')
 
-ggplot(dat2, aes(State)) + geom_bar() + ggtitle("Number of counties by state")
+ggplot(dat2, aes(State)) +
+  geom_bar() +
+  ggtitle("Number of counties by state")
 
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) + xlab("Female income ($)") + ylab("Male income ($)")
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  xlab("Female income ($)") +
+  ylab("Male income ($)")
+
+ggplot(dat2, aes(x = B20004013, y = B20004007))+ 
+  geom_point(alpha = 0.3) +
+  xlab("Female income ($)") + 
+  ylab("Male income ($)") +
+  scale_x_continuous(breaks = c(10000, 30000, 50000),labels = c("$10,000", "$30,000", "$50,000"))
 
 ggplot(dat2, aes(x = B20004013, y = B20004007))+ 
   geom_point(alpha = 0.3) +
@@ -374,9 +498,24 @@ ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
 
 ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
    xlab("Female income ($)") + ylab("Male income ($)") +
+   scale_x_continuous(labels=scales::unit_format(suffix="k",scale=0.001, sep="")) +
+   scale_y_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep=""))
+
+ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
+   xlab("Female income ($)") + ylab("Male income ($)") +
    scale_x_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
    scale_y_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
    theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+ggplot(dat2, aes(x=B20004013, y=B20004007)) + geom_point(alpha=0.3) +
+   xlab("Female income ($)") + ylab("Male income ($)") +
+   scale_x_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
+   scale_y_continuous(labels=scales::unit_format(suffix="k", scale=0.001, sep="")) +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
+       xlab("Female income ($)") + ylab("Male income ($)") +
+       xlim(10000, 75000) + ylim(10000, 75000)
 
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
        xlab("Female income ($)") + ylab("Male income ($)") +
@@ -389,28 +528,54 @@ ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
 
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
    xlab("Female income ($)") + ylab("Male income ($)") +
-   scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000)) +
+   scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format()) +
+   scale_y_continuous(limit  = c(10000, 75000), labels = scales::comma_format())
+
+ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
+   xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000)) +
    scale_y_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000))
 
 ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       coord_trans(x = "log")
+   xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  scale_x_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000)) +
+   scale_y_continuous(limit  = c(10000, 75000),labels = scales::comma_format(),breaks = c(10000, 30000, 50000, 70000))
 
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       coord_trans(x = scales::boxcox_trans(-0.3))
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) + 
+  xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  coord_trans(x = "log")
 
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       geom_smooth(method = "lm", se = FALSE) +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       scale_x_continuous(trans = "log", breaks = seq(10000,60000,10000))
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  coord_trans(x = scales::boxcox_trans(-0.3))
 
-ggplot(dat2, aes(x = B20004013, y = B20004007)) + geom_point(alpha = 0.3) +
-       geom_smooth(method = "lm") +
-       xlab("Female income ($)") + ylab("Male income ($)") +
-       coord_equal(ratio = 1)
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("Female income ($)") + 
+  ylab("Male income ($)") + 
+  scale_x_continuous(trans = "log", breaks = seq(10000,60000,10000))
 
-dat2.ct2 <- dat2 %>% group_by(State) %>% summarise(Counties = n(), Income = median(B20004001))
+ggplot(dat2, aes(x = B20004013, y = B20004007)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  xlab("Female income ($)") +
+  ylab("Male income ($)") +
+  coord_equal(ratio = 1)
+
+dat2.ct2 <- dat2 %>%
+  group_by(State) %>%
+  summarise(Counties = n(), Income = median(B20004001))
+
+ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
+   geom_bar(stat = "identity") + 
+   scale_fill_gradient(low = "green", high = "red")
 
 ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
    geom_bar(stat = "identity") + 
@@ -420,9 +585,21 @@ ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Inco
    geom_bar(stat = "identity") + 
    scale_fill_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
 
+ggplot(dat2.ct2, aes(x = fct_reorder(State, Counties), y = Counties, fill = Income)) +
+   geom_bar(stat = "identity") + 
+   scale_fill_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
+
 ggplot(dat2.ct2, aes(y = fct_reorder(State, Counties), x = Counties, col = Income)) +
    geom_point() +
    scale_colour_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
+
+ggplot(dat2.ct2, aes(y = fct_reorder(State, Counties), x = Counties, col = Income)) +
+   geom_point() +
+   scale_colour_gradient2(low = "darkred", mid = "white",  high = "darkgreen", midpoint = 30892)
+
+ggplot(dat1l, aes(Year, Yield, col = Crop)) + 
+       geom_line() +
+       scale_colour_manual(values = c("red", "orange", "green", "blue", "yellow"))
 
 ggplot(dat1l, aes(Year, Yield, col = Crop)) + 
        geom_line() +
@@ -437,23 +614,38 @@ ggplot(dat1l, aes(Year, Yield, col = reorder(Crop, Yield, median))) +
               guides(colour = guide_legend(title = "Crops")) +  
               scale_colour_brewer(palette = "Reds") 
 
-ggplot(dat2, aes(x = B20004013^0.333, y = sqrt(B20004007))) + geom_point(alpha = 0.3) +
-       xlab( expression(("Female income") ^ frac(1,3))) + 
-       ylab( expression(sqrt("Male income")))
+ggplot(dat1l, aes(Year, Yield, col = reorder(Crop, Yield, median))) + 
+              geom_line() +
+              guides(colour = guide_legend(title = "Crops")) +  
+              scale_colour_brewer(palette = "Reds") 
 
-ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) + geom_line() + 
-       facet_wrap( ~ Country, nrow = 1)
+ggplot(dat2, aes(x = B20004013^0.333, y = sqrt(B20004007))) +
+  geom_point(alpha = 0.3) +
+  xlab( expression(("Female income") ^ frac(1,3))) +
+  ylab( expression(sqrt("Male income")))
 
-ggplot(dat1l2, aes(x = Year, y=Yield)) + geom_line() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
-    facet_wrap(Crop ~ Country, nrow = 1)
+ggplot(dat2, aes(x = B20004013^0.333, y = sqrt(B20004007))) +
+  geom_point(alpha = 0.3) +
+  xlab( expression(("Female income") ^ frac(1,3))) +
+  ylab( expression(sqrt("Male income")))
 
-ggplot(dat1l2, aes(x = Year, y=Yield)) + geom_line() +
+ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() +
+  facet_wrap( ~ Country, nrow = 1)
+
+ggplot(dat1l2, aes(x = Year, y=Yield)) +
+  geom_line() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  facet_wrap(Crop ~ Country, nrow = 1)
+
+ggplot(dat1l2, aes(x = Year, y=Yield)) +
+  geom_line() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
   facet_wrap(Crop ~ Country, nrow = 1, labeller = label_wrap_gen(width = 12))
 
-ggplot(dat1l2, aes(x = Year, y = Yield)) + geom_line() + 
-       facet_grid( Crop ~ Country)
+ggplot(dat1l2, aes(x = Year, y = Yield)) +
+  geom_line() +
+  facet_grid( Crop ~ Country)
 
 dat2c$incrng <- cut(dat2c$F , breaks = c(0, 25000, 50000, 75000, 100000) )
 
@@ -466,17 +658,39 @@ levels(dat2c$incrng)
 levels(dat2c$incrng) <-  c("Under 25k", "25k-50k", "50k-75k", "75k-100k")
 head(dat2c)
 
-ggplot(dat2c, aes(x = F, y = M)) + geom_point(alpha=0.2, pch=20) +
-       geom_smooth(method = "lm", col = "red") +
-       facet_grid( . ~ incrng) 
+ggplot(dat2c, aes(x = F, y = M)) +
+  geom_point(alpha=0.2, pch=20) +
+  geom_smooth(method = "lm", col = "red") +
+  facet_grid( . ~ incrng) 
 
-p1 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) + geom_line() + 
+p1 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() +
   facet_wrap( ~ Country, nrow = 1) +
   scale_y_continuous(labels = scales::comma_format())
 
 ggsave("Figures/fig0.png", plot = p1, width = 6, height = 2, units = "in", device = "png")
 
-p2 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) + geom_line() + 
+p1 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() +
+  facet_wrap( ~ Country, nrow = 1) +
+  scale_y_continuous(labels = scales::comma_format())
+
+ggsave("Figures/fig0.png", plot = p1, width = 6, height = 2, units = "in", device = "png")
+
+p2 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() + 
+  facet_wrap( ~ Country, nrow = 1) +
+  scale_y_continuous(labels = scales::comma_format()) +
+  theme(axis.text    = element_text(size = 8, family = "mono"),
+        axis.title   = element_text(size = 11, face = "bold"),
+        strip.text   = element_text(size = 11, face="italic", family = "serif"),
+        legend.title = element_text(size = 10, family = "sans"),
+        legend.text  = element_text(size = 8,  color = "grey40"))
+
+ggsave("Figures/fig1.png", plot = p2, width = 6, height = 2, units = "in")
+
+p2 <- ggplot(dat1l2, aes(x = Year, y = Yield, color = Crop)) +
+  geom_line() + 
   facet_wrap( ~ Country, nrow = 1) +
   scale_y_continuous(labels = scales::comma_format()) +
   theme(axis.text    = element_text(size = 8, family = "mono"),
