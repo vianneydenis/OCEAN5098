@@ -783,7 +783,6 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
-    font-size: 100%;
   }
 
   .html-widget {
@@ -1856,21 +1855,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        const citeChild = $(this).children()[0]
-        // Do not process if @xyz has been used without escaping and without bibliography activated
-        // https://github.com/rstudio/distill/issues/466
-        if (citeChild === undefined) return true
-
-        if (citeChild.nodeName == "D-FOOTNOTE") {
-          var fn = citeChild
+        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
+          var fn = $(this).children()[0]
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          // Could use CSS.escape too here, we insure backward compatibility in navigator
-          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2385,7 +2378,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2498,6 +2491,7 @@ Manipulation
 </div>
 </div>
 <a href="types.html">Types &amp; Structures</a>
+<a href="graphics.html">Graphics</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2522,15 +2516,16 @@ Manipulation
 <li><a href="#background" id="toc-background">Background</a></li>
 <li><a href="#summarize" id="toc-summarize">Summarize</a></li>
 <li><a href="#manipulate" id="toc-manipulate">Manipulate</a></li>
-<li><a href="#pipe-operator" id="toc-pipe-operator">Pipe operator</a></li>
+<li><a href="#pipe-operator" id="toc-pipe-operator">Pipe
+operator</a></li>
 </ul>
 </nav>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<a href="data:text/x-markdown;base64,LS0tCnRpdGxlOiAiZHBseXIiCi0tLQoKYGBge3IgZXZhbCA9IFRSVUUsICBtZXNzYWdlPUYsIGluY2x1ZGU9IEZBTFNFLCB3YXJuaW5nPUYsIHB1cmw9RiwgcmVzdWx0cz0iaGlkZSJ9CmtuaXRyOjpwdXJsKCdkcGx5ci5SbWQnLCBkb2N1bWVudGF0aW9uID0gMCkKYGBgCgoKYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQp4ZnVuOjplbWJlZF9maWxlKCdkcGx5ci5SbWQnKQpgYGAKCgpgYGB7ciBlY2hvPUZBTFNFLCBwdXJsPUZ9CnhmdW46OmVtYmVkX2ZpbGUoJ2RwbHlyLlInKQpgYGAKCiMgQmFja2dyb3VuZAoKYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9CmxpYnJhcnkgKGRwbHlyKQpgYGAKCkFzIGluZGljYXRlZCBpbiB0aGUgZGVzY3JpcHRpb24gb2YgdGhlIHBhY2thZ2UgKGA/ZHBseXJgKSwgYGRwbHlyYCBpcyBhbGwgYWJvdXQgZGF0YSBtYW5pcHVsYXRpb24gKipfImRwbHlyOiBBIGdyYW1tYXIgb2YgZGF0YSBNYW5pcHVsYXRpb24iXyoqLiBJdCBpcyBwYXJ0IG9mIHRoZSBgdGlkeXZlcnNlYCB1bml2ZXJzZSwgYSBzZXQgb2YgcGFja2FnZXMgdGhhdCBoYXMgaW1wb3NlZCBpdHNlbGYgaW4gdGhlIGFydCBvZiBkYXRhIHNldCBtYW5pcHVsYXRpb24gYW5kIHRyYW5zZm9ybWF0aW9uLiBUaGUgcGFja2FnZSBgZHBseXJgIGhhcyBtYW55IGZ1bmN0aW9ucyB0byBmYXN0ZW4gIGRhdGEgZXhwbG9yYXRpb24gYW5kIHRyYW5zZm9ybWF0aW9uLiBUbyBsZWFybiBtb3JlIGFib3V0IGBkcGx5cmAsIHlvdSBjYW4gZXhwbG9yZSB0aGUgdmlnbmV0dGU6IGBicm93c2VWaWduZXR0ZXMocGFja2FnZSA9ICJkcGx5ciIpYC4gWW91IGNhbiBhbHNvIFZpc2l0IHRoZSBmb2xsb3dpbmcgW3dlYnNpdGVdKGh0dHBzOi8vZHBseXIudGlkeXZlcnNlLm9yZy8pIGZvciBtb3JlIGluZm9ybWF0aW9uIG9uIHRoZSBgZHBseXJgIHBhY2thZ2UuIFNvbWUgaW1wb3J0YW50IGZ1bmN0aW9ucyBmcm9tIHRoaXMgcGFja2FnZXMgYXJlIGNvdmVyZWQgaW4gdGhlIGZvbGxvd2luZyBzZWN0aW9ucy4KCgojIFN1bW1hcml6ZQoKVGhlIGZ1bmN0aW9uIGBzdW1tYXJpc2VgIGlzIHVzZWQgdG8gZmluZCBpbnNpZ2h0cyAobWVhbiwgbWVkaWFuLCBtb2RlLCBldGMuKSBmcm9tIGEgZGF0YSBzZXQuIEl0IHJlZHVjZXMgbXVsdGlwbGUgdmFsdWVzIGRvd24gdG8gYSBzaW5nbGUgdmFsdWUuIEZvciBleGFtcGxlOgoKYGBge3IsICBldmFsPVR9CnN1bW1hcmlzZWQgPC0gc3VtbWFyaXNlKGlyaXMsIE1lYW4uV2lkdGggPSBtZWFuKFNlcGFsLldpZHRoKSkKaGVhZChzdW1tYXJpc2VkKQpgYGAKClRoZSBvcmlnaW5hbCBgaXJpc2AgZGF0YSBzZXQgaXMgYSBkYXRhIGZyYW1lIG9mIGRpbWVuc2lvbnMgKGBkaW0oaXJpcylgKSAxNTAgb2JzZXJ2YXRpb25zIGJ5IDUgdmFyaWFibGVzLiBUaGUgZnVuY3Rpb24gYHN1bW1hcmlzZWAgc3VtbWFyaXNlIGl0IGludG8gYSBkYXRhIGZyYW1lIGNvbXBvc2VkIG9mIDEgb2JzZXJ2YXRpb24gYnkgMSB2YXJpYWJsZSAodGhlIGBtZWFuKFNlcGFsLndpZHRoKWApLgoKIyBNYW5pcHVsYXRlCgojIyBgc2VsZWN0YAoKVGhlIGZ1bmN0aW9uIGBzZWxlY3RgIGlzIHVzZWQgdG8gc2VsZWN0IGRhdGEgdXNpbmcgdGhlIG5hbWUgb2YgYSBjb2x1bW4uIFNldmVyYWwgc3ludGF4ZXMgYXJlIHBvc3NpYmxlLiBGb3IgZXhhbXBsZToKCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQojIGJ5IGNvbHVtbiBuYW1lcwpzZWxlY3RlZDEgPC0gZHBseXI6OnNlbGVjdChpcmlzLCBTZXBhbC5MZW5ndGgsIFNlcGFsLldpZHRoLCBQZXRhbC5MZW5ndGgpCmhlYWQoc2VsZWN0ZWQxKSAKCiMgYnkgY29sdW1uIHJhbmdlCnNlbGVjdGVkMiA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsIFNlcGFsLkxlbmd0aDpQZXRhbC5MZW5ndGgpCmhlYWQoc2VsZWN0ZWQyLCA0KQoKIyBieSBjb2x1bW4gcmFuZ2UgbnVtYmVyCnNlbGVjdGVkMyA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsYygyOjUpKQpoZWFkKHNlbGVjdGVkMykKYGBgCgpVc2UgYC1gIHRvIGhpZGUgYSBwYXJ0aWN1bGFyIGNvbHVtbgoKYGBge3IsICBldmFsPUZ9CnNlbGVjdGVkNCA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsIC1TZXBhbC5MZW5ndGgsIC1TZXBhbC5XaWR0aCkKYGBgCgpOb3RlIHRoZSB1c2Ugb2YgdGhlIG5vdGF0aW9uIGA6OmAuIFRoZSB1c2Ugb2YgYDo6YCBpcyB0byBjYWxsIGEgZnVuY3Rpb24gZnJvbSBhIHNwZWNpZmljIHBhY2thZ2Ugd2l0aG91dCBuZWNlc3NhcmlseSBsb2FkaW5nIHRoZSBwYWNrYWdlLiBUaGUgbWFpbiBhZHZhbnRhZ2UgaXMgdG8gYXZvaWQgcG9zc2libGUgY29uZmxpY3RzIGFtb25nIGZ1bmN0aW9ucy4gSW5kZWVkLCBpdCBtYXkgaGFwcGVuIHRoYXQgZGlmZmVyZW50IHBhY2thZ2VzIHdpbGwgdXNlIHRoZSBzYW1lIG5hbWUgZm9yIGRpZmZlcmVudCBmdW5jdGlvbnMuIGBkcGx5cjo6c2VsZWN0YCBzcGVjaWZpZXMgd2Ugd2FudCB0byB1c2UgdGhlIGZ1bmN0aW9uIGBzZWxlY3RgIGZyb20gdGhlIGBkcGx5cmAgcGFja2FnZS4KCgojIyBgZmlsdGVyYAoKVGhlIGZ1bmN0aW9uIGBmaWx0ZXJgIGlzIHVzZWQgdG8gZmlsdGVyIHJvd3Mgd2l0aCBtYXRjaGluZyBjcml0ZXJpYS4gVGhlIGlkZWEgaXMgdGhlIHNhbWUgYXMgIHByZXZpb3VzbHkgc2VlbiAoc2VlIFtNYW5pcHVsYXRpb25dKC4vbWFuaXB1bGF0aW9uLmh0bWwpKS4gSXQgd29ya3MgaW4gdGhlIHNhbWUgd2F5IHRoYW4gdGhlIGZ1bmN0aW9uIGBzZWxlY3RgIChpLmUuLCB3ZSBwYXNzIGEgZGF0YSBmcmFtZSBhbG9uZyB3aXRoIGEgY29uZGl0aW9uIHNlcGFyYXRlZCBieSBhIGNvbW1hKS4gCgotIFNpbmdsZSBjb25kaXRpb246CgpgYGB7ciwgIGV2YWw9VH0KIyBTZWxlY3Qgc2V0b3NhIHNwZWNpZXMKZmlsdGVyZWQxIDwtIGZpbHRlcihpcmlzLCBTcGVjaWVzID09ICJzZXRvc2EiICkKaGVhZChmaWx0ZXJlZDEsMykKYGBgCgotIER1YWwgY29uZGl0aW9uczoKCmBgYHtyLCAgZXZhbD1UfQojIFNlbGVjdCB2ZXJzaWNvbG9yIHNwZWNpZXMgd2l0aCBTZXBhbCB3aWR0aCBtb3JlIHRoYW4gMwpmaWx0ZXJlZDIgPC0gZmlsdGVyKGlyaXMsIFNwZWNpZXMgPT0gInZlcnNpY29sb3IiLCBTZXBhbC5XaWR0aCA+IDMpCnRhaWwoZmlsdGVyZWQyKQpgYGAKCiMjIGBtdXRhdGVgCgpUaGUgZnVuY3Rpb24gYG11dGF0ZWAgaXMgdG8gY3JlYXRlIG5ldyBjb2x1bW5zICh2YXJpYWJsZXMpIHdoaWxlIHByZXNlcnZpbmcgZXhpc3RpbmcgY29sdW1ucyBpbiBhIGRhdGEgc2V0LiBGb3IgZXhhbXBsZToKCmBgYHtyLCAgZXZhbD1UfQojVG8gY3JlYXRlIGEgY29sdW1uIOKAnEdyZWF0ZXIuSGFsZuKAnSB3aGljaCBzdG9yZXMgYSBsb2dpY2FsIHZlY3RvcgptdXRhdGVkMSA8LSBtdXRhdGUoaXJpcywgR3JlYXRlci5IYWxmID0gU2VwYWwuV2lkdGggPiAwLjUgKiBTZXBhbC5MZW5ndGgpCnRhaWwobXV0YXRlZDEpCmBgYAoKVG8gY2hlY2sgaG93IG1hbnkgZmxvd2VycyBmYWxsIGluIHRoaXMgY29uZGl0aW9uLCB0aGUgZnVuY3Rpb24gYHRhYmxlYCBmcm9tIHRoZSBgYmFzZWAgcGFja2FnZSBwcm9kdWNlcyBhIGNvbnRpbmdlbmN5IHRhYmxlIHdpdGggdGhlIG5vLiBvZiBpbmRpdmlkdWFsIHdoZXJlIHRoZSBjb25kaXRpb24gaXMgYFRSVUVgIGFuZCBgRkFMU0VgOgoKYGBge3IsICBldmFsPVR9CnRhYmxlKG11dGF0ZWQxJEdyZWF0ZXIuSGFsZikKYGBgCgojIyBgYXJyYW5nZWAKClRoZSBmdW5jdGlvbiBgYXJyYW5nZWAgaXMgdXNlZCB0byBzb3J0IHJvd3MgYnkgdmFyaWFibGVzIGluIGJvdGggYW4gYXNjZW5kaW5nIChkZWZhdWx0KSBvciBkZXNjZW5kaW5nIG9yZGVyLiBGb3IgZXhhbXBsZToKCmBgYHtyLCAgZXZhbD1UfQojIFNlcGFsIFdpZHRoIGJ5IGFzY2VuZGluZyBvcmRlcgphcnJhbmdlZDEgPC0gYXJyYW5nZShpcmlzLCBTZXBhbC5XaWR0aCkKaGVhZChhcnJhbmdlZDEpCgojIFNlcGFsIFdpZHRoIGJ5IGRlc2NlbmRpbmcgb3JkZXIKYXJyYW5nZWQyIDwtIGFycmFuZ2UoaXJpcywgZGVzYyhTZXBhbC5XaWR0aCkpCmhlYWQoYXJyYW5nZWQyKQpgYGAKCiMjIGBncm91cF9ieWAKClRoZSBmdW5jdGlvbiBgZ3JvdXBfYnlgIGdyb3VwcyBvYnNlcnZhdGlvbnMgd2l0aGluIGEgZGF0YSBzZXQgYnkgb25lIG9yIG1vcmUgdmFyaWFibGVzLiBEYXRhIG9wZXJhdGlvbnMgYXJlIG9mdGVuIHBlcmZvcm1lZCBvbiBncm91cHMgZGVmaW5lZCBieSB2YXJpYWJsZXMuIGB1bmdyb3VwYCByZW1vdmVzIGdyb3VwaW5nLiBGb3IgZXhhbXBsZSwgdG8gYHN1bW1hcmlzZWAgIGEgZGF0YSBzZXQgYGdyb3VwX2J5YCBieSBgU3BlY2llc2AgOgoKYGBge3IsICBldmFsPVR9CiMgTWVhbiBzZXBhbCB3aWR0aCBieSBTcGVjaWVzCmdwIDwtIGdyb3VwX2J5KGlyaXMsIFNwZWNpZXMpCmdwLm1lYW4gPC0gc3VtbWFyaXNlKGdwLE1lYW4uU2VwYWwgPSBtZWFuKFNlcGFsLldpZHRoKSkKZ3AubWVhbgpgYGAKCldoaWNoIHByb2R1Y2VzIGEgYHRpYmJsZWAgKGEgZGF0YSBmcmFtZSB3aXRoIHN0cmljdGVyIGNoZWNraW5nIGFuZCBiZXR0ZXIgZm9ybWF0dGluZyksIHNlZSBgP3RpYmJsZTo6dGliYmxlYCBwcm92aWRpbmcgbWVhbiBvZiBgTWVhbi5TZXBhbGAgd2lkdGggZm9yIHRoZSB0aHJlZSBmbG93ZXIgYFNwZWNpZXNgLgoKIyBQaXBlIG9wZXJhdG9yCgoKVGhlIHVzZSBvZiB0aGUgcHJldmlvdXMgZnVuY3Rpb25zIGFzIHNlZW4gYWJvdmUgaXMgc2ltcGxlIGFuZCBzdHJhaWdodGZvcndhcmQuIEhvd2V2ZXIsIHRoZSB1c2Ugb2YgdGhpcyBzeW50aGF4IHdpbGwgcXVpY2tseSBzaG93IGl0cyBsaW1pdHMgYXMgb3BlcmF0aW9ucyBnZXQgbW9yZSBjb21wbGljYXRlZC4gVGhlIHVzZSBvZiB0aGUgcGlwZSBvcGVyYXRvciBgJT4lYCBhbGxvd3MgdG8gd3JhcCBtdWx0aXBsZSBmdW5jdGlvbnMgdG9nZXRoZXIuIEl0IGNhbiBiZSB1c2VkIHdpdGggZnVuY3Rpb25zIGxpa2UgYGZpbHRlcmAsIGBzZWxlY3RgLCBgYXJyYW5nZWAsIGBzdW1tYXJpc2VgLCBgZ3JvdXBfYnlgLCBldGMuIEFzIGZvciAgYW4gZXhhbXBsZToKCmBgYHtyLCAgZXZhbD1UfQojVG8gc2VsZWN0IHRoZSByb3dzIHdpdGggY29uZGl0aW9ucwppcmlzICU+JSBmaWx0ZXIoU3BlY2llcyA9PSAic2V0b3NhIixTZXBhbC5XaWR0aCA+IDMuOCkKYGBgCgpUbyBmaW5kIG1lYW4gYFNlcGFsYExlbmd0aCBieSBgU3BlY2llc2AsIHdlIHVzZSB0aGUgcGlwZSBvcGVyYXRvciBhcyBmb2xsb3dpbmc6CgpgYGB7ciwgIGV2YWw9VH0KaXJpcyAgJT4lIGdyb3VwX2J5KFNwZWNpZXMpICU+JSBzdW1tYXJpc2UoTWVhbi5MZW5ndGggPSBtZWFuKFNlcGFsLkxlbmd0aCkpCmBgYAoKVGhlIHVzZSBvZiB0aGUgcGlwZSBvcGVyYXRvciBgJT4lYCBoYXMgbm93IGltcG9zZWQgaXRzZWxmIGZvciBtYW5pcHVsYXRpbmcgYW5kIHRyYW5zZm9ybWluZyBkYXRhIGluIFIuIFIgbGFuZ3VhZ2UgaXMgbm90IGZpeGVkIGFuZCBhcyBpdCBldm9sdmVzIHRoaXMgc3ludGhheCBoYXMgYmVjYW1lIHZlcnkgY29tbW9uLiBJdCBpcyBub3cgYSBjb21tb24gcGFydCBpbiBtb3N0IHNjcmlwdCB5b3Ugd2lsbCBkaXNjb3ZlciB3aGlsZSB1c2luZyBSLgo=" download="dplyr.Rmd">Download dplyr.Rmd</a>
+<p><a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogImRwbHlyIg0KLS0tDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPSBGQUxTRSwgd2FybmluZz1GLCBwdXJsPUYsIHJlc3VsdHM9ImhpZGUifQ0Ka25pdHI6OnB1cmwoJ2RwbHlyLlJtZCcsIGRvY3VtZW50YXRpb24gPSAwKQ0KYGBgDQoNCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZHBseXIuUm1kJykNCmBgYA0KDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2RwbHlyLlInKQ0KYGBgDQoNCiMgQmFja2dyb3VuZA0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCmxpYnJhcnkgKGRwbHlyKQ0KYGBgDQoNCkFzIGluZGljYXRlZCBpbiB0aGUgZGVzY3JpcHRpb24gb2YgdGhlIHBhY2thZ2UgKGA/ZHBseXJgKSwgYGRwbHlyYCBpcyBhbGwgYWJvdXQgZGF0YSBtYW5pcHVsYXRpb24gKipfImRwbHlyOiBBIGdyYW1tYXIgb2YgZGF0YSBNYW5pcHVsYXRpb24iXyoqLiBJdCBpcyBwYXJ0IG9mIHRoZSBgdGlkeXZlcnNlYCB1bml2ZXJzZSwgYSBzZXQgb2YgcGFja2FnZXMgdGhhdCBoYXMgaW1wb3NlZCBpdHNlbGYgaW4gdGhlIGFydCBvZiBkYXRhIHNldCBtYW5pcHVsYXRpb24gYW5kIHRyYW5zZm9ybWF0aW9uLiBUaGUgcGFja2FnZSBgZHBseXJgIGhhcyBtYW55IGZ1bmN0aW9ucyB0byBmYXN0ZW4gIGRhdGEgZXhwbG9yYXRpb24gYW5kIHRyYW5zZm9ybWF0aW9uLiBUbyBsZWFybiBtb3JlIGFib3V0IGBkcGx5cmAsIHlvdSBjYW4gZXhwbG9yZSB0aGUgdmlnbmV0dGU6IGBicm93c2VWaWduZXR0ZXMocGFja2FnZSA9ICJkcGx5ciIpYC4gWW91IGNhbiBhbHNvIFZpc2l0IHRoZSBmb2xsb3dpbmcgW3dlYnNpdGVdKGh0dHBzOi8vZHBseXIudGlkeXZlcnNlLm9yZy8pIGZvciBtb3JlIGluZm9ybWF0aW9uIG9uIHRoZSBgZHBseXJgIHBhY2thZ2UuIFNvbWUgaW1wb3J0YW50IGZ1bmN0aW9ucyBmcm9tIHRoaXMgcGFja2FnZXMgYXJlIGNvdmVyZWQgaW4gdGhlIGZvbGxvd2luZyBzZWN0aW9ucy4NCg0KDQojIFN1bW1hcml6ZQ0KDQpUaGUgZnVuY3Rpb24gYHN1bW1hcmlzZWAgaXMgdXNlZCB0byBmaW5kIGluc2lnaHRzIChtZWFuLCBtZWRpYW4sIG1vZGUsIGV0Yy4pIGZyb20gYSBkYXRhIHNldC4gSXQgcmVkdWNlcyBtdWx0aXBsZSB2YWx1ZXMgZG93biB0byBhIHNpbmdsZSB2YWx1ZS4gRm9yIGV4YW1wbGU6DQoNCmBgYHtyLCAgZXZhbD1UfQ0Kc3VtbWFyaXNlZCA8LSBzdW1tYXJpc2UoaXJpcywgTWVhbi5XaWR0aCA9IG1lYW4oU2VwYWwuV2lkdGgpKQ0KaGVhZChzdW1tYXJpc2VkKQ0KYGBgDQoNClRoZSBvcmlnaW5hbCBgaXJpc2AgZGF0YSBzZXQgaXMgYSBkYXRhIGZyYW1lIG9mIGRpbWVuc2lvbnMgKGBkaW0oaXJpcylgKSAxNTAgb2JzZXJ2YXRpb25zIGJ5IDUgdmFyaWFibGVzLiBUaGUgZnVuY3Rpb24gYHN1bW1hcmlzZWAgc3VtbWFyaXNlIGl0IGludG8gYSBkYXRhIGZyYW1lIGNvbXBvc2VkIG9mIDEgb2JzZXJ2YXRpb24gYnkgMSB2YXJpYWJsZSAodGhlIGBtZWFuKFNlcGFsLndpZHRoKWApLg0KDQojIE1hbmlwdWxhdGUNCg0KIyMgYHNlbGVjdGANCg0KVGhlIGZ1bmN0aW9uIGBzZWxlY3RgIGlzIHVzZWQgdG8gc2VsZWN0IGRhdGEgdXNpbmcgdGhlIG5hbWUgb2YgYSBjb2x1bW4uIFNldmVyYWwgc3ludGF4ZXMgYXJlIHBvc3NpYmxlLiBGb3IgZXhhbXBsZToNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQojIGJ5IGNvbHVtbiBuYW1lcw0Kc2VsZWN0ZWQxIDwtIGRwbHlyOjpzZWxlY3QoaXJpcywgU2VwYWwuTGVuZ3RoLCBTZXBhbC5XaWR0aCwgUGV0YWwuTGVuZ3RoKQ0KaGVhZChzZWxlY3RlZDEpIA0KDQojIGJ5IGNvbHVtbiByYW5nZQ0Kc2VsZWN0ZWQyIDwtIGRwbHlyOjpzZWxlY3QoaXJpcywgU2VwYWwuTGVuZ3RoOlBldGFsLkxlbmd0aCkNCmhlYWQoc2VsZWN0ZWQyLCA0KQ0KDQojIGJ5IGNvbHVtbiByYW5nZSBudW1iZXINCnNlbGVjdGVkMyA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsYygyOjUpKQ0KaGVhZChzZWxlY3RlZDMpDQpgYGANCg0KVXNlIGAtYCB0byBoaWRlIGEgcGFydGljdWxhciBjb2x1bW4NCg0KYGBge3IsICBldmFsPUZ9DQpzZWxlY3RlZDQgPC0gZHBseXI6OnNlbGVjdChpcmlzLCAtU2VwYWwuTGVuZ3RoLCAtU2VwYWwuV2lkdGgpDQpgYGANCg0KTm90ZSB0aGUgdXNlIG9mIHRoZSBub3RhdGlvbiBgOjpgLiBUaGUgdXNlIG9mIGA6OmAgaXMgdG8gY2FsbCBhIGZ1bmN0aW9uIGZyb20gYSBzcGVjaWZpYyBwYWNrYWdlIHdpdGhvdXQgbmVjZXNzYXJpbHkgbG9hZGluZyB0aGUgcGFja2FnZS4gVGhlIG1haW4gYWR2YW50YWdlIGlzIHRvIGF2b2lkIHBvc3NpYmxlIGNvbmZsaWN0cyBhbW9uZyBmdW5jdGlvbnMuIEluZGVlZCwgaXQgbWF5IGhhcHBlbiB0aGF0IGRpZmZlcmVudCBwYWNrYWdlcyB3aWxsIHVzZSB0aGUgc2FtZSBuYW1lIGZvciBkaWZmZXJlbnQgZnVuY3Rpb25zLiBgZHBseXI6OnNlbGVjdGAgc3BlY2lmaWVzIHdlIHdhbnQgdG8gdXNlIHRoZSBmdW5jdGlvbiBgc2VsZWN0YCBmcm9tIHRoZSBgZHBseXJgIHBhY2thZ2UuDQoNCg0KIyMgYGZpbHRlcmANCg0KVGhlIGZ1bmN0aW9uIGBmaWx0ZXJgIGlzIHVzZWQgdG8gZmlsdGVyIHJvd3Mgd2l0aCBtYXRjaGluZyBjcml0ZXJpYS4gVGhlIGlkZWEgaXMgdGhlIHNhbWUgYXMgIHByZXZpb3VzbHkgc2VlbiAoc2VlIFtNYW5pcHVsYXRpb25dKC4vbWFuaXB1bGF0aW9uLmh0bWwpKS4gSXQgd29ya3MgaW4gdGhlIHNhbWUgd2F5IHRoYW4gdGhlIGZ1bmN0aW9uIGBzZWxlY3RgIChpLmUuLCB3ZSBwYXNzIGEgZGF0YSBmcmFtZSBhbG9uZyB3aXRoIGEgY29uZGl0aW9uIHNlcGFyYXRlZCBieSBhIGNvbW1hKS4gDQoNCi0gU2luZ2xlIGNvbmRpdGlvbjoNCg0KYGBge3IsICBldmFsPVR9DQojIFNlbGVjdCBzZXRvc2Egc3BlY2llcw0KZmlsdGVyZWQxIDwtIGZpbHRlcihpcmlzLCBTcGVjaWVzID09ICJzZXRvc2EiICkNCmhlYWQoZmlsdGVyZWQxLDMpDQpgYGANCg0KLSBEdWFsIGNvbmRpdGlvbnM6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KIyBTZWxlY3QgdmVyc2ljb2xvciBzcGVjaWVzIHdpdGggU2VwYWwgd2lkdGggbW9yZSB0aGFuIDMNCmZpbHRlcmVkMiA8LSBmaWx0ZXIoaXJpcywgU3BlY2llcyA9PSAidmVyc2ljb2xvciIsIFNlcGFsLldpZHRoID4gMykNCnRhaWwoZmlsdGVyZWQyKQ0KYGBgDQoNCiMjIGBtdXRhdGVgDQoNClRoZSBmdW5jdGlvbiBgbXV0YXRlYCBpcyB0byBjcmVhdGUgbmV3IGNvbHVtbnMgKHZhcmlhYmxlcykgd2hpbGUgcHJlc2VydmluZyBleGlzdGluZyBjb2x1bW5zIGluIGEgZGF0YSBzZXQuIEZvciBleGFtcGxlOg0KDQpgYGB7ciwgIGV2YWw9VH0NCiNUbyBjcmVhdGUgYSBjb2x1bW4g4oCcR3JlYXRlci5IYWxm4oCdIHdoaWNoIHN0b3JlcyBhIGxvZ2ljYWwgdmVjdG9yDQptdXRhdGVkMSA8LSBtdXRhdGUoaXJpcywgR3JlYXRlci5IYWxmID0gU2VwYWwuV2lkdGggPiAwLjUgKiBTZXBhbC5MZW5ndGgpDQp0YWlsKG11dGF0ZWQxKQ0KYGBgDQoNClRvIGNoZWNrIGhvdyBtYW55IGZsb3dlcnMgZmFsbCBpbiB0aGlzIGNvbmRpdGlvbiwgdGhlIGZ1bmN0aW9uIGB0YWJsZWAgZnJvbSB0aGUgYGJhc2VgIHBhY2thZ2UgcHJvZHVjZXMgYSBjb250aW5nZW5jeSB0YWJsZSB3aXRoIHRoZSBuby4gb2YgaW5kaXZpZHVhbCB3aGVyZSB0aGUgY29uZGl0aW9uIGlzIGBUUlVFYCBhbmQgYEZBTFNFYDoNCg0KYGBge3IsICBldmFsPVR9DQp0YWJsZShtdXRhdGVkMSRHcmVhdGVyLkhhbGYpDQpgYGANCg0KIyMgYGFycmFuZ2VgDQoNClRoZSBmdW5jdGlvbiBgYXJyYW5nZWAgaXMgdXNlZCB0byBzb3J0IHJvd3MgYnkgdmFyaWFibGVzIGluIGJvdGggYW4gYXNjZW5kaW5nIChkZWZhdWx0KSBvciBkZXNjZW5kaW5nIG9yZGVyLiBGb3IgZXhhbXBsZToNCg0KYGBge3IsICBldmFsPVR9DQojIFNlcGFsIFdpZHRoIGJ5IGFzY2VuZGluZyBvcmRlcg0KYXJyYW5nZWQxIDwtIGFycmFuZ2UoaXJpcywgU2VwYWwuV2lkdGgpDQpoZWFkKGFycmFuZ2VkMSkNCg0KIyBTZXBhbCBXaWR0aCBieSBkZXNjZW5kaW5nIG9yZGVyDQphcnJhbmdlZDIgPC0gYXJyYW5nZShpcmlzLCBkZXNjKFNlcGFsLldpZHRoKSkNCmhlYWQoYXJyYW5nZWQyKQ0KYGBgDQoNCiMjIGBncm91cF9ieWANCg0KVGhlIGZ1bmN0aW9uIGBncm91cF9ieWAgZ3JvdXBzIG9ic2VydmF0aW9ucyB3aXRoaW4gYSBkYXRhIHNldCBieSBvbmUgb3IgbW9yZSB2YXJpYWJsZXMuIERhdGEgb3BlcmF0aW9ucyBhcmUgb2Z0ZW4gcGVyZm9ybWVkIG9uIGdyb3VwcyBkZWZpbmVkIGJ5IHZhcmlhYmxlcy4gYHVuZ3JvdXBgIHJlbW92ZXMgZ3JvdXBpbmcuIEZvciBleGFtcGxlLCB0byBgc3VtbWFyaXNlYCAgYSBkYXRhIHNldCBgZ3JvdXBfYnlgIGJ5IGBTcGVjaWVzYCA6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KIyBNZWFuIHNlcGFsIHdpZHRoIGJ5IFNwZWNpZXMNCmdwIDwtIGdyb3VwX2J5KGlyaXMsIFNwZWNpZXMpDQpncC5tZWFuIDwtIHN1bW1hcmlzZShncCxNZWFuLlNlcGFsID0gbWVhbihTZXBhbC5XaWR0aCkpDQpncC5tZWFuDQpgYGANCg0KV2hpY2ggcHJvZHVjZXMgYSBgdGliYmxlYCAoYSBkYXRhIGZyYW1lIHdpdGggc3RyaWN0ZXIgY2hlY2tpbmcgYW5kIGJldHRlciBmb3JtYXR0aW5nKSwgc2VlIGA/dGliYmxlOjp0aWJibGVgIHByb3ZpZGluZyBtZWFuIG9mIGBNZWFuLlNlcGFsYCB3aWR0aCBmb3IgdGhlIHRocmVlIGZsb3dlciBgU3BlY2llc2AuDQoNCiMgUGlwZSBvcGVyYXRvcg0KDQoNClRoZSB1c2Ugb2YgdGhlIHByZXZpb3VzIGZ1bmN0aW9ucyBhcyBzZWVuIGFib3ZlIGlzIHNpbXBsZSBhbmQgc3RyYWlnaHRmb3J3YXJkLiBIb3dldmVyLCB0aGUgdXNlIG9mIHRoaXMgc3ludGhheCB3aWxsIHF1aWNrbHkgc2hvdyBpdHMgbGltaXRzIGFzIG9wZXJhdGlvbnMgZ2V0IG1vcmUgY29tcGxpY2F0ZWQuIFRoZSB1c2Ugb2YgdGhlIHBpcGUgb3BlcmF0b3IgYCU+JWAgYWxsb3dzIHRvIHdyYXAgbXVsdGlwbGUgZnVuY3Rpb25zIHRvZ2V0aGVyLiBJdCBjYW4gYmUgdXNlZCB3aXRoIGZ1bmN0aW9ucyBsaWtlIGBmaWx0ZXJgLCBgc2VsZWN0YCwgYGFycmFuZ2VgLCBgc3VtbWFyaXNlYCwgYGdyb3VwX2J5YCwgZXRjLiBBcyBmb3IgIGFuIGV4YW1wbGU6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KI1RvIHNlbGVjdCB0aGUgcm93cyB3aXRoIGNvbmRpdGlvbnMNCmlyaXMgJT4lIGZpbHRlcihTcGVjaWVzID09ICJzZXRvc2EiLFNlcGFsLldpZHRoID4gMy44KQ0KYGBgDQoNClRvIGZpbmQgbWVhbiBgU2VwYWxgTGVuZ3RoIGJ5IGBTcGVjaWVzYCwgd2UgdXNlIHRoZSBwaXBlIG9wZXJhdG9yIGFzIGZvbGxvd2luZzoNCg0KYGBge3IsICBldmFsPVR9DQppcmlzICAlPiUgZ3JvdXBfYnkoU3BlY2llcykgJT4lIHN1bW1hcmlzZShNZWFuLkxlbmd0aCA9IG1lYW4oU2VwYWwuTGVuZ3RoKSkNCmBgYA0KDQpUaGUgdXNlIG9mIHRoZSBwaXBlIG9wZXJhdG9yIGAlPiVgIGhhcyBub3cgaW1wb3NlZCBpdHNlbGYgZm9yIG1hbmlwdWxhdGluZyBhbmQgdHJhbnNmb3JtaW5nIGRhdGEgaW4gUi4gUiBsYW5ndWFnZSBpcyBub3QgZml4ZWQgYW5kIGFzIGl0IGV2b2x2ZXMgdGhpcyBzeW50aGF4IGhhcyBiZWNhbWUgdmVyeSBjb21tb24uIEl0IGlzIG5vdyBhIGNvbW1vbiBwYXJ0IGluIG1vc3Qgc2NyaXB0IHlvdSB3aWxsIGRpc2NvdmVyIHdoaWxlIHVzaW5nIFIuDQo=" download="dplyr.Rmd">Download dplyr.Rmd</a></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<a href="data:text/plain;base64,bGlicmFyeSAoZHBseXIpCgpzdW1tYXJpc2VkIDwtIHN1bW1hcmlzZShpcmlzLCBNZWFuLldpZHRoID0gbWVhbihTZXBhbC5XaWR0aCkpCmhlYWQoc3VtbWFyaXNlZCkKCiMgYnkgY29sdW1uIG5hbWVzCnNlbGVjdGVkMSA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsIFNlcGFsLkxlbmd0aCwgU2VwYWwuV2lkdGgsIFBldGFsLkxlbmd0aCkKaGVhZChzZWxlY3RlZDEpIAoKIyBieSBjb2x1bW4gcmFuZ2UKc2VsZWN0ZWQyIDwtIGRwbHlyOjpzZWxlY3QoaXJpcywgU2VwYWwuTGVuZ3RoOlBldGFsLkxlbmd0aCkKaGVhZChzZWxlY3RlZDIsIDQpCgojIGJ5IGNvbHVtbiByYW5nZSBudW1iZXIKc2VsZWN0ZWQzIDwtIGRwbHlyOjpzZWxlY3QoaXJpcyxjKDI6NSkpCmhlYWQoc2VsZWN0ZWQzKQoKc2VsZWN0ZWQ0IDwtIGRwbHlyOjpzZWxlY3QoaXJpcywgLVNlcGFsLkxlbmd0aCwgLVNlcGFsLldpZHRoKQoKIyBTZWxlY3Qgc2V0b3NhIHNwZWNpZXMKZmlsdGVyZWQxIDwtIGZpbHRlcihpcmlzLCBTcGVjaWVzID09ICJzZXRvc2EiICkKaGVhZChmaWx0ZXJlZDEsMykKCiMgU2VsZWN0IHZlcnNpY29sb3Igc3BlY2llcyB3aXRoIFNlcGFsIHdpZHRoIG1vcmUgdGhhbiAzCmZpbHRlcmVkMiA8LSBmaWx0ZXIoaXJpcywgU3BlY2llcyA9PSAidmVyc2ljb2xvciIsIFNlcGFsLldpZHRoID4gMykKdGFpbChmaWx0ZXJlZDIpCgojVG8gY3JlYXRlIGEgY29sdW1uIOKAnEdyZWF0ZXIuSGFsZuKAnSB3aGljaCBzdG9yZXMgYSBsb2dpY2FsIHZlY3RvcgptdXRhdGVkMSA8LSBtdXRhdGUoaXJpcywgR3JlYXRlci5IYWxmID0gU2VwYWwuV2lkdGggPiAwLjUgKiBTZXBhbC5MZW5ndGgpCnRhaWwobXV0YXRlZDEpCgp0YWJsZShtdXRhdGVkMSRHcmVhdGVyLkhhbGYpCgojIFNlcGFsIFdpZHRoIGJ5IGFzY2VuZGluZyBvcmRlcgphcnJhbmdlZDEgPC0gYXJyYW5nZShpcmlzLCBTZXBhbC5XaWR0aCkKaGVhZChhcnJhbmdlZDEpCgojIFNlcGFsIFdpZHRoIGJ5IGRlc2NlbmRpbmcgb3JkZXIKYXJyYW5nZWQyIDwtIGFycmFuZ2UoaXJpcywgZGVzYyhTZXBhbC5XaWR0aCkpCmhlYWQoYXJyYW5nZWQyKQoKIyBNZWFuIHNlcGFsIHdpZHRoIGJ5IFNwZWNpZXMKZ3AgPC0gZ3JvdXBfYnkoaXJpcywgU3BlY2llcykKZ3AubWVhbiA8LSBzdW1tYXJpc2UoZ3AsTWVhbi5TZXBhbCA9IG1lYW4oU2VwYWwuV2lkdGgpKQpncC5tZWFuCgojVG8gc2VsZWN0IHRoZSByb3dzIHdpdGggY29uZGl0aW9ucwppcmlzICU+JSBmaWx0ZXIoU3BlY2llcyA9PSAic2V0b3NhIixTZXBhbC5XaWR0aCA+IDMuOCkKCmlyaXMgICU+JSBncm91cF9ieShTcGVjaWVzKSAlPiUgc3VtbWFyaXNlKE1lYW4uTGVuZ3RoID0gbWVhbihTZXBhbC5MZW5ndGgpKQpgYGB7LnIgLmRpc3RpbGwtZm9yY2UtaGlnaGxpZ2h0aW5nLWNzc30KYGBgCg==" download="dplyr.R">Download dplyr.R</a>
+<p><a href="data:text/plain;base64,bGlicmFyeSAoZHBseXIpDQoNCnN1bW1hcmlzZWQgPC0gc3VtbWFyaXNlKGlyaXMsIE1lYW4uV2lkdGggPSBtZWFuKFNlcGFsLldpZHRoKSkNCmhlYWQoc3VtbWFyaXNlZCkNCg0KIyBieSBjb2x1bW4gbmFtZXMNCnNlbGVjdGVkMSA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsIFNlcGFsLkxlbmd0aCwgU2VwYWwuV2lkdGgsIFBldGFsLkxlbmd0aCkNCmhlYWQoc2VsZWN0ZWQxKSANCg0KIyBieSBjb2x1bW4gcmFuZ2UNCnNlbGVjdGVkMiA8LSBkcGx5cjo6c2VsZWN0KGlyaXMsIFNlcGFsLkxlbmd0aDpQZXRhbC5MZW5ndGgpDQpoZWFkKHNlbGVjdGVkMiwgNCkNCg0KIyBieSBjb2x1bW4gcmFuZ2UgbnVtYmVyDQpzZWxlY3RlZDMgPC0gZHBseXI6OnNlbGVjdChpcmlzLGMoMjo1KSkNCmhlYWQoc2VsZWN0ZWQzKQ0KDQpzZWxlY3RlZDQgPC0gZHBseXI6OnNlbGVjdChpcmlzLCAtU2VwYWwuTGVuZ3RoLCAtU2VwYWwuV2lkdGgpDQoNCiMgU2VsZWN0IHNldG9zYSBzcGVjaWVzDQpmaWx0ZXJlZDEgPC0gZmlsdGVyKGlyaXMsIFNwZWNpZXMgPT0gInNldG9zYSIgKQ0KaGVhZChmaWx0ZXJlZDEsMykNCg0KIyBTZWxlY3QgdmVyc2ljb2xvciBzcGVjaWVzIHdpdGggU2VwYWwgd2lkdGggbW9yZSB0aGFuIDMNCmZpbHRlcmVkMiA8LSBmaWx0ZXIoaXJpcywgU3BlY2llcyA9PSAidmVyc2ljb2xvciIsIFNlcGFsLldpZHRoID4gMykNCnRhaWwoZmlsdGVyZWQyKQ0KDQojVG8gY3JlYXRlIGEgY29sdW1uIOKAnEdyZWF0ZXIuSGFsZuKAnSB3aGljaCBzdG9yZXMgYSBsb2dpY2FsIHZlY3Rvcg0KbXV0YXRlZDEgPC0gbXV0YXRlKGlyaXMsIEdyZWF0ZXIuSGFsZiA9IFNlcGFsLldpZHRoID4gMC41ICogU2VwYWwuTGVuZ3RoKQ0KdGFpbChtdXRhdGVkMSkNCg0KdGFibGUobXV0YXRlZDEkR3JlYXRlci5IYWxmKQ0KDQojIFNlcGFsIFdpZHRoIGJ5IGFzY2VuZGluZyBvcmRlcg0KYXJyYW5nZWQxIDwtIGFycmFuZ2UoaXJpcywgU2VwYWwuV2lkdGgpDQpoZWFkKGFycmFuZ2VkMSkNCg0KIyBTZXBhbCBXaWR0aCBieSBkZXNjZW5kaW5nIG9yZGVyDQphcnJhbmdlZDIgPC0gYXJyYW5nZShpcmlzLCBkZXNjKFNlcGFsLldpZHRoKSkNCmhlYWQoYXJyYW5nZWQyKQ0KDQojIE1lYW4gc2VwYWwgd2lkdGggYnkgU3BlY2llcw0KZ3AgPC0gZ3JvdXBfYnkoaXJpcywgU3BlY2llcykNCmdwLm1lYW4gPC0gc3VtbWFyaXNlKGdwLE1lYW4uU2VwYWwgPSBtZWFuKFNlcGFsLldpZHRoKSkNCmdwLm1lYW4NCg0KI1RvIHNlbGVjdCB0aGUgcm93cyB3aXRoIGNvbmRpdGlvbnMNCmlyaXMgJT4lIGZpbHRlcihTcGVjaWVzID09ICJzZXRvc2EiLFNlcGFsLldpZHRoID4gMy44KQ0KDQppcmlzICAlPiUgZ3JvdXBfYnkoU3BlY2llcykgJT4lIHN1bW1hcmlzZShNZWFuLkxlbmd0aCA9IG1lYW4oU2VwYWwuTGVuZ3RoKSkNCmBgYHsuciAuZGlzdGlsbC1mb3JjZS1oaWdobGlnaHRpbmctY3NzfQ0KYGBgDQo=" download="dplyr.R">Download dplyr.R</a></p>
 </div>
 <h1 id="background">Background</h1>
 <div class="layout-chunk" data-layout="l-body">
@@ -2538,9 +2533,22 @@ Manipulation
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span> <span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>As indicated in the description of the package (<code>?dplyr</code>), <code>dplyr</code> is all about data manipulation <strong><em>“dplyr: A grammar of data Manipulation”</em></strong>. It is part of the <code>tidyverse</code> universe, a set of packages that has imposed itself in the art of data set manipulation and transformation. The package <code>dplyr</code> has many functions to fasten data exploration and transformation. To learn more about <code>dplyr</code>, you can explore the vignette: <code>browseVignettes(package = "dplyr")</code>. You can also Visit the following <a href="https://dplyr.tidyverse.org/">website</a> for more information on the <code>dplyr</code> package. Some important functions from this packages are covered in the following sections.</p>
+<p>As indicated in the description of the package (<code>?dplyr</code>),
+<code>dplyr</code> is all about data manipulation <strong><em>“dplyr: A
+grammar of data Manipulation”</em></strong>. It is part of the
+<code>tidyverse</code> universe, a set of packages that has imposed
+itself in the art of data set manipulation and transformation. The
+package <code>dplyr</code> has many functions to fasten data exploration
+and transformation. To learn more about <code>dplyr</code>, you can
+explore the vignette: <code>browseVignettes(package = "dplyr")</code>.
+You can also Visit the following <a
+href="https://dplyr.tidyverse.org/">website</a> for more information on
+the <code>dplyr</code> package. Some important functions from this
+packages are covered in the following sections.</p>
 <h1 id="summarize">Summarize</h1>
-<p>The function <code>summarise</code> is used to find insights (mean, median, mode, etc.) from a data set. It reduces multiple values down to a single value. For example:</p>
+<p>The function <code>summarise</code> is used to find insights (mean,
+median, mode, etc.) from a data set. It reduces multiple values down to
+a single value. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summarised</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='va'>iris</span>, Mean.Width <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -2549,10 +2557,14 @@ Manipulation
 <pre><code>  Mean.Width
 1   3.057333</code></pre>
 </div>
-<p>The original <code>iris</code> data set is a data frame of dimensions (<code>dim(iris)</code>) 150 observations by 5 variables. The function <code>summarise</code> summarise it into a data frame composed of 1 observation by 1 variable (the <code>mean(Sepal.width)</code>).</p>
+<p>The original <code>iris</code> data set is a data frame of dimensions
+(<code>dim(iris)</code>) 150 observations by 5 variables. The function
+<code>summarise</code> summarise it into a data frame composed of 1
+observation by 1 variable (the <code>mean(Sepal.width)</code>).</p>
 <h1 id="manipulate">Manipulate</h1>
 <h2 id="select"><code>select</code></h2>
-<p>The function <code>select</code> is used to select data using the name of a column. Several syntaxes are possible. For example:</p>
+<p>The function <code>select</code> is used to select data using the
+name of a column. Several syntaxes are possible. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># by column names</span></span>
@@ -2595,9 +2607,19 @@ Manipulation
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>selected4</span> <span class='op'>&lt;-</span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>iris</span>, <span class='op'>-</span><span class='va'>Sepal.Length</span>, <span class='op'>-</span><span class='va'>Sepal.Width</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<p>Note the use of the notation <code>::</code>. The use of <code>::</code> is to call a function from a specific package without necessarily loading the package. The main advantage is to avoid possible conflicts among functions. Indeed, it may happen that different packages will use the same name for different functions. <code>dplyr::select</code> specifies we want to use the function <code>select</code> from the <code>dplyr</code> package.</p>
+<p>Note the use of the notation <code>::</code>. The use of
+<code>::</code> is to call a function from a specific package without
+necessarily loading the package. The main advantage is to avoid possible
+conflicts among functions. Indeed, it may happen that different packages
+will use the same name for different functions.
+<code>dplyr::select</code> specifies we want to use the function
+<code>select</code> from the <code>dplyr</code> package.</p>
 <h2 id="filter"><code>filter</code></h2>
-<p>The function <code>filter</code> is used to filter rows with matching criteria. The idea is the same as previously seen (see <a href="./manipulation.html">Manipulation</a>). It works in the same way than the function <code>select</code> (i.e., we pass a data frame along with a condition separated by a comma).</p>
+<p>The function <code>filter</code> is used to filter rows with matching
+criteria. The idea is the same as previously seen (see <a
+href="./manipulation.html">Manipulation</a>). It works in the same way
+than the function <code>select</code> (i.e., we pass a data frame along
+with a condition separated by a comma).</p>
 <ul>
 <li>Single condition:</li>
 </ul>
@@ -2630,7 +2652,8 @@ Manipulation
 8          6.7         3.1          4.7         1.5 versicolor</code></pre>
 </div>
 <h2 id="mutate"><code>mutate</code></h2>
-<p>The function <code>mutate</code> is to create new columns (variables) while preserving existing columns in a data set. For example:</p>
+<p>The function <code>mutate</code> is to create new columns (variables)
+while preserving existing columns in a data set. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#To create a column “Greater.Half” which stores a logical vector</span></span>
@@ -2652,7 +2675,10 @@ Manipulation
 149         TRUE
 150         TRUE</code></pre>
 </div>
-<p>To check how many flowers fall in this condition, the function <code>table</code> from the <code>base</code> package produces a contingency table with the no. of individual where the condition is <code>TRUE</code> and <code>FALSE</code>:</p>
+<p>To check how many flowers fall in this condition, the function
+<code>table</code> from the <code>base</code> package produces a
+contingency table with the no. of individual where the condition is
+<code>TRUE</code> and <code>FALSE</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>mutated1</span><span class='op'>$</span><span class='va'>Greater.Half</span><span class='op'>)</span></span></code></pre>
@@ -2662,7 +2688,8 @@ FALSE  TRUE
    84    66 </code></pre>
 </div>
 <h2 id="arrange"><code>arrange</code></h2>
-<p>The function <code>arrange</code> is used to sort rows by variables in both an ascending (default) or descending order. For example:</p>
+<p>The function <code>arrange</code> is used to sort rows by variables
+in both an ascending (default) or descending order. For example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Sepal Width by ascending order</span></span>
@@ -2690,7 +2717,11 @@ FALSE  TRUE
 6          5.4         3.9          1.3         0.4  setosa</code></pre>
 </div>
 <h2 id="group_by"><code>group_by</code></h2>
-<p>The function <code>group_by</code> groups observations within a data set by one or more variables. Data operations are often performed on groups defined by variables. <code>ungroup</code> removes grouping. For example, to <code>summarise</code> a data set <code>group_by</code> by <code>Species</code> :</p>
+<p>The function <code>group_by</code> groups observations within a data
+set by one or more variables. Data operations are often performed on
+groups defined by variables. <code>ungroup</code> removes grouping. For
+example, to <code>summarise</code> a data set <code>group_by</code> by
+<code>Species</code> :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Mean sepal width by Species</span></span>
@@ -2698,16 +2729,25 @@ FALSE  TRUE
 <span><span class='va'>gp.mean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='va'>gp</span>,Mean.Sepal <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Width</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>gp.mean</span></span></code></pre>
 </div>
-<pre><code># A tibble: 3 × 2
+<pre><code># A tibble: 3 x 2
   Species    Mean.Sepal
   &lt;fct&gt;           &lt;dbl&gt;
 1 setosa           3.43
 2 versicolor       2.77
 3 virginica        2.97</code></pre>
 </div>
-<p>Which produces a <code>tibble</code> (a data frame with stricter checking and better formatting), see <code>?tibble::tibble</code> providing mean of <code>Mean.Sepal</code> width for the three flower <code>Species</code>.</p>
+<p>Which produces a <code>tibble</code> (a data frame with stricter
+checking and better formatting), see <code>?tibble::tibble</code>
+providing mean of <code>Mean.Sepal</code> width for the three flower
+<code>Species</code>.</p>
 <h1 id="pipe-operator">Pipe operator</h1>
-<p>The use of the previous functions as seen above is simple and straightforward. However, the use of this synthax will quickly show its limits as operations get more complicated. The use of the pipe operator <code>%&gt;%</code> allows to wrap multiple functions together. It can be used with functions like <code>filter</code>, <code>select</code>, <code>arrange</code>, <code>summarise</code>, <code>group_by</code>, etc. As for an example:</p>
+<p>The use of the previous functions as seen above is simple and
+straightforward. However, the use of this synthax will quickly show its
+limits as operations get more complicated. The use of the pipe operator
+<code>%&gt;%</code> allows to wrap multiple functions together. It can
+be used with functions like <code>filter</code>, <code>select</code>,
+<code>arrange</code>, <code>summarise</code>, <code>group_by</code>,
+etc. As for an example:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#To select the rows with conditions</span></span>
@@ -2721,20 +2761,25 @@ FALSE  TRUE
 5          5.2         4.1          1.5         0.1  setosa
 6          5.5         4.2          1.4         0.2  setosa</code></pre>
 </div>
-<p>To find mean <code>Sepal</code>Length by <code>Species</code>, we use the pipe operator as following:</p>
+<p>To find mean <code>Sepal</code>Length by <code>Species</code>, we use
+the pipe operator as following:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>iris</span>  <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Species</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>Mean.Length <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 3 × 2
+<pre><code># A tibble: 3 x 2
   Species    Mean.Length
   &lt;fct&gt;            &lt;dbl&gt;
 1 setosa            5.01
 2 versicolor        5.94
 3 virginica         6.59</code></pre>
 </div>
-<p>The use of the pipe operator <code>%&gt;%</code> has now imposed itself for manipulating and transforming data in R. R language is not fixed and as it evolves this synthax has became very common. It is now a common part in most script you will discover while using R.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>The use of the pipe operator <code>%&gt;%</code> has now imposed
+itself for manipulating and transforming data in R. R language is not
+fixed and as it evolves this synthax has became very common. It is now a
+common part in most script you will discover while using R.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
