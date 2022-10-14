@@ -36,8 +36,8 @@ navbar:
       href: types.html
     - text: "Graphics"
       href: graphics.html
-#    - text: "Mapping"
-#      href: mapping.html
+    - text: "Mapping"
+      href: mapping.html
 #    - text: "Loops & Functions"
 #      href: loop.html
 #    - text: "Statistics"
