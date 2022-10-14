@@ -14,9 +14,9 @@ xfun::embed_file('mapping.Rmd')
 xfun::embed_file('mapping.R')
 ```
 
-Common solutions for creating maps usually involves GIS software, such as *ArcGIS*, *QGIS*, *eSpatial*, etc., which allow to visually prepare a map, in the same approach as one would prepare a poster or a document layout. On the other hand, R has also advanced spatial capabilities and can be used to draw maps. As we mentioned earlier for the graphics, R allows you to create map highly customization which makes it a solution increasingly attractive.  
+Common solutions for creating maps usually involves geographic information system (GIS) software, such as *ArcGIS*, *QGIS*, *eSpatial*, etc., which allow to visually prepare a map in a very similar approach as one would prepare a poster or a document layout. On the other hand, R has also advanced spatial capabilities and can be used to draw maps. As we mentioned earlier for the graphics, R allows you to create map highly customization which makes it a solution increasingly attractive. In addition, the `leaflet` package now offers interesting solution to add some interactivity to your maps.    
 
-Several packahges will be used today. It is generally a good practice to group the package you will use at the beginning of your script:
+Several packages will be used today. It is generally a good practice to group the package you will use at the beginning of your script:
 
 ```{r,  eval=T, message=F}
 library(maptools)
@@ -38,7 +38,7 @@ library(leaflet)
 ```
 
 
-# Simple map 
+# Basic map 
 
 Getting a simple map is pretty straightforward in R using the package`maptools`
 
@@ -46,27 +46,28 @@ Getting a simple map is pretty straightforward in R using the package`maptools`
 
 ```{r,  eval=T, message=F}
 data(wrld_simpl) 
-# NOT RUN: ? wrld_simpl
 ```
 
-- Plot the world
+- "Plot the world"
 
-```
+```{r,  eval=T, message=F}
 plot(wrld_simpl)
 ```
 
-Now we know the options to modify a plot, therefore you can customize this map with some elements we mentioned earlier:
+We have now a couple of options to modify a plot. Therefore you can customize this simple map with a some arguments mentioned earlier:
 
 ```{r,  eval=T}
 plot(wrld_simpl,xlim=c(100,130),ylim=c(-20,50),col='olivedrab3',bg='lightblue')
 ```
 
-Try to zoom on Taiwan: you will quickly realize that we have a pretty bad resolution a finer scale, see `?wrld_simpl`  
+Try to zoom on Taiwan. Quickly, you will see obvious limit in this simple map. The resolution is too bad at at fine scale. See output of `str(wrld_simpl)` and `?wrld_simpl`.   
 
 
-# Shape files
+# Shapes
 
-+ Reading track `gpx`
+*  `gpx` track
+
+  + reading
 
 If you like running, hiking, walking, or being lazy in a park - many devices now can export `gpx` format. You an read the file directly as lines (i.e, `tracks`), points (i.e, `track_points`), and a few other formats you can find in the help for `readOGR` from the famous package `rgdal`: bindings for the 'Geospatial' Data Abstraction Library. *Note that the same could be accomplished using the `sf` package and `st_read`function.*
 
@@ -79,7 +80,8 @@ plot(run2, main='Points')
 dev.off()
 ```
 
-+ Writing track `gpx`
+ + writing
+
 
 The reverse can be accomplish with the function `writeOGR` to export  objects as **SpatialPointsDataFrame**, **SpatialLinesDataFrame**, or **SpatialPolygonsDataFrame**  (as defined in the `sp` package). This will write an ArcGIS compatible **shapefile**, but many different formats are available by specifying the correct driver.Now that we know how to get a  basic map in R, let's look at how we can export and import data. 
 

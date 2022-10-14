@@ -16,7 +16,8 @@ library(leaflet)
 #Sys.setlocale(category = "LC_ALL", "Chinese (Traditional)_Taiwan.950")
 
 data(wrld_simpl) 
-# NOT RUN: ? wrld_simpl
+
+plot(wrld_simpl)
 
 plot(wrld_simpl,xlim=c(100,130),ylim=c(-20,50),col='olivedrab3',bg='lightblue')
 
