@@ -28,7 +28,8 @@ run2 <- readOGR(dsn="Data/run.gpx",layer="track_points")
 plot(run2, main='Points')
 dev.off()
 
-writeOGR(wrld_simpl, dsn="Data", layer = "world_test", driver = "ESRI Shapefile", overwrite_layer = TRUE)
+writeOGR(wrld_simpl, dsn="Data", layer = "world_test", driver = "ESRI Shapefile", overwrite_layer = TRUE) 
+# ESRI Shapefile is default
 
 world_shp <- readOGR(dsn = "Data",layer = "world_test")
 plot(world_shp)
@@ -50,7 +51,7 @@ sls <- SpatialLines(list(ls))
 df <- data.frame(province="Saskatchewan")
 sldf <- SpatialLinesDataFrame(sls,df)
 plot(sldf,add=T,col='#3d2402', cex=2)
-text(-114, 55, 'Saskatchewan', srt=90, cex=0.7)
+text(-114, 55, 'Saskatchewan', srt=90, cex=0.5)
 text(-114, 63, 'CANADA', cex=1)
 
 plot(wrld_simpl,xlim=c(-130,-60),ylim=c(45,80),col='#D2B48C',bg='lightblue')
@@ -212,6 +213,7 @@ gbif.res <- occ_search(scientificName = "Urocissa caerulea", limit = 1200)
 
 map_ggplot(gbif.res) +
   coord_sf(xlim = c(120, 123), ylim = c(21, 26), expand = FALSE)
+
 
 # query
 TW.bathy <- getNOAA.bathy(lon1=118,lon2=124, lat1=21,lat2=26,resolution=1) # don't put too wide / resolution: 1 

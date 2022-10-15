@@ -65,11 +65,11 @@ Try to zoom on Taiwan. Quickly, you will see obvious limit in this simple map. T
 
 # Shapes
 
-*  `gpx` track
+##  `gpx` track
 
-  + reading
+* reading
 
-If you like running, hiking, walking, or being lazy in a park - many devices now can export `gpx` format. You an read the file directly as lines (i.e, `tracks`), points (i.e, `track_points`), and a few other formats you can find in the help for `readOGR` from the famous package `rgdal`: bindings for the 'Geospatial' Data Abstraction Library. *Note that the same could be accomplished using the `sf` package and `st_read`function.*
+If you like running, hiking, walking, or just being lazy in a park - many devices  can now export `gpx` format. You can read the file directly as lines (i.e, `tracks`), points (i.e, `track_points`), and a few other formats. Look at the help on `readOGR` function form the `rgdal` package: **Bindings for the 'Geospatial' Data Abstraction Library**. *Note that the same could be accomplished using the `sf` package and using the `st_read`function.*
 
 ```{r,  eval=T,message=F, warning=F}
 par(mfrow=c(1,2))
@@ -80,28 +80,36 @@ plot(run2, main='Points')
 dev.off()
 ```
 
- + writing
+Note the use of `par(mfrow=c(1,2))` to put the two plots next to each others.
+
+Those are spatial shapes. The line connects points recorded at given intervals. Resolution of the track will depend on the resolution of the records and your speed (being lazy actually increases the accuracy).  
+
+* writing
 
 
-The reverse can be accomplish with the function `writeOGR` to export  objects as **SpatialPointsDataFrame**, **SpatialLinesDataFrame**, or **SpatialPolygonsDataFrame**  (as defined in the `sp` package). This will write an ArcGIS compatible **shapefile**, but many different formats are available by specifying the correct driver.Now that we know how to get a  basic map in R, let's look at how we can export and import data. 
+The reverse can obviously be done. The function `writeOGR` exports objects as **SpatialPointsDataFrame**, **SpatialLinesDataFrame**, or **SpatialPolygonsDataFrame**  (as defined in the `sp` package). This **spatial** information is critical because you can imagine that many [projections](https://gisgeography.com/map-projections/) exist for those spatial objects. `writeOGR` will write a **shapefile** (ArcGIS compatible), but many other formats are available by specifying the correct driver. Let's look at how to export spatial data from the simple map created earlier.
 
 
 ```{r,  eval=T,message=F, warning=F}
-writeOGR(wrld_simpl, dsn="Data", layer = "world_test", driver = "ESRI Shapefile", overwrite_layer = TRUE)
+writeOGR(wrld_simpl, dsn="Data", layer = "world_test", driver = "ESRI Shapefile", overwrite_layer = TRUE) 
+# ESRI Shapefile is default
 ```
 
-+ `shp` files
+##  `shp` files
 
-Now we could open `world_test.shp` in ArcGIS (or others), but we can also import shapefile (.shp) back into R, let's use that same file
+
+Now we could open `world_test.shp` in ArcGIS (or others), but we can also import shapefile (.shp) back into R. Let's read the .shp file previously created.
 
 ```{r,  eval=T,message=F, warning=F}
 world_shp <- readOGR(dsn = "Data",layer = "world_test")
 plot(world_shp)
 ```
 
-# Spatial data types
+# Spatial data
 
-Creating spatial data from scratch in R seems a little bit confusing at first, but once you got the logic behind, it get easier. As we learned before for graphics you can add vector based object (points, Lines, polygones) to your map. A transformation of the numerical x and y values applied in this case to recognize those values as spatial coordinate.
+Creating spatial data from scratch in R seems a little bit confusing at first, but it is important to understand what is a spatial objects and how it works. 
+
+As we saw before when making a `plot`, you can add many layers (vector-based objects) on the plot created: points `points`, lines `lines`, or also polygons) to your map. A transformation of numerical x and y coordinates must however be applied in the case of a map in order to recognize those values as spatial data.
 
 
 - `SpatialPointsDataFrame` for plotting points
@@ -117,7 +125,10 @@ plot(spointsdf,add=T,col=c('black','black'),pch=19,cex=2.2) # plot it on our map
 text(121,24, 'TAIWAN', cex=1)
 ```
 
-- `SpatialLinesDataFrame` for plotting lines: let's travel in Canada in the province of Saskatchewan 
+> Note the use of the argument `add=T` in the second call of the function `plot`. It allows adding an element to a plot already opened.
+
+
+- `SpatialLinesDataFrame` for plotting lines: let's move to Canada where the provinces where drw with a ruler: an example with the province of Saskatchewan and following the same logic as ealier. 
 
 ```{r,  eval=T}
 plot(wrld_simpl,xlim=c(-130,-60),ylim=c(45,80),col='#D2B48C',bg='lightblue')
@@ -128,11 +139,11 @@ sls <- SpatialLines(list(ls))
 df <- data.frame(province="Saskatchewan")
 sldf <- SpatialLinesDataFrame(sls,df)
 plot(sldf,add=T,col='#3d2402', cex=2)
-text(-114, 55, 'Saskatchewan', srt=90, cex=0.7)
+text(-114, 55, 'Saskatchewan', srt=90, cex=0.5)
 text(-114, 63, 'CANADA', cex=1)
 ```
 
-- `SpatialPolygonesDataFrame` for plotting polygones
+- `SpatialPolygonesDataFrame` for plotting polygons instead of lines. It will help in **filling** the spatial shpae with a selected color or pattern. 
 
 ```{r,  eval=T}
 plot(wrld_simpl,xlim=c(-130,-60),ylim=c(45,80),col='#D2B48C',bg='lightblue')
@@ -150,13 +161,15 @@ text(-40, 78, 'GREENLAND', cex=1)
 text(-35, 55, 'Atlantic Ocean', cex=1, col='#071238')
 ```
 
-# `raster` fct.
+# `raster` 
 
-Spatial data: download, unzip, and import spatial shape (don't forget to set up your working directory). Those spatial data are high resolution spatial data at the country level.
+The package `raster` provides useful function to play with spatial: download, unzip, and import spatial shape (don't forget to set up your working directory). Those spatial data are high resolution spatial data at the country level. Have a look at  [What is raster data?](https://desktop.arcgis.com/en/arcmap/10.3/manage-data/raster-and-images/what-is-raster-data.htm) from the ArcGIS website.
 
-+ get country data and plot them
+## GADM
 
-Using the `raster`package  and the function `getData`, you can easily  download directly polygones (vectorized) shape from  **GADM** (Global Administrative Areas, or other sources). You will simply need the country code such as `TWN` for Taiwan, `JPN` for Japan, etc. In addition, the argument `level` indicates the level you are trying to get. For provinces (first level subdivision)) `level=1`, for the overall country level `level=0`. Check `?getDta`.
+The function `getData` (`raster`package) can  download directly polygons (vectorized) shape from  **GADM** (Global Administrative Areas, or other sources). You will simply need a country code such as `TWN` for Taiwan, `JPN` for Japan, etc. In addition, the argument `level` indicates the level you are trying to get. For provinces (first level subdivision) `level=1`, for the overall country level `level=0`. Check `?getData`.
+
+<p style="color:red"> Be reasonable at first, you may experience some delays because of slow connection </p>
 
  
 ```{r,  eval=T}
@@ -182,14 +195,14 @@ Simply set up `xlim` and `ylim`
 plot (TWN1, axes=T, xlim=c(121,122), ylim=c(24,25.5), bg=colors()[431],col='grey') 
 ```
 
-+ Taiwan: county
++ Level
 
 ```{r,  eval=T}
 TWN2 <- getData('GADM', country="TWN", level=1)
 TWN2$NAME_1
 ```
 
-You can see the list of counties is not complete. It is often  the case when using GADM that some 'details' will be missing. Let's visualize one county for which we have the data shape.
+You can see the list of counties is not complete. It is often  the case when using GADM that some 'details' are  missing. Let's visualize one county for which shape data are available.
 
 ```{r,  eval=T}
 plot(TWN1,col="grey",xlim=c(119,122.5), ylim=c(21.5,25.5), bg=colors()[431], axes=T)
@@ -197,7 +210,7 @@ KAO <- TWN2[TWN2$NAME_1=="Kaohsiung",]
 plot(KAO,col="grey 33",add=TRUE)
 ```
 
-Note the use of `add=TRUE` in the latest `plot` function.
+Note again the use of `add=TRUE` in the latest `plot` function.
 
 + A map can further be customized by combining all seen earlier (e.g. adding population)
 
@@ -227,18 +240,18 @@ GISTools::north.arrow(xb=120.3,yb=24.7, len=0.06, lab='N')
 
 Note the use of the synthax `maps::map.scale`. It means you wanna use the function `map.scale` from the package `maps`. It avoid passing by `library(maps)`, thus avoiding possible conflict among functions.
 
-+ country data
+## Country data
 
 Each country will usually have open data platform with country shape data. Those data are usually more accurate and should be preferred. In Taiwan, shapefile of counties are available for download [here](https://data.gov.tw/dataset/7442). You could get even get a finer resolution at the township level if you wish (large file). 
 
-First prepare your system to receive traditional Chinese characters:
+First, prepare your system to receive traditional Chinese characters if like mine your system is not set to accept them. Actually, those steps have no relationship with making a map however to deal with special characters is a common issue you may experience when "mapping around". 
 
 ```{r,  eval=T}
 Sys.setlocale(category = "LC_ALL", "Chinese (Traditional)_Taiwan.950")
 sessionInfo()
 ```
 
-You can go to the website and downaload data. Alternatively, using the code source of the page your can target directly the the `url` of teh dataset you want to download. This is a zip file that you want to temporary store and extract in a specific directory 
+You can go then to the website and download data locally. Alternatively, using the code source of the page your can target directly the `url` of the data set you want to download (I failed many time before identifyinng the right link). This is a zip file that you want to temporary store using `tempfile` and immediately extract it in a designated directory. Again here, nothing about mapping but you have a look on the details of the code below. 
 
 ```{r,  eval=T}
 url <- 'https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0'
@@ -248,8 +261,7 @@ zip::unzip(zipfile = path1,exdir = 'Data')
 ```
 
 
-
-Again, the function `readOGR` reads the .shp file. Other arguments are for the file encoding and to deal with the Chinese characters because my system is in English. 
+The function `readOGR` reads the .shp file. Other arguments are for the file encoding and to deal with the Chinese characters because my system is in English. 
 
 
 ```{r,  eval=T}
@@ -262,26 +274,26 @@ Make the plot:
 plot(taiwan,axes=T,bg=colors()[431],col='grey')
 ```
 
-This is the official map of TAIWAN, including all remote territories such as Taiping  and Diaoyutai islands. County names are here accessible using: 
+This is a map of TAIWAN using official data from the government. It includes all remote territories such as Taiping  and Diaoyutai islands. County names are here accessible using: 
 
 ```{r,  eval=T}
 taiwan$COUNTYNAME
 taiwan$COUNTYENG 
 ```
 
-# `ggplot2`maps
+# `ggplot2` & `sf`
 
-As we mentioned earlier, the package `ggplot2` implements the grammar of graphics in R. While `ggplot2` is becoming the standard for R graphs, it does not handle spatial data specifically. The current state-of-the-art of spatial objects in R relies on Spatial classes defined in the package `sp`, but the new package `sf` has  implemented the “simple feature” standard, and is steadily taking over `sp`. Recently, the package `ggplot2` has allowed the use of simple features from the package `sf` as layers in a graph (since the version 3.0.0 of `ggplot2`). The combination of `ggplot2` and `sf` therefore enables to programmatically create maps, using the grammar of graphics, just as informative or visually appealing as traditional GIS software.
+As we mentioned earlier, the package `ggplot2` implements the grammar of graphics in R. While `ggplot2` is becoming the standard for R graphs, it does not handle spatial data specifically. The current state-of-the-art of spatial objects in R relies on Spatial classes defined in the package `sp`, but the new package `sf` has  implemented the “simple feature” standard, and is steadily taking over `sp`. Relatively recently, the package `ggplot2` has allowed the use of simple features from the package `sf` as layers in a graph (since the version 3.0.0 of `ggplot2`). The combination of `ggplot2` and `sf` therefore enables to programmatically create maps, using the grammar of graphics, just as informative or visually appealing as traditional GIS software.
 
 
-Note that the conversion from `sp` to `sf` is acheivable using the function `st_as_sf` from the package `sf`.
+Note that the conversion from `sp` to `sf` is achievable using the function `st_as_sf` from the package `sf`.
 
 ```{r,  eval=T}
 # not run
 # wrld_simpl <- st_as_sf(wrld_simpl)
 ```
 
-## Getting started: theme and datasets
+## Theme and datasets
 
 After loading the basic packages necessary for all maps, i.e. `ggplot2` and `sf`. We can change the theme of our plot. The classic dark-on-light theme for `ggplot2` (`theme_bw`) is appropriate for maps (default: `theme_grey()`):
 
@@ -299,7 +311,7 @@ class(world)
 In addition to country shape polygones, this dataset contains information on the **population** in every country.
 
 
-## `ggplot` map 
+## A ggplot  map 
 
 First, let us start with creating a base map of the world using `ggplot2`. This base map will then be extended with different map elements, as well as zoomed in to an area of interest. We can check that the world map was properly retrieved and converted into an `sf` object, and plot it with `ggplot2`. This time we will indicate that the geometry of our plot is constrained by a `sf` object: 
 
@@ -469,7 +481,7 @@ ggsave("Figures/Datamap.pdf")
 ggsave("Figures/map_web.png", width = 6, height = 6, dpi = "screen")
 ```
 
-# Special maps
+# Special
 
 ## Species distribution `rgbif`
 
@@ -480,9 +492,10 @@ gbif.res <- occ_search(scientificName = "Urocissa caerulea", limit = 1200)
 
 map_ggplot(gbif.res) +
   coord_sf(xlim = c(120, 123), ylim = c(21, 26), expand = FALSE)
+
 ```
 
-Note the slight difference in overlap of the distribution data on this shape file. 
+Note the slight difference in overlap of the distribution data on this shape file. To date, I could not figure out the problem here.
 
 Have a look [here](https://damariszurell.github.io/HU-GCIB/1_Data.html#2_environmental_data), to combine climate and species data. 
 
@@ -547,9 +560,16 @@ leaflet(taiwan) %>%
 ```
 
 
+## Combo maps
+
+Interactive X GBIF ?
+
+See: https://poldham.github.io/abs/mapgbif.html & https://data-blog.gbif.org/post/gbif-maps-api-using-r-and-leaflet/ among many many other onlin resources
+
+
 <br>
 
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice 3:** Create and customize an interactive map of your choice after exploring the functionality of the `leaflet` package.  Push both your *.Rmd* and *.html* files into a public repository available from your Github account.You will share with me be email [vianneydenis@g.ntu.edu.tw] the address (URL) of this repository (such as https://github.com/vianneydenis/OCEAN5098.git) **before next Monday** in order for me to check your work. The **title of your email ** should be `Practice 3 (your name: your student no.). BE CREATIVE ;)
+**`r knitr::asis_output("\U26A0")` Practice 5.1** Create and customize an interactive map of your choice after exploring the functionality of the `leaflet` package. Make it obvious it is your map and not something you copy online by highlighting points of interest. Push both your *.Rmd* and *.html* files into a public repository available from your Github account.You will share with me be email [vianneydenis@g.ntu.edu.tw] the address (URL) of this repository (such as https://github.com/vianneydenis/OCEAN5098.git) **before next Monday** in order for me to check your work. The **title of your email ** should be `Practice 5.1 (your name: your student no.). BE CREATIVE ;)
 </p>
