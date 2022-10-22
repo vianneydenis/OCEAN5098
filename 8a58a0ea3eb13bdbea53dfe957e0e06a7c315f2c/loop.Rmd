@@ -20,24 +20,28 @@ library(ggplot2)
 library (gganimate)
 ```
 
-Today, we are going to speak about loops and their use in customized function. For this purpose, we will illustrate their use with the help of simple demographic models. To make it funnier but also beacuse it requires loops we will visualize population dynamics using animation. Specifically, We will create a GIF using the package `animation`. The function `saveGIF` will only work if you have install [Image Magick](http://imagemagick.org) or [GraphicsMagick](http://www.graphicsmagick.org) on your computer. Install with legacy utilities (e.g. convert).Obviously the animation will not work if you skip this step. 
+Today, we are going to speak about **loops** with an example of their use by creating our own **functions**: some simple demographic models. To make it funnier - but also because it illustrates very well what the purpose of a loop - we will visualize population dynamics using animation. Specifically, We will create GIFs using the package `animation`. The function `saveGIF` will only work if you have install [Image Magick](http://imagemagick.org) or [GraphicsMagick](http://www.graphicsmagick.org) on your computer. Install with **legacy utilities** (e.g. convert). Obviously the animation will not work if you skip this step. You may also experience other issues creating animated plots, but it is not the primary purpose of this class and you should now be able to troubleshoot :)    
 
 ![](Figures/ImageMagick7.0.png)
 
 # Loops
 
-**What's that?** A loop is simply too repeat the same task a specific number of time. All loops (whatever their sizes) have always the same structure (architecture). As for an example a `for` loop is given as:  
+**What's that?** A loop is simply to repeat the same task a specific number of time. All loops (whatever their sizes) have always the same structure (architecture). As for an example a `for` loop is given as: 
 
-`for` `(`counter in vector`){`task`}`
 
-`for` loops are very common. It means **for** a condition do something. ut of course this `for` can be replace by `while` or `repeat`. Those are `while` and `repeat` loops
+<center>
+`for` `(`counter `in` vector`){`task`}`
+</center>
+
+
+`for` loops are very common. It means **for** a given condition do something a number of time. This `for` can be replaced by `while` or `repeat`. Those are `while` and `repeat` loops. Check the figure below that illustrates those differences.
 
 ![](Figures/loops.png)
 
 
-## Basic structure
+## Basics
 
-A very simple loop can be produced using:
+A the job accomplished by a loop can simply be illustrated as below:
 
 ```{r,  eval=FALSE}
 for(i in 1:100) {
@@ -46,9 +50,9 @@ print(i*i)
 }
 ```
 
-`for(i in 1:100)` is our counter: `i` (but can be anything, `i` is an standard) will take the values 1, 2, 3, ..., 100. Therefore the loop will repeat 100 times the element that follows within the `{}`. 
+`for(i in 1:100)` is our **counter**: `i` (but can be anything else, `i` is standard) will take the values 1, 2, 3, ..., and up to 100. Therefore the loop will repeat 100 times the element (**task**) that follows within the `{}`. 
 
-In our loop, `i` will take the value 1 during the first "cycle". Within the same cycle, it will also `print` `"Hello World`" follows by the result of the product `i*i` e.g. 1 for the first cycle. This will be the same task for the next 99 remaining cycles of our loop. Got it? Let's now make it a bit more elegant.
+In our loop, `i` will take the value 1 in the first loop "cycle". `i` will take the value 2 in the second loop "cycle", and so on until 100. Within the same cycle, it will also `print` `"Hello World`" follows by the result of the product `i*i` e.g. 1 for the first cycle (in order to illustrate the value taken by `i`). Here, it will be the same task for the next 99 remaining cycles of our loop. Got it? Let's now make it a more standard:
 
 The "counter" is commonly set distinctly.  Check carefully, the syntax of a loop:
 
@@ -63,28 +67,29 @@ for (i in 1:n) { # our counter
 
 foo.df<-data.frame(foo,foo.squared) 
 plot (foo.df$foo~foo.df$foo.squared)
+
 ```
 
-**Beautiful**, but totally  **useless**. The same will be accomplished with the following lines of code: 
+The sequence `foo.squared` received the square value of eah individual element of the sequence `foo`. **Beautiful**, but totally  **useless**. The exact same operation can  be accomplished with the most concise: 
 
 ```{r,  eval=FALSE}
 foo.squared2<-foo^2
 plot (foo~foo.squared2)
 ```
 
-As I told you earlier and as we already saw in action, the functions in R are vectorized. It means when you applied them to a vector, they will apply to all the elements of this vector. Luckily it makes our life easier that you don't need to say you want to apply something to the first element of this vector, then repeat the same for the second element, etc. (what we did in our loop). In addition, vectorized functions are way faster than making loops. Compare the time of the following with the time that you need to do the same using a loop. Make the sequence longer, such as up to 1,000,000.  
+As mentioned earlier and like we already saw in action, the functions in R are generally **vectorized**. It means when you applied them to a selected **vector**, they will apply to all the elements of this vector. It makes life easier that you don't need to say you want to apply something to the first element of this vector, then repeat the same for the second element, etc. (what we did in our loop). In addition, vectorized functions are way faster than making loops. Compare the time of the following with the time that you need to do the same using a loop. Make the sequence longer, such as up to 1,000,000.  
 
 ```{r,  eval=FALSE}
 system.time(foo.squared2<-foo^2)
 ```
 
-A function will usually consider a vector as a block and will apply this task to all elements at once. That's why it is way faster. So, why do we care about loops?
+A vectorized function will usually consider a vector as a block and will apply this task to all elements at once. That's why it is way faster. So, why do we care about loops?
 
-Simply saying, a loop have their use and interest in recycling an element you just created in a previous cycle. The next cycle will use the same task but it will "enriched" by the element (information) of an element creted form the previous cycle. 
+Simply saying, a loop have their use and interest in recycling an element you just created in a previous cycle. The next cycle will use the same task but it will "enrich" the element previously created, such as with adding newborns in a population at year 2.
 
-## Recycle
+## Recycling
 
-Let's think about population growth where the number of individuals at one generation (cycle X) will determine the population at the following generation (cycle X+1):
+Let's get this idea about population growth where the number of individuals at one generation (cycle *t*) will determine the population at the following generation (cycle *t+1*):
 
 ```{r,  eval=FALSE}
 num_gen <- 10 #   no. generation
@@ -109,7 +114,7 @@ for (i in 2:num_gen) {
 plot(N~generation, type='b')
 ```
 
-Congrats! You just wrote your first demographic model called exponential growth. This is typically the type of model used to examine bacteria growth. In our model, the population double at each generation (time). You can now play at increasing initial population size and manipulating growth rate. All the other loops will follow the same structure, just the task may be a 'little' bit more complicated. You can also add loop within loop, etc. 
+Congrats! You just wrote a demographic model called exponential growth. This is typically the type of model used to examine bacteria growth. In our model, the population double (growth rate = 2) at each generation (time). You can now play at increasing initial population size and manipulating growth rate. All the other loops will follow the same structure, just the task may be a 'little' bit more complicated. You can also add loop within loop, etc. 
 
 More read on loops in the free online class available [here](https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r)
 
@@ -130,11 +135,11 @@ for (i in 2:num_gen) {
 }
 ```
 
-It created a function called `grow` amd now visible in RStudio environment 
+It created a function called `grow` and now visible in RStudio environment under **functions**: 
 
 ![](Figures/Env_funct.png)
 
-You can simply use this new function by calling it and changing the argument `growth.rate`. The function can itself be in a loop (therefore, creating a loop within a loop). It is usually no recommended because it may turn to be quite  'slow' (check`system.time()`).
+You can simply use this new function by calling it and changing the argument `growth.rate`. The function can itself be in a loop (therefore, creating a loop within a loop). It is usually no recommended because it may turn to be quite  'slow' (check again `system.time()` when doing so). Let's make a good use of our function:
 
 ```{r,  eval=T} 
 par(mfrow=c(2,3))
@@ -146,8 +151,9 @@ for (i in 2:7){
 Our function can be further extended with an extra argument such as the number of generation. 
 
 <p class="comment">
-**Practice L1:** Create a function called `grow2` where both arguments: the `growth.rate` and `number.generation` are customizable.
+**Practice 6.1** Create a function called `grow2` where both arguments: the `growth.rate` and `number.generation` can be  customized.
 </p>
+
 
 ```{r, code_folding = 'Show Solution',  eval=FALSE}
 grow2 <- function (growth.rate, number.generation) { 
@@ -166,7 +172,7 @@ grow2 <- function (growth.rate, number.generation) {
 
 ## gif
 
-An animation type **gif** consists in overlapping sequential plots. By generating plots  for each cycles of our loop and puttingthem behind each other you can easily figure out that you will get an animated plot (in a very similar way than an animate).  Obviously and because we want to overlap plot, we will fix the limit of our axes. Let's do it for `growth.rate` and create a function called `grow3` with fixed limits for the axes.
+An animation type **gif** consists in overlapping sequential plots. By generating plots for each cycles of our loop and putting them behind each other you can easily figure out that you will get an animated plot (in a very similar way than an animate).  Obviously and because we want to overlap plot, we must first fix the limit of our axes. Let's do it for `growth.rate` and create a function called `grow3` with fixed limits for the axes.
 
 ```{r class.source = "fold-show",  eval=T}
 grow3 <- function (growth.rate) { 
@@ -181,7 +187,7 @@ grow3 <- function (growth.rate) {
 }
 ```
 
-Our function created, let's use this `grow3` function as a **gif**. The  function `saveGIF` from the  package  `animation` (**IMPORTANT**: with "legacy" utilities) will combine all plots created.
+Our function created, let's use this `grow3` function as a **gif**. The  function `saveGIF` from the  package  `animation` (**IMPORTANT AGAIN**: with "legacy" utilities) should combine all plots created (worst case you will get 9 plots).
 
 ```{r,  eval=T} 
 saveGIF({
@@ -193,12 +199,12 @@ for (i in 2:10){
 ![](Figures/animation.gif)
 
 
-It results in animated image representing exponential growth over 10 generations for various growth rates.
+It results in an animated image representing exponential growth over 10 generations at various growth rates.
 
 
 ## `gganimate`
 
-The packages `ggplot2` and `gganimate` provides also   
+The packages `ggplot2` and `gganimate` provides also fancier option for animated plots: 
 
 ```{r,  eval=T} 
 demo<-NULL
@@ -220,43 +226,45 @@ p + transition_time(generation) +
 
 Check it [here](https://www.datanovia.com/en/blog/gganimate-how-to-create-plots-with-beautiful-animation-in-r/) for more fancy option. Obviously, you can combine those animations in a [map](https://gist.github.com/rafapereirabr/0d68f7ccfc3af1680c4c8353cf9ab345)
 
-## DIY
+# DIY
+
+## Progressing
 
 
 <p class="comment">
-**Practice L2:**  Write the code to illustrate a different kind of growth, the logistic growth. Logistic growth follows: 
+**Practice 6.2**  Write the code to illustrate a different kind of growth, the logistic growth. Logistic growth follows: 
 $$N_{t+1}= N_{t}+\left[growth.rate* N_{t}*\left(\frac{100-N_{t}}{100}\right)\right]$$
-The 100 value is called the "carrying capacities" or *K*, it means the population will be limited at 100 individuals. In your model you will start with a population of 10 individuals. You will then make the number of generation flexible using a function simulating population growth over 50 generations. You will further make this function flexible by changing growth.rate. What do you observe? Save the outcome as a .gif. Called me when you have the solution. 
+The 100 value is called the "carrying capacities" or *K*, it means the population will be limited at 100 individuals. In your model you will start with a population of 10 individuals. You will then make the number of generation flexible using a function simulating population growth over 50 generations. You will further make this function flexible by changing growth.rate. What do you observe? Save the outcome as a .gif if you can make it. Called me when you have the solution. 
 </p>
 
 
-```{r, code_folding = 'Show Solution I',  eval=F}
-#Explanation, but no solution. Called me when you are here.
+```{r, code_folding = 'Show Explanation',  eval=F}
+#Explanation, but no solution. Call me when you are here.
 
 # if r < 1 then the increase in population size between t and t+1 will be less than the difference between N and K and the population will adjust monotonically.
 
-# if 1 < r < 2 then the population will have a dampened oscilation.
+# if 1 < r < 2 then the population will have a dampened oscillation.
 
-# When r > 2 but < 2.5 the population may dislay a stable (regular with same amplitude) limit cycle.
+# When r > 2 but < 2.5 the population may display a stable (regular with same amplitude) limit cycle.
 
-# When r > 2 especilly if r > 2.52 oscillation will actually increase and the popualton growth will become chaotic
+# When r > 2 especially if r > 2.52 oscillation will actually increase and the population growth will become chaotic
 
 # When r >> 2 the population will likely crash, generally in a short time
 ```
 
 
-```{r, code_folding = 'Show Solution II',  eval=F}
+```{r, code_folding = 'Show Solution',  eval=F}
 # By clicking here, you are ready for the next step below
 ```
 
 ## Perfection
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice L3:** When having two species using the same resources but with different rates of efficiency), we can model their population growth using two linked equations:
+**`r knitr::asis_output("\U26A0")` Practice 6.2** When having two species using the same resources but with different rates of efficiency), we can model their population growth using two linked equations:
 $$N1_{t+1}= N1_{t}+\left[growth.rate*N1_{t}*\left(\frac{K1-N1_{t}-\alpha_{12}N2_{t}}{K1}\right)\right]$$
 $$N2_{t+1}= N2_{t}+\left[growth.rate*N2_{t}*\left(\frac{K2-N2_{t}-\alpha_{21}N2_{t}}{K2}\right)\right]$$
 Those equation are known as the _Lotka-Volterra_ equations where _K_ values are the carrying capacities for each of the two species, both $\alpha$ values are competition coefficients that translate the effect of one species on another. Do not worry about this for now, try a range of 0.5 to 1.5, which would indicate that species are fairly similar competitors.
-I wrote the script, approaching the solution but damn... still not working! Help me to fix the following codes - this time you can look at it! See if you can debug this program that grows each species alone (no competition with the other species, then put the two species interacting. Compare the results 3 different plot. It would be easier if you first focus on the function of two species competing. Make an animation that makes sense will further be amazing
+I wrote the script, approaching the solution but damn... still not working! Help me to fix the following codes - this time you can look at it! See if you can debug this code that should grow each species alone (no competition), then put the two species interacting. Compare the results of 3 different plot. Note It would be easier if you first focus your attention on the functions of two species competing. Make an animation that makes sense will further be amazing.
 </p>
 
 

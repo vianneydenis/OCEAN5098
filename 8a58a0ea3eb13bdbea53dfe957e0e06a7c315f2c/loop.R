@@ -18,6 +18,7 @@ for (i in 1:n) { # our counter
 foo.df<-data.frame(foo,foo.squared) 
 plot (foo.df$foo~foo.df$foo.squared)
 
+
 foo.squared2<-foo^2
 plot (foo~foo.squared2)
 
@@ -98,15 +99,15 @@ p + transition_time(generation) +
    labs(title = "Generation: {frame_time}") +
    shadow_wake(wake_length = 0.2, alpha = FALSE)
 
-#Explanation, but no solution. Called me when you are here.
+#Explanation, but no solution. Call me when you are here.
 
 # if r < 1 then the increase in population size between t and t+1 will be less than the difference between N and K and the population will adjust monotonically.
 
-# if 1 < r < 2 then the population will have a dampened oscilation.
+# if 1 < r < 2 then the population will have a dampened oscillation.
 
-# When r > 2 but < 2.5 the population may dislay a stable (regular with same amplitude) limit cycle.
+# When r > 2 but < 2.5 the population may display a stable (regular with same amplitude) limit cycle.
 
-# When r > 2 especilly if r > 2.52 oscillation will actually increase and the popualton growth will become chaotic
+# When r > 2 especially if r > 2.52 oscillation will actually increase and the population growth will become chaotic
 
 # When r >> 2 the population will likely crash, generally in a short time
 
