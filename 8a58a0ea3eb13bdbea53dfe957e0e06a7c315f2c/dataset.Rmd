@@ -1,0 +1,27 @@
+---
+title: "Dataset"
+output:
+  distill::distill_article:
+    toc: false
+---
+
+**_List of the data set available for the final report. Any data set used for the final report must be made available here. If you want to submit a data set to this list, contact me and I will check its possible use. Same for a topic you are interested in._** 
+
+____________
+
+
+# Systematic global assessment of reef fish communities by the Reef Life Survey program
+
++ Article [url](https://www.nature.com/articles/sdata20147), Open Access, for the description of the data set.
+
++ Data availability: 
+  + Record 1 (recommended): https://portal.aodn.org.au/search, search for *'IMOS - National Reef Monitoring Network Sub-Facility - Global reef fish abundance and biomass'*
+  + Record 2 (not updated): [figshare](https://figshare.com/collections/Systematic_global_assessment_of_reef_fish_communities_by_the_Reef_Life_Survey_program/934319)
+  
++ Data use: full or partial
+
+> CITATION: Edgar G.J., Stuart-Smith R.D. (2014) Systematic global assessment of reef fish communities by the Reef Life Survey program. Scientific Data, 140007.
+  
+____________
+
+# Pending

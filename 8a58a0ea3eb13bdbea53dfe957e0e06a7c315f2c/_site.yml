@@ -40,6 +40,8 @@ navbar:
       href: mapping.html
     - text: "Loops & Functions"
       href: loop.html
+    - text: "Dataset"
+      href: dataset.html
 #    - text: "Statistics"
 #      menu:
 #        - text: "Descriptive and hypotheses"
