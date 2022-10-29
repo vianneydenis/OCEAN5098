@@ -14,7 +14,6 @@ xfun::embed_file('statistics.Rmd')
 xfun::embed_file('statistics.R')
 ```
 
-![](Figures/Sadistics.png)
 
 ```{r,  eval=T, warning=F, message=F}
 library (psych)
@@ -24,11 +23,14 @@ library(gridExtra)
 library(car)
 ```
 
+
+![](Figures/Sadistics.png)
+
 # Descriptive
 
-## Basic description
+## all-in-one
 
-We will go back to our dummy `students` data set. Do know about the pivot table functionality in excel? We already mentioned that the same could be easily accomplished in R such as here using the functions  as `describe` or `describeBy`. 
+Let's go back to the simple `students` data set, but you can easily imagine now that it can be replaced by a much more complex [data set](./dataset.html). 
 
 ```{r,  eval=T}
 students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # inspect the object created
@@ -36,7 +38,10 @@ students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/st
 write.table(students, file = "Data/students.txt", sep = "\t", row.names=T)
 ```
 
-+ Make a quick `summary` of our data set in R.
+Descriptive statistics are extracting basic information from a data set. They are usually used to get a quick idea of possible differences, data distribution, or just summarize them. They are easy to extract on a single variable, but it may be a bit more complicated to get the same information on multiple variables at once. If you are familiar with the pivot table functionality in excel, the same can easily accomplished in R such as here using the functions  as `describe` or `describeBy`. Let's explore our `students` data set
+
+
++ A quick `summary` of our data set in R (review): 
 
 ```{r,  eval=T}
 summary(students)
@@ -45,23 +50,23 @@ summary(students)
 + A more detailed summary can be obtained using the function `describe` from the package `psych`.
 
 ```{r,  eval=T}
-describe(students)
+psych::describe(students)
 ```
 
 + The function `describeBy` further provides a group-wise summary of the dataset.
 
 ```{r,  eval=T}
-describeBy (students,students$gender)
-describeBy (students, list(students$gender,students$population))
+psych::describeBy (students,students$gender)
+psych::describeBy (students, list(students$gender,students$population))
 ```
 
-## Counts and proportions
+## Counts & proportions
 
 Simple tabulation (count) summary are made using`table`
 
 ```{r,  eval=T}
 # One variables
-table(students$gender)
+c
 prop.table (table(students$gender))
 
 # two variables
@@ -74,7 +79,7 @@ ftable(students$gender, students$shoesize,students$population)
 
 ## `mean`, `median`, `sd`, etc.
 
-You already know how to apply basic function on a vector, create a filter and use it on a subgroup:
+We previously applied a diversity of function on a selected vector, created a filter and applied it on subgroups: 
 
 ```{r,  eval=T}
 mean(students$height)
@@ -82,20 +87,17 @@ ind.male <- students$gender == 'male'
 mean(students$height[ind.male])
 ```
 
-Common descriptive statistics can be combined in the `aggregate` and `apply` functions. The 'big' difference between the two is  that  the second argument of `aggregate` must be a list while `tapply` can (so not mandatory) be a list and that the output of `aggregate` is a data frame while the one of `tapply` is an array.   
+Descriptive statistics can be calculated on subgroups using `aggregate` and `apply` functions. The difference between the two is that the 2nd argument in `aggregate` must be a list while in `tapply` it can be a list but this is not mandatory. As a consequence, the output of `aggregate` is a data frame while the one of `tapply` is an array (basically, you deal with the list before or after).   
 
 ```{r,  eval=T}
 aggregate(students$height,list (students$gender),median)
 tapply(students$height,students$gender, median)
 ```
 
-The wide family of `apply` functions  represents common alternatives to loops. You can read more about these functions online.
-
-
-
+The wide family of `apply` functions  represents common alternatives to **loops**. You can read more about the wide application of these functions in many online resources.
 
 <p class="comment">
-**Practice S1:** Using the data 'iris' explore how the four traits vary among speces. (1) Use boxplots and make a summary of the data set by species. (2) Calculate the number of observations for each trait and species (many possibilities, be creative). You should get a table of 3 species x 4 traits filled with the values "50". (3) Calculate median of each variable by `Species`, then calculate the mean by `Species` for the `Sepal.Length` only
+**Practice 7.1** Using the data 'iris' explore how the four traits vary among flower species. (1) Use `boxplot` as visual summaries then extract descriptive statistics by species (`describeBy` or others) (2) Count number of observations in each trait and species (be creative). it should results in a table of 3 species x 4 traits filled with "50" values. (3) Calculate the `median` of each variable by `Species`, then calculate the `mean` by `Species` but for the `Sepal.Length` only
 </p>
 
 ```{r, code_folding = 'Show Solution',  eval=F}
@@ -114,16 +116,21 @@ plot4 <-ggplot(iris, aes(x=Species, y=Petal.Width)) +
 grid.arrange(plot1, plot2,plot3, plot4, ncol=2)
 describeBy (iris, iris$Species)
 
-iris %>% group_by(Species) %>% summarise_each(list(length))
+iris %>% group_by(Species) %>% summarise(across(c(1:4), length))
 aggregate(iris[,1:4],by=list(iris$Species), median)
 tapply(iris$Sepal.Length , iris$Species, mean)
 ```
 
 # Hypothesis testing
 
-Two broad categories: parametric (assuming normal distribution & homoscedasticity) and non parametric (no assumption of normality).The most important is your **hypotheses**: *H0* represents the null hypothesis - an absence of difference (does not mean there is no difference), *H1* represents the alternative hypothesis - the presence of a difference.
 
-In those tests it is important to understand the concept of degrees of freedoom: it refers to **the maximum number of logically independent values**, which are values that have the freedom to vary, in the data sample. Have a look [here](https://www.youtube.com/watch?v=N20rl2llHno&ab_channel=zedstatistics) if this notion is not clear to you
+One of the most basic concepts in statistics is hypothesis testing and something called The Null Hypothesis. Let's see more about this with Josh Starmer and his amazing YouTube Channel [StatQuest](https://www.youtube.com/c/joshstarmer)
+
+You have hours of [enjoyment](https://youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9), but for the basics today this  [video ](https://www.youtube.com/watch?v=0oc49DyA3hU&list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9&index=8) is a perfect introduction to the topic.  
+
+Two broad categories: parametric (assuming normal distribution & homoscedasticity - video 3) and non parametric (no assumption of normality).The most important is always your **hypotheses**: *H0* represents the null hypothesis - an absence of difference (does not mean there is no difference), *H1* represents the alternative hypothesis - the presence of a difference.
+
+In those tests it is important to understand the concept of degrees of freedom: it refers to **the maximum number of logically independent values**, which are values that have the freedom to vary, in the data sample. Have a look [here](https://www.youtube.com/watch?v=N20rl2llHno&ab_channel=zedstatistics) if this notion is not clear to you as it is the basis you will need for later.
 
 ## Correlations
 

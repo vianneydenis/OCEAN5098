@@ -10,13 +10,13 @@ write.table(students, file = "Data/students.txt", sep = "\t", row.names=T)
 
 summary(students)
 
-describe(students)
+psych::describe(students)
 
-describeBy (students,students$gender)
-describeBy (students, list(students$gender,students$population))
+psych::describeBy (students,students$gender)
+psych::describeBy (students, list(students$gender,students$population))
 
 # One variables
-table(students$gender)
+c
 prop.table (table(students$gender))
 
 # two variables
@@ -48,7 +48,7 @@ plot4 <-ggplot(iris, aes(x=Species, y=Petal.Width)) +
 grid.arrange(plot1, plot2,plot3, plot4, ncol=2)
 describeBy (iris, iris$Species)
 
-iris %>% group_by(Species) %>% summarise_each(list(length))
+iris %>% group_by(Species) %>% summarise(across(c(1:4), length))
 aggregate(iris[,1:4],by=list(iris$Species), median)
 tapply(iris$Sepal.Length , iris$Species, mean)
 

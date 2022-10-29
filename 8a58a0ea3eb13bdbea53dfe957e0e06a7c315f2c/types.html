@@ -2494,6 +2494,16 @@ Manipulation
 <a href="graphics.html">Graphics</a>
 <a href="mapping.html">Mapping</a>
 <a href="loop.html">Loops &amp; Functions</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Statistics
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="statistics.html">Descriptive &amp; hypotheses</a>
+</div>
+</div>
 <a href="dataset.html">Dataset</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2935,9 +2945,9 @@ matrix.</p>
 <span><span class='va'>m</span></span></code></pre>
 </div>
 <pre><code>         [,1]     [,2]     [,3]
-[1,] 5.921590 6.568178 9.760657
-[2,] 4.548138 8.256223 1.466945
-[3,] 1.044471 5.662784 1.947385</code></pre>
+[1,] 1.289222 4.195788 7.924163
+[2,] 2.665642 1.449209 7.265621
+[3,] 9.919283 6.851080 1.937916</code></pre>
 </div>
 <p>If a higher dimension vector is desired, then use the
 <code>array</code> function to generate the n-dimensional object. A
@@ -2949,24 +2959,24 @@ matrix.</p>
 </div>
 <pre><code>, , 1
 
-          [,1]     [,2]      [,3]
-[1,] 5.5344046 5.270496 9.9009714
-[2,] 8.8839327 7.264444 0.9653807
-[3,] 0.4015926 3.126690 5.0537409
+          [,1]     [,2]     [,3]
+[1,] 8.9208421 1.440255 2.896842
+[2,] 5.9187673 9.912226 2.369174
+[3,] 0.1671641 5.834725 3.577037
 
 , , 2
 
-         [,1]     [,2]      [,3]
-[1,] 1.627649 4.197650 0.3676234
-[2,] 7.967157 5.985579 2.4636703
-[3,] 7.742626 6.386911 4.1080735
+          [,1]      [,2]     [,3]
+[1,] 0.4512621 0.5315194 3.292053
+[2,] 5.7629597 5.8783746 8.802933
+[3,] 9.3895584 0.2748159 4.272443
 
 , , 3
 
-          [,1]     [,2]     [,3]
-[1,] 3.3803829 8.532929 6.588711
-[2,] 9.7534001 3.267685 2.703295
-[3,] 0.1575931 8.919810 3.933478</code></pre>
+          [,1]      [,2]     [,3]
+[1,] 3.0362862 1.6802383 6.397281
+[2,] 0.6037807 7.4709613 6.097310
+[3,] 4.7406644 0.2948194 1.421465</code></pre>
 </div>
 <p>Matrices and arrays can store numeric or character data types, but
 they cannot store both. They derived directly form vector structure but
@@ -3129,7 +3139,7 @@ created a list as follows (note the omission of <code>A=</code>,
 [[3]]
 function (expr, name) 
 .External(C_doD, expr, name)
-&lt;bytecode: 0x0000000016515490&gt;
+&lt;bytecode: 0x0000000014e60ee8&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <p>When lists do not have component names, the <code>names</code>
