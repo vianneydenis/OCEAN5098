@@ -23,8 +23,9 @@ library(gridExtra)
 library(car)
 ```
 
-
-![](Figures/Sadistics.png)
+<center>
+![](Figures/Sadistics.png){width=50%}
+</center>
 
 # Descriptive
 
@@ -121,12 +122,12 @@ aggregate(iris[,1:4],by=list(iris$Species), median)
 tapply(iris$Sepal.Length , iris$Species, mean)
 ```
 
-# Hypothesis testing
+# Hypothesis
 
 
-One of the most basic concepts in statistics is hypothesis testing and something called The Null Hypothesis. Let's see more about this with Josh Starmer and his amazing YouTube Channel [StatQuest](https://www.youtube.com/c/joshstarmer)
+One of the most basic concepts in statistics is hypothesis testing and something called The Null Hypothesis. Let's see more about this with Josh Starmer (a musical artist former professor at University of North Carolina at Chapel Hill) and his amazing YouTube Channel [StatQuest](https://www.youtube.com/c/joshstarmer)
 
-You have hours of [enjoyment](https://youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9), but for the basics today this  [video ](https://www.youtube.com/watch?v=0oc49DyA3hU&list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9&index=8) is a perfect introduction to the topic.  
+You have hours of [enjoyment](https://youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9) to enjoy music and stats, but for the basics today this  [video ](https://www.youtube.com/watch?v=0oc49DyA3hU&list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9&index=8) is a perfect introduction to the topic.  
 
 Two broad categories: parametric (assuming normal distribution & homoscedasticity - video 3) and non parametric (no assumption of normality).The most important is always your **hypotheses**: *H0* represents the null hypothesis - an absence of difference (does not mean there is no difference), *H1* represents the alternative hypothesis - the presence of a difference.
 
@@ -134,9 +135,22 @@ In those tests it is important to understand the concept of degrees of freedom: 
 
 ## Correlations
 
-Let's first examine what is a correlation. It may look scary but it is actually very easy to compute (see example).
+Let's first examine what is a correlation. It may look scary for some of you but it is actually very easy to compute (see a demo in step-by step demo in excel [here](.\Data\demo_stats.xlsx)).
 
-![](Figures/corr.png)
+
+* _Pearson_ correlation - parametric
+  
+  + $r$ pearson coefficient
+$$
+r = \frac{{}\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
+{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2}}
+$$
+  + Formula for the $t$ test fro the correlation coefficient:
+$$
+t = r\sqrt\frac{n-2}{1-r^2}
+$$
+___________with degrees of freedom equal to $n-2$
+  + Example:
 
 ```{r class.source = "fold-show",  eval=T}
 # dataset hypotheses?
@@ -157,7 +171,10 @@ ggplot(students, aes(x = height, y = shoesize)) +
   stat_smooth(method = "lm", col = "red")
 ```
 
-This is a *Pearson* correlation (parametric). Non-parametric alternatives also exists such as the *Spearman*. It is based on rank, and monotonic relationship.
+
+* _Spearman_ correlation - non-parametric
+
+It is based on ranking, and tests the existence of a monotonic relationship.
 
 ```{r,  eval=T}
 # Spearman correlation (monotonic)
@@ -165,7 +182,7 @@ This is a *Pearson* correlation (parametric). Non-parametric alternatives also e
 cor.test(x,y, method ='spearman')
 ```
 
-The example below illustrates on the importance of running both types of correlation. 
+**The example below illustrates on the importance of running both types of correlation** 
 
 ```{r,  eval=F}
 w<-(1:100)
@@ -175,17 +192,21 @@ cor.test(w,z,method='spearman') #super high
 ```
 
 <p class="comment">
-**Practice S2:** Change one value from the student data set and check how the t and p values are affected. Check the change in the confidence interval.
+**Practice 7.2** Play with modifying a value from the student data set and check how $t$ and $p$ values are affected by this change. Examine change in the confidence interval.
 </p>
 
 ## Chi-square test
 
-It is a goodness-of-fit test. Easier to understand with an example:
+It is a goodness-of-fit test: observed vs theoretical. 
 
-![](Figures/die.png)
++ Casino example
+
+<center>
+![](Figures/die.png){width=50%}
+</center>
 
 ```{r,  eval=T}
-#Cast 240 times a die. We counted occurence of 1,2,3,4,5,6
+#Cast 240 times a die. We counted occurrence of 1,2,3,4,5,6
 die<-data.frame(obs=c(55,44,35,45,31,30), row.names=c('Cast1','Cast2','Cast3','Cast4','Cast5','Cast6'))
 die #Is this die fair? Define H0 and H1.  
 ```
@@ -197,6 +218,8 @@ chisq.test(die)
 # I am cheating
 ```
 
++ Hardy-Weinberg
+
 A common biological application of a Chi-square test is the Hardy-Weinberg equilibrium. Genotypes at the Hardy-Weinberg equilibrium will follow: *p*2 + 2*pq* + *q*2 = 1 at panmixia (random mating, *p* and *q* represent allele frequency). In this case, we want to compare our observation to a theoretical distribution.
 
 Let's assume 2 alleles (*A* and *T*) with observed genotypes in a population: 750 *AA*, *50* AT, 200 *TT* => *f(A)*: 0.775 / *f(T)*= 0.225. Theoretical distribution should follow: 0.60(*p2*), 0.5 (*2pq*), 0.05 (*q2*) with *p2* + *2pq* + *q2* = 1. Is our population at the HW-equilibrium (H0)?
@@ -207,6 +230,8 @@ exp <- c(0.60, 0.35, 0.05)
 chisq.test (x=obs, p=exp)
 ```
 
++ Frequencies
+
 Chi-square test can simply be used to compare the distribution of frequencies in two populations: 
 
 ```{r,  eval=T}
@@ -216,7 +241,7 @@ chisq.test(F) # alternative see `fisher.test`
 
 ## Student t-test
 
-Several version: one sample compared to a known mean, two samples (with variance equal - Student's or with unequal variance -Welsh's), paired (compare two dependent (e.g. before-after) samples. 
+Several version of t-test exist: one sample compared to a known mean, two samples (with variance equal - Student's or with unequal variance - Welsh's), **paired** (compare two dependent (e.g. before-after) samples. See also the step-by step demo in excel [here](.\Data\demo_stats.xlsx))
 
 ```{r,  eval=T}
 # One sample
@@ -229,15 +254,14 @@ t.test (students$height~students$gender)
 t.test (students$height~students$gender, paired=T)
 ```
 
-The *t* statistic is obtained as following in the case of a two samples assuming equal variances:
+In the case of a two samples assuming equal variances, the *t* statistic is obtained as following:
 
 ![](Figures/ttest.png)
 
 
 <p class="comment">
-**Practice S3:** Using `iris`. Does `Sepal.Lenght` differ between `setosa` and `versicolor`? Does `Sepal.Lenght` differe between `virginica`  and `versicolor`? Make a plot, define your hypotheses, test them.
+**Practice 7.3** Using `iris`. Does `Sepal.Lenght` differ between species `setosa` and `versicolor`? Does `Sepal.Lenght` differ between `virginica`  and `versicolor`? Make a plot, define your hypotheses, test hypotheses
 </p>
-
 
 
 ```{r, code_folding = 'Show Solution',  eval=F}
@@ -249,7 +273,7 @@ setver <- t.test(set, ver, paired = FALSE, alternative = "two.sided", var.equal 
 vervir <- t.test(ver, vir, paired = FALSE, alternative = "two.sided", var.equal = FALSE)
 ```
 
-## Mann-Whitney and Wilcoxon tests
+## Mann-Whitney
 
 A non-parametric solution for the comparison of two samples: Mann-Whitney U-test (independent) or Wilcoxon W-test (dependant)
 
@@ -266,16 +290,16 @@ shapiro.test(students$height) # data are not normal
 wilcox.test (students$height~students$gender) 
 ```
 
-## Variance tests
+## Variances
 
-Variance tests are used to determine if the variances of two (or more) populations are equal. F-test are generally very sensitive to the non-normality of the data as you can imagine from the previous `boxplot`. The **homoscedasticity** (or homogeneity of variance) is an important condition in parametric statistics.
+Variance tests are used to determine if the variances of two (or more) populations are equal. F-test are generally very sensitive to the non-normality of the data as you can imagine from the previous `boxplot`. The **homoscedasticity** (or **homogeneity of variance**) is an important condition in parametric statistics.
 
 ```{r, eval=T}
-# Test of variance: we test HO: homogenous, H1:heterogenous
+# Test of variance: we test HO: homogeneous, H1:heterogeneous
 fligner.test (students$height ~ students$gender)
 ```
 
-Another example using the `ToothGrowth` dataset (`car` package) on multiple groups
+Another example using the `ToothGrowth` data set (`car` package) on multiple groups
 
 ```{r, eval=T}
 tg<-ToothGrowth
@@ -290,7 +314,7 @@ fligner.test(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-nor
 
 
 <p class="alert">
-**Practice S4:** Create your __own__ `my.t.test` function, that you will use to test the effect  of `treatment` on _length_. Applied it a for various _days_. Interpret.
+**Practice 7.4** Create your __own__ `my.t.test` function (e.g. you will not use the above `t.test` function but you will code your own function). You will probably need to check at `?pt` in order to extract the p-value. You can look at `getAnywhere("t.test.default")` for the actual source code of the `t.test` function. Please use your customized function to test  the effect  of `treatment` on _length_ at various _days_ in the `rairuoho` dataset. Interpret.
 </p>
 
 

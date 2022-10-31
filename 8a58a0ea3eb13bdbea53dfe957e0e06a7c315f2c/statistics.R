@@ -74,7 +74,7 @@ z<-exp(x)
 cor.test(w,z,method='pearson') # super low
 cor.test(w,z,method='spearman') #super high
 
-#Cast 240 times a die. We counted occurence of 1,2,3,4,5,6
+#Cast 240 times a die. We counted occurrence of 1,2,3,4,5,6
 die<-data.frame(obs=c(55,44,35,45,31,30), row.names=c('Cast1','Cast2','Cast3','Cast4','Cast5','Cast6'))
 die #Is this die fair? Define H0 and H1.  
 
@@ -115,7 +115,7 @@ qqline(students$height)
 shapiro.test(students$height) # data are not normal 
 wilcox.test (students$height~students$gender) 
 
-# Test of variance: we test HO: homogenous, H1:heterogenous
+# Test of variance: we test HO: homogeneous, H1:heterogeneous
 fligner.test (students$height ~ students$gender)
 
 tg<-ToothGrowth
