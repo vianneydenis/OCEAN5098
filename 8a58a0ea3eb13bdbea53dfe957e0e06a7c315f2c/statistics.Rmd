@@ -6,6 +6,10 @@ title: "Statistics"
 knitr::purl('statistics.Rmd', documentation = F)
 ```
 
+```{r echo=FALSE}
+xaringanExtra::use_clipboard()
+```
+
 ```{r echo=FALSE, purl=F}
 xfun::embed_file('statistics.Rmd')
 ```
@@ -33,9 +37,11 @@ library(car)
 
 Let's go back to the simple `students` data set, but you can easily imagine now that it can be replaced by a much more complex [data set](./dataset.html). 
 
-```{r,  eval=T}
-students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # inspect the object created
 
+```{r,  eval=T}
+# students data set url 
+students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') 
+# to write it:
 write.table(students, file = "Data/students.txt", sep = "\t", row.names=T)
 ```
 

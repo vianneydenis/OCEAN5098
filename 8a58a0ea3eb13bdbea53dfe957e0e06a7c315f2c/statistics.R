@@ -1,11 +1,18 @@
+xaringanExtra::use_clipboard()
+
+
+
+
+
 library (psych)
 library(ggplot2)
 library(dplyr)
 library(gridExtra)
 library(car)
 
-students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') # inspect the object created
-
+# students data set url 
+students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.') 
+# to write it:
 write.table(students, file = "Data/students.txt", sep = "\t", row.names=T)
 
 summary(students)
