@@ -44,8 +44,8 @@ navbar:
       menu:
         - text: "Descriptive & hypotheses"
           href: statistics.html    
-#        - text: "Linear models"
-#          href: linear.html
+        - text: "Linear models"
+          href: linear.html
 #    - text: "Multivariate"
 #      href: multi.html
     - text: "Dataset"

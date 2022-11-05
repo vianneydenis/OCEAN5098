@@ -2502,6 +2502,7 @@ Statistics
 </button>
 <div class="nav-dropdown-content">
 <a href="statistics.html">Descriptive &amp; hypotheses</a>
+<a href="linear.html">Linear models</a>
 </div>
 </div>
 <a href="dataset.html">Dataset</a>
@@ -2812,13 +2813,13 @@ targeted vector; (2) create filter with individual(s) randomly selected;
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sf</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>females</span><span class='op'>)</span>, <span class='fl'>2</span><span class='op'>)</span> <span class='co'># filter with two randomly selected female students</span></span>
 <span><span class='va'>sf</span> <span class='co'># the selection</span></span></code></pre>
 </div>
-<pre><code>[1] 2 1</code></pre>
+<pre><code>[1] 1 2</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>females</span><span class='op'>[</span><span class='va'>sf</span>,<span class='op'>]</span> <span class='co'># apply the filter on our original data set</span></span></code></pre>
 </div>
 <pre><code>        height shoesize gender population
-Vicky      164       39 female     taiwan
-Vanessa    167       38 female     taiwan</code></pre>
+Vanessa    167       38 female     taiwan
+Vicky      164       39 female     taiwan</code></pre>
 </div>
 <h1 id="sorting">Sorting</h1>
 <p>Sorting a data frame is done by combining function <code>order</code>
