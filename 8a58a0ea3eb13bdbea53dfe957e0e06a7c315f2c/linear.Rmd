@@ -39,6 +39,11 @@ library(lme4)
 library (lmerTest)
 library(nlme)
 library(gvlma)
+library(simpleboot)
+library(DAAG)
+library(bootstrap)
+library(MBESS)
+library(leaps)
 ```
 
 In the coming two weeks, we will take some time on basic concepts behind some simple linear models.
@@ -311,13 +316,27 @@ See [here](https://www.statmethods.net/stats/rdiagnostics.html) for functions an
 
 ### Diagnostic plots
 
-Diagnostic plots provide checks for heteroscedasticity, normality, and influential observations.
+[Diagnostic](http://strata.uga.edu/8370/rtips/regressionPlots.html) plots provide checks for heteroscedasticity, normality, and influential observations. 
 
 ```{r,  eval=T, warning=F, message=F}
 # diagnostic plots
 layout(matrix(c(1,2,3,4),2,2)) # optional 4 graphs/page
 plot(fit1)
 ```
+
+1. **Residuals vs. fitted** plot.
+
+This plot serves mainly to check the linearity, although lack of homoscedasticity or independence can also be detected. Under linearity, we expect the red line (a nonlinear fit of the mean of the residuals) to be almost flat. This means that the trend of $Y_1,...,Y_n$ is linear with respect to the predictors. Heteroscedasticity can be detected also in the form of irregular vertical dispersion around the red line. The dependence between residuals can be detected (harder) in the form of non randomly spread residuals.
+
+2. **Normal Q-Q** plot. Check the normality 
+
+Under normality, we expect the points (sample quantiles of the standardized residuals vs. theoretical quantiles of a  $N(0,1)$ **to align with the diagonal line**, which represents the ideal position of the points if those were sampled from a $N(0,1)$. It is usual to have larger departures from the diagonal in the extremes than in the center, even under normality, although these departures are more clear if the data is non-normal.
+
+3. **Scale-location** plot.
+
+Serves for checking the **homoscedasticity**. It is similar to the first diagnostic plot, but now with the residuals standardized and transformed by a square root (of the absolute value). This change transforms the task of spotting heteroskedasticity by looking into irregular vertical dispersion patterns into spotting for nonlinearities, which is somehow simpler. **Under homoscedasticity, we expect the red line to be almost flat.** If there are consistent nonlinear patterns, then there is evidence of heteroscedasticity.
+
+4. **Residuals versus Leverage** to detect outlier and check for the normality. On this plot, you want to see that the red smoothed line stays close to the horizontal gray dashed line and that no points have a large Cook’s distance (i.e, >0.5). 
 
 ### Outliers
 
@@ -369,11 +388,36 @@ spreadLevelPlot(fit1)
 
 ### Multi-collinearity
 
+A common problem that arises in multiple linear regression is the **multi-collinearity**. This is the situation when two or more predictors are highly linearly related between them. Multicollinearitiy has important effects on the fit of the model:
+
++ It reduces the precision of the estimates. As a consequence, signs of fitted coefficients may be reversed and valuable predictors may appear as non significant.
+
++ It is difficult to determine how each of the highly related predictors affects the response, since one masks the other. This may result in numerical instabilities.
+
+An approach is to detect multicollinearity is to compute a correlation matrix between the predictors as we learned earlier
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+corr<-cor(iris[,1:3])
+p.val<-rcorr(as.matrix(iris[,1:3]))$P
+corrplot(corr,type='upper',method='color', addCoef.col = "black",  p.mat=as.matrix(p.val), sig.level = 0.05,diag=F)
+```
+
+Here we can see what we already knew that `Sepal.Length` and `Petal.Length` are highly linearly related. One could be removed. However, it is not enough to inspect pair by pair correlations in order to get rid of multicollinearity.A better approach is to compute the **Variance Inflation Factor** (VIF) of each coefficient $\beta_j$. This is measure of how linearly dependent is $X_j$ with the rest of predictors:
+
+
+$$\text{VIF}(\beta_j)=\frac{1}{1-R^2_{X_j|X_{-j}}}$$
+
+where $R^2_{X_j|X_{-j}}$ is the $R^2$ from a regression of $X_j$ into the remaining predictors. The next rule of thumb gives direct insight into which predictors are multicollinear:
+
+ + **VIF close to 1**: absence of multicollinearity.
+ + **VIF larger than 5 or 10**: multicolinearity **problematic**.  
+ 
+Other considered $\sqrt{VIF}>2$ as critical limit to consider multicollinearity.
 
 ```{r,  eval=T, warning=F, message=F}
 # Evaluate Collinearity
-vif(fit1) # variance inflation factors
-sqrt(vif(fit1)) > 2 # problem?
+car::vif(fit1) # variance inflation factors
+sqrt(car::vif(fit1)) > 2 # problem?
 ```
 
 ### Nonlinearity
@@ -395,6 +439,8 @@ durbinWatsonTest(fit1)
 
 ### Additional Diagnostic Help
 
+Based on Pena and Slate (2006), the four assumptions in linear regression are normality, heteroscedasticity, and linearity, and what the authors refer to as uncorrelatedness.
+
 The `gvlma( )` function in the `gvlma` package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
 
 ```{r,  eval=T, warning=F, message=F}
@@ -403,3 +449,542 @@ summary(gvmodel)
 ```
 
 This tests for the linear model assumptions and helpfully provides information on other assumptions. In this case we are going to look at the heteroskedasticity decisions, which has been identified as not being satisfied. We therefore reject the null hypothesis and state that there is heteroskedasticity in this model at the 5% significance level.
+
+1. Global Stat This is the overall metric; this states whether the model, as a whole, passes or fails.
+
+2. Skewness:  measuring the distribution
+
+3. Kurtosis: measuring the distribution, outliers, influential data, etc
+
+4. Link function:  misspecified model, how you linked the elements in the model assignment
+
+5. Heteroscedasticity: looking for equal variance in the residuals
+
+## Dealing with violation of assumption
+
+
+A method of choice for addressing any violations of assumptions is often simple scale transformation of either the dependent or the independent variables, or both. The Box-Cox transformation is a power transformation that eliminates non-linearity between variables, differing variances, and variable asymmetry.The ability to turn a variable into a new variable with a normal distribution is therefore very helpful.
+
+The following expression gives the Box-Cox functions transformations for various values of lambda:
+
+$\frac{x^λ-1}λ$  if  $λ\neq0$ 
+
+$log(x)$  if  $λ=0$ 
+
+being y the changed variable and lambda (λ) the transformation parameter However, the following table describes the most typical transformations:
+
+λ|Transformation
+--|--------------
+-2|$\frac{1}{x^2}$
+-1|$\frac{1}{x}$
+-0.5|$\frac{1}{\sqrt{x}}$
+0|$log(x)$
+0.5|$sqrt{x}$
+1|$x$
+2|$x^2$
+
+In practice, it is advised to choose the value from the table rather than the precise value if the estimated transformation parameter is close to one of the values of the previous table because the value from the table is simpler to understand. Below is a quick implementation of Box-Cox transformation capabilities is introduced. In this instance, the goal is to find an exponent to use to transform the dependant variavel to help produce normality and homoscedasticity of the residuals. The peak of the curve in the plot yields λ, the scaling component.
+
+
+```{r,  eval=T, warning=F, message=F}
+boxcoxfit <- boxcox(fit1,plotit=T)
+# also see `boxCox` from **car**
+# also see `BoxCoxTrans` from **caret** for individual variable
+```
+
+Find the optimal λ for Box-Cox transformation 
+
+```{r,  eval=T, warning=F, message=F}
+lambda <- boxcoxfit$x[which.max(boxcoxfit$y)]
+```
+
+For this model, λ  is was found to be about 0.667 (approximately equivalent to a square root transformation). This value would be used to transform the dependent variable and to rerun the previous analysis. But recall that the normality was not  big deal earlier but  the heteroscedasticity was at the opposite a  big issue.
+
+
+
+```{r,  eval=T, warning=F, message=F}
+#fit new linear regression model using the Box-Cox transformation
+new_fit <- lm(((iris$Petal.Width^lambda-1)/lambda) ~ Petal.Length + Sepal.Width + Sepal.Length, data = iris)
+```
+
+The optimal λ was found to be 0.667. Thus, the new regression model replaced the original response variable y with the variable y = (y^-0.667^– 1) / -0.4242424.  Also note that with the scale change, the values of the regression coefficients would become less readily interpretable.
+
+```{r,  eval=F, warning=F, message=F}
+gvlma(new_fit)
+# not better at all
+```
+
+## Bootstrap
+
+[Bootstrap](https://towardsdatascience.com/bootstrap-regression-in-r-98bfe4ff5007) is a method of random sampling with replacement. Among its other applications such as hypothesis testing, it is a simple yet powerful approach for checking the stability of regression coefficients. 
+
+Linear regression relies on several assumptions, and the coefficients of the formulas are presumably normally distributed under the CLT. It shows that on average if we repeated the experiment thousands and thousands of times, the line would be in confidence intervals.
+
+The bootstrap approach does not rely on those assumption*, but simply performs thousands of estimations.
+
+(Please note, that the bootstrap approach does not violate or bypass the normality assumptions, but rather than relying on the CLT, it builds its own, the Bootstrap distribution, which is asymptotically normal)
+
+
+### Dataset Simulation
+
+We will simulate a dataset of one exploratory variable from the Gaussian distribution, and one response variable constructed by adding random noise to the exploratory variable. The population data would have 1000 observations.
+
+```{r,  eval=T, warning=F, message=F}
+set.seed(2021)
+n <- 1000
+x <- rnorm(n)
+y <- x + rnorm(n)
+population.data <- as.data.frame(cbind(x, y))
+```
+
+We will take a sample of 20 observations from these data.
+
+```{r,  eval=T, warning=F, message=F}
+sample.data <- population.data[sample(nrow(population.data), 20, replace = TRUE),]
+```
+
+### Simple regression models
+
+Let’s explore the simple regression models both for population and for sample data:
+
+```{r,  eval=T, warning=F, message=F}
+population.model <- lm(y~x, population.data)
+summary (population.data)
+```
+
+
+```{r,  eval=T, warning=F, message=F}
+sample.model <- lm(y~x, sample.data)
+summary (sample.model)
+```
+
+We can see, that the intercept is biased for the sample data; however, the slope coefficient is very close to the population one, even though we have only 20 observations in our sample dataset. The standard errors are much higher for the sample model.
+
+If we plot the models, we can see how close the lines are:
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+#Plotting the models
+plot(y ~ x, col = "gray", main = 'Population and Sample Regressions')
+abline(coef(population.model)[1], coef(population.model)[2], col = "red")
+abline(coef(sample.model)[1],
+       coef(sample.model)[2],
+       col = "blue",
+       lty = 2)
+legend(
+  "topleft",
+  legend = c("Sample", "Population"),
+  col = c("red", "blue"),
+  lty = 1:2,
+  cex = 0.8)
+```
+
+### Bootstrap Approach
+
+The Bootstrap approach asks a question: what if we resample the data with replacement and estimate the coefficients, how extreme would it be?
+
+
+<center>
+![](Figures/boot.gif){width=50%}
+</center>
+
+
+
+Here is a simple loop of 1000 trials, which resamples with replacement these 20 observations from our sample dataset, runs the regression model and saves the coefficients we get there. In the end, we would have 1000 pairs of coefficients.
+
+```{r,  eval=T, echo=T, warning=F, message=F}
+# Containers for the coefficients
+sample_coef_intercept <- NULL
+sample_coef_x1 <- NULL
+
+for (i in 1:1000) {
+  #Creating a resampled dataset from the sample data
+  sample_d = sample.data[sample(1:nrow(sample.data), nrow(sample.data), replace = TRUE), ]
+  
+  #Running the regression on these data
+  model_bootstrap <- lm(y ~ x, data = sample_d)
+  
+  #Saving the coefficients
+  sample_coef_intercept <-
+    c(sample_coef_intercept, model_bootstrap$coefficients[1])
+  
+  sample_coef_x1 <-
+    c(sample_coef_x1, model_bootstrap$coefficients[2])
+}
+
+coefs <- rbind(sample_coef_intercept, sample_coef_x1)
+```
+
+We would take the average of these coefficients, and compare them with the other models we previously obtained:
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+# Combining the results in a table
+means.boot = c(mean(sample_coef_intercept), mean(sample_coef_x1))
+knitr::kable(round(
+  cbind(
+    population = coef(summary(population.model))[, 1],
+    sample = coef(summary(sample.model))[, 1],
+    bootstrap = means.boot),4), 
+  "simple", caption = "Coefficients in different models")
+```
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+a <-
+  cbind(
+    quantile(sample_coef_intercept, prob = 0.025),
+    quantile(sample_coef_intercept, prob = 0.975))
+b <-
+  cbind(quantile(sample_coef_x1, prob = 0.025),
+        quantile(sample_coef_x1, prob = 0.975))
+
+c <-
+  round(cbind(
+    population = confint(population.model),
+    sample = confint(sample.model),
+    boot = rbind(a, b)), 4)
+colnames(c) <- c("2.5 %", "97.5 %",
+                 "2.5 %", "97.5 %",
+                 "2.5 %", "97.5 %")
+knitr::kable(rbind(
+  c('population',
+    'population',
+    'sample',
+    'sample',
+    'bootstrap',
+    'bootstrap'),c),caption = "Precision of the confidence intervals")
+```
+
+We can see, that the precision is almost identical to the sample model’s, and even slightly tighter for the intercept.
+
+### The graphical representation
+
+First, the bootstrap representation:
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+
+#Predicting on new data
+new.data = seq(min(x), max(x), by = 0.05)
+conf_interval <-
+  predict(
+    sample.model,
+    newdata = data.frame(x = new.data),
+    interval = "confidence",
+    level = 0.95)
+
+#Plotting the results on the project step-by-spep
+plot(
+  y ~ x,
+  col = "gray",
+  xlab = "x",
+  ylab = "y",
+  main = "Compare regressions")
+apply(coefs, 2, abline, col = rgb(1, 0, 0, 0.03))
+```
+
+These are 1000 possible regression lines we have estimated. Now let’s add to the plot population, sample, and average bootstrap lines.
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+plot(
+  y ~ x,
+  col = "gray",
+  xlab = "x",
+  ylab = "y",
+  main = "Compare regressions")
+apply(coefs, 2, abline, col = rgb(1, 0, 0, 0.03))
+abline(coef(population.model)[1], coef(population.model)[2], col = "blue")
+abline(coef(sample.model)[1],
+       coef(sample.model)[2],
+       col = "black",
+       lty = 2, lwd=3)
+abline(mean(sample_coef_intercept),
+       mean(sample_coef_x1),
+       col = "green",
+       lty = 4, lwd=3)
+```
+
+We can see that they essentially capture the data in the same way. Now let’s add the confidence intervals from the sample data:
+
+
+```{r,  eval=T, echo=F, warning=F, message=F}
+plot(
+  y ~ x,
+  col = "gray",
+  xlab = "x",
+  ylab = "y",
+  main = "Compare regressions")
+apply(coefs, 2, abline, col = rgb(1, 0, 0, 0.03))
+abline(coef(population.model)[1], coef(population.model)[2], col = "blue")
+abline(coef(sample.model)[1],
+       coef(sample.model)[2],
+       col = "black",
+       lty = 2, lwd=3)
+abline(mean(sample_coef_intercept),
+       mean(sample_coef_x1),
+       col = "green",
+       lty = 4, lwd=3)
+lines(new.data, conf_interval[, 2], col = "black", lty = 3, lwd=3)
+lines(new.data, conf_interval[, 3], col = "black", lty = 3, lwd=3)
+legend("topleft",
+       legend = c("Bootstrap", "Population", 'Sample'),
+       col = c("red", "blue", 'green'),
+       lty = 1:3,
+       cex = 0.8)
+```
+
+This completes our research: we may conclude, that the bootstrapping approach returns essentially the same results but in a statistically different fashion. We do not rely on assumptions but simulate the data using a brute force method. This could be especially useful when we have doubts about the distribution the data arrived from, or want to check the stability of the coefficients, particularly for small datasets.
+
+### Iris
+
+Going back to our `iris` dataset, and addresing multicollinearity issue:
+
+```{r,  eval=T, echo=T,results=F, warning=F, message=F}
+fit1 <- lm(Petal.Width ~ Petal.Length + Sepal.Width + Sepal.Length, data = iris) # sqrt(vif(fit1)) >2 not good
+fit2 <- lm(Petal.Width ~ Sepal.Width + Sepal.Length, data = iris)
+sqrt(car::vif(fit2)) >2 # okay
+gvlma(fit2)
+boxcoxfit2 <- boxcox(fit2,plotit=T)
+lambda2 <- boxcoxfit2$x[which.max(boxcoxfit2$y)]
+new_fit2 <- lm(((iris$Petal.Width^lambda2-1)/lambda2) ~  Sepal.Width + Sepal.Length, data = iris)
+gvlma(new_fit2)
+```
+
+Let's get back to `fit2` and use a a bootstrap approach:
+
+```{r,  eval=T, echo=T,results=T, warning=F, message=F}
+fit2.boot<-lm.boot(fit2, R=1000)
+summary(fit2.boot)
+```
+
+Good for new prediction, but a more comprehensive alternative using function `Boot()` from the `car` package":
+
+```{r,  eval=T, echo=T,results=T, warning=F, message=F}
+# can specify casewise or residual sampling with the method argument
+fit3.boot <- Boot(fit2, f=coef, R=1000, method=c("case"))
+summary(fit3.boot, high.moments=T)
+```
+
+Fit 2 is not too bad overall !!!
+
+## Cross Validation
+
+**Two types**
+
+Two types of cross-validation can be distinguished: exhaustive and non-exhaustive cross-validation.
+
++ Exhaustive cross-validation
+
+Exhaustive cross-validation methods are cross-validation methods which learn and test on all possible ways to divide the original sample into a training and a validation set.
+
+<center>
+![](Figures/LOOCV.gif){width=50%}
+</center>
+
++ Non-exhaustive cross-validation
+
+Non-exhaustive cross validation methods do not compute all ways of splitting the original sample. These methods are approximations of leave-p-out cross-validation.
+
+<center>
+
+![](Figures/KfoldCV.gif){width=50%}
+
+</center>
+
+
+You can do K-Fold cross-validation using the `cv.lm( )` function in the DAAG package.
+
+```{r,  eval=T, warning=F, message=F}
+# K-fold cross-validation
+cv.lm(iris, fit2, m=3) # 3 fold cross-validation
+```
+
+Sum the Mean Square Error (MSE) for each fold, divide by the number of observations, and take the square root to get the cross-validated standard error of estimate.
+
+You can assess R2 shrinkage via K-fold cross-validation. Using the `crossval()` function from the `bootstrap` package, do the following:
+
+
+```{r,  eval=T, warning=F, message=F}
+# Assessing R2 shrinkage using 10-Fold Cross-Validation
+# define functions
+theta.fit <- function(x,y){lsfit(x,y)}
+theta.predict <- function(fit,x){cbind(1,x)%*%fit$coef}
+# matrix of predictors
+X <- as.matrix(iris[c("Sepal.Width","Sepal.Length")])
+# vector of predicted values
+y <- as.matrix(iris[c("Petal.Width")])
+results <- crossval(X,y,theta.fit,theta.predict,ngroup=3)
+cor(y, fit2$fitted.values)**2 # raw R2
+cor(y,results$cv.fit)**2 # cross-validated R2
+```
+
+## Comparing Models
+
+Let's change of data set to make it a bit more simple from now: salaries and other information of 62  professors in Cohen et. al. (2003, pp. 81-82). Check `?prof.salary`. 
+
+```{r,  eval=T, warning=F, message=F}
+data(prof.salary)
+```
+
+We now build a serie of simple regression models
+
+```{r,  eval=T, warning=F, message=F}
+fit.prof1 <- lm(salary~pub, data=prof.salary)
+fit.prof2  <- lm(salary~citation, data=prof.salary)
+fit.prof3 <- lm(salary~pub+citation, data=prof.salary)
+fit.prof4  <- lm(salary~citation+pub, data=prof.salary)
+```
+
+Check [here](https://bcdudek.net/regression1/implementation-of-standard-multiple-regression-analyses-linear-modeling-with-multiple-ivs.html#diagnostic-and-added-variable-plots-for-the-full-two-iv-model) for the regression diagnostics and influence analysis. 
+
+
+We can pass two linear models to `anova` and ask it to compare them. We consider beginning wth fit.prof1  (only `pubs` was an independent variable in that simple regression), and compare fit.prof3  (which also included `cits` as an independent variable) to test the increment in the R-squared produced by the inclusion of `cits`. The F value matches the Type III SS F test for `cits` and is the square of the *t* value that tested the regression coefficient of `cits`.
+
+
+```{r,  eval=T, warning=F, message=F}
+# compare model 3 to model 1 - stepping approach, evaluating a new variable (cits)
+anova(fit.prof1,fit.prof3)# note this is anova, not Anova
+```
+
+
+The next illustration compares the full model to the simple regression that only contained cits (fit2). The test is therefore the test of an hypothesis that increment in SS accounted for by pubs is zero. And this F also matches the F test of the Type III SS seen above.
+
+```{r,  eval=T, warning=F, message=F}
+# compare model 3 to model 2 - stepping approach, evaluating a new variable (pubs)
+anova(fit.prof2,fit.prof3)# note this is anova, not Anova
+```
+
+
+## Variable Selection
+
+An information criterion balances the fitness of a model with the number of predictors employed. Hence, it determines objectively the best model as the one that minimizes the information criterion. Two common criteria are the **Bayesian Information Criterion (BIC)** and the **Akaike Information Criterion (AIC)**. 
+
+$AIC(model)=-2*logLik(model) + npar(model) * 2$
+
+$BIC(model)=-2*logLik(model) + npar(model) * log(n)$
+
+where $Lik(model)$  is the likelihood of the model (how well the model fits the data) and $npar(model)$ is the number of parameters of the model, $k+2$ in the case of a multiple linear regression model with $k$ predictors.The AIC replaces $log(n)$ by $2$, so it penalizes less complex models.This is one of the reasons why BIC is preferred by some practitioners for model comparison. Also, because is consistent in selecting the true model: if enough data is provided, the BIC is guaranteed to select the data-generating model among a list of candidate models.
+
+Both are based on a **balance between the model fitness and its complexity**.Both BIC and AIC can be computed in `R` through the functions `BIC` and `AIC`. They take a model as the input. The lower the better with a rule of thumb = 2. 
+
+```{r,  eval=T, warning=F, message=F}
+BIC(fit.prof1); BIC(fit.prof2);BIC(fit.prof3)
+AIC(fit.prof1); AIC(fit.prof2);AIC(fit.prof3)
+```
+
+However, selecting a subset of predictor variables from a larger set (e.g., stepwise selection) remains a controversial topic. You can perform stepwise selection (forward, backward, both) using the `stepAIC()` and `stepBIC()` function from the `MASS` package. `stepAIC()` performs stepwise model selection by exact AIC.
+
+
+```{r,  eval=T, warning=F, message=F}
+# Stepwise Selection based on AIC
+fit.prof5  <- lm(salary~citation+pub+time, data=prof.salary)
+step1 <- stepAIC(fit.prof5, direction="both")
+step1$anova # display results
+
+
+#Stepwise Selection with BIC
+n<-dim(prof.salary)[1]
+step2 <- stepAIC(fit.prof5, k=log(n), direction="both")
+step2$anova # display results
+```
+ 
+When applying `stepAIC` for BIC/AIC, different final models might be selected depending on the choice of direction. This is the interpretation:
+
++ `“backward”`: starts from the full model, removes predictors sequentially.
++ `“forward”`: starts from the simplest model, adds predictors sequentially.
++ `“both”` (default): combination of the above.
+
+The advice is to try several of these methods and retain the one with minimum BIC/AIC. Set trace = 0 to omit lengthy outputs of information of the search procedure.
+
+Alternatively, you can perform all-subsets regression using the `leaps()` function from the `leaps` package. In the following code `nbest` indicates the number of subsets of each size to report. Here, the ten best models will be reported for each subset size (1 predictor, 2 predictors, etc.).
+
+```{r,  eval=T, warning=F, message=F}
+# All Subsets Regression
+leaps<-regsubsets(salary~citation+pub+time, data=prof.salary,nbest=10)
+# view results
+summary(leaps)
+# plot a table of models showing variables in each model.
+# models are ordered by the selection statistic.
+plot(leaps,scale="r2")
+# plot statistic by subset size
+# subsets(leaps, statistic="rsq")
+```
+
+Other options for `plot()` are bic, Cp, and adjr2. Other options for plotting with `subset()` are bic, cp, adjr2, and rss.
+
+## Model assesment
+
+It turns out that:
+
+```{r,  eval=T, warning=F, message=F}
+fit.prof6  <- lm(salary~citation+time, data=prof.salary)
+# gvlma(fit.prof6)
+summary(fit.prof6)
+```
+
+The first step in interpreting the multiple regression analysis is to examine the *F*-statistic and the associated *p*-value, at the bottom of the model summary.
+
+In our example, it can be seen that p-value of the F-statistic is `p-value: 2.258e-09`, which is highly significant. This means that, at least, one of the predictor variables is significantly related to the outcome variable.
+
+To see which predictor variables are significant, you can examine the coefficients table, which shows the estimate of regression beta coefficients and the associated t-statistic p-values:
+
+```{r,  eval=T, warning=F, message=F}
+summary(fit.prof6)$coefficient
+```
+
+For a given  predictor, the *t*-statistic evaluates whether or not there is significant association between this predictor and the outcome variable, that is whether the beta coefficient of the predictor is significantly different from zero.
+
+It can be seen that, changes in `citation` and `time`  are both significantly associated to changes in `salary`. For a given predictor variable, the coefficient ($\beta$) can be interpreted as the average effect on $y$ of a one unit increase in predictor, holding all other predictors fixed.
+
+For example, for a fixed values of `citation` the increase of one unit of `time` increase salary of `1061` unit on average (vs. `1379` unit in our example using a simple linear regression). If a predictor was not significant in our multiple regression model, it means that its change will not significantly affect `salary`. Therefore, it is possible to remove it from the model. 
+
+As we saw earlier, the confidence interval of the model coefficient can be extracted as follow:  
+
+```{r,  eval=T, warning=F, message=F}
+confint(fit.prof6)
+```
+
+### Accuracy
+
+As we have seen in simple linear regression, the overall quality of the model can be assessed by examining the R-squared ($R^2$) and Residual Standard Error (RSE).
+
+1. **The R-squared ($R^2$)**
+
+In multiple linear regression, the $R$ represents the correlation coefficient between the observed values of the outcome variable ($y$) and the fitted (i.e., predicted) values of $y$. For this reason, the value of $R$ will always be positive and will range from zero to one.
+
+$R^2$ represents the proportion of variance, in the outcome variable y, that may be predicted by knowing the value of the $x$ variables. An $R^2$ value close to 1 indicates that the model explains a large portion of the variance in the outcome variable.
+
+A problem with the $R^2$, is that, it will always increase when more variables are added to the model, even if those variables are only weakly associated with the response (James et al. 2014). A solution is to adjust the $R^2$ by taking into account the number of predictor variables.
+
+The adjustment in the “Adjusted R-Squared” value in the summary output is a correction for the number of $x$ variables included in the prediction model.
+
+2. **The Residual Standard Error (RSE).**
+
+As mentioned earlier, the RSE estimate gives a measure of error of prediction. The lower the RSE, the more accurate the model (on the data in hand).
+
+The error rate can be estimated by dividing the RSE by the mean outcome variable:
+
+```{r,  eval=T, warning=F, message=F}
+sigma(fit.prof6)/mean(prof.salary$salary)
+```
+
+Which only slightly increase our prediction in comparison with using a single predictor, the 'Petal.Length` (16 vs 17 %). A parcimonial choice may be to retain  fewer  predictors if the information they bring is not important enough in our prediction.
+
+### Model customization 
+
+To compute multiple regression using all of the predictors in the data set, simply type this:
+
+```{r,  eval=F, warning=F, message=F}
+model.full <- lm(salary ~., data = prof.salary)
+```
+
+If you want to perform the regression using all of the variables except one, say `Sepal.Width`, type this:
+
+```{r,  eval=F, warning=F, message=F}
+model.partial1 <- lm(salary ~. -sex, data = prof.salary)
+```
+
+Alternatively, you can use the update function:
+
+```{r,  eval=F, warning=F, message=F}
+model.partial2 <-  update(model.full,  ~. -sex)
+```
+
+# ANOVAs
