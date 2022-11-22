@@ -518,11 +518,11 @@ gvlma(new_fit)
 
 [Bootstrap](https://towardsdatascience.com/bootstrap-regression-in-r-98bfe4ff5007) is a method of random sampling with replacement. Among its other applications such as hypothesis testing, it is a simple yet powerful approach for checking the stability of regression coefficients. 
 
-Linear regression relies on several assumptions, and the coefficients of the formulas are presumably normally distributed under the CLT. It shows that on average if we repeated the experiment thousands and thousands of times, the line would be in confidence intervals.
+Linear regression relies on several assumptions, and the coefficients of the formulas are presumably normally distributed. It shows that on average if we repeated the experiment thousands and thousands of times, the line would be in confidence intervals.
 
 The bootstrap approach does not rely on those assumption*, but simply performs thousands of estimations.
 
-(Please note, that the bootstrap approach does not violate or bypass the normality assumptions, but rather than relying on the CLT, it builds its own, the Bootstrap distribution, which is asymptotically normal)
+(Please note, that the bootstrap approach does not violate or bypass the normality assumptions, but rather than relying on the central limit theorem [CLT], it builds its own, the Bootstrap distribution, which is asymptotically -approaching- normal)
 
 
 ### Dataset Simulation
@@ -987,4 +987,4 @@ Alternatively, you can use the update function:
 model.partial2 <-  update(model.full,  ~. -sex)
 ```
 
-# ANOVAs
+# F-test
