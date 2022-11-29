@@ -20,8 +20,28 @@ ____________
   
 + Data use: full or partial
 
-> CITATION: Edgar G.J., Stuart-Smith R.D. (2014) Systematic global assessment of reef fish communities by the Reef Life Survey program. Scientific Data, 140007.
+> CITATION: Edgar, G., Stuart-Smith, R. Systematic global assessment of reef fish communities by the Reef Life Survey program. Sci Data 1, 140007 (2014). https://doi.org/10.1038/sdata.2014.7
   
 ____________
 
-# Pending
+# Long-term and large-scale multispecies dataset tracking population changes of common European breeding birds
+
++ Article [url](https://www.nature.com/articles/s41597-021-00804-2), Open Access, for the description of the data set.
+
++ Data availability: https://pecbms.info/, search for *'Trends and Indicators'*
+
++ Data use: full or partial
+
+> CITATION: Brlík, V., Šilarová, E., Škorpilová, J. et al. Long-term and large-scale multispecies dataset tracking population changes of common European breeding birds. Sci Data 8, 21 (2021). https://doi.org/10.1038/s41597-021-00804-2
+
+____________
+
+# Drivers of tropical forest loss between 2008 and 2019
+
++ Article [url](https://www.nature.com/articles/s41597-022-01227-3), Open Access, for the description of the data set.
+
++ Data availability: https://pure.iiasa.ac.at/id/eprint/17539/ (zip with two files: full data set + the control or expert data)
+ 
++ Data use: full or partial
+
+> CITATION: Laso Bayas, J.C., See, L., Georgieva, I. et al. Drivers of tropical forest loss between 2008 and 2019. Sci Data 9, 146 (2022). https://doi.org/10.1038/s41597-022-01227-3
