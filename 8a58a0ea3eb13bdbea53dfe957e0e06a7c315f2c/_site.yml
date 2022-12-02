@@ -40,14 +40,14 @@ navbar:
       href: mapping.html
     - text: "Loops & Functions"
       href: loop.html
-    - text: "Statistics"
+    - text: "Statistics I"
       menu:
         - text: "Descriptive & hypotheses"
           href: statistics.html    
         - text: "Linear models"
           href: linear.html
-#    - text: "Multivariate"
-#      href: multi.html
+    - text: "Statistics II"
+      href: multi.html
     - text: "Dataset"
       href: dataset.html
 
