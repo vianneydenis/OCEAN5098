@@ -405,5 +405,90 @@ print(fit.lda)
 # estimate skill of LDA on the validation dataset
 predictions <- predict(fit.lda, validation)
 confusionMatrix(predictions, validation$Species)
+
+data(varespec)
+decorana(varespec)
+data(doubs)
+doubspec<-doubs$fish[-8,]
+decorana(doubspec)
+
+# PCA on on the full data varechem dataset
+# arg scale =T, standardize our variables within the rda function
+data(varechem)
+env<-varechem
+env.pca<-rda(env, scale=T) 
+env.pca
+summary(env.pca) # default scaling 2
+
+# Plots using biplot
+# To help memorize the meaning of the scalings, vegan now accepts argument scaling = "sites" for scaling 1 and scaling="species" for scaling 2. This is true for all vegan functions involving scalings
+par(mfrow = c(1, 2))
+biplot(env.pca, scaling = 1, main = "PCA - scaling 1")
+biplot(env.pca, main = "PCA - scaling 2") # Default scaling 2
+
+# Plots using cleanplot.pca
+cleanplot.pca(env.pca)
+dev.off()
+
+summary(env.pca)$species
+
+summary(env.pca)$site
+
+screeplot(env.pca, bstick = TRUE, npcs = length(env.pca$CA$eig))
+
+par(mfrow = c(1, 2))
+cleanplot.pca(env.pca)
+dev.off()
+
+# combining clustering and ordination results
+biplot(env.pca, main='PCA - scaling 1',scaling=1) 
+ordicluster(env.pca, 
+            hclust(dist(scale(env)), 'ward.D'), 
+            prune=3, col = "blue", scaling=1)
+
+# Hellinger pre-transformation of the species data
+data(varespec)
+spe<-varespec
+spe.h<-decostand(spe,'hellinger')
+
+# DCA + RDA
+decorana (spe.h)
+spe.h.pca<-rda(spe.h)
+screeplot(spe.h.pca,bstick = TRUE, npcs = length(spe.h.pca$CA$eig))
+
+# plot PCA
+cleanplot.pca (spe.h.pca)
+
+#A posteriori projection of environmental variables in a PCA
+# A PCA scaling 2 plot is produced in a new graphic window.
+biplot(spe.h.pca, main = "PCA - scaling 2")
+# Scaling 2 is default
+(spe.h.pca.env <- envfit(spe.h.pca, env, scaling = 2))
+# Plot significant variables with a user -selected colour
+plot(spe.h.pca.env, p.max = 0.05, col = 3)
+# This has added the significant environmental variables to the
+# last biplot drawn by R.
+# BEWARE: envfit() must be given the same scaling as the plot to 
+# which its result is added!
+
+carp.chemistry<-read.table ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/carp.chemistry.txt',header=T, sep=",",row.names=1)
+carp.spec<-read.table ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/carp.vasc_plants.txt',header=T, sep=",",row.names=1)
+
+#environmental data and RDA
+chem$slope<-NULL
+stand.chem <- scale (chem)
+PCA1 <- rda (stand.chem) 
+
+# broken stick
+screeplot(PCA1,bstick = TRUE, npcs = length(PCA1$CA$eig))
+
+# Keiser-Guttman Criteron (above average eigen value)
+ev<-PCA1$CA$eig
+barplot(ev, main='Eigenvalues',col='bisque',las=2)
+abline(h=mean(ev),col='red') # average eigenvalue
+legend('topright','Average eigenvalue',lwd=1,col=2,bty='n')
+
+#biplot
+clean.plot (PCA1)
 ```{.r .distill-force-highlighting-css}
 ```

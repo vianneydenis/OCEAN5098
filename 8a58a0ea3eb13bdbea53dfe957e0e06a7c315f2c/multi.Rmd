@@ -94,7 +94,7 @@ In ecology, the'typical' dataset used in multivariate analyses will be represent
 *Important note*: observations on object are not necessarily __independent__ on those made on another object, and a mixture of dependent and independent objects is possible e.g. site and year  
 
 
-Measured variables can be binary, quantitative, qualitative, rank-ordered, or even a mixture of them. If variables do not have uniform scale (e.g. environmental parameters measured in different units or scales), they usually have to be transformed before performing further analyses.
+Measured variables can be binary, quantitative, qualitative, rank-ordered, or even a mixture of them. If variables do not have uniform scale (e.g. environmental parameters measured in different units or scales), they usually have to be transformed (see [here](https://sites.google.com/site/mb3gustame/reference/transformations) for more details about it) before performing further analyses.
 
  - **Standardization**: provides dimensionless variables and removes the influence of magnitude differences between scales and units
 
@@ -709,7 +709,7 @@ heatmap(as.matrix(spe.ch),Rowv=dend,symm=TRUE, margin=c(3,3))
 
 ## Non-Hierarchical Clustering
 
-(NOTE ON FUZZY - ONLY BRIEFLY EXPLAINED HERE)
+(NOTE ON FUZZY - BRIEFLY EXPLAINED BELOW)
 
 + Create partition, without hierarchy.
 
@@ -877,7 +877,7 @@ using our Doubs dataset
 
 
 <p class="comment">
-**Practice M3:** Using `iris` data set: (1) make a K-means cascade and use the silhouette width indicator to determine the optimal number of clusters. (2)  since we know that 3 species are involved, group the data into 3 clusters (common sense) using the `kmeans` function. How many points are wrongly classified between optimal in (1) and the solution here? Plot both solutions.
+**Practice 8.3** Using `iris` data set: (1) make a K-means cascade and use the silhouette width indicator to determine the optimal number of clusters. (2)  since we know that 3 species are involved, group the data into 3 clusters (common sense) using the `kmeans` function. How many points are wrongly classified between optimal in (1) and the solution here? Plot both solutions.
 </p>
 
 ```{r,  eval=T, message=F}
@@ -901,6 +901,10 @@ plot7<-ggplot(iris, aes(Petal.Length, Petal.Width, color = irisCluster$cluster +
 plot8<-ggplot(iris, aes(Petal.Length, Petal.Width, color = Species)) + geom_point()
 grid.arrange(plot7, plot8, ncol=2)
 ```
+
+
+
+
 
 ________________
 
@@ -1070,3 +1074,284 @@ Basically, we learn about one **neurone** of a network. You are only one step to
 
 
 ![Machine Learning vs. Deep Learning](Figures/multi_MLDL.png)
+
+
+# Ordinations
+
+## Background
+
+[GUSTA ME](https://sites.google.com/site/mb3gustame/home?overridemobile=true) provides a guide to statistical analysis (community-focused) in Microbial Ecology. Very useful to help in the choice of the relevant analysis according to the type of data you are dealing with.
+
+### Multidimensional space
+
+The aim of ordination methods is to represent the data along a reduced number of orthogonal axes, constructed in such way that they represent, in decreasing order, the **main trends of the data**
+
+ + The renders can be **interpreted visually or in association with other methods** such as clustering or regression
+
+ + Most ordination methods (except nMDS) are based on the extraction of the **eigenvectors** of an association matrix
+
+### Families
+
+Two big families of ordination analyses exist according to how they are dealing with  environmental matrix (if any):
+
++ **unconstrained ordination** (indirect gradient analysis, ordination not constrained by environmental factors).They are descriptive methodologies and describe patterns. It generates hypotheses but cannot test them.
+
+    * uncover main compositional gradients in the species data, 	structuring the community, and these gradients can be 	interpreted by known (estimated or measured) 	environmental factors
+    
+    * environmental variables can be used a posteriori, after the analysis
+    
++ **constrained ordination** (direct gradient analysis, ordination axes are constrained by environmental factors). It tests directly  hypotheses about the influence of environmental factors on species composition*
+
+    * relates the **species composition directly to the 	environmental variables** and extracts the variance in species 	composition which is directly related to these variable*
+
+    * regarding environmental factors, it offers several interesting options such as **step-wise selection** of important environmental 	variables (and excluding those which are not relevant for species composition), test of **significance of the variance 	explained by environmental factors**	and **partitioning variance explained by particular environmental variables**
+
+### Types
+
+In addition, based on data input, two types of ordination analyses exist. 
+
+  + **raw data**: based on analysis of raw sample-species matrices with abundance or presence/absence data. Two categories recognized, differing by assumption of species response along environmental gradient:
+  
+    + **linear**, species response linearly along env. gradient, which could be true for rather homogenous ecological data, where ecological gradients are not too long. **Short gradient**.
+
+    + **unimodal**, species response unimodally along gradient, having its optima at certain gradient position. More close to reality of ecological data, more suitable for heterogenous dataset (long gradients + many zeros and turnover). **Long gradient**.
+    
+  
+![](Figures/multi_linuni.png)
+
++ **distances**: distance matrix  computed by similarity/dissimilarity measures, and projecting these distances into two or more dimensional diagrams</span>
+
+### Framework 
+
+![](Figures/multi_ordi.png)
+
+The selection toward linear or unimodal ordination appraoch is commonly determined by a rule of thumb by performing a Detrended Correspondance Analysis (DCA) `decorana` on the dataset, then to check the length of the 1st DCA axis. Typically, it says: 
+
++ **length>4**, data are heterogenous and you should use unimodal methods
+
++ **length<3**, data are homogenous and you should use linear methods
+
+There is a **grey zone** between **3 and 4** where both methods are okay - in addition if your data are heterogenous, you still can use PCA/RDA using Hellinger's transformation of species data* (tbPCA)
+
+```{r,  eval=T, message=F}
+data(varespec)
+decorana(varespec)
+data(doubs)
+doubspec<-doubs$fish[-8,]
+decorana(doubspec)
+```
+
+## Unconstrained ordination
+
++ **Principal Component Analysis (PCA)**: the main eigenvector-based method (and the most famous). Works on raw, quantitative data. Preserve the **Euclidean** distance among sites. 
+
++ **Correspondance Analysis (CA)**: works on data that must be frequency or frequency-like, dimensionnally homogenous, and non-negative. Preserve the **Chi-square** distance among rows and columns. Applied in ecology to analyze species data.
+
++ **Principal Coordinate Analysis (PCoA, also called MDS)**: devoted to the ordination of distance matrix, most often in Q mode. Great flexibility in the choice of association measures. Common in trait-based approach because of it.
+
++ **non-metric Multi-Dimensional Scaling (nMDS)** unlike the three others, this is not an eigenvector-based method. nMDS tries to represent the set of objects along a predetrmined number of axes (usually 2) while preserving the ordering relationship among them.
+
+### Principal Component Analysis (PCA)
+
+A PCA carries out a **rotation system of axes** defined by the variables, such as new axes (called principal component) are orthogonal to one another, and correspond to the successive dimensions of maximum variance of the scatter plot.
+
+A PCA will find the "best" line (first principal component) according to two different criteria of what is the "best": maximize the variance & minimize the error.
+
+Applied to a 2D example on wine testing, this is like to identify a new property of wine by a combination of two variables (alcohol content and wine darkness) by drwaing a line through the center of the wine cloud. 
+
+
+![Scatterplot wine properties](Figures/multi_wine.png)
+
+![Maximizing Variance and minimizing errors](Figures/multi_wine.gif)
+It corresponds to a simple application of the Pythagora theorem
+
+![](Figures/multi_PCA1.png)
+
+The direction is given by eigenvector, and the strength by the eigenvalues. 
+
+![](Figures/multi_PCA2.png)
+
+Check it  [here](http://setosa.io/ev/principal-component-analysis/) for a very simple explanation of how PCA works, and [here](https://www.youtube.com/watch?v=9DPiXrN2pEg) for a simple example, and [here](https://www.youtube.com/watch?v=FgakZw6K1QQ) for a more detailed example.
+
+
+#### PCA in R
+
+##### Computation
+
+In R, a **PCA** can be computed with the function `rda` from the `vegan`among many other options.
+
+```{r,  eval=T, message=F}
+# PCA on on the full data varechem dataset
+# arg scale =T, standardize our variables within the rda function
+data(varechem)
+env<-varechem
+env.pca<-rda(env, scale=T) 
+env.pca
+summary(env.pca) # default scaling 2
+```
+
+
+**Inertia**: in `vegan`’s language, this is the general term for “variation” in the data
+
+**Constrained and unconstrained**: In PCA, the analysis is unconstrained, i.e. not constrained by a set of explanatory variables, and so are the results
+
+**Eigenvalues**, symbolized λj: these are measures of the importance (variance) of the PCA axes. They can be expressed as Proportions Explained, or proportions of variation accounted for by the axes, by dividing each eigenvalue by the “total inertia”.
+
+**Scaling**: not to be confused with the argument “scale” calling for standardization of variables. “Scaling” refers to the way ordination results are projected in the reduced space for graphical display. There is no single way of optimally displaying objects and variables together in a PCA biplot, i.e., a plot showing two types of results, here the sites and the variables. Two main types of scaling are generally used. Each of them has properties that must be kept in mind for proper interpretation of the biplots. Here we give the essential features of each scaling. Please refer to Legendre and Legendre (2012) for a complete desciption.
+
++ **Scaling 1** = distance biplot: the eigenvectors are scaled to unit length. (1) **Distances among objects in the biplot are approximations of their Euclidean distances in multidimensional space**. (2) The angles among descriptor vectors do not reflect their correlations.
+
++ **Scaling 2** = correlation biplot: each eigenvector is scaled to the square root of its eigenvalue. (1) Distances among objects in the biplot are not approximations of their Euclidean distances in multidimensional space. (2) **The angles between descriptors in the biplot reflect their correlations.**
+
++ The compromise **Scaling 3** has no clear interpretation rules, and
+therefore we will not discuss it further.
+
+Bottom line: if the main interest of the analysis is to interpret the relationships among **objects**, choose **scaling 1**. If the main interest focuses on the relationships among descriptors, choose **scaling 2**.
+
+```{r,  eval=T, message=F}
+# Plots using biplot
+# To help memorize the meaning of the scalings, vegan now accepts argument scaling = "sites" for scaling 1 and scaling="species" for scaling 2. This is true for all vegan functions involving scalings
+par(mfrow = c(1, 2))
+biplot(env.pca, scaling = 1, main = "PCA - scaling 1")
+biplot(env.pca, main = "PCA - scaling 2") # Default scaling 2
+
+# Plots using cleanplot.pca
+cleanplot.pca(env.pca)
+dev.off()
+```
+
+**Species scores**: coordinates of the arrowheads of the variables. For historical reasons, response variables are always called “species” in vegan, no matter what they represent, because `vegan` is built for vegetation analysis.
+
+```{r,  eval=T, message=F}
+summary(env.pca)$species
+```
+
+**Site scores**: coordinates of the sites in the ordination diagram. Objects are always called “Sites” in vegan output files.
+
+```{r,  eval=T, message=F}
+summary(env.pca)$site
+```
+
+##### Eigenvalues
+
+Examine eigenvalues is important to decide how many axes to retain. Usually, the user examines the eigenvalues, and decides how many axes are worth representing and displaying on the basis of the amount of variance explained. The decision can be completely arbitrary (for
+instance, interpret the number of axes necessary to represent 75% of the variance of the data), or assisted by one of several procedures proposed to set a limit between the axes that represent interesting variation of the data and axes that merely display the remaining, essentially random variance. 
+
+
+One of these procedures consists in computing a **broken stick model**, which randomly divides a stick of unit length into One of these procedures consists in computing a broken stick model, which randomly divides a stick of unit length into the same number of pieces as there are PCA eigenvalues. One interprets only the axes whose eigenvalues are larger than the length of the corresponding piece of the stick, or, alternately, one may compare the sum of eigenvalues, from 1 to k, to the sum of the values from 1 to k predicted by the broken stick model.
+
+```{r,  eval=T, message=F}
+screeplot(env.pca, bstick = TRUE, npcs = length(env.pca$CA$eig))
+```
+
+##### Intepretation
+
+The proportion of variance accounted for by the two axes is about 60 %: relative high value makes us confident that our interpretation of the first pair of axes extracts most relevant information from the data
+
+
+```{r,  eval=T, message=F}
+par(mfrow = c(1, 2))
+cleanplot.pca(env.pca)
+dev.off()
+```
+
+**Scaling 1**: Gradient from left to right with a group of sites displaying higher values of Ca, Mg, K, Zn, S. Gradient from top to down  with humpdepth and baresoil.
+
+**Scaling 2**: Humdepth, Baresoil are very highly positively correlated. Those two variables are very highly negatively correlated with pH and Fe.
+
+
+##### Adding cluster
+
+```{r,  eval=T, message=F}
+# combining clustering and ordination results
+biplot(env.pca, main='PCA - scaling 1',scaling=1) 
+ordicluster(env.pca, 
+            hclust(dist(scale(env)), 'ward.D'), 
+            prune=3, col = "blue", scaling=1)
+```
+
+##### PCA on transformed species data (tb-PCA)
+
+PCA being a linear method preserving the Euclidean distance among sites, it is not naturally adapted to the analysis of species abundance data. Hellinger transformation of the data can solve this problem. 
+
+```{r,  eval=T, message=F}
+# Hellinger pre-transformation of the species data
+data(varespec)
+spe<-varespec
+spe.h<-decostand(spe,'hellinger')
+
+# DCA + RDA
+decorana (spe.h)
+spe.h.pca<-rda(spe.h)
+screeplot(spe.h.pca,bstick = TRUE, npcs = length(spe.h.pca$CA$eig))
+
+# plot PCA
+cleanplot.pca (spe.h.pca)
+```
+
+**Note**: It is possible to get a passive (*post hoc*) explanation of axes using environmental variables. Although there are means of incorporating explanatory variables directly in the ordination process (canonical ordination), one may be interested in interpreting a simple ordination by means of external variables.
+
+```{r,  eval=T, message=F}
+#A posteriori projection of environmental variables in a PCA
+# A PCA scaling 2 plot is produced in a new graphic window.
+biplot(spe.h.pca, main = "PCA - scaling 2")
+# Scaling 2 is default
+(spe.h.pca.env <- envfit(spe.h.pca, env, scaling = 2))
+# Plot significant variables with a user -selected colour
+plot(spe.h.pca.env, p.max = 0.05, col = 3)
+# This has added the significant environmental variables to the
+# last biplot drawn by R.
+# BEWARE: envfit() must be given the same scaling as the plot to 
+# which its result is added!
+```
+
+`envfit`  proposes permutation tests to assess the significance of the R^2^ of each explanatory variable regressed on the two axes of the biplot. But this is not, by far, the best way to test the effect of explanatory variables on a table of response variables.
+
+##### More on PCA
+
+Conditions of applications:
+
++ PCA must be computed on **dimensionally homogenous** variables
+
++ data matrix **not transposed** since covariance or correlations among objects are meaningless
+
++ PCA can be applied to **binary** data
+
++ Species Presence-Absence data can be subject to a **Hellinger or chord transformation** prior PCA 
+
++ Interpretation relationship variable based on **angles**
+
+
+<p class="comment">
+****Practice 8.4**** Using environmental dataset `carp.chemistry` from Carpathian wetland (mainly chemistry): (1)  remove the variable slope, which is not a chemical variable; (2) perform a PCA, and evaluate importance of ordination axes using the broken stick criterion; (3) make a biplots using scaling=1 and scaling 2 then interpret results; (4)  repeat the same for the species data associates. 
+</p>
+
+
+```{r,  eval=T, message=F}
+carp.chemistry<-read.table ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/carp.chemistry.txt',header=T, sep=",",row.names=1)
+carp.spec<-read.table ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/carp.vasc_plants.txt',header=T, sep=",",row.names=1)
+```
+
+
+```{r, code_folding = 'Show Solution',  eval=F}
+#environmental data and RDA
+chem$slope<-NULL
+stand.chem <- scale (chem)
+PCA1 <- rda (stand.chem) 
+
+# broken stick
+screeplot(PCA1,bstick = TRUE, npcs = length(PCA1$CA$eig))
+
+# Keiser-Guttman Criteron (above average eigen value)
+ev<-PCA1$CA$eig
+barplot(ev, main='Eigenvalues',col='bisque',las=2)
+abline(h=mean(ev),col='red') # average eigenvalue
+legend('topright','Average eigenvalue',lwd=1,col=2,bty='n')
+
+#biplot
+clean.plot (PCA1)
+```
+
+
+
+
