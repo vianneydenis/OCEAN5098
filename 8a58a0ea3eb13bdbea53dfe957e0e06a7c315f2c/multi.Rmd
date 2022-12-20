@@ -1622,7 +1622,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 
 ------------------------
 
-# Constrained ordinations - for reference only
+## Constrained ordinations - for reference only
 
 Also called **direct Gradient Analysis** or **constrained Analysis**
 
@@ -1651,7 +1651,7 @@ At the opposite of unconstrained ordination, where effect of env. variables can 
 
 **RDA** has a wide application
 
-## Redundancy Analysis (RDA)
+### Redundancy Analysis (RDA)
 
 + **RDA** is a method combining **regression** and **principal component analysis** (direct extension of regression analysis to model multivariate response data)
 
@@ -1662,7 +1662,7 @@ At the opposite of unconstrained ordination, where effect of env. variables can 
 In RDA, the **number of canonical axes** corresponds to the **number of explanatory variables**, or more precisely to the number of **degrees of freedom**. Each canonical axes corresponds to a **linear combination** (i.e. **multiple regression model**) of all explanatory variables 
 
 
-### Computation
+#### Computation
 
 In `R`, the `vegan` functions:
 
@@ -1693,10 +1693,10 @@ RDA <- rda (Y ~ var1 + factorA + var2*var3 + Condition (var4), data = XW)
 
 In this example, the explanatory variables used are a quantitative variable `var1`, categorical variable `factorA`,and interaction term between `var2` and `var3`, whereas `var4` is used as covariable and idnetified to partially removed its effects.    
 
-### Examples (`doubs` data)
+#### Examples (`doubs` data)
 
 
-#### Data preparation
+##### Data preparation
 
 ```{r,  eval=T, message=F}
 # import the data
@@ -1729,7 +1729,7 @@ envchem <- env[,c(4:10)] # names(envchem), env. matrix isolated form env
 spe.hel<-decostand(spe,'hellinger') # spe matrix
 ```
 
-#### `rda`
+##### `rda`
 
 Same kind of formula as used in `lm` and other R functions devoted to regression. Check `?rda` for details.
 
@@ -1837,7 +1837,7 @@ The test of the axes can only be run with the formula synthax. How many canonica
 anova.cca(spe.rda,by='axis',step=1000)
 ```
 
-#### Partial `rda`
+##### Partial `rda`
 
 + **Partial canonical ordination** is the multivariate equivalent of partial linear regression: it is possible to run a RDA of a (transformed) plant species data matrix **Y**, explained by a matrix of climatic variables **X**, in the presence of soil covariables **W**. Display the patterns of the species data uniquely explained by a linear model of the climatic variables when the effect of the soil is held constant
 
@@ -1883,7 +1883,7 @@ arrows(0,0,spe4.sc[,1],spe4.sc[,2],length=0,lty=1,col='red')
 
 The result of this partial analysis differs somewhat from the previous results but not fundamentally. `har` and `nit` are less important in explaining the fish community structure. This may be due to the fact that these two variables are well correlated with the position along the river.
 
-#### Forward selection of explanatory variables
+##### Forward selection of explanatory variables
 
 + It happens we wish to reduce the number of explanatory variables. The reasons vary: search for parsimony, rich data set but poor at priori hypotheses, or a method producing a large set of explanatory variables which must be reduced afterwards. 
 
@@ -1912,7 +1912,7 @@ step.forward2 <- ordiR2step(rda(spe.hel~1,data=env), scope=formula(spe.rda.all),
 
 These analyses show that the most parsimonious attitude would be to settle a model containing only three variables: altitude, oxygen, and biological  oxygen demand
 
-#### Parsimonious RDA
+##### Parsimonious RDA
 
 ```{r,  eval=T, message=F, results='hide'}
 spe.rda.pars <- rda(spe.hel~alt+oxy+bdo, data=env)
@@ -1940,7 +1940,7 @@ arrows(0,0,spe5.sc[,1],spe5.sc[,2],length=0,lty=1, col='red')
 # since there is now a third significant canonical axis, you could compute other combinations: axes 1 and 3, axes 2 and 3
 ```
 
-#### Variation partitioning
+##### Variation partitioning
 
 + Variation partitioning is a type of analysis that combines RDA and partial RDA to divide the variation of a response variable among two, three or four explanatory data sets.
 
@@ -1962,7 +1962,7 @@ plot(spe.part.all, digits=2)
 The first partitioning shows that both sets of expl. variables contribute to the explanation of the species data. The unique contribution of the chemical variables (fraction [a], R2adj=0.229) is much larger than that of the physiography (R2adj=0.081). The variation explained jointly by the two sets (fraction [b], R2adj=0.245) is also large. This indicates that the chemical and physiographic variables are intercorrelated => good reason for parsimony
 
 
-## db-RDA
+### db-RDA
 
 + Distance-based Redundancy analysis
 
