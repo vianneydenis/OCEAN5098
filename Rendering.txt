@@ -1,3 +1,13 @@
+# command terminal 
+
+git add .  = staging changes
+git commit -m 'message' =  commit with -m (message)
+
+Don't forget to push! 
+
+
+# rendering site (be careful very long)
+
 rmarkdown::clean_site("8a58a0ea3eb13bdbea53dfe957e0e06a7c315f2c/", preview = TRUE)
 rmarkdown::clean_site("8a58a0ea3eb13bdbea53dfe957e0e06a7c315f2c/", preview = FALSE)
 rmarkdown::render_site("8a58a0ea3eb13bdbea53dfe957e0e06a7c315f2c/")
