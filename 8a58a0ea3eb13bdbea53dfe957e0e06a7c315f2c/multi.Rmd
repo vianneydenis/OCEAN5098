@@ -1169,7 +1169,8 @@ The direction is given by eigenvector, and the strength by the eigenvalues.
 
 ![](Figures/multi_PCA2.png)
 
-Check it  [here](http://setosa.io/ev/principal-component-analysis/) for a very simple explanation of how PCA works, and [here](https://www.youtube.com/watch?v=9DPiXrN2pEg) for a simple example, and [here](https://www.youtube.com/watch?v=FgakZw6K1QQ) for a more detailed example.
+Check it  [here](http://setosa.io/ev/principal-component-analysis/) for a very simple explanation of how PCA works, and [here](https://www.youtube.com/watch?v=S51bTyIwxFs) for a
+a more detailed example. By the way *TileStats* channel is very good if you are looking at some simple explanation about statistics. It complements very well *StatQuest* explanation on [PCA](https://www.youtube.com/watch?v=FgakZw6K1QQ) for 
 
 
 #### PCA in R
@@ -1321,7 +1322,7 @@ Conditions of applications:
 
 
 <p class="comment">
-****Practice 8.4**** Using environmental dataset `carp.chemistry` from Carpathian wetland (mainly chemistry): (1)  remove the variable slope, which is not a chemical variable; (2) perform a PCA, and evaluate importance of ordination axes using the broken stick criterion; (3) make a biplots using scaling=1 and scaling 2 then interpret results; (4)  repeat the same for the species data associates. 
+**Practice 8.4** Using environmental dataset `carp.chemistry` from Carpathian wetland (mainly chemistry): (1)  remove the variable slope, which is not a chemical variable; (2) perform a PCA, and evaluate importance of ordination axes using the broken stick criterion; (3) make a biplots using scaling=1 and scaling 2 then interpret results; (4)  repeat the same for the species data associates. 
 </p>
 
 
@@ -1349,6 +1350,641 @@ legend('topright','Average eigenvalue',lwd=1,col=2,bty='n')
 #biplot
 clean.plot (PCA1)
 ```
+
+
+### Correspondance Analysis (CA) - For reference only
+
++ Data submitted to CA must be **frequencies or frequency-like, dimensionally homogeneous and non-negative**; that is the case of species counts or presence-absence data. 
+
++ Accordingly, for a long time, **CA has been one of the favorite tools for the analysis of species presence-absence or abundance data** 
+
++ The raw data are first transformed into a matrix Q of cell-by-cell contributions to the **Pearson Chi-square statistic**, and the resulting table is submitted to a singular value decomposition to compute its  eigenvalues and eigenvectors
+
++ The result is an ordination, where it is the **Chi-square distance (D16)** that is **preserved** among sites **instead of the Euclidean distance D1**.
+
++ **Chi-square distance is not influenced by the double zeros**. Therefore, CA is a method adapted to the analysis of species abundance data without pre-transformation. 
+
+#### Graphical representation
+
+Accordingly, in a CA, both objects and species are represented by points in the ordination diagram (compared to PCA where species/descriptors are vectors and sites are points). 
+
+***Note 1**: Chi-square gives high weight to rare species, so usually considered as one the least suitable distance measures for ecological data.*
+
+***Note 2**: Suffers from an artefact called **arch effect**, which is caused by non-linear correlation between the first and higher axes. Popular, even though clumsy way how to remove this artefact is to use **Detrending Correspondance Analysis (DCA)***
+
+
+Similarly to PCA, two type of scaling are possible: 
+
++ **scaling 1**: the distances **among objects (sites)** in the reduced ordination space approximate their chi-square distance; any object found near the point representing a species is likely to contain a high contribution of that species.
+
++ **scaling 2**: the distances **among descriptors (species)** in the reduced space approximate their chi-square distances; any species that lies close to the point representing an object is more likely to be found in that object or to have higher frequency there. 
+ 
+Both  The **broken stick model** and **Kaiser-Guttman criterion** applied for guidance on CA axes to retain.
+ 
+#### Computation
+
+Correspondance analysis can be computed using the function `cca` (library `vegan`). If the environmental matrix is not specified, `cca` calculates an unconstrained correspondence analysis. 
+
+You can apply the functions `screeplot` or `evplot` (Borcard et al. 2011), in order to select important ordination axes based on Kaiser-Guttman or broken stick model.
+
+```{r class.source = "fold-show",  eval=T, message=F}
+spe.ca<-cca(spe) #default summary for "scaling = 2" 
+screeplot(spe.ca, bstick = TRUE, npcs = length(spe.ca$CA$eig))
+ev2<-spe.ca$CA$eig # extract eigen value
+evplot(ev2)
+```
+
+It is time to draw the CA biplots of this analysis. Let us compare the two scalings.
+
+```{r,  eval=T, message=F}
+# CA biplots
+par(mfrow=c(1,2))
+# Scaling 1: sites are centroids of species
+plot(spe.ca,scaling=1,main='CA - biplot scaling 1')
+# Scaling 2: species are centroids of species
+plot(spe.ca,main='CA - biplot scaling 2')
+```
+
+Another option using function `ordplot`
+
+```{r,  eval=T, message=F}
+# CA biplots
+par(mfrow=c(1,2))
+# Scaling 1: sites are centroids of species
+ordiplot(spe.ca,scaling=1,main='CA - biplot scaling 1')
+# Scaling 2: species are centroids of species
+ordiplot(spe.ca,main='CA - biplot scaling 2')
+dev.off()
+```
+
+#### Passive (Post Hoc) explanation of axes using environmental parameters
+
+Here again you can use `envfit` from the `vegan` package: finds vectors or factors average of environmental variables. The projections of points onto vectors have maximum correlation with corresponding environmental variables, and the factors show the averages of factor levels.
+
+
+```{r,  eval=T, message=F}
+# A posteriori projection of environmental variables in a CA
+# The last plot produced (CA scaling 2) must be active
+plot(spe.ca,main='CA- biplot scaling 2')
+spe.ca.env <-envfit(spe.ca,env)
+plot(spe.ca.env)
+# It added the environment variables to the last biplot drawn
+```
+
+```{r,  eval=T, message=F}
+plot(spe.ca, main = "CA - scaling 2",
+sub = "Fitted curves: humdepth (red), Baresoil (green)")
+spe.ca.env <- envfit(spe.ca ~ Humdepth + Baresoil, env)
+plot(spe.ca.env) # Two arrows
+ordisurf(spe.ca, env$Humdepth, add = TRUE)
+ordisurf(spe.ca, env$Baresoil, add = TRUE, col = "green")
+```
+
+#### Arch effect and Detrended Correspondance Analysis (DCA)
+
+Long environmental gradients often support a succession of species. Since the species that are controlled by environmental factors tend to have unimodal distribution, a long gradient may encompass sites that, at both ends of the gradient, have no species in common: their distance reaches a maximum value (or their similarity is 0). But if we look at either side of the succession, contiguous sites continue to grow more different from each other. Therefore, instead of linear trend on PCA, the gradient is represented on the pair of CA axes as an arch. 
+
+**Detrending is the process of removing the arch effect**: DCA does it by dividing the first axis into segments  (or polynomial relationship), and then by centering the second axis on zero. Watch [here](https://www.youtube.com/watch?v=OHMf42Sy6KM) 
+
+**Detrended Correspondance Analysis (DCA)** is often criticized and not recommended. Howver, DCA is still one of the most widely used unconstrained ordination methods among vegetation ecologist (zoologist are biased toward nMDS). 
+
+```{r,  eval=T, message=F}
+doubs.dca<-decorana(doubspec)
+plot(doubs.dca)
+```
+
+<p class="comment">
+**Practice 8.5** Using Ellenberg's Danube meadow dataset, data `mveg` from the package `dave`: (1) Compare the results of CA and DCA; (2) Try (more challenging) to combine the results of both  CA and DCA in the same ordination plot. (Tip 1) You may need functions `cca`, `decorana`, `ordiplot`, `scores` and `text`. (Tip 2) First calculate both CA and DCA on Danube data and draw CA ordination scatterplot (to draw only sites, in ordiplot use argument `display = 'sites'`). (Tip 3) To add sites from DCA, you need to shift their scores along the second (vertical) axis, otherwise they will be clustered together with CA samples. Add constant (e.g. 2) to the scores along the second axis. To extract scores, use the function scores on object DCA with argument `display = 'sites'` ) (Tip 4) To add sites from DCA into CA ordination plot, use low-level graphical function text on matrix of scores from DCA, with corrected second axis.(Tip 5). To avoid overlap of labels in text function, employ also the argument labels, which should contain values from rownames of DCA scores.  Results should look similar to this:
+</p>
+
+![](Figures/multi_Ellenberg.png)
+
+
+
+### Principal Coordinate Analysis (PCoA) - For reference only
+
+Also called **Multi-Dimensional Scaling (MDS)**
+
++ PCA and CA both impose the preservation of  a distance among objects: the Euclidean distance and the chi-squared distance, respectively. 
+
++ If you want to ordinate objects on the basis of **another distance measure**, then PCoA is the method of choice
+
++ PCoA provides a **Euclidean** representation of a set of objects whose relationships are measured by any similarity or distance measured chosen by the user.PCoA should be reserved to situations where no Euclidean measure is preserved.
+
++ Like PCA and CA, PCoA produces a set of orthogonal axes whose importance is measured by eigenvalues. Since it is based on an association matrix , it can directly represent the relationships either among objects (Q mode matrix) or variables (R mode matrix).
+
++ If non-Euclidean association coefficient, PCoA may produce several negative eigenvalues in addition to the positive one: can be remediate by adding a constant (**Lingoes** or **Caillez** correction)
+
++ Can also project variables (*e.g.* species) on a PCoA *a posteriori*
+
+_**Note**: Computing Euclidean distance among sites and running a PCoA yields the exact same results as running a PCA of the same data and looking at the scaling 1 ordination results._
+
+#### Computation
+
++ `cmdscale` (library `vegan`) – calculates PCoA of distance among samples (this could be calculated e.g. by function `vegdist`). Use function `ordiplot` to project ordination.
+    
++ `pcoa` (library `ape`) – another way to achieve PCoA analysis. Use `biplot.pcoa` function to project ordination
+    
+The ordination axes of a PCoA can be interpreted like those of a PCA or CA: proximity of objects represents similarity in the sense of the association measured used
+
+```{r,  eval=T, message=F}
+# PCoA on a Bray-Curtis dissimilarity matrix of fish species
+spe.bray<-vegdist(spe)
+spe.b.pcoa<-cmdscale(spe.bray, eig=TRUE, add=T)
+# Plot of the sites and weighted average projection of species
+ordiplot(spe.b.pcoa, type='t', main='PCoAwith species')
+abline(h=0,lty=3)
+abline(v=0, lty=3)
+# add species (weighted average species abundance)
+spe.wa<-wascores(spe.b.pcoa$points[,1:2],spe)
+text (spe.wa,rownames(spe.wa),cex=0.7,col='red')
+```
+
+#### `doubs` data with `pcoa`
+
+```{r,  eval=T, message=F}
+doubspec.bray<-vegdist(doubspec)
+doubspec.bray.pcoa<-pcoa(doubspec.bray)
+biplot.pcoa(doubspec.bray.pcoa,doubspec)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+```
+
+### non-metric Multidimensional Scaling (nMDS)
+
++ If priority is not to preserve the exact distances among objects in an ordination diagram, but rather to represent as well as possible the ordering relationship among objects in a small and specified number of axes
+
++ Like PCoA, nMDS can produce ordinations of objects from any distance matrix
+
++ Method can cope with missing distances, as long  as there are enough measures left to position each object with respect to each other.
+
+This is **NOT** a eigenvalue based ordination method, and does not maximize the variability associated with individual axes of the ordination.
+
+#### Procedure
+
+Very simple:
+
++ specify the number m of axes (dimensions) – usually 2 !
+
++ construct an initial configuration of the objects in the m dimensions, to be used as a starting point of an iterative adjustment process. This is a tricky step, since the end-results may depend on the starting configuration.
+
++ an iterative procedure tries to position the objects in the requested number of dimensions in such was as to minimize a stress function (scaled from 0 to 1), which measures how far the distances in the reduced-space configuration are from being monotonic to the original distance in the association matrix
+
++ the adjustment goes on until the stress value can no more be lowered, or predetermined value (sometimes never reached)
+
+#### Computation
+
+Functions:
+
++ `metaMDS` (library `vegan`) – advanced function, composed of many sub-routine  steps. Species points are added to the ordination plot using `wascores`
+
++ `isoMDS` (library `MASS`) if missing values in the distance matrix and `bestnmds` package `labdsv`
+
+```{r,  eval=T, message=F}
+spe.nmds<-metaMDS(spe,distance='bray',trymax=999)
+spe.nmds
+spe.nmds$stress
+plot(spe.nmds,type='t',main=paste('NMDS/Bray–Stress =',round(spe.nmds$stress,3)))
+```
+
+#### Quality and stress
+
++ A useful way to assess the appropriateness of an nMDS is to compare, in a *Shepard diagram*, the distance among objects in the ordination with the original distances.
+
++ `stressplot` (library `vegan`) – draws *Shepard stress* plot, which is the relationship between real distances between samples in resulting *m* dimensional ordination solution, and their particular dissimilarities.
+
+```{r,  eval=T, message=F}
+stressplot(spe.nmds, main='Shepard plot')
+```
+
++ In addition, the goodness-of-fit of the ordination is measured as the R^2^  of either a linear or a non-linear regression of the NMDS distances on the original ones
+
+```{r,  eval=T, message=F}
+# goodness of fit
+gof<-goodness(spe.nmds)
+plot(spe.nmds,type='t',main='Goodness of fit')
+points(spe.nmds, display='sites', cex=gof*90)
+```
+
+#### Adding cluster
+
+```{r,  eval=T, message=F}
+# Add colours from a clustering results to an NMDS plot
+# Ward clustering of Bray-Curtis dissimilarity matrix
+spe.bray.ward <- hclust(spe.bray,'ward.D')
+spe.bw.groups <- cutree(spe.bray.ward,k=4)
+grp.lev <- levels(factor(spe.bw.groups))
+
+# combination with NMDS result 
+sit.sc <- scores(spe.nmds)
+p <- ordiplot (sit.sc, type='n', main='NMDS/BRAY – clusters Ward/Bray')
+for (i in 1:length(grp.lev)) {
+  	points(sit.sc$sites[spe.bw.groups==i,],pch=(14+	i),cex=2, col=i+1)
+	}
+text(sit.sc$sites,row.names(spe),pos=4,cex=0.7)
+#add the dendrogram
+ordicluster(p,spe.bray.ward,col='dark grey')
+
+# using locator you need to point out where you want to put the legend
+# legend(locator(1), paste('Group',c(1:length(grp.lev))),pch=14+c(1:length(grp.lev)), col=1+c(1:length(grp.lev)),pt.cex=2)
+```
+
+#### `ordihull`& `ordispider`
+
+```{r,  eval=T, message=F}
+data(dune)
+data(dune.env)
+attach(dune.env)
+NMDS.dune<-metaMDS(dune,distance='bray')
+plot(NMDS.dune,type='t',main=paste('NMDS/Bray – Stress =',round(NMDS.dune$stress,3)))
+pl<-ordihull(NMDS.dune, Management, scaling = 3, draw='polygon',col='grey')
+ordispider(pl, col="red", lty=3, label = TRUE)
+# ?anosim
+# ?adonis
+```
+
+#### `ordisurf`
+
+Fits a smooth surface for given variable and plots the result on ordination diagram (Generalized Additive Model)
+
+```{r,  eval=T, message=F}
+data(varespec)
+data(varechem)
+vare.dist <- vegdist(varespec)
+vare.mds <- metaMDS(vare.dist)
+ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
+```
+
+<p class="comment">
+**Practice 8.6** Using Tikus dataset (library `mvabund`) and the years 1981, 1983 and 1985: visualize Bray-Curtis dissimilaritie matrix into a nMDS ordination.  You will use different symbols for the different years. Add legend to the upper right corner of the ordination. Compare species composition among years using PERMANOVA `adonis` (?adonis) test. 
+</p>
+
+
+------------------------
+
+# Constrained ordinations - for reference only
+
+Also called **direct Gradient Analysis** or **constrained Analysis**
+
++ Explanatory analyses may reveal the existence of **clusters or groups** of objects in a data set. When a supplementary table or matrix of env. variables is available for those objects , it is then possible to examine whether the observed pattern are related to **environmental gradients**
+
++ Objectives may be to reveal the link between community structure and habitat heterogeneity, between community structure  and spatial distance, or to identify the main variables affecting communities when a large set of env. variables has been collected
+
+![Do bird communities related to environmental variables?](Figures/multi_birds.png)
+
+
+At the opposite of unconstrained ordination, where effect of env. variables can be interpret *a posteriori*, canonical ordination associates two (or more) data sets in the ordination process itself. It formally tests statistical hypotheses about the significance of these relationships
+
+![Indirect vs direct interpretation](Figures/multi_latent.png)
+
+
++ In constrained (canonical) ordination analyses, only the variation in the species table that can be explained by the environmental variables is displayed and analyzed, and not all the variation in the species table
+
++ Gradients are supposed to be known and represented by the measured variable or the combinations, while species abundance or occurrence is considered to be a response to those gradients
+
++ The aim is to find the best mathematical relationship between species composition and the measure environmental gradients
+
++ Constrained ordinations are mostly based on **multivariate linear models** relating principal axis to the observed env. variables, and the **different techniques** depend on data types (matrix or table), and on the **hypothesis underlying species distribution in the gradients** (i.e. linear or unimodal)
+
+
+![inear vs. unimodal](Figures/multi_canonical.png)
+
+**RDA** has a wide application
+
+## Redundancy Analysis (RDA)
+
++ **RDA** is a method combining **regression** and **principal component analysis** (direct extension of regression analysis to model multivariate response data)
+
++ RDA is an extremely **powerful tool** in the hands of ecologists, especially since the introduction of the Legendre and Gallagher (2001) transformations that **open RDA to the analysis of community composition data tables (transformation-based RDA tb-RDA)**
+
++ RDA = multivariate (meaning multiresponse) multiple linear regression followed by a PCA of the table of fitted values. **Method seeks**, in successive order, a series of linear combinations of the combinations of the **explanatory variables that best explain the variation of the response matrix**.
+
+In RDA, the **number of canonical axes** corresponds to the **number of explanatory variables**, or more precisely to the number of **degrees of freedom**. Each canonical axes corresponds to a **linear combination** (i.e. **multiple regression model**) of all explanatory variables 
+
+
+### Computation
+
+In `R`, the `vegan` functions:
+
++ `rda` perfoms a `rda` if a matrix of environmental variable is supplied (if not it calculates a PCA) 
+
++ `RsquareAdj` extracts 	the value of R^2^ and adjusted-R^2^ from results of 	ordination (and also regression)
+
+`vegan` allows the computation of an RDA in two different ways.
+
+
++ Matrix syntax
+
+The simplest syntax is to list the names of the objects (matrices) involved separated by commas such as:
+
+```{r,  eval=F, message=F}
+RDA <- rda (Y, X, W) 
+```
+
+where `Y` is the response matrix (**species composition**), `X` is the explanatory matrix (**environmental** factors) and `W` is the matrix of **covariables**.
+
+This is the simplest way, but it does not allow factors (qualitative variables) to be included in the explanatory and covariable matrices.
+
++ Formula syntax
+
+```{r,  eval=F, message=F}
+RDA <- rda (Y ~ var1 + factorA + var2*var3 + Condition (var4), data = XW)
+```
+
+In this example, the explanatory variables used are a quantitative variable `var1`, categorical variable `factorA`,and interaction term between `var2` and `var3`, whereas `var4` is used as covariable and idnetified to partially removed its effects.    
+
+### Examples (`doubs` data)
+
+
+#### Data preparation
+
+```{r,  eval=T, message=F}
+# import the data
+data (doubs)
+spe <- doubs$fish
+env <- doubs$env
+spa <- doubs$xy 
+# remove empty site 8
+spe<-spe[-8,]
+env<-env[-8,]
+# set aside the variable 'dfs' (distance from the source) for later use
+dfs<-env[,1]
+#remove the 'dfs' variable from the env dataset
+env<-env[,-1]
+#recode the slope variable (slo) into a factor (qualitative) variable (to show how these are handled in the ordinations)
+slo2<-rep('very_steep',nrow(env))
+slo2[env$slo<=quantile(env$slo)[4]] = 'steep'
+slo2[env$slo<=quantile(env$slo)[3]] = 'moderate'
+slo2[env$slo<=quantile(env$slo)[2]] = 'low'
+slo2 <- factor(slo2,levels=c('low','moderate','steep','very_steep'))
+# create an env2 data frame with slope as a qualitative variable
+env2<-env
+env2$slo<-slo2
+# create two subsets of explanatory variables
+# Physiography (upstream-downstream gradient
+envtopo<-env[,c(1:3)] # names(envtopo), covariate matrix isolated form env
+# water quality 
+envchem <- env[,c(4:10)] # names(envchem), env. matrix isolated form env
+# Hellinger-transform the species dataset
+spe.hel<-decostand(spe,'hellinger') # spe matrix
+```
+
+#### `rda`
+
+Same kind of formula as used in `lm` and other R functions devoted to regression. Check `?rda` for details.
+
+
+```{r,  eval=T, message=F, results='hide'}
+spe.rda <- rda(spe.hel~.,env2) 
+summary (spe.rda) # scaling 2 (default)
+```
+
+![](Figures/multi_rda1.png)
+
++ **Partitioning of variance**: variance of Y explained by the X variables (constrained proportion, 72.71% here), the unexplained variance of Y (unconstrained proportion, 27.29% here). This R^2^ is biased. 
+
++ **Eigenvalues and their contribution**: Summarize the eigenvalues, the proportions explained and the cumulative proportion of each canonical axis (each canonical axis = each constraining variable, in this case, the environmental variables from env). Cumulative proportion give the biased R^2^.
+
++ **Accumulated constrained eigenvalues**: these are cumulative amounts of variance expressed as proportions of the total *explained* variance, as opposed to their contribution to the *total* variance described before
+
++ **Species scores**: coordinates of the tips of the vector representing the response variables in the bi- or tri- plots. Depending on the scaling chosen
+
++ **Site scores**: coordinates of the sites as expressed in the space of the response variables Y
+
++ **Site constraints**: coordinates of the sites in the space of the explanatory variable X. Fitted site scores
+
++ **Biplot scores**:  coordinates of the tips of the vectors representing explanatory variables. Correlations based. For factors, representation of the centroids of the levels is preferable.
+
++ **Centroids for factor constraints**: coordinates of centroids of levels of factor variables, i.e. means of the scores of the sites possessing state '1' for a given level.
+
+
+In the `rda` output, an interesting information is missing: the canonical coefficients, *i.e.* the **equivalent of regression coefficients for each explanatory variable on each canonical axis**. They can be retrieved using `coef`:
+
+```{r,  eval=T, message=F}
+coef(spe.rda)
+```
+
+In addition like the ordinary R^2^ from multiple regression the R^2^ is biased. It can be cure by adjusting the R^2^ using Ezekiel's formula (Ezekiel 1930). An adjusted R^2^  near 0 indicates that X does not explain more of the variation of Y than random normal variables would do. It can be negative, indicating that the explanatory variables X do worse than random normal variable would. The R^2^ and adjusted-R^2^ can be computed using vegan's function `RsquareAdj` 
+
+```{r,  eval=T, message=F}
+#Retrieval of the adjusted R2
+# Unadjusted R2 retrieve from RDA results
+R2<-RsquareAdj(spe.rda)$r.squared
+# Adjusted R2 retrieve from RDA object
+R2adj<-RsquareAdj(spe.rda)$adj.r.squared
+```
+
+**Plots**
+
+We can call this a triplot since there are three different entities in the plot: sites, response variables and explanatory variables. To differentiate the latter two, it is good to draw arrowhead only on the vector of the quantitative explanatory variables, not on the response variable vectors
+
+```{r,  eval=T, message=F}
+# triplot of the rda results
+par(mfrow = c(2, 2))
+
+# site scores are weighted by sum of species
+# scaling 1: distance triplot
+plot (spe.rda, scaling=1, main='Triplot RDA spe.hel ~ env – scaling 1 – wa scores')
+spe.sc <- scores (spe.rda, choices=1:2, scaling=1, display='sp') 
+arrows (0,0, spe.sc[,1],spe.sc[,2],length=0,lty=1,col='red') 
+
+# scaling 2 (default)
+plot (spe.rda,main='Triplot RDA spe.hel ~ env – scaling 2 – wa scores')
+spe2.sc <- scores (spe.rda, choices=1:2, display='sp')
+arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
+
+# site scores are linear combinations of the environmental variables
+# scaling 1
+plot (spe.rda,scaling=1,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ env – scaling 1 – lc scores')
+arrows (0,0, spe.sc[,1],spe.sc[,2],length=0,lty=1,col='red')
+# scaling 2
+plot (spe.rda,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ env – scaling 2 – lc scores') # cn for centroids
+arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
+```
+
+**Interpretation**
+
++ Interpretation of the two scaling
+
+  + For the species and the sites the interpretation of the two scalings in the same as in PCA
+  
+  + Presence of vectors and centroids of explanatory variables call for additional rules
+  
++ Let interpret our two last triplots:
+
+  + First two canonical axis alone explaining 58.3% of the total variance of the data, the first axis alone explaining 47.6% (unadjusted values)
+
+  + Since R^2^-adj  = 0.5320, the percentages of accumulated constrained eigenvalues show that the first axis alone explains 0.5224 x 0.643 = 0.336  or 33.6% variance, and the two first 0.5224 x 0.788 = 0.412 or 41.2%
+  
+  + Major trends have been modelled in this analysis ! In ecology, data are quite noisy, so you should never expect a very high value of R2 adj 
+
+
+![](Figures/multi_rda2.png)
+
+**Overall test**
+
+The overall test function is called `anova.cca`. This name is unfortunate, since it leads to confusion with the classical ANOVA test, which it is not !
+
+```{r,  eval=T, message=F}
+# Global test of the RDA results
+anova.cca(spe.rda,step=1000)
+```
+
+The test of the axes can only be run with the formula synthax. How many canonical axes are significant?
+
+```{r,  eval=T, message=F}
+# Test of all canonical axes
+anova.cca(spe.rda,by='axis',step=1000)
+```
+
+#### Partial `rda`
+
++ **Partial canonical ordination** is the multivariate equivalent of partial linear regression: it is possible to run a RDA of a (transformed) plant species data matrix **Y**, explained by a matrix of climatic variables **X**, in the presence of soil covariables **W**. Display the patterns of the species data uniquely explained by a linear model of the climatic variables when the effect of the soil is held constant
+
++ Let's play with the two objects containing subsets of environmental variables: physiographical variables (`envtopo`), i.e. altitude, slope (orginal one not qualitative), and flow / water chemistry (`envchem`) i.e, pH, hardness, phosphates, nitrates, ammonium, oxygen content as well as biological oxygen demand
+
+*Does water chemistry significantly explain the fish species pattern when the effect of the topographical gradient is held constant?*
+
+```{r,  eval=T, message=F, results='hide'}
+# Partial RDA: effect of water chemistry, holding physiography constant
+
+# simple interface; X and W may be separate tables of quantitative variales
+
+spechem.physio <- rda(spe.hel,envchem,envtopo)
+spechem.physio
+summary(spechem.physio)
+
+# formula interface; X and W must be in the same data fram
+class(env)
+spechem.physio2<-rda(spe.hel~pH+har+pho+nit+amm+oxy+bdo+Condition(alt+slo+flo), data=env)
+spechem.physio2
+summary(spechem.physio2)
+
+# the results of the two analyses are identical
+# check in the output: four components in the partitioning variance instead of 3
+
+# Test of the partial RDA (using the results with the formula interface to allow the tests of the axes to be run)
+
+anova.cca(spechem.physio2,step=1000)
+anova.cca(spechem.physio2,step=1000,by='axis')
+
+# partial RDA triplots (with fitted site score)
+par(mfrow=c(1,2))
+#scaling 1
+plot(spechem.physio,scaling=1,display=c('sp','lc','cn'), main='Triplot RDA spe.hel ~ chem | topo – scaling 1 – lc scores')
+spe3.sc <- scores(spechem.physio,choices=1:2,scaling=1, display='sp')
+arrows(0,0,spe3.sc[,1],spe3.sc[,2],length=0,lty=1,col='red')
+
+#scaling 2
+plot(spechem.physio,display=c('sp','lc','cn'), main='Triplot RDA spe.hel ~ chem | topo – scaling 2 – lc scores')
+spe4.sc <- scores(spechem.physio,choices=1:2,display='sp')
+arrows(0,0,spe4.sc[,1],spe4.sc[,2],length=0,lty=1,col='red')
+```
+
+The result of this partial analysis differs somewhat from the previous results but not fundamentally. `har` and `nit` are less important in explaining the fish community structure. This may be due to the fact that these two variables are well correlated with the position along the river.
+
+#### Forward selection of explanatory variables
+
++ It happens we wish to reduce the number of explanatory variables. The reasons vary: search for parsimony, rich data set but poor at priori hypotheses, or a method producing a large set of explanatory variables which must be reduced afterwards. 
+
++ In `doubs` data, there could be two reasons to reduce the number of explanatory variables: search for parsimony, and possible strong linear dependencies (correlations) among the explanatory variables in the RDA model
+
++ Linear dependencies can be explored by computing the variables' variance inflation factor. VIFs above 20 indicates strong collinearity. Ideally, VIFs above 10 should be at least examined, and avoid if possible. VIFs can be computed in `vegan` after `rda` or `cca` using the function `vif.cca`
+
+
+```{r,  eval=T, message=F}
+# Variance inflation factor (VIF) in two RDAs 
+# First RDA: all environmental variables
+vif.cca(spe.rda)
+# Second RDA: subset of environmental variables
+vif.cca (spechem.physio)
+# A reduction is justified !!!
+```
+
+To select the significant explanatory variables, you can then perform a stepwise selection (forward or backward), using the `ordistep` or `ordiR2step` function (or using the `forward.sel` function of package `packfor`)
+
+```{r,  eval=T, message=F, results='hide'}
+# Forward selection using ordistep() function. This function allows the use of factors. Options are also available for stepwise and backward selection of the explanatory variables
+spe.rda.all<-rda(spe.hel~.,data=env)
+step.forward1 <- ordistep(rda(spe.hel~1,data=env), scope=formula(spe.rda.all),direction='forward',pstep=1000)
+step.forward2 <- ordiR2step(rda(spe.hel~1,data=env), scope=formula(spe.rda.all),direction='forward',pstep=1000)
+```
+
+These analyses show that the most parsimonious attitude would be to settle a model containing only three variables: altitude, oxygen, and biological  oxygen demand
+
+#### Parsimonious RDA
+
+```{r,  eval=T, message=F, results='hide'}
+spe.rda.pars <- rda(spe.hel~alt+oxy+bdo, data=env)
+spe.rda.pars
+anova.cca(spe.rda.pars,step=1000)
+anova.cca(spe.rda.pars,step=1000,by='axis')
+vif.cca(spe.rda.pars)
+R2a.pars <- RsquareAdj(spe.rda.pars)$adj.r.squared
+```
+
+```{r,  eval=T, message=F, results='hide'}
+# Triplots of the parsimonious RDA (with fitted site scores)
+# scaling 1
+
+plot(spe.rda.pars,scaling=1,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ alt+oxy+bdo – scaling 1 – lc scores')
+spe4.sc <- scores(spe.rda.pars, choices=1:2, scaling=1,display='sp')
+arrows(0,0,spe4.sc[,1],spe4.sc[,2],length=0,lty=1, col='red')
+
+# scaling 2
+
+plot(spe.rda.pars, display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ alt+oxy+bdo – scaling 2 – lc scores')
+spe5.sc <- scores(spe.rda.pars, choices=1:2,display='sp')
+arrows(0,0,spe5.sc[,1],spe5.sc[,2],length=0,lty=1, col='red')
+
+# since there is now a third significant canonical axis, you could compute other combinations: axes 1 and 3, axes 2 and 3
+```
+
+#### Variation partitioning
+
++ Variation partitioning is a type of analysis that combines RDA and partial RDA to divide the variation of a response variable among two, three or four explanatory data sets.
+
++ Variation partitioning are generally represented by Venn diagram in which the percentage of explained variance by each explanatory data set (or combination of data stets) is reported. 
+
+![](Figures/multi_rda3.png)
+
+
+
+```{r,  eval=T, message=F}
+# Variation partitioning with two sets of explanatory variables
+# and all explanatory variables
+showvarparts(2)# explanation fraction labels for two explanatory matrices
+spe.part.all <- varpart(spe.hel,envchem,envtopo)
+spe.part.all
+plot(spe.part.all, digits=2)
+```
+
+The first partitioning shows that both sets of expl. variables contribute to the explanation of the species data. The unique contribution of the chemical variables (fraction [a], R2adj=0.229) is much larger than that of the physiography (R2adj=0.081). The variation explained jointly by the two sets (fraction [b], R2adj=0.245) is also large. This indicates that the chemical and physiographic variables are intercorrelated => good reason for parsimony
+
+
+## db-RDA
+
++ Distance-based Redundancy analysis
+
+Community composition data must be transformed before they are used: chord, Hellinger, etc. Ecologist may want to compute RDA based on other dissimilarity measures that cannot be computed by a data transformation followed by the calculation of the Euclidean distance: db-RDA
+
++ Function `capscale` from `vegan`
+
+```{r,  eval=T, message=F, results='hide'}
+# distance-based redundancy analysis
+spe.bray <- vegdist (spe,'bray')
+#response matrix can be raw data
+dbrda1<-capscale(spe~pH+har+pho+nit+amm+oxy+bdo+ Condition(alt+slo+flo), distance='bray', data=env,add=T) 
+# response matrix can be a dissimilarity matrix
+dbrda2<-capscale(spe.bray~pH+har+pho+nit+amm+oxy+bdo+ Condition(alt+slo+flo), distance='bray', data=env,add=T) 
+```
+
+### CCA ##
+
+Pending
+
+
+
 
 
 
