@@ -1,0 +1,130 @@
+---
+title: "Fun with R: Ecological data analysis in R"
+---
+
+Welcome to the website of *OCEAN 5098*. This  course will help you to get familiar with R environment and some of some common functionalities for ecological studies. No prior knowledge in R or in any other programming languages is required to enroll the course. 
+
+# Information
+
+**Credits**: 3 
+
+**Time**: Tuesday 13:20- 16:20 (fall Semester)
+
+**Location**: Institute of Oceanography, 2nd floor, Room 231 
+
+**Instructors:** Vianney DENIS [vianneydenis@g.ntu.edu.tw] - Functional Reef Ecology Laboratory, R406, 4F, Institute of Oceanography, National Taiwan University, Taiwan.
+
+> `r knitr::asis_output("\U1F4DD")` The syllabus for this course is available on NTU Cool but can also be downloaded [HERE](.\documents\OCEAN5098_syllabus.pdf). Because of the recent pandemic, the  format of this class has been evolving. This website is its latest update, but  not that the schedule, content and evaluation mode are susceptible to changes. 
+
+
+<style>
+.html-widget {
+    margin: auto;
+}
+</style>
+
+```{r, echo=F, fig.align = "center", fig.cap="Interactive map of IONTU's location"}
+library(leaflet)
+leaflet() %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  #addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=121.537338, lat=25.021295, popup="Institute of Oceanography")
+```
+
+# Description
+
+This course is mainly designed to introduce students with the use of R language. It will introduce R environment but also popular functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
+
+**Objectives** The aim of this course is for the students to get familiar with R language. This course explores the multiple advantages of using R language for formatting reports,  preparing presentation, exploring and analyzing ecological, data editing and sharing project. The course assumes that students have no prior knowledge in R or other programming languages. It will start from scratch, **i.e.** downloading R and installing it on your computer. Along the semester, you will be introduced to the use of  [RStudio/Posit GUI](https://www.rstudio.com/), [Rmarkdown](https://rmarkdown.rstudio.com/), and [GitHub](https://github.com/) repositories that complete harmoniously your R experience. 
+
+After taking this course, a student should: 
+
+`r knitr::asis_output("\U1F449")` be aware of the multiples advantages of using R; 
+
+`r knitr::asis_output("\U1F449")` not be afraid of using code to organize, visualize and analyze data;
+
+`r knitr::asis_output("\U1F449")` become a self-learner, able to explore and solve problem;
+
+`r knitr::asis_output("\U1F449")` know several statistical tools for the analysis of ecological data in particular;
+
+`r knitr::asis_output("\U1F449")` be able to analyze and valorize scientifically any simple ecological data sets;
+
+`r knitr::asis_output("\U1F449")` be able to help and advices on the use of R.
+
+
+**Requirements** Basic knowledge and interest in Biology/Ecology/Informatics. The course requires students to bring/use their own personal computer.
+
+**Disclaimer** Format of this course is largely inspired by online documentation. Examples are often illustarted on well-known data set publicly available.
+
+**Useful References**
+
+Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology with R. Springer. DOI: [10.1007/978-3-319-71404-2](https://www.springer.com/gp/book/9783319714035)
+
+Paradis, E. (2005) R for beginner. Available among many others documentation at https://cran.r-project.org/other-docs.html (page frozen and no longer actively maintained) 
+
+Ramette, A. (2007) Multivariate analyses in microbial ecology. FEMS Microbiology Ecology, 62: 142-160. DOI: [10.1111/j.1574-6941.2007.00375.x](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1574-6941.2007.00375.x)
+
+Xie, Y., Allaire, J.J.,Grolemund, G. (2020) R Markdown: The Definitive Guide. Chapman & Hall/CRC. The online version of this book is free to read [here](https://bookdown.org/yihui/rmarkdown/). 
+
+Zuur, A. F., Ieno E. N., Smith, G. M. (2007) Analysing Ecological Data. Springer.  DOI: [10.1007/978-0-387-45972-1](https://www.springer.com/gp/book/9780387459677)
+
+Zuur, A. F. (2010) A protocol for data exploration to avoid common statistical problems. Methods in Ecology and Evolution, 1: 3-14. DOI: [10.1111/j.2041-210X.2009.00001.x](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x)
+
+
+# Schedule
+
+Schedule is  susceptible to changes according to progress along the semester
+
+|Week |Tentative Topic           |             Content (main)                         |
+|-----|--------------------------|----------------------------------------------------|
+|1    |Introduction              | Presentation course               |
+|2    |Environment               | R, R Studio, R Markdown, Git/GitHub                |
+|3    |Data manipulation         | Formatting and converting data set                 |
+|4    |Graphics                  | Visualization functions and customization, ggplot2 |
+|5    |Statistics  I             | Generate and test simple hypotheses                |
+|6-7  |Statistics  II            | Generalized Linear Models                          |
+|8-9  |Similarities              | Ecological resemblance and matrix                  |
+|10   |Classification            | Cluster analysis                                   |
+|11-12|Ordination: unconstrained | PCA, PCoA, nMDS                                    |
+|13-14|Ordination: constrained   | Redundancy and canonical analysis                  |
+|15-16|Functional analysis       | From trait to ecological functions                 |
+
+
+This class aims to learn while exploring. I am a marine ecologist and not an informatician or biostatistician. Therefore, we will avoid technical jargon as much as possible while trying to find some fun in what we learn and in the use of R. Basically, the ultimate aim of this class is to teach you how to look for relevant information. Don't hope to know everything possible in R, but aim to be able to master anything in R ;)
+
+
+# Evaluation
+
+All information is pending. Updates will be directly posted here or will be mentioned in class.
+
+
+**(1)** Along the semester, you will be assigned with a couple of more or less simple exercise to practice what was learn in class. There is no secret, practice will make you better and I need to make sure you are not lost. Across the lectures, you will find two types of **practical sessions**:
+
++ The 1st type is highlighted in green
+
+
+<p class="comment">
+**Practice A** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can't make it, it means you are behind and it is very important for you to catch back as soon as possible.
+</p>
+
+
++ The 2nd type is highlighted in red
+
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice B** this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me teh solution by email at [vianneydenis@g.ntu.edu.tw]. To make sure I received your email, you will use **Practice B (your name: your student no.)** as a title for this email. I only accept *.Rmd* and *.html* formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see [Environment](./environment.html)).</p>
+
+
+**(2)** At the beginning of the class, one student may be randomly pick up  in order to summarize his homework (*.Rmd* and/or *.html*) or knowledge he got form previous class (5-10 minutes). The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: *Always be ready*. 
+
+```{r,  eval=F}
+library(dplyr)
+list_student<-c('Student_1','Student_2','Student_3','Student_4')
+sample(list_student, 1, replace = TRUE)
+```
+
+Note that this selection will not be random if the homework is not sent. 
+
+**(3)** DATATHON (**NEW**) as final assignment. Students will be provided with a data set to analyze (type 'Scientific Data': https://www.nature.com/sdata/). Groups (2-3 students) will identify relevant research questions based on this data set and will prepare a short scientific report (max. 20 pages + references)  while emphasizing methodology and results (scientific format). Introduction and discussion/conclusion could be presented as bullet points. Report should be sent as a *.Rmd* **AND** *.html* or share through a GitHub repository. This report should be prepared along the semester and not on the last week. Accordingly, no advise will be provided about this report on the two last weeks of the semester.   
+
+<p style="color:red">Final score is typically composed of participation/assiduity in class (**10%**), homework/review  (**20%**), final group report (**70%**)</p>
