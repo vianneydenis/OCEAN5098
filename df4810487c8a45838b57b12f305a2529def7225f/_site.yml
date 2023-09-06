@@ -24,10 +24,10 @@ navbar:
       href: index.html
     - text: "Environment"
       href: environment.html
-#    - text: "Manipulation"
-#      menu:
-#        - text: "Basics"
-#          href: manipulation.html    
+    - text: "Manipulation"
+      menu:
+        - text: "Basics"
+          href: manipulation.html    
 #        - text: "dplyr"
 #          href: dplyr.html  
 #        - text: "tidyr"
