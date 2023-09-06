@@ -33,7 +33,7 @@ leaflet() %>%
 
 # Description
 
-This course is mainly designed to introduce students with the use of R language. It will introduce R environment but also popular functions to sort, visualize and analyze data in ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analysis,  multivariate analysis, etc. 
+This course is mainly designed to introduce students with the use of R language. It will introduce R environment but also popular functions to sort, visualize and analyze data in, but not restricted to, ecology. Broad topics covered will include: introduction to R language and basic functions, data manipulation, graphics, maps, linear model, parametric and non-parametric analyses,  multivariate analyses, etc. 
 
 **Objectives** The aim of this course is for the students to get familiar with R language. This course explores the multiple advantages of using R language for formatting reports,  preparing presentation, exploring and analyzing ecological, data editing and sharing project. The course assumes that students have no prior knowledge in R or other programming languages. It will start from scratch, **i.e.** downloading R and installing it on your computer. Along the semester, you will be introduced to the use of  [RStudio/Posit GUI](https://www.rstudio.com/), [Rmarkdown](https://rmarkdown.rstudio.com/), and [GitHub](https://github.com/) repositories that complete harmoniously your R experience. 
 
@@ -54,7 +54,7 @@ After taking this course, a student should:
 
 **Requirements** Basic knowledge and interest in Biology/Ecology/Informatics. The course requires students to bring/use their own personal computer.
 
-**Disclaimer** Format of this course is largely inspired by online documentation. Examples are often illustarted on well-known data set publicly available.
+**Disclaimer** Format of this course is largely inspired by online documentation. Examples are often illustrated on well-known data sets publicly available.
 
 **Useful References**
 
@@ -73,7 +73,7 @@ Zuur, A. F. (2010) A protocol for data exploration to avoid common statistical p
 
 # Schedule
 
-Schedule is  susceptible to changes according to progress along the semester
+Schedule is  susceptible to changes according to progress along the semester - table below is just given as a reference of the topics we will go through. 
 
 |Week |Tentative Topic           |             Content (main)                         |
 |-----|--------------------------|----------------------------------------------------|
@@ -90,7 +90,7 @@ Schedule is  susceptible to changes according to progress along the semester
 |15-16|Functional analysis       | From trait to ecological functions                 |
 
 
-This class aims to learn while exploring. I am a marine ecologist and not an informatician or biostatistician. Therefore, we will avoid technical jargon as much as possible while trying to find some fun in what we learn and in the use of R. Basically, the ultimate aim of this class is to teach you how to look for relevant information. Don't hope to know everything possible in R, but aim to be able to master anything in R ;)
+This class aims to learn while exploring. I am a marine ecologist and not an informatic guy or bio-statistician. Therefore, we will avoid technical jargon as much as possible while trying to find some fun in what we learn and in the use of R. Basically, the ultimate aim of this class is to teach you how to look for relevant information. Don't hope to know everything possible in R, but aim to be able to master anything in R ;)
 
 
 # Evaluation
@@ -104,7 +104,7 @@ All information is pending. Updates will be directly posted here or will be ment
 
 
 <p class="comment">
-**Practice A** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can't make it, it means you are behind and it is very important for you to catch back as soon as possible.
+**Practice A** this is a practical session that you should try on your own. You do not have to send me, but you have to make sure you can do it on your own. If you can't make it, it means you are running behind and it is very important for you to catch up with previous content as soon as possible.
 </p>
 
 
@@ -112,10 +112,10 @@ All information is pending. Updates will be directly posted here or will be ment
 
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice B** this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me teh solution by email at [vianneydenis@g.ntu.edu.tw]. To make sure I received your email, you will use **Practice B (your name: your student no.)** as a title for this email. I only accept *.Rmd* and *.html* formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see [Environment](./environment.html)).</p>
+**`r knitr::asis_output("\U26A0")` Practice B** this is a practical session that I expected you to send me the solution on the Monday before the next class. Read carefully the instructions and send me the solution by email at [vianneydenis@g.ntu.edu.tw]. To make sure I received your email, you will use **Practice B (your name: your student no.)** as a title for this email. I only accept *.Rmd* and *.html* formats or a link toward a repository where I can find those files. Therefore, make sure to understand rapidly how to generate those formats using R (see [Environment](./environment.html)).</p>
 
 
-**(2)** At the beginning of the class, one student may be randomly pick up  in order to summarize his homework (*.Rmd* and/or *.html*) or knowledge he got form previous class (5-10 minutes). The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: *Always be ready*. 
+**(2)** At the beginning of the class, one student may be randomly pick up  in order to present homework (*.Rmd* and/or *.html*) (5-10 minutes). The following R chunk code will make the decision, and you may be picked several time in the semester (lucky) or never (unlucky). Conclusion: *Always be ready* adn do your homework, this is for you own good :) 
 
 ```{r,  eval=F}
 library(dplyr)
@@ -125,6 +125,6 @@ sample(list_student, 1, replace = TRUE)
 
 Note that this selection will not be random if the homework is not sent. 
 
-**(3)** DATATHON (**NEW**) as final assignment. Students will be provided with a data set to analyze (type 'Scientific Data': https://www.nature.com/sdata/). Groups (2-3 students) will identify relevant research questions based on this data set and will prepare a short scientific report (max. 20 pages + references)  while emphasizing methodology and results (scientific format). Introduction and discussion/conclusion could be presented as bullet points. Report should be sent as a *.Rmd* **AND** *.html* or share through a GitHub repository. This report should be prepared along the semester and not on the last week. Accordingly, no advise will be provided about this report on the two last weeks of the semester.   
+**(3)** DATATHON (**NEW**) as final assignment. Students will be provided with a data set to analyze (type 'Scientific Data': https://www.nature.com/sdata/). Students (possible groups of 2-3 people) will identify relevant research questions based on this data set and will prepare a short scientific report (max. 20 pages + references)  while emphasizing **methodology** and **results** using a **scientific format**. Introduction and discussion/conclusion could simply be presented as **bullet points**. Report should be sent as a *.Rmd* **AND** *.html* or share through a GitHub repository. This report should be prepared along the semester and not on the last week. Accordingly, no advise will be provided about this report on the last two  weeks of the semester as I usually received tonnes of request while the semester is approaching.  
 
 <p style="color:red">Final score is typically composed of participation/assiduity in class (**10%**), homework/review  (**20%**), final group report (**70%**)</p>
