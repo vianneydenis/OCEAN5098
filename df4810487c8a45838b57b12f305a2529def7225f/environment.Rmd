@@ -293,9 +293,9 @@ Saving the workspace image will allow you to save all objects created in the R m
 
 ## What's RStudio?
 
-RStudio (now Posit) is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. It is open source (i.e. free) and available at https://posit.co/. Have a look at this presentation of the [product]<https://posit.co/products/open-source/rstudio/> 
+RStudio (now Posit) is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. It is open source (i.e. free) and available at https://posit.co/. Have a look at this presentation of the [product](https://posit.co/products/open-source/rstudio/)
 
-Important note: RStudio became Posit in October 2022 for better 'embracing multi-lingual data science' - such as Python lnaguage that you can use in RStudio. Explore it [here]<https://posit.co/> and follo the transition. 
+Important note: RStudio became Posit in October 2022 for better 'embracing multi-lingual data science' - such as Python lnaguage that you can use in RStudio. Explore it [here](https://posit.co/) and follow the transition. 
 
 ## Installation
 
