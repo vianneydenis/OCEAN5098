@@ -28,10 +28,10 @@ navbar:
       menu:
         - text: "Basics"
           href: manipulation.html    
-#        - text: "dplyr"
-#          href: dplyr.html  
-#        - text: "tidyr"
-#          href: tidyr.html 
+        - text: "dplyr"
+          href: dplyr.html  
+        - text: "tidyr"
+          href: tidyr.html 
 #    - text: "Types & Structures"
 #      href: types.html
 #    - text: "Graphics"
