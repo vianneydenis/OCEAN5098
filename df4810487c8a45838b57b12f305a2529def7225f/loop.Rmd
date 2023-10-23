@@ -312,5 +312,6 @@ grow(1,2)
 text(6,110,"Both Species competing")
 ```
 
+![](Figures/Lotka.png)
 
 
