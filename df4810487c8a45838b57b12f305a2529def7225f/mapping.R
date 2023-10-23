@@ -16,6 +16,8 @@ library(leaflet)
 #Sys.setlocale("LC_TIME", "English")
 #Sys.setlocale(category = "LC_ALL", "Chinese (Traditional)_Taiwan.950")
 
+# IMPORTANT NOTE AS 2023/10: MANY PACKAGES ARE MIGRATING TO TERRA PACKAGE. YOU CAN CONSULT DOCUMENTATION ONLINE TO EDIT FUNCTIONS, BUT ALSO ASK CHATGPT COULD BE RELEVANT
+
 data(wrld_simpl) 
 
 plot(wrld_simpl)
