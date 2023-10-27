@@ -262,7 +262,7 @@ The 100 value is called the "carrying capacities" or *K*, it means the populatio
 <p class="alert">
 **`r knitr::asis_output("\U26A0")` Practice 6.2** When having two species using the same resources but with different rates of efficiency), we can model their population growth using two linked equations:
 $$N1_{t+1}= N1_{t}+\left[growth.rate*N1_{t}*\left(\frac{K1-N1_{t}-\alpha_{12}N2_{t}}{K1}\right)\right]$$
-$$N2_{t+1}= N2_{t}+\left[growth.rate*N2_{t}*\left(\frac{K2-N2_{t}-\alpha_{21}N2_{t}}{K2}\right)\right]$$
+$$N2_{t+1}= N2_{t}+\left[growth.rate*N2_{t}*\left(\frac{K2-N2_{t}-\alpha_{21}N1_{t}}{K2}\right)\right]$$
 Those equations are known as the _Lotka-Volterra_ equations where _K_ values are the carrying capacities for each of the two species, both $\alpha$ values are competition coefficients that translate the effect of one species on another. Do not worry about this for now, try a range of 0.5 to 1.5, which would indicate that species are fairly similar competitors.
 I wrote the script, approaching the solution but damn... still not working! Help me to fix the following codes - this time you can look at it! See if you can debug this code that should grow each species alone (no competition), then put the two species interacting. Compare the results of 3 different plot. Note It would be easier if you first focus your attention on the functions of two species competing. Make an animation that makes sense will further be amazing.
 </p>
@@ -313,5 +313,3 @@ text(6,110,"Both Species competing")
 ```
 
 ![](Figures/Lotka.png)
-
-
