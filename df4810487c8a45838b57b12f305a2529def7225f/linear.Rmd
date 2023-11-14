@@ -517,13 +517,17 @@ gvlma(new_fit)
 # not better at all
 ```
 
+
+See [Weighted Least Squares](https://users.stat.ufl.edu/~winner/sta4211/ALSM_5Ed_Kutner.pdf) solutions discussed in Kutner et al. 2004 (p. 421), but it will not be cover here. 
+
+
 ## Bootstrap
 
 [Bootstrap](https://towardsdatascience.com/bootstrap-regression-in-r-98bfe4ff5007) is a method of random sampling with replacement. Among its other applications such as hypothesis testing, it is a simple yet powerful approach for checking the stability of regression coefficients. 
 
 Linear regression relies on several assumptions, and the coefficients of the formulas are presumably normally distributed. It shows that on average if we repeated the experiment thousands and thousands of times, the line would be in confidence intervals.
 
-The bootstrap approach does not rely on those assumption*, but simply performs thousands of estimations.
+The bootstrap approach does not rely on those assumptions, but simply performs thousands of estimations.
 
 (Please note, that the bootstrap approach does not violate or bypass the normality assumptions, but rather than relying on the central limit theorem [CLT], it builds its own, the Bootstrap distribution, which is asymptotically -approaching- normal)
 
@@ -590,8 +594,6 @@ The Bootstrap approach asks a question: what if we resample the data with replac
 ![](Figures/boot.gif){width=50%}
 </center>
 
-
-
 Here is a simple loop of 1000 trials, which resamples with replacement these 20 observations from our sample dataset, runs the regression model and saves the coefficients we get there. In the end, we would have 1000 pairs of coefficients.
 
 ```{r,  eval=T, echo=T, warning=F, message=F}
@@ -656,7 +658,7 @@ knitr::kable(rbind(
     'bootstrap'),c),caption = "Precision of the confidence intervals")
 ```
 
-We can see, that the precision is almost identical to the sample model’s, and even slightly tighter for the intercept.
+We can see, that the precision is almost identical to the one of the sample model and even slightly tighter for the intercept.
 
 ### The graphical representation
 
@@ -733,11 +735,11 @@ legend("topleft",
        cex = 0.8)
 ```
 
-This completes our research: we may conclude, that the bootstrapping approach returns essentially the same results but in a statistically different fashion. We do not rely on assumptions but simulate the data using a brute force method. This could be especially useful when we have doubts about the distribution the data arrived from, or want to check the stability of the coefficients, particularly for small datasets.
+The bootstrapping approach returns essentially the same results but in a statistically different fashion. We do not rely on assumptions but simulate the data using a 'brute' force method. This could be especially useful when we have doubts about the distribution the data arrived from, or want to check the stability of the coefficients, particularly when using small datasets.
 
 ### Iris
 
-Going back to our `iris` dataset, and addresing multicollinearity issue:
+Going back to our `iris` dataset, and addressing multicollinearity issue:
 
 ```{r,  eval=T, echo=T,results=F, warning=F, message=F}
 fit1 <- lm(Petal.Width ~ Petal.Length + Sepal.Width + Sepal.Length, data = iris) # sqrt(vif(fit1)) >2 not good
@@ -866,6 +868,8 @@ $BIC(model)=-2*logLik(model) + npar(model) * log(n)$
 where $Lik(model)$  is the likelihood of the model (how well the model fits the data) and $npar(model)$ is the number of parameters of the model, $k+2$ in the case of a multiple linear regression model with $k$ predictors.The AIC replaces $log(n)$ by $2$, so it penalizes less complex models.This is one of the reasons why BIC is preferred by some practitioners for model comparison. Also, because is consistent in selecting the true model: if enough data is provided, the BIC is guaranteed to select the data-generating model among a list of candidate models.
 
 Both are based on a **balance between the model fitness and its complexity**.Both BIC and AIC can be computed in `R` through the functions `BIC` and `AIC`. They take a model as the input. The lower the better with a rule of thumb = 2. 
+
+Note: Do you remember about `sigma` (the Residual Standard Error, RSE)? We previously used it to calculate a pecrcentage error. Well, AIC and BIC used the log likelihood of the model obtain using `logLik (model)`. You can recalculate this logLik using: `sum(log(dnorm(x = y, mean = predict(model), sd = sigma(model))))` which illustrate  the connection between `sigma`and information criterion. 
 
 ```{r,  eval=T, warning=F, message=F}
 BIC(fit.prof1); BIC(fit.prof2);BIC(fit.prof3)
