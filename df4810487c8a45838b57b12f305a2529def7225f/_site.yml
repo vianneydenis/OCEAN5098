@@ -46,8 +46,8 @@ navbar:
           href: statistics.html    
         - text: "Linear models"
           href: linear.html
-#    - text: "Statistics II"
-#      href: multi.html
+    - text: "Statistics II"
+      href: multi.html
     - text: "Dataset"
       href: dataset.html
 
