@@ -2512,6 +2512,7 @@ Statistics I
 <a href="linear.html">Linear models</a>
 </div>
 </div>
+<a href="multi.html">Statistics II</a>
 <a href="dataset.html">Dataset</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
@@ -2818,10 +2819,10 @@ Show Solution
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>9</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
 <span><span class='va'>m</span></span></code></pre>
 </div>
-<pre><code>         [,1]     [,2]     [,3]
-[1,] 2.672542 6.094344 7.554080
-[2,] 8.148270 4.511704 8.222326
-[3,] 3.895233 2.028247 2.976618</code></pre>
+<pre><code>          [,1]     [,2]     [,3]
+[1,] 5.1563358 9.506754 3.792998
+[2,] 0.6786573 6.967237 1.595251
+[3,] 3.0603389 9.510881 4.059677</code></pre>
 </div>
 <p>If a higher dimension vector is desired, then use the <code>array</code> function to generate the n-dimensional object. A 3x3x3 array can be created as follows:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2831,24 +2832,24 @@ Show Solution
 </div>
 <pre><code>, , 1
 
-         [,1]      [,2]     [,3]
-[1,] 3.424865 0.3355495 4.825813
-[2,] 7.060282 2.3208305 9.165461
-[3,] 2.033912 8.9108654 2.324520
+          [,1]     [,2]      [,3]
+[1,] 2.2325791 2.722012 0.4595871
+[2,] 0.4324752 4.614391 1.8981256
+[3,] 9.7564301 6.281693 8.7203282
 
 , , 2
 
-         [,1]     [,2]     [,3]
-[1,] 8.534172 7.258234 6.519202
-[2,] 9.767394 5.432910 4.460781
-[3,] 5.204815 8.172068 3.842902
+         [,1]       [,2]      [,3]
+[1,] 5.620723 9.21224627 9.5811813
+[2,] 9.365296 0.05889285 1.6536006
+[3,] 6.557695 4.09703051 0.4542475
 
 , , 3
 
          [,1]     [,2]     [,3]
-[1,] 7.002163 5.562517 8.438016
-[2,] 1.463280 1.549000 7.667695
-[3,] 7.604161 2.857278 7.432194</code></pre>
+[1,] 1.664945 9.896074 9.656418
+[2,] 1.356034 1.333846 8.516917
+[3,] 7.357637 1.380106 7.386193</code></pre>
 </div>
 <p>Matrices and arrays can store numeric or character data types, but they cannot store both. They derived directly form vector structure but have a higher number of dimensions.</p>
 <h2 id="data-frames">Data frames</h2>
@@ -2984,7 +2985,7 @@ $row.names
 [[3]]
 function (expr, name) 
 .External(C_doD, expr, name)
-&lt;bytecode: 0x000001e8c0be9518&gt;
+&lt;bytecode: 0x000001a317dbf7b0&gt;
 &lt;environment: namespace:stats&gt;</code></pre>
 </div>
 <p>When lists do not have component names, the <code>names</code> function will return NULL.</p>
